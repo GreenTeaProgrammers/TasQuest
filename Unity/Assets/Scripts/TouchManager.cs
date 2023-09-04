@@ -75,6 +75,6 @@ public class TouchManager : MonoBehaviour
 
     private void UpdateMainCameraTransform(float yDiff)
     { 
-        _cameraMovement.UpdateCurrentDist(-yDiff);
+        _cameraMovement.SetCurrentDist(-yDiff);
     }
 }

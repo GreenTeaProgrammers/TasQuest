@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField] private float radius = 5.0f;
+    private float _radius = 7.0f;
     float _initialAngle;
     private float _currentDist = 0.0f;
     
@@ -27,17 +27,20 @@ public class CameraMovement : MonoBehaviour
         dist += _currentDist;
         float angle = dist / Mathf.PI * 180;
             
-        Vector3 circleMove = new Vector3(radius*Mathf.Sin(dist), myTransform.position.y, radius*Mathf.Cos(dist));
+        Vector3 circleMove = new Vector3(_radius*Mathf.Sin(dist), myTransform.position.y, _radius*Mathf.Cos(dist));
         Vector3 newAngle = new Vector3(0.0f, _initialAngle + angle, 0.0f);
         
         myTransform.position = circleMove;
         myTransform.eulerAngles = newAngle;
     }
 
-    public void UpdateCurrentDist(float dist)
+    public void SetCurrentDist(float dist)
     {
         _currentDist += dist;
     }
 
-
+    public void SetRadius(float radius)
+    {
+        _radius = radius;
+    }
 }

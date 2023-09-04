@@ -1,0 +1,582 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		22862DF82AA61AA3003EE5E0 /* TasQuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862DF72AA61AA3003EE5E0 /* TasQuestApp.swift */; };
+		22862DFA2AA61AA3003EE5E0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862DF92AA61AA3003EE5E0 /* ContentView.swift */; };
+		22862DFC2AA61AA4003EE5E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22862DFB2AA61AA4003EE5E0 /* Assets.xcassets */; };
+		22862DFF2AA61AA4003EE5E0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22862DFE2AA61AA4003EE5E0 /* Preview Assets.xcassets */; };
+		22862E092AA61AA4003EE5E0 /* TasQuestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E082AA61AA4003EE5E0 /* TasQuestTests.swift */; };
+		22862E132AA61AA4003EE5E0 /* TasQuestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E122AA61AA4003EE5E0 /* TasQuestUITests.swift */; };
+		22862E152AA61AA4003EE5E0 /* TasQuestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E142AA61AA4003EE5E0 /* TasQuestUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		22862E052AA61AA4003EE5E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22862DEC2AA61AA3003EE5E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22862DF32AA61AA3003EE5E0;
+			remoteInfo = TasQuest;
+		};
+		22862E0F2AA61AA4003EE5E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22862DEC2AA61AA3003EE5E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22862DF32AA61AA3003EE5E0;
+			remoteInfo = TasQuest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		22862DF42AA61AA3003EE5E0 /* TasQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		22862DF72AA61AA3003EE5E0 /* TasQuestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasQuestApp.swift; sourceTree = "<group>"; };
+		22862DF92AA61AA3003EE5E0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		22862DFB2AA61AA4003EE5E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		22862DFE2AA61AA4003EE5E0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		22862E042AA61AA4003EE5E0 /* TasQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TasQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22862E082AA61AA4003EE5E0 /* TasQuestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasQuestTests.swift; sourceTree = "<group>"; };
+		22862E0E2AA61AA4003EE5E0 /* TasQuestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TasQuestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22862E122AA61AA4003EE5E0 /* TasQuestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasQuestUITests.swift; sourceTree = "<group>"; };
+		22862E142AA61AA4003EE5E0 /* TasQuestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasQuestUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		22862DF12AA61AA3003EE5E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22862E012AA61AA4003EE5E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22862E0B2AA61AA4003EE5E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		22862DEB2AA61AA3003EE5E0 = {
+			isa = PBXGroup;
+			children = (
+				22862DF62AA61AA3003EE5E0 /* TasQuest */,
+				22862E072AA61AA4003EE5E0 /* TasQuestTests */,
+				22862E112AA61AA4003EE5E0 /* TasQuestUITests */,
+				22862DF52AA61AA3003EE5E0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		22862DF52AA61AA3003EE5E0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				22862DF42AA61AA3003EE5E0 /* TasQuest.app */,
+				22862E042AA61AA4003EE5E0 /* TasQuestTests.xctest */,
+				22862E0E2AA61AA4003EE5E0 /* TasQuestUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		22862DF62AA61AA3003EE5E0 /* TasQuest */ = {
+			isa = PBXGroup;
+			children = (
+				22862DF72AA61AA3003EE5E0 /* TasQuestApp.swift */,
+				22862DF92AA61AA3003EE5E0 /* ContentView.swift */,
+				22862DFB2AA61AA4003EE5E0 /* Assets.xcassets */,
+				22862DFD2AA61AA4003EE5E0 /* Preview Content */,
+			);
+			path = TasQuest;
+			sourceTree = "<group>";
+		};
+		22862DFD2AA61AA4003EE5E0 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				22862DFE2AA61AA4003EE5E0 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		22862E072AA61AA4003EE5E0 /* TasQuestTests */ = {
+			isa = PBXGroup;
+			children = (
+				22862E082AA61AA4003EE5E0 /* TasQuestTests.swift */,
+			);
+			path = TasQuestTests;
+			sourceTree = "<group>";
+		};
+		22862E112AA61AA4003EE5E0 /* TasQuestUITests */ = {
+			isa = PBXGroup;
+			children = (
+				22862E122AA61AA4003EE5E0 /* TasQuestUITests.swift */,
+				22862E142AA61AA4003EE5E0 /* TasQuestUITestsLaunchTests.swift */,
+			);
+			path = TasQuestUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		22862DF32AA61AA3003EE5E0 /* TasQuest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22862E182AA61AA4003EE5E0 /* Build configuration list for PBXNativeTarget "TasQuest" */;
+			buildPhases = (
+				22862DF02AA61AA3003EE5E0 /* Sources */,
+				22862DF12AA61AA3003EE5E0 /* Frameworks */,
+				22862DF22AA61AA3003EE5E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TasQuest;
+			productName = TasQuest;
+			productReference = 22862DF42AA61AA3003EE5E0 /* TasQuest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		22862E032AA61AA4003EE5E0 /* TasQuestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22862E1B2AA61AA4003EE5E0 /* Build configuration list for PBXNativeTarget "TasQuestTests" */;
+			buildPhases = (
+				22862E002AA61AA4003EE5E0 /* Sources */,
+				22862E012AA61AA4003EE5E0 /* Frameworks */,
+				22862E022AA61AA4003EE5E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22862E062AA61AA4003EE5E0 /* PBXTargetDependency */,
+			);
+			name = TasQuestTests;
+			productName = TasQuestTests;
+			productReference = 22862E042AA61AA4003EE5E0 /* TasQuestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		22862E0D2AA61AA4003EE5E0 /* TasQuestUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22862E1E2AA61AA4003EE5E0 /* Build configuration list for PBXNativeTarget "TasQuestUITests" */;
+			buildPhases = (
+				22862E0A2AA61AA4003EE5E0 /* Sources */,
+				22862E0B2AA61AA4003EE5E0 /* Frameworks */,
+				22862E0C2AA61AA4003EE5E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22862E102AA61AA4003EE5E0 /* PBXTargetDependency */,
+			);
+			name = TasQuestUITests;
+			productName = TasQuestUITests;
+			productReference = 22862E0E2AA61AA4003EE5E0 /* TasQuestUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		22862DEC2AA61AA3003EE5E0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					22862DF32AA61AA3003EE5E0 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					22862E032AA61AA4003EE5E0 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 22862DF32AA61AA3003EE5E0;
+					};
+					22862E0D2AA61AA4003EE5E0 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 22862DF32AA61AA3003EE5E0;
+					};
+				};
+			};
+			buildConfigurationList = 22862DEF2AA61AA3003EE5E0 /* Build configuration list for PBXProject "TasQuest" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 22862DEB2AA61AA3003EE5E0;
+			productRefGroup = 22862DF52AA61AA3003EE5E0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				22862DF32AA61AA3003EE5E0 /* TasQuest */,
+				22862E032AA61AA4003EE5E0 /* TasQuestTests */,
+				22862E0D2AA61AA4003EE5E0 /* TasQuestUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		22862DF22AA61AA3003EE5E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22862DFF2AA61AA4003EE5E0 /* Preview Assets.xcassets in Resources */,
+				22862DFC2AA61AA4003EE5E0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22862E022AA61AA4003EE5E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22862E0C2AA61AA4003EE5E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		22862DF02AA61AA3003EE5E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22862DFA2AA61AA3003EE5E0 /* ContentView.swift in Sources */,
+				22862DF82AA61AA3003EE5E0 /* TasQuestApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22862E002AA61AA4003EE5E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22862E092AA61AA4003EE5E0 /* TasQuestTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22862E0A2AA61AA4003EE5E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22862E152AA61AA4003EE5E0 /* TasQuestUITestsLaunchTests.swift in Sources */,
+				22862E132AA61AA4003EE5E0 /* TasQuestUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		22862E062AA61AA4003EE5E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22862DF32AA61AA3003EE5E0 /* TasQuest */;
+			targetProxy = 22862E052AA61AA4003EE5E0 /* PBXContainerItemProxy */;
+		};
+		22862E102AA61AA4003EE5E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22862DF32AA61AA3003EE5E0 /* TasQuest */;
+			targetProxy = 22862E0F2AA61AA4003EE5E0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		22862E162AA61AA4003EE5E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		22862E172AA61AA4003EE5E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		22862E192AA61AA4003EE5E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TasQuest/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = GreenTeaProgrammers.TasQuest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		22862E1A2AA61AA4003EE5E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TasQuest/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = GreenTeaProgrammers.TasQuest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		22862E1C2AA61AA4003EE5E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = GreenTeaProgrammers.TasQuestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TasQuest.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TasQuest";
+			};
+			name = Debug;
+		};
+		22862E1D2AA61AA4003EE5E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = GreenTeaProgrammers.TasQuestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TasQuest.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TasQuest";
+			};
+			name = Release;
+		};
+		22862E1F2AA61AA4003EE5E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = GreenTeaProgrammers.TasQuestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TasQuest;
+			};
+			name = Debug;
+		};
+		22862E202AA61AA4003EE5E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = GreenTeaProgrammers.TasQuestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TasQuest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		22862DEF2AA61AA3003EE5E0 /* Build configuration list for PBXProject "TasQuest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22862E162AA61AA4003EE5E0 /* Debug */,
+				22862E172AA61AA4003EE5E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22862E182AA61AA4003EE5E0 /* Build configuration list for PBXNativeTarget "TasQuest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22862E192AA61AA4003EE5E0 /* Debug */,
+				22862E1A2AA61AA4003EE5E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22862E1B2AA61AA4003EE5E0 /* Build configuration list for PBXNativeTarget "TasQuestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22862E1C2AA61AA4003EE5E0 /* Debug */,
+				22862E1D2AA61AA4003EE5E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22862E1E2AA61AA4003EE5E0 /* Build configuration list for PBXNativeTarget "TasQuestUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22862E1F2AA61AA4003EE5E0 /* Debug */,
+				22862E202AA61AA4003EE5E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 22862DEC2AA61AA3003EE5E0 /* Project object */;
+}

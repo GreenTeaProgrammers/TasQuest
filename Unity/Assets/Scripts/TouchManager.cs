@@ -46,6 +46,33 @@ public class TouchManager : MonoBehaviour
                 Debug.Log("MouseUp");
             }
         }
+        else
+        {
+            //touchCountはタッチしている指の本数を持つ。1本目が0
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    startPos = touch.position;
+                    Debug.Log("TouchDown");
+                }
+
+                if (touch.phase == TouchPhase.Moved)
+                {
+                    Swipe(startPos, touch.position);
+                    Debug.Log("OnTouch");
+                }
+
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    endPos = touch.position;
+                    UpdateMainCameraTransform((touch.position.y - startPos.y) * 0.001f);
+                    Debug.Log("TouchUp");
+                }
+            }
+        }
     }
 
     private void Swipe(Vector2 startPosition, Vector2 currentPosition)

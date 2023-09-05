@@ -71,13 +71,21 @@ public class JsonManager
     //コンストラクタでjsonを読み込む
     public JsonManager()
     {
-        StreamReader streamReader;
-        streamReader = new StreamReader(JSON_PATH);
-        // string inputString = Resources.Load<TextAsset>("input").ToString();
-        string inputString = streamReader.ReadToEnd();
-        streamReader.Close();
-        
-        inputJson = JsonUtility.FromJson<JsonData>(inputString);
+        try
+        {
+            StreamReader streamReader;
+            streamReader = new StreamReader(JSON_PATH);
+            // string inputString = Resources.Load<TextAsset>("input").ToString();
+            string inputString = streamReader.ReadToEnd();
+            streamReader.Close();
+
+            inputJson = JsonUtility.FromJson<JsonData>(inputString);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+            Debug.Log("Error occured on read json file");
+        }
     }
 
     //json書き込み関数

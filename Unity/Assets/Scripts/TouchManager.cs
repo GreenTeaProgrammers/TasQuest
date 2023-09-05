@@ -5,7 +5,7 @@ using UnityEngine.SubsystemsImplementation;
 
 public class TouchManager : MonoBehaviour
 {
-    [SerializeField] private bool isTouchDegug;
+    [SerializeField] private bool isTouchDebug;
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private float minScrollDist = 1.5f;
     
@@ -24,10 +24,18 @@ public class TouchManager : MonoBehaviour
     {
         TouchManagement();
     }
+    
+    //タッチ操作を管理するメソッドです。
+    //マウス用とタッチ用の2種類を if(!isTouchDebug)でわけています。
+    //上から3種のif文は
+    //  1.タッチが開始されたとき
+    //  2.タッチが継続しているとき
+    //  3.タッチが終了したとき
+    //中身が実行されます。直接処理を書かず、メソッドを生やしていってください。
     private void TouchManagement()
     {
         
-        if (!isTouchDegug)
+        if (!isTouchDebug)
         {
             if (Input.GetMouseButtonDown(0))
             {

@@ -12,6 +12,8 @@ struct TaskView: View {
     var goal: Goal
     @Environment(\.presentationMode) var presentationMode
     
+    @StateObject var viewModel = TaskViewModel()
+    
     var body: some View {
         ZStack {
             VStack {
@@ -71,7 +73,26 @@ struct TaskView: View {
                                                     .font(.caption)
                                                     .foregroundColor(.gray)
                                             }
-                                            Spacer()
+                                            
+                                            Spacer() // <--- 追加されたSpacer
+                                            
+                                            // 体力バーのプログラム
+                                            VStack {
+                                                Capsule()
+                                                    .fill(.gray.opacity(0.2))
+                                                    .frame(width: 150, height: 8)
+                                                    .overlay(alignment: .leading) {
+                                                        Rectangle()
+                                                            .fill(viewModel.fillColor)
+                                                            .frame(width: 150 * viewModel.percentage)
+                                                    }
+                                                    .cornerRadius(4)
+
+                                                Text("\(Int(goal.tasks[index].currentHealth))/\(Int(goal.tasks[index].maxHealth))")
+                                                    .font(.footnote.bold())
+                                                    .kerning(2)
+                                                    .padding(.bottom, 24)
+                                            }
                                         }
                                     }
                                     .frame(height: 64)  // 各HStack（Button）の高さを固定
@@ -79,6 +100,7 @@ struct TaskView: View {
                                 }
                             }
                         }
+
                     }
                 }
             }

@@ -12,8 +12,8 @@ struct Task: Codable {
     var name: String
     var description: String
     var dueDate: String // YYYY-MM-DD
-    var maxHealth: Int
-    var currentHealth: Int
+    var maxHealth: Float
+    var currentHealth: Float
     var tags: [Tag]
     var isVisible: Bool//タスクの可視性を表す。あまりやる予定のないタスクや、終わったタスクを表示するか否かのオプションで使用予定
     var createdAt: String // YYYY-MM-DD/HH:MM:SS

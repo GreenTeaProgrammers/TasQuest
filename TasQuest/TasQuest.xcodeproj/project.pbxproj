@@ -14,6 +14,10 @@
 		22862E092AA61AA4003EE5E0 /* TasQuestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E082AA61AA4003EE5E0 /* TasQuestTests.swift */; };
 		22862E132AA61AA4003EE5E0 /* TasQuestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E122AA61AA4003EE5E0 /* TasQuestUITests.swift */; };
 		22862E152AA61AA4003EE5E0 /* TasQuestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E142AA61AA4003EE5E0 /* TasQuestUITestsLaunchTests.swift */; };
+		22862E352AA6D27D003EE5E0 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E342AA6D27D003EE5E0 /* Status.swift */; };
+		22862E372AA6D298003EE5E0 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E362AA6D298003EE5E0 /* Goal.swift */; };
+		22862E392AA6D2A0003EE5E0 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E382AA6D2A0003EE5E0 /* Task.swift */; };
+		22862E3B2AA6D2A9003EE5E0 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E3A2AA6D2A9003EE5E0 /* Tag.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,10 @@
 		22862E0E2AA61AA4003EE5E0 /* TasQuestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TasQuestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22862E122AA61AA4003EE5E0 /* TasQuestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasQuestUITests.swift; sourceTree = "<group>"; };
 		22862E142AA61AA4003EE5E0 /* TasQuestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasQuestUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		22862E342AA6D27D003EE5E0 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		22862E362AA6D298003EE5E0 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		22862E382AA6D2A0003EE5E0 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		22862E3A2AA6D2A9003EE5E0 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +102,7 @@
 		22862DF62AA61AA3003EE5E0 /* TasQuest */ = {
 			isa = PBXGroup;
 			children = (
+				22862E322AA6D259003EE5E0 /* Model */,
 				22862DF72AA61AA3003EE5E0 /* TasQuestApp.swift */,
 				22862DF92AA61AA3003EE5E0 /* ContentView.swift */,
 				22862DFB2AA61AA4003EE5E0 /* Assets.xcassets */,
@@ -125,6 +134,17 @@
 				22862E142AA61AA4003EE5E0 /* TasQuestUITestsLaunchTests.swift */,
 			);
 			path = TasQuestUITests;
+			sourceTree = "<group>";
+		};
+		22862E322AA6D259003EE5E0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				22862E342AA6D27D003EE5E0 /* Status.swift */,
+				22862E362AA6D298003EE5E0 /* Goal.swift */,
+				22862E382AA6D2A0003EE5E0 /* Task.swift */,
+				22862E3A2AA6D2A9003EE5E0 /* Tag.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +277,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22862E3B2AA6D2A9003EE5E0 /* Tag.swift in Sources */,
+				22862E372AA6D298003EE5E0 /* Goal.swift in Sources */,
 				22862DFA2AA61AA3003EE5E0 /* ContentView.swift in Sources */,
+				22862E392AA6D2A0003EE5E0 /* Task.swift in Sources */,
 				22862DF82AA61AA3003EE5E0 /* TasQuestApp.swift in Sources */,
+				22862E352AA6D27D003EE5E0 /* Status.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

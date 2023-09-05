@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct AppData: Codable {
+    let userid: Int // これが必要かどうかは要検討
+    var username: String //同上
+    var statuses: [Status]
+    var tags: [Tag]
+}

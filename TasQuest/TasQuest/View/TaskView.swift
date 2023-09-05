@@ -42,32 +42,35 @@ struct TaskView: View {
                     VStack {
                         Rectangle()
                             .fill(Color.black)
-                            .frame(width: 5, height: (71.95) * (CGFloat(goal.tasks.count - 1)))// 64は各HStackの高さ
+                            .frame(width: 5, height: (71.95) * (CGFloat(goal.tasks.filter { $0.isVisible }.count - 1)))// 71.95は微調整の結果
                     }
                     .padding(.leading, 9)  // 9は微調整の結果
 
                     // 各タスクと円
                     VStack(alignment: .leading) {
                         ForEach(goal.tasks.indices, id: \.self) { index in
-                            HStack {
-                                // 円形イメージ
-                                Image(systemName: "circle.fill")
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                                    .foregroundColor(.blue)
+                            if goal.tasks[index].isVisible {  // isVisibleがtrueの場合だけ表示
+                                HStack {
+                                    // 円形イメージ
+                                    Image(systemName: "circle.fill")
+                                        .resizable()
+                                        .frame(width: 24, height: 24)
+                                        .foregroundColor(.blue)
 
-                                VStack(alignment: .leading) {
-                                    Text(goal.tasks[index].name)
-                                        .font(.body)
-                                    
-                                    Text(goal.tasks[index].dueDate)
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
+                                    VStack(alignment: .leading) {
+                                        Text(goal.tasks[index].name)
+                                            .font(.body)
+                                        
+                                        Text(goal.tasks[index].dueDate)
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                    }
+                                    Spacer()
                                 }
-                                Spacer()
+                                .frame(height: 64)  // 各HStackの高さを固定
                             }
-                            .frame(height: 64)  // 各HStackの高さを固定
                         }
+
                     }
                 }
             }

@@ -51,27 +51,33 @@ struct TaskView: View {
                         VStack(alignment: .leading) {
                             ForEach(goal.tasks.indices, id: \.self) { index in
                                 if goal.tasks[index].isVisible {  // isVisibleがtrueの場合だけ表示
-                                    HStack {
-                                        // 円形イメージ
-                                        Image(systemName: "circle.fill")
-                                            .resizable()
-                                            .frame(width: 24, height: 24)
-                                            .foregroundColor(.blue)
-                                        
-                                        VStack(alignment: .leading) {
-                                            Text(goal.tasks[index].name)
-                                                .font(.body)
+                                    Button(action: {
+                                        // ボタンが押されたときの処理
+                                        print("Task \(goal.tasks[index].id) was clicked")
+                                    }) {
+                                        HStack {
+                                            // 円形イメージ
+                                            Image(systemName: "circle.fill")
+                                                .resizable()
+                                                .frame(width: 24, height: 24)
+                                                .foregroundColor(.blue)
                                             
-                                            Text(goal.tasks[index].dueDate)
-                                                .font(.caption)
-                                                .foregroundColor(.gray)
+                                            VStack(alignment: .leading) {
+                                                Text(goal.tasks[index].name)
+                                                    .font(.body)
+                                                    .foregroundColor(.black)
+                                                
+                                                Text(goal.tasks[index].dueDate)
+                                                    .font(.caption)
+                                                    .foregroundColor(.gray)
+                                            }
+                                            Spacer()
                                         }
-                                        Spacer()
                                     }
-                                    .frame(height: 64)  // 各HStackの高さを固定
+                                    .frame(height: 64)  // 各HStack（Button）の高さを固定
+                                    .background(Color.clear)  // 背景を透明にする
                                 }
                             }
-                            
                         }
                     }
                 }

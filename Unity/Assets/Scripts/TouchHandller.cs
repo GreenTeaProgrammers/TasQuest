@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SubsystemsImplementation;
 
-public class TouchManager : MonoBehaviour
+public class TouchHandller : MonoBehaviour
 {
     [SerializeField] private bool isTouchDebug;
     [SerializeField] private GameObject mainCamera;

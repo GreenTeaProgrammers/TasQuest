@@ -351,6 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e8ada897ce27f544a67005aaada392b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTouchDegug: 1
   mainCamera: {fileID: 963194225}
   minScrollDist: 0
 --- !u!4 &1282501332

@@ -5,11 +5,12 @@ using UnityEngine.SubsystemsImplementation;
 
 public class TouchManager : MonoBehaviour
 {
+    [SerializeField] private bool isTouchDegug;
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private float minScrollDist = 1.5f;
     
-    private Vector2 startPos = new Vector2(0, 0);
-    private Vector2 endPos = new Vector2(0, 0);
+    private Vector2 _startPos = new Vector2(0, 0);
+    private Vector2 _endPos = new Vector2(0, 0);
     private CameraMovement _cameraMovement;
     
     // Start is called before the first frame update
@@ -26,23 +27,23 @@ public class TouchManager : MonoBehaviour
     private void TouchManagement()
     {
         
-        if (Application.isEditor)
+        if (!isTouchDegug)
         {
             if (Input.GetMouseButtonDown(0))
             {
-                startPos = Input.mousePosition;
+                _startPos = Input.mousePosition;
                 Debug.Log("MouseDown");
             }
             
             if (Input.GetMouseButton(0) && Input.GetMouseButtonDown(0) == false)
             {
-                Swipe(startPos, Input.mousePosition);
+                Swipe(_startPos, Input.mousePosition);
             }
 
             if (Input.GetMouseButtonUp(0))
             {
-                endPos = Input.mousePosition;
-                UpdateMainCameraTransform((Input.mousePosition.y - startPos.y) * 0.001f);
+                _endPos = Input.mousePosition;
+                UpdateMainCameraTransform((Input.mousePosition.y - _startPos.y) * 0.001f);
                 Debug.Log("MouseUp");
             }
         }
@@ -55,21 +56,21 @@ public class TouchManager : MonoBehaviour
 
                 if (touch.phase == TouchPhase.Began)
                 {
-                    startPos = touch.position;
-                    Debug.Log("TouchDown");
+                    _startPos = touch.position;
+                    Debug.Log("TouchDown" + touch.position);
                 }
 
                 if (touch.phase == TouchPhase.Moved)
                 {
-                    Swipe(startPos, touch.position);
-                    Debug.Log("OnTouch");
+                    Swipe(_startPos, touch.position);
+                    Debug.Log("OnTouch" + touch.position);
                 }
 
                 if (touch.phase == TouchPhase.Ended)
                 {
-                    endPos = touch.position;
-                    UpdateMainCameraTransform((touch.position.y - startPos.y) * 0.001f);
-                    Debug.Log("TouchUp");
+                    _endPos = touch.position;
+                    UpdateMainCameraTransform((touch.position.y - _startPos.y) * 0.001f);
+                    Debug.Log("TouchUp" + touch.position);
                 }
             }
         }

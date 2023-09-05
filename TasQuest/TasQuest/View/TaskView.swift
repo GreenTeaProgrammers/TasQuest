@@ -11,70 +11,130 @@ import SwiftUI
 struct TaskView: View {
     var goal: Goal
     @Environment(\.presentationMode) var presentationMode
-
+    
     var body: some View {
-        VStack {
-            ZStack(alignment: .leading) {
-                Text(goal.name)
-                    .font(.title)
-                    .frame(maxWidth: .infinity, alignment: .center)  // 中央に配置
-                
-                Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "arrow.left")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.blue)
-                }
-                .padding(.leading)  // 左側に少し余白を追加
-            }
-            .padding(.top)
-            
-            Text(goal.dueDate)
-                .font(.subheadline)
-                .foregroundColor(.gray)
-            
-            // Taskリスト表示エリア
-            ScrollView {
+        ZStack {
+            VStack {
                 ZStack(alignment: .leading) {
-                    // 縦の線を描画
-                    VStack {
-                        Rectangle()
-                            .fill(Color.black)
-                            .frame(width: 5, height: (71.95) * (CGFloat(goal.tasks.filter { $0.isVisible }.count - 1)))// 71.95は微調整の結果
+                    Text(goal.name)
+                        .font(.title)
+                        .frame(maxWidth: .infinity, alignment: .center)  // 中央に配置
+                    
+                    Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "arrow.left")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.blue)
                     }
-                    .padding(.leading, 9)  // 9は微調整の結果
-
-                    // 各タスクと円
-                    VStack(alignment: .leading) {
-                        ForEach(goal.tasks.indices, id: \.self) { index in
-                            if goal.tasks[index].isVisible {  // isVisibleがtrueの場合だけ表示
-                                HStack {
-                                    // 円形イメージ
-                                    Image(systemName: "circle.fill")
-                                        .resizable()
-                                        .frame(width: 24, height: 24)
-                                        .foregroundColor(.blue)
-
-                                    VStack(alignment: .leading) {
-                                        Text(goal.tasks[index].name)
-                                            .font(.body)
-                                        
-                                        Text(goal.tasks[index].dueDate)
-                                            .font(.caption)
-                                            .foregroundColor(.gray)
-                                    }
-                                    Spacer()
-                                }
-                                .frame(height: 64)  // 各HStackの高さを固定
-                            }
+                    .padding(.leading)  // 左側に少し余白を追加
+                }
+                .padding(.top)
+                
+                Text(goal.dueDate)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                
+                // Taskリスト表示エリア
+                ScrollView {
+                    ZStack(alignment: .leading) {
+                        // 縦の線を描画
+                        VStack {
+                            Rectangle()
+                                .fill(Color.black)
+                                .frame(width: 5, height: (71.95) * (CGFloat(goal.tasks.filter { $0.isVisible }.count - 1)))// 71.95は微調整の結果
                         }
-
+                        .padding(.leading, 9)  // 9は微調整の結果
+                        
+                        // 各タスクと円
+                        VStack(alignment: .leading) {
+                            ForEach(goal.tasks.indices, id: \.self) { index in
+                                if goal.tasks[index].isVisible {  // isVisibleがtrueの場合だけ表示
+                                    HStack {
+                                        // 円形イメージ
+                                        Image(systemName: "circle.fill")
+                                            .resizable()
+                                            .frame(width: 24, height: 24)
+                                            .foregroundColor(.blue)
+                                        
+                                        VStack(alignment: .leading) {
+                                            Text(goal.tasks[index].name)
+                                                .font(.body)
+                                            
+                                            Text(goal.tasks[index].dueDate)
+                                                .font(.caption)
+                                                .foregroundColor(.gray)
+                                        }
+                                        Spacer()
+                                    }
+                                    .frame(height: 64)  // 各HStackの高さを固定
+                                }
+                            }
+                            
+                        }
                     }
                 }
+            }
+            .padding()
+            HStack{
+                Spacer()
+                
+                VStack{
+                    Spacer()
+                    
+                    // タスクの追加ボタン（＋マーク）
+                    Button(action: {
+                        // タスク追加の処理
+                    }) {
+                        Image(systemName: "circle.fill")
+                            .resizable()
+                            .foregroundColor(.blue)
+                            .frame(width: 55, height: 55)
+                            .overlay(
+                                Image(systemName: "plus")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(.white)
+                            )
+                    }
+                    
+                    
+                    // ゲームビューボタン（ゲームコントローラーのイラスト）
+                    Button(action: {
+                        // ゲームビューの処理
+                    }) {
+                        Image(systemName: "circle.fill")
+                            .resizable()
+                            .foregroundColor(.blue)
+                            .frame(width: 55, height: 55)
+                            .overlay(
+                                Image(systemName: "gamecontroller")
+                                    .resizable()
+                                    .frame(width: 35, height: 20)
+                                    .foregroundColor(.white)
+                        )
+                    }
+                    
+                    // ゴミ箱のボタン（ゴミ箱のアイコン）
+                    Button(action: {
+                        // ゴミ箱の処理
+                    }) {
+                        Image(systemName: "circle.fill")
+                            .resizable()
+                            .foregroundColor(.blue)
+                            .frame(width: 55, height: 55)
+                            .overlay(
+                                Image(systemName: "trash")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(.white)
+                                )
+                    }
+                }
+                .padding(.bottom, 60)
+                .padding(.trailing, 16)
             }
         }
-        .padding()
     }
 }

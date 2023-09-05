@@ -42,7 +42,7 @@ struct TaskView: View {
                     VStack {
                         Rectangle()
                             .fill(Color.black)
-                            .frame(width: 5, height: CGFloat(goal.tasks.count - 1) * (64 + CGFloat(goal.tasks.count - 1) * 0.5))  // 64は各HStackの高さ
+                            .frame(width: 5, height: (71.95) * (CGFloat(goal.tasks.count - 1)))// 64は各HStackの高さ
                     }
                     .padding(.leading, 9)  // 9は微調整の結果
 

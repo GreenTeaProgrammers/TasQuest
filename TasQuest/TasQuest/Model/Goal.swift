@@ -12,6 +12,7 @@ struct Goal: Codable {
     var name: String
     var description: String
     var tasks: [Task]
+    var currentTaskIndex: Int
     var dueDate: String //YYYY-MM-DD
     var isStarred: Bool
     var tags: [Tag]

@@ -2,7 +2,7 @@
 //  TasQuestApp.swift
 //  TasQuest
 //
-//  Created by ITS on 2023/09/04.
+//  Created by KinjiKawaguchi on 2023/09/04.
 //
 
 import SwiftUI

@@ -2,11 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using JetBrains.Annotations;
 
+//class名要検討 どんなデータなのか分かる名前だとよい
 [Serializable]
-public class InputJson
+public class JsonData
 {
-    public Status[] status;
+    public Status[] statuses;
+    public Tag[] tags;
 }
 
 [Serializable]
@@ -49,6 +53,7 @@ public class Task
     public string updatedAt;
 }
 
+[Serializable]
 public class Tag
 {
     public int id;
@@ -58,18 +63,32 @@ public class Tag
     public string updatedAt;
 }
 
-public class JsonManager : MonoBehaviour
+public class JsonManager
 {
-    // Start is called before the first frame update
-    void Start()
+    public JsonData inputJson;
+    private const string JSON_PATH = "";
+    
+    //コンストラクタでjsonを読み込む
+    public JsonManager()
     {
-        string inputString = Resources.Load<TextAsset>("input").ToString();
-        InputJson inputJson = JsonUtility.FromJson<InputJson>(inputString);
+        StreamReader streamReader;
+        streamReader = new StreamReader(JSON_PATH);
+        // string inputString = Resources.Load<TextAsset>("input").ToString();
+        string inputString = streamReader.ReadToEnd();
+        streamReader.Close();
+        
+        inputJson = JsonUtility.FromJson<JsonData>(inputString);
     }
 
-    // Update is called once per frame
-    void Update()
+    //json書き込み関数
+    public static void WriteJson(JsonData input)
     {
-        
+        StreamWriter streamWriter;
+        string jsonString = JsonUtility.ToJson(input);
+
+        streamWriter = new StreamWriter(JSON_PATH, false);
+        streamWriter.Write(jsonString);
+        streamWriter.Flush();
+        streamWriter.Close();
     }
 }

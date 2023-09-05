@@ -43,4 +43,11 @@ public class CameraMovement : MonoBehaviour
     {
         _radius = radius;
     }
+
+    //モード切替の時呼ばれる
+    public void MoveCameraParallel(float dist)
+    {
+        Transform myTransform = this.transform;
+        myTransform.position += -myTransform.right * dist;
+    }
 }

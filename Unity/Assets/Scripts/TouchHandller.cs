@@ -81,8 +81,10 @@ public class TouchHandller : MonoBehaviour
                         Vector2.Distance(touch1.position, touch2.position);
                     float pinchDistance = currentPinchDistance - _previousPinchDistance;
                     
-                    Debug.Log(pinchDistance);
+                    Debug.Log("pinchDistance : " + pinchDistance);
                     Pinch(pinchDistance);
+
+                    _previousPinchDistance = pinchDistance;
                 }
             }
             else if (Input.touchCount > 0)

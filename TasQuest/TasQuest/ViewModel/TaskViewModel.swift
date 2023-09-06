@@ -5,14 +5,15 @@
 //  Created by KinjiKawaguchi on 2023/09/06.
 //
 
+
 import Foundation
 import SwiftUI
 
 class TaskViewModel: ObservableObject {
     @Published var percentage: CGFloat = 1.0
     @Published var fillColor: Color = .green
-    @Published var currentHP: Int = 315
-    @Published var maxHP: Int = 315
+    @Published var currentHP: Float = 315
+    @Published var maxHP: Float = 315
 
     private var startTime: CFTimeInterval = .zero
     private var progress: CFTimeInterval = .zero
@@ -29,7 +30,7 @@ class TaskViewModel: ObservableObject {
                     self?.stop() // self を明示的に使用
                 }
                 self?.percentage = 1 - CustomEasing.easeOut.circ.progress(elapsed: self!.progress)
-                self?.currentHP = Int(CGFloat(self!.maxHP) * (1.0 - (CustomEasing.easeOut.circ.progress(elapsed: self!.progress))))
+                self?.currentHP = Float(CGFloat(self!.maxHP) * (1.0 - (CustomEasing.easeOut.circ.progress(elapsed: self!.progress))))
                 self?.fillColor = self?.getColor() ?? .red
             }
             return

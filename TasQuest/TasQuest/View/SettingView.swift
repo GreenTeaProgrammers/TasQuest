@@ -8,13 +8,32 @@
 import SwiftUI
 
 struct SettingView: View {
+    
+    @StateObject private var viewModel = SettingViewModel()
+    @Binding var showSignInView: Bool
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            Button("Log out"){
+                Task{
+                    do{
+                        try viewModel.signOut()
+                        showSignInView = true
+                    } catch {
+                        print("Error: \(error)")
+                    }
+                }
+                
+            }
+        }
+        .navigationBarTitle("Settings")
     }
 }
 
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView()
+        NavigationStack{
+            SettingView(showSignInView: .constant(false))
+        }
     }
 }

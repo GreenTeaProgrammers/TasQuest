@@ -25,6 +25,7 @@ final class SignInEmailViewModel: ObservableObject {
                 let returnedUserData = try await AuthenticationManager.shared.createUser(email: email, password: password)
                 print("Success")
                 print(returnedUserData)
+                
             } catch {
                 print("Error: \(error)")
             }

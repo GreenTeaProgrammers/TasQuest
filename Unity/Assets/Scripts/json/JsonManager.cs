@@ -1,9 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+// using System.Collections;
+// using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using JetBrains.Annotations;
+
 
 //class名要検討 どんなデータなのか分かる名前だとよい
 [Serializable]
@@ -17,7 +17,7 @@ public class JsonData
 public class Status
 {
     public int id;
-    public string names;
+    public string name;
     public Goal[] goals;
     public string updatedAt;
 }
@@ -63,39 +63,49 @@ public class Tag
     public string updatedAt;
 }
 
+//jsonの読み書きを担当するクラス。実際にjsonのデータを扱うわけではない。
 public class JsonManager
 {
-    public JsonData inputJson;
-    private const string JSON_PATH = "";
+    //まだダミーのjsonファイルのパスです。本番環境で変えます。
+    private const string JSON_PATH = "Assets/Resources/DummyJson.json";
     
-    //コンストラクタでjsonを読み込む
-    public JsonManager()
+    //コンストラクタでjsonを読み込む予定だったがLoadJsonメソッドに置き換えた。
+    //LoadとSaveが対照のほうが容易と思ったので
+    // public JsonManager()
+    
+    //jsonを読み込んでJsonDataクラスのデータを返す。
+    //おいおいは引数にパスを取る
+    public JsonData LoadJson()
     {
         try
         {
             StreamReader streamReader;
             streamReader = new StreamReader(JSON_PATH);
             // string inputString = Resources.Load<TextAsset>("input").ToString();
-            string inputString = streamReader.ReadToEnd();
+            string jsonDataString = streamReader.ReadToEnd();
             streamReader.Close();
 
-            inputJson = JsonUtility.FromJson<JsonData>(inputString);
+            JsonData jsonData = JsonUtility.FromJson<JsonData>(jsonDataString);
+            return jsonData;
         }
         catch (Exception e)
         {
             Debug.Log(e.Message);
             Debug.Log("Error occured on read json file");
         }
+
+        return null;
     }
 
     //json書き込み関数
-    public static void WriteJson(JsonData input)
+    //引数はjsonDataクラスのオブジェクト
+    public static void SaveJson(JsonData jsonData)
     {
         StreamWriter streamWriter;
-        string jsonString = JsonUtility.ToJson(input);
+        string jsonDataString = JsonUtility.ToJson(jsonData);
 
         streamWriter = new StreamWriter(JSON_PATH, false);
-        streamWriter.Write(jsonString);
+        streamWriter.Write(jsonDataString);
         streamWriter.Flush();
         streamWriter.Close();
     }

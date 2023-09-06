@@ -7,9 +7,9 @@ using UnityEngine.SubsystemsImplementation;
 
 public class TouchHandller : MonoBehaviour
 {
+    //次の空改行までの変数以外についているSerializedFieldは最終的には外してください。デバッグ用に臨時でつけています
     [SerializeField] private bool isTouchDebug;
     [SerializeField] private GameObject mainCamera;
-    [SerializeField] private float minScrollDist = 1.5f;
     
     //テスト用
     [SerializeField] private GameObject testCube;
@@ -18,9 +18,11 @@ public class TouchHandller : MonoBehaviour
     //シングルタッチ用の変数
     private Vector2 _startPos = new Vector2(0, 0);
     private Vector2 _endPos = new Vector2(0, 0);
+    [SerializeField] private float minScrollDist = 1.5f;
     
     //ダブルタッチ用の変数
     private float _previousPinchDistance = 0.0f;
+    [SerializeField]public float _pinchSencitivity = 0.001f;
     
     private CameraMovement _cameraMovement;
     
@@ -87,7 +89,7 @@ public class TouchHandller : MonoBehaviour
                     float pinchDistance = currentPinchDistance - _previousPinchDistance;
                     
                     Debug.Log(currentPinchDistance + " - " + _previousPinchDistance + " = " + pinchDistance);
-                    Pinch(pinchDistance * 0.001f);
+                    Pinch(pinchDistance * _pinchSencitivity);
                 }
 
                 if (touch2.phase == TouchPhase.Ended)

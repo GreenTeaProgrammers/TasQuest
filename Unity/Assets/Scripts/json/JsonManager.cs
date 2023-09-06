@@ -81,7 +81,6 @@ public class JsonManager
         {
             StreamReader streamReader;
             streamReader = new StreamReader(JSON_PATH);
-            // string inputString = Resources.Load<TextAsset>("input").ToString();
             string jsonDataString = streamReader.ReadToEnd();
             streamReader.Close();
 
@@ -91,7 +90,7 @@ public class JsonManager
         catch (Exception e)
         {
             Debug.Log(e.Message);
-            Debug.Log("Error occured on read json file");
+            Debug.Log("Error occurred on reading JSON file");
         }
 
         return null;
@@ -99,14 +98,22 @@ public class JsonManager
 
     //json書き込み関数
     //引数はjsonDataクラスのオブジェクト
-    public static void SaveJson(JsonData jsonData)
+    public void SaveJson(JsonData jsonData)
     {
-        StreamWriter streamWriter;
-        string jsonDataString = JsonUtility.ToJson(jsonData);
+        try
+        {
+            StreamWriter streamWriter;
+            string jsonDataString = JsonUtility.ToJson(jsonData);
 
-        streamWriter = new StreamWriter(JSON_PATH, false);
-        streamWriter.Write(jsonDataString);
-        streamWriter.Flush();
-        streamWriter.Close();
+            streamWriter = new StreamWriter(JSON_PATH, false);
+            streamWriter.Write(jsonDataString);
+            streamWriter.Flush();
+            streamWriter.Close();
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+            Debug.Log("Error occurred on writing JSON file");
+        }
     }
 }

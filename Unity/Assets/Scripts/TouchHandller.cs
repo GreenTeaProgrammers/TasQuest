@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SubsystemsImplementation;
@@ -10,6 +11,10 @@ public class TouchHandller : MonoBehaviour
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private float minScrollDist = 1.5f;
     
+    //テスト用
+    [SerializeField] private GameObject testCube;
+    private PinchTest _pinchTest;
+    
     //シングルタッチ用の変数
     private Vector2 _startPos = new Vector2(0, 0);
     private Vector2 _endPos = new Vector2(0, 0);
@@ -17,13 +22,13 @@ public class TouchHandller : MonoBehaviour
     //ダブルタッチ用の変数
     private float _previousPinchDistance = 0.0f;
     
-    
     private CameraMovement _cameraMovement;
     
     // Start is called before the first frame update
     void Start()
     {
         _cameraMovement = mainCamera.GetComponent<CameraMovement>();
+        _pinchTest = testCube.GetComponent<PinchTest>();
     }
 
     // Update is called once per frame
@@ -81,12 +86,20 @@ public class TouchHandller : MonoBehaviour
                         Vector2.Distance(touch1.position, touch2.position);
                     float pinchDistance = currentPinchDistance - _previousPinchDistance;
                     
-                    Debug.Log("pinchDistance : " + pinchDistance);
-                    Pinch(pinchDistance);
+                    Debug.Log(currentPinchDistance + " - " + _previousPinchDistance + " = " + pinchDistance);
+                    Pinch(pinchDistance * 0.001f);
+                }
 
-                    _previousPinchDistance = pinchDistance;
+                if (touch2.phase == TouchPhase.Ended)
+                {
+                    float currentPinchDistance = 
+                        Vector2.Distance(touch1.position, touch2.position);
+                    float pinchDistance = currentPinchDistance - _previousPinchDistance;
+                    
+                    PinchEnd(pinchDistance);
                 }
             }
+            //シングルタッチの時
             else if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
@@ -144,7 +157,12 @@ public class TouchHandller : MonoBehaviour
     //が格納されていま
     private void Pinch(float pinchDistance)
     {
-        
+        _pinchTest.PinchScale(pinchDistance);
+    }
+
+    private void PinchEnd(float pinchDistance)
+    {
+        _pinchTest.UpdateInitialScale();
     }
     private void MoveMainCamera(float yDiff)
     {

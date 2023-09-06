@@ -16,7 +16,7 @@ public class JsonManagerTest : MonoBehaviour
     void TestJsonLoad()
     {
         JsonManager jsonManager = new JsonManager();
-        JsonData jsonData = jsonManager.LoadJson();
+        AppData jsonData = jsonManager.LoadJson();
         Debug.Log("Status");
         Debug.Log("id: " + jsonData.statuses[0].id);
         Debug.Log("name: " + jsonData.statuses[0].name);
@@ -37,6 +37,7 @@ public class JsonManagerTest : MonoBehaviour
         Debug.Log("id: " + task.id);
         Debug.Log("name: " + task.name);
         Debug.Log("description: " + task.description);
+        Debug.Log("dueDate: " + task.dueDate);
         Debug.Log("maxHealth: " + task.maxHealth);
         Debug.Log("currentHealth: " + task.currentHealth);
         Debug.Log("Tag: " + task.tags[0]);

@@ -1,13 +1,10 @@
 using System;
-// using System.Collections;
-// using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
 
-//class名要検討 どんなデータなのか分かる名前だとよい
 [Serializable]
-public class JsonData
+public class AppData
 {
     public Status[] statuses;
     public Tag[] tags;
@@ -19,7 +16,7 @@ public class Status
     public int id;
     public string name;
     public Goal[] goals;
-    public string updatedAt;
+    public string updatedAt; // YYYY-MM-DD/HH:MM:SS
 }
 
 [Serializable]
@@ -28,9 +25,9 @@ public class Goal
     public int id;
     public string name;
     public string description;
-    public string createdAt;
-    public string updatedAt;
-    public string dueDate;
+    public string createdAt;  // YYYY-MM-DD/HH:MM:SS
+    public string updatedAt;  // YYYY-MM-DD/HH:MM:SS
+    public string dueDate;  // YYYY-MM-DD/HH:MM:SS
     public Tag[] tags;
     public string thumbnail;
     public bool isStarred;
@@ -45,12 +42,13 @@ public class Task
     public int id;
     public string name;
     public string description;
+    public string dueDate;  // YYYY-MM-DD/HH:MM:SS
     public float maxHealth;
     public float currentHealth;
     public Tag[] tags;
     public bool isVisible;
-    public string createdAt;
-    public string updatedAt;
+    public string createdAt;  // YYYY-MM-DD/HH:MM:SS
+    public string updatedAt;  // YYYY-MM-DD/HH:MM:SS
 }
 
 [Serializable]
@@ -59,8 +57,8 @@ public class Tag
     public int id;
     public string name;
     public float[] color;
-    public string createdAt;
-    public string updatedAt;
+    public string createdAt;  // YYYY-MM-DD/HH:MM:SS
+    public string updatedAt;  // YYYY-MM-DD/HH:MM:SS
 }
 
 //jsonの読み書きを担当するクラス。実際にjsonのデータを扱うわけではない。
@@ -69,13 +67,9 @@ public class JsonManager
     //まだダミーのjsonファイルのパスです。本番環境で変えます。
     private const string JSON_PATH = "Assets/Resources/DummyJson.json";
     
-    //コンストラクタでjsonを読み込む予定だったがLoadJsonメソッドに置き換えた。
-    //LoadとSaveが対照のほうが容易と思ったので
-    // public JsonManager()
-    
-    //jsonを読み込んでJsonDataクラスのデータを返す。
+    //jsonを読み込んでAppDataクラスのデータを返す。
     //おいおいは引数にパスを取る
-    public JsonData LoadJson()
+    public AppData LoadJson()
     {
         try
         {
@@ -84,13 +78,14 @@ public class JsonManager
             string jsonDataString = streamReader.ReadToEnd();
             streamReader.Close();
 
-            JsonData jsonData = JsonUtility.FromJson<JsonData>(jsonDataString);
+            AppData jsonData = JsonUtility.FromJson<AppData>(jsonDataString);
             return jsonData;
         }
         catch (Exception e)
         {
             Debug.Log(e.Message);
             Debug.Log("Error occurred on reading JSON file");
+            CallErrorUI();
         }
 
         return null;
@@ -98,7 +93,7 @@ public class JsonManager
 
     //json書き込み関数
     //引数はjsonDataクラスのオブジェクト
-    public void SaveJson(JsonData jsonData)
+    public void SaveJson(AppData jsonData)
     {
         try
         {
@@ -114,6 +109,14 @@ public class JsonManager
         {
             Debug.Log(e.Message);
             Debug.Log("Error occurred on writing JSON file");
+            CallErrorUI();
         }
+    }
+
+    //エラーが発生した才、その旨を表示するUIを呼び出します。
+    //UIがまだ作成されていないので関数の中身は未着手です。
+    private void CallErrorUI()
+    {
+        Debug.Log("Call error UI");
     }
 }

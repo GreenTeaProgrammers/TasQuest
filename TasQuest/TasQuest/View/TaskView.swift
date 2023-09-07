@@ -9,28 +9,55 @@
 import SwiftUI
 
 struct HeaderView: View {
-    var goal: Goal
+    @Binding var goal: Goal  // @Stateを@Bindingに変更
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var viewModel: TaskViewModel  // ViewModelのインスタンスを追加
+    
+    init(goal: Binding<Goal>) {
+        self._goal = goal
+        self.viewModel = TaskViewModel(goal: goal.wrappedValue)
+    }
     
     var body: some View {
-        ZStack(alignment: .leading) {
-            Text(goal.name)
-                .font(.title)
+        VStack{
+            ZStack(alignment: .leading) {
+                HStack {
+                    Spacer()
+                    
+                    Text(goal.name)
+                        .font(.title)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        goal.isStarred.toggle()  // @Bindingを通してgoalの状態を変更
+                    }) {
+                        Image(systemName: goal.isStarred ? "star.fill" : "star")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(goal.isStarred ? .yellow : .gray)
+                    }
+                }
                 .frame(maxWidth: .infinity, alignment: .center)
-            
-            Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Image(systemName: "arrow.left")
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .foregroundColor(.blue)
+                
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "arrow.left")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(.blue)
+                }
+                .padding(.leading)
             }
-            .padding(.leading)
+            .padding(.top)
         }
-        .padding(.top)
+        Text(goal.dueDate)
+            .font(.subheadline)
+            .foregroundColor(.gray)
     }
 }
+
 
 struct TaskRow: View {
     var task: TasQuestTask
@@ -129,16 +156,17 @@ struct TaskListView: View {
 }
 
 struct TaskView: View {
-    var goal: Goal
+    @State var goal: Goal
     
     var body: some View {
         ZStack {
             VStack {
-                HeaderView(goal: goal)
+                HeaderView(goal: $goal)
                 
-                Text(goal.dueDate)
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+                Rectangle()
+                    .fill(Color.gray)  // 色を設定
+                    .frame(height: 2)  // 厚みを設定
+
                 
                 ScrollView {
                     ZStack(alignment: .leading) {

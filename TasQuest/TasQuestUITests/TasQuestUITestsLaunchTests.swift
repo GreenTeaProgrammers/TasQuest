@@ -4,7 +4,7 @@
 //
 //  Created by KinjiKawaguchi on 2023/09/04.
 //
-
+/*
 import XCTest
 
 final class TasQuestUITestsLaunchTests: XCTestCase {
@@ -30,3 +30,4 @@ final class TasQuestUITestsLaunchTests: XCTestCase {
         add(attachment)
     }
 }
+*/

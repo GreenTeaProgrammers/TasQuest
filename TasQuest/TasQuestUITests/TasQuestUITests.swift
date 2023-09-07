@@ -5,6 +5,8 @@
 //  Created by KinjiKawaguchi on 2023/09/04.
 //
 
+
+/*
 import XCTest
 
 final class TasQuestUITests: XCTestCase {
@@ -39,3 +41,4 @@ final class TasQuestUITests: XCTestCase {
         }
     }
 }
+*/

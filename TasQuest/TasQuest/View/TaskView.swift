@@ -8,6 +8,93 @@
 
 import SwiftUI
 
+struct TaskView: View {
+    @State var goal: Goal
+    
+    var body: some View {
+        ZStack {
+            VStack {
+                HeaderView(goal: $goal)
+                
+                Rectangle()
+                    .fill(Color.gray)  // 色を設定
+                    .frame(height: 2)  // 厚みを設定
+                
+                ScrollView {
+                    ZStack(alignment: .leading) {
+                        VStack {
+                            Rectangle()
+                                .fill(Color.black)
+                                .frame(width: 5, height: (87.95) * (CGFloat(goal.tasks.filter { $0.isVisible }.count - 1)))
+                        }
+                        .padding(.leading, 9)
+                        
+                        ScrollView{
+                            TaskListView(goal: goal)
+                        }
+                    }
+                }
+            }
+            .padding()
+            
+            HStack {
+                Spacer()
+                
+                VStack {
+                    Spacer()
+                    
+                    Button(action: {
+                        // Add Task
+                    }) {
+                        Image(systemName: "circle.fill")
+                            .resizable()
+                            .foregroundColor(.blue)
+                            .frame(width: 55, height: 55)
+                            .overlay(
+                                Image(systemName: "plus")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(.white)
+                            )
+                    }
+                    
+                    Button(action: {
+                        // Game View
+                    }) {
+                        Image(systemName: "circle.fill")
+                            .resizable()
+                            .foregroundColor(.blue)
+                            .frame(width: 55, height: 55)
+                            .overlay(
+                                Image(systemName: "gamecontroller")
+                                    .resizable()
+                                    .frame(width: 35, height: 20)
+                                    .foregroundColor(.white)
+                            )
+                    }
+                    
+                    Button(action: {
+                        // Trash
+                    }) {
+                        Image(systemName: "circle.fill")
+                            .resizable()
+                            .foregroundColor(.blue)
+                            .frame(width: 55, height: 55)
+                            .overlay(
+                                Image(systemName: "trash")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(.white)
+                            )
+                    }
+                }
+                .padding(.bottom, 60)
+                .padding(.trailing, 16)
+            }
+        }
+    }
+}
+
 struct HeaderView: View {
     @Binding var goal: Goal  // @Stateを@Bindingに変更
     @Environment(\.presentationMode) var presentationMode
@@ -58,6 +145,17 @@ struct HeaderView: View {
     }
 }
 
+struct TaskListView: View {
+    var goal: Goal
+    
+    var body: some View {
+        ForEach(goal.tasks.indices, id: \.self) { index in
+            if goal.tasks[index].isVisible {
+                TaskRow(task: goal.tasks[index])
+            }
+        }
+    }
+}
 
 struct TaskRow: View {
     var task: TasQuestTask
@@ -143,102 +241,3 @@ struct TaskRow: View {
     }
 }
 
-struct TaskListView: View {
-    var goal: Goal
-    
-    var body: some View {
-        ForEach(goal.tasks.indices, id: \.self) { index in
-            if goal.tasks[index].isVisible {
-                TaskRow(task: goal.tasks[index])
-            }
-        }
-    }
-}
-
-struct TaskView: View {
-    @State var goal: Goal
-    
-    var body: some View {
-        ZStack {
-            VStack {
-                HeaderView(goal: $goal)
-                
-                Rectangle()
-                    .fill(Color.gray)  // 色を設定
-                    .frame(height: 2)  // 厚みを設定
-
-                
-                ScrollView {
-                    ZStack(alignment: .leading) {
-                        VStack {
-                            Rectangle()
-                                .fill(Color.black)
-                                .frame(width: 5, height: (87.95) * (CGFloat(goal.tasks.filter { $0.isVisible }.count - 1)))
-                        }
-                        .padding(.leading, 9)
-                        
-                        ScrollView{
-                            TaskListView(goal: goal)
-                        }
-                    }
-                }
-            }
-            .padding()
-            
-            HStack {
-                Spacer()
-                
-                VStack {
-                    Spacer()
-                    
-                    Button(action: {
-                        // Add Task
-                    }) {
-                        Image(systemName: "circle.fill")
-                            .resizable()
-                            .foregroundColor(.blue)
-                            .frame(width: 55, height: 55)
-                            .overlay(
-                                Image(systemName: "plus")
-                                    .resizable()
-                                    .frame(width: 20, height: 20)
-                                    .foregroundColor(.white)
-                            )
-                    }
-                    
-                    Button(action: {
-                        // Game View
-                    }) {
-                        Image(systemName: "circle.fill")
-                            .resizable()
-                            .foregroundColor(.blue)
-                            .frame(width: 55, height: 55)
-                            .overlay(
-                                Image(systemName: "gamecontroller")
-                                    .resizable()
-                                    .frame(width: 35, height: 20)
-                                    .foregroundColor(.white)
-                            )
-                    }
-                    
-                    Button(action: {
-                        // Trash
-                    }) {
-                        Image(systemName: "circle.fill")
-                            .resizable()
-                            .foregroundColor(.blue)
-                            .frame(width: 55, height: 55)
-                            .overlay(
-                                Image(systemName: "trash")
-                                    .resizable()
-                                    .frame(width: 20, height: 20)
-                                    .foregroundColor(.white)
-                            )
-                    }
-                }
-                .padding(.bottom, 60)
-                .padding(.trailing, 16)
-            }
-        }
-    }
-}

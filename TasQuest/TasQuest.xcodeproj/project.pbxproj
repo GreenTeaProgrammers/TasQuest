@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		222FD9B72AA992A100FE55E6 /* AuthDataResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222FD9B62AA992A100FE55E6 /* AuthDataResultModel.swift */; };
 		22862DF82AA61AA3003EE5E0 /* TasQuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862DF72AA61AA3003EE5E0 /* TasQuestApp.swift */; };
 		22862DFA2AA61AA3003EE5E0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862DF92AA61AA3003EE5E0 /* ContentView.swift */; };
 		22862DFC2AA61AA4003EE5E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22862DFB2AA61AA4003EE5E0 /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		222FD9B62AA992A100FE55E6 /* AuthDataResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataResultModel.swift; sourceTree = "<group>"; };
 		22862DF42AA61AA3003EE5E0 /* TasQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22862DF72AA61AA3003EE5E0 /* TasQuestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasQuestApp.swift; sourceTree = "<group>"; };
 		22862DF92AA61AA3003EE5E0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				22862E382AA6D2A0003EE5E0 /* TasQuestTask.swift */,
 				22862E3A2AA6D2A9003EE5E0 /* Tag.swift */,
 				A09C10312AA6E08E00E2427A /* AppData.swift */,
+				222FD9B62AA992A100FE55E6 /* AuthDataResultModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				22862DF82AA61AA3003EE5E0 /* TasQuestApp.swift in Sources */,
 				22862E352AA6D27D003EE5E0 /* Status.swift in Sources */,
 				22F9472E2AA8772000E76FED /* AuthenticationView.swift in Sources */,
+				222FD9B72AA992A100FE55E6 /* AuthDataResultModel.swift in Sources */,
 				22D08D252AA89D370081597B /* SettingView.swift in Sources */,
 				22D08D232AA8970B0081597B /* RootView.swift in Sources */,
 				22F947302AA87B7100E76FED /* SignInEmailView.swift in Sources */,

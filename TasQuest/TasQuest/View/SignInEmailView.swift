@@ -11,35 +11,42 @@ import SwiftUI
 struct SignInEmailView: View {
     
     @StateObject private var viewModel = SignInEmailViewModel()
+    @State private var errorMessage: String? = nil  // New state variable for the error message
     @Binding var showSignInView: Bool
-    var body: some View{
+    
+    var body: some View {
         VStack {
-            TextField("Email...", text: $viewModel.email) // `$`を追加
+            TextField("Email...", text: $viewModel.email)
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
             
-            SecureField("Password...", text: $viewModel.password) // `$`を追加
+            SecureField("Password...", text: $viewModel.password)
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
+            
+            if let errorMessage = errorMessage {  // Displaying the error message
+                Text(errorMessage)
+                    .foregroundColor(.red)
+            }
             
             Button {
                 Task {
-                    do{
+                    do {
                         try await viewModel.signUp()
                         showSignInView = false
                         return
                     } catch {
-                        print(error)
+                        errorMessage = viewModel.errorMessage
                     }
                     
-                    do{
+                    do {
                         try await viewModel.signIn()
                         showSignInView = false
                         return
                     } catch {
-                        print(error)
+                        errorMessage = viewModel.errorMessage
                     }
                 }
             } label: {
@@ -56,13 +63,5 @@ struct SignInEmailView: View {
         }
         .padding()
         .navigationTitle("Sign In")
-    }
-}
-
-struct SignInEmailView_Previews: PreviewProvider{
-    static var previews: some View {
-        NavigationStack {
-            SignInEmailView(showSignInView: .constant(false))
-        }
     }
 }

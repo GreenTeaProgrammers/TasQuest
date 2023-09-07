@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		222FD9B72AA992A100FE55E6 /* AuthDataResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222FD9B62AA992A100FE55E6 /* AuthDataResultModel.swift */; };
 		22862DF82AA61AA3003EE5E0 /* TasQuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862DF72AA61AA3003EE5E0 /* TasQuestApp.swift */; };
 		22862DFA2AA61AA3003EE5E0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862DF92AA61AA3003EE5E0 /* ContentView.swift */; };
 		22862DFC2AA61AA4003EE5E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22862DFB2AA61AA4003EE5E0 /* Assets.xcassets */; };
@@ -16,11 +17,19 @@
 		22862E152AA61AA4003EE5E0 /* TasQuestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E142AA61AA4003EE5E0 /* TasQuestUITestsLaunchTests.swift */; };
 		22862E352AA6D27D003EE5E0 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E342AA6D27D003EE5E0 /* Status.swift */; };
 		22862E372AA6D298003EE5E0 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E362AA6D298003EE5E0 /* Goal.swift */; };
-		22862E392AA6D2A0003EE5E0 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E382AA6D2A0003EE5E0 /* Task.swift */; };
+		22862E392AA6D2A0003EE5E0 /* TasQuestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E382AA6D2A0003EE5E0 /* TasQuestTask.swift */; };
 		22862E3B2AA6D2A9003EE5E0 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22862E3A2AA6D2A9003EE5E0 /* Tag.swift */; };
+		22D08D232AA8970B0081597B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D08D222AA8970B0081597B /* RootView.swift */; };
+		22D08D252AA89D370081597B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D08D242AA89D370081597B /* SettingView.swift */; };
+		22D08D272AA89D8F0081597B /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D08D262AA89D8F0081597B /* SettingViewModel.swift */; };
 		22F947232AA86D1B00E76FED /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 22F947222AA86D1B00E76FED /* FirebaseAnalytics */; };
 		22F947252AA86D1B00E76FED /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 22F947242AA86D1B00E76FED /* FirebaseAnalyticsSwift */; };
 		22F947272AA86ED700E76FED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22F947262AA86ED700E76FED /* GoogleService-Info.plist */; };
+		22F9472A2AA8764B00E76FED /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 22F947292AA8764B00E76FED /* FirebaseAuth */; };
+		22F9472E2AA8772000E76FED /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F9472D2AA8772000E76FED /* AuthenticationView.swift */; };
+		22F947302AA87B7100E76FED /* SignInEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F9472F2AA87B7100E76FED /* SignInEmailView.swift */; };
+		22F947332AA87CAD00E76FED /* SignInEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F947322AA87CAD00E76FED /* SignInEmailViewModel.swift */; };
+		22F947352AA8832300E76FED /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F947342AA8832300E76FED /* AuthenticationManager.swift */; };
 		A09C10322AA6E08E00E2427A /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09C10312AA6E08E00E2427A /* AppData.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		222FD9B62AA992A100FE55E6 /* AuthDataResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataResultModel.swift; sourceTree = "<group>"; };
 		22862DF42AA61AA3003EE5E0 /* TasQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22862DF72AA61AA3003EE5E0 /* TasQuestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasQuestApp.swift; sourceTree = "<group>"; };
 		22862DF92AA61AA3003EE5E0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,9 +64,16 @@
 		22862E142AA61AA4003EE5E0 /* TasQuestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasQuestUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		22862E342AA6D27D003EE5E0 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		22862E362AA6D298003EE5E0 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
-		22862E382AA6D2A0003EE5E0 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		22862E382AA6D2A0003EE5E0 /* TasQuestTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasQuestTask.swift; sourceTree = "<group>"; };
 		22862E3A2AA6D2A9003EE5E0 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		22D08D222AA8970B0081597B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		22D08D242AA89D370081597B /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		22D08D262AA89D8F0081597B /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		22F947262AA86ED700E76FED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		22F9472D2AA8772000E76FED /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		22F9472F2AA87B7100E76FED /* SignInEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailView.swift; sourceTree = "<group>"; };
+		22F947322AA87CAD00E76FED /* SignInEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailViewModel.swift; sourceTree = "<group>"; };
+		22F947342AA8832300E76FED /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		A09C10312AA6E08E00E2427A /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,6 +83,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22F947252AA86D1B00E76FED /* FirebaseAnalyticsSwift in Frameworks */,
+				22F9472A2AA8764B00E76FED /* FirebaseAuth in Frameworks */,
 				22F947232AA86D1B00E76FED /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +112,7 @@
 				22862E072AA61AA4003EE5E0 /* TasQuestTests */,
 				22862E112AA61AA4003EE5E0 /* TasQuestUITests */,
 				22862DF52AA61AA3003EE5E0 /* Products */,
+				22F947282AA8764B00E76FED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,6 +129,9 @@
 		22862DF62AA61AA3003EE5E0 /* TasQuest */ = {
 			isa = PBXGroup;
 			children = (
+				22F947312AA87C9500E76FED /* ViewModel */,
+				22F9472C2AA876F400E76FED /* View */,
+				22F9472B2AA876D600E76FED /* Module */,
 				22F947262AA86ED700E76FED /* GoogleService-Info.plist */,
 				22862E322AA6D259003EE5E0 /* Model */,
 				22862DF72AA61AA3003EE5E0 /* TasQuestApp.swift */,
@@ -150,11 +172,47 @@
 			children = (
 				22862E342AA6D27D003EE5E0 /* Status.swift */,
 				22862E362AA6D298003EE5E0 /* Goal.swift */,
-				22862E382AA6D2A0003EE5E0 /* Task.swift */,
+				22862E382AA6D2A0003EE5E0 /* TasQuestTask.swift */,
 				22862E3A2AA6D2A9003EE5E0 /* Tag.swift */,
 				A09C10312AA6E08E00E2427A /* AppData.swift */,
+				222FD9B62AA992A100FE55E6 /* AuthDataResultModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		22F947282AA8764B00E76FED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		22F9472B2AA876D600E76FED /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				22F947342AA8832300E76FED /* AuthenticationManager.swift */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		22F9472C2AA876F400E76FED /* View */ = {
+			isa = PBXGroup;
+			children = (
+				22D08D222AA8970B0081597B /* RootView.swift */,
+				22F9472D2AA8772000E76FED /* AuthenticationView.swift */,
+				22F9472F2AA87B7100E76FED /* SignInEmailView.swift */,
+				22D08D242AA89D370081597B /* SettingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		22F947312AA87C9500E76FED /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				22F947322AA87CAD00E76FED /* SignInEmailViewModel.swift */,
+				22D08D262AA89D8F0081597B /* SettingViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,6 +234,7 @@
 			packageProductDependencies = (
 				22F947222AA86D1B00E76FED /* FirebaseAnalytics */,
 				22F947242AA86D1B00E76FED /* FirebaseAnalyticsSwift */,
+				22F947292AA8764B00E76FED /* FirebaseAuth */,
 			);
 			productName = TasQuest;
 			productReference = 22862DF42AA61AA3003EE5E0 /* TasQuest.app */;
@@ -296,12 +355,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				22862E3B2AA6D2A9003EE5E0 /* Tag.swift in Sources */,
+				22D08D272AA89D8F0081597B /* SettingViewModel.swift in Sources */,
 				22862E372AA6D298003EE5E0 /* Goal.swift in Sources */,
+				22F947352AA8832300E76FED /* AuthenticationManager.swift in Sources */,
 				22862DFA2AA61AA3003EE5E0 /* ContentView.swift in Sources */,
-				22862E392AA6D2A0003EE5E0 /* Task.swift in Sources */,
+				22862E392AA6D2A0003EE5E0 /* TasQuestTask.swift in Sources */,
 				22862DF82AA61AA3003EE5E0 /* TasQuestApp.swift in Sources */,
 				22862E352AA6D27D003EE5E0 /* Status.swift in Sources */,
+				22F9472E2AA8772000E76FED /* AuthenticationView.swift in Sources */,
+				222FD9B72AA992A100FE55E6 /* AuthDataResultModel.swift in Sources */,
+				22D08D252AA89D370081597B /* SettingView.swift in Sources */,
+				22D08D232AA8970B0081597B /* RootView.swift in Sources */,
+				22F947302AA87B7100E76FED /* SignInEmailView.swift in Sources */,
 				A09C10322AA6E08E00E2427A /* AppData.swift in Sources */,
+				22F947332AA87CAD00E76FED /* SignInEmailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,6 +710,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 22F947212AA86D1B00E76FED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsSwift;
+		};
+		22F947292AA8764B00E76FED /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22F947212AA86D1B00E76FED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

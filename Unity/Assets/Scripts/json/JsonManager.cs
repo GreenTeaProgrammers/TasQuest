@@ -64,18 +64,17 @@ public class Tag
 //jsonの読み書きを担当するクラス。実際にjsonのデータを扱うわけではない。
 public class JsonManager
 {
-    //まだダミーのjsonファイルのパスです。本番環境で変えます。
-    // private const string JSON_PATH = "Assets/Resources/DummyJson.json";
-    private const string JSON_PATH = "Assets/Resources/DummyJson2.json";
+    //開発用パス。本番環境ではデータはFireBaseから引く。
+    private const string JSON_PATH = "Assets/Resources/AppData.json";
     
     //jsonを読み込んでAppDataクラスのデータを返す。
-    //おいおいは引数にパスを取る
-    public AppData LoadJson()
+    //引数pathでロードするJSONのパスが指定できるようになりました
+    public AppData LoadJson(string path=JSON_PATH)
     {
         try
         {
             StreamReader streamReader;
-            streamReader = new StreamReader(JSON_PATH);
+            streamReader = new StreamReader(path);
             string jsonDataString = streamReader.ReadToEnd();
             streamReader.Close();
 
@@ -93,15 +92,16 @@ public class JsonManager
     }
 
     //json書き込み関数
-    //引数はjsonDataクラスのオブジェクト
-    public void SaveJson(AppData jsonData)
+    //引数はjsonDataクラスのオブジェクトと保存パス
+    //デフォルトはAssets/Resources/Appdata.json
+    public void SaveJson(AppData jsonData, string path=JSON_PATH)
     {
         try
         {
             StreamWriter streamWriter;
             string jsonDataString = JsonUtility.ToJson(jsonData);
 
-            streamWriter = new StreamWriter(JSON_PATH, false);
+            streamWriter = new StreamWriter(path, false);
             streamWriter.Write(jsonDataString);
             streamWriter.Flush();
             streamWriter.Close();
@@ -114,13 +114,21 @@ public class JsonManager
         }
     }
 
+    //StringからAppDataに変換
     public AppData String2Json(string jsonDataString)
     {
         AppData jsonData = JsonUtility.FromJson<AppData>(jsonDataString);
         return jsonData;
     }
     
-    //エラーが発生した才、その旨を表示するUIを呼び出します。
+    //AppDataからStringに変換
+    public String Json2String(AppData jsonData)
+    {
+        string jsonDataString = JsonUtility.ToJson(jsonData);
+        return jsonDataString;
+    }
+    
+    //エラーが発生した際、その旨を表示するUIを呼び出します。
     //UIがまだ作成されていないので関数の中身は未着手です。
     private void CallErrorUI()
     {

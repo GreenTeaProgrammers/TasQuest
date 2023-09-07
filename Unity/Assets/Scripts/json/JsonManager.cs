@@ -65,7 +65,8 @@ public class Tag
 public class JsonManager
 {
     //まだダミーのjsonファイルのパスです。本番環境で変えます。
-    private const string JSON_PATH = "Assets/Resources/DummyJson.json";
+    // private const string JSON_PATH = "Assets/Resources/DummyJson.json";
+    private const string JSON_PATH = "Assets/Resources/DummyJson2.json";
     
     //jsonを読み込んでAppDataクラスのデータを返す。
     //おいおいは引数にパスを取る
@@ -113,6 +114,12 @@ public class JsonManager
         }
     }
 
+    public AppData String2Json(string jsonDataString)
+    {
+        AppData jsonData = JsonUtility.FromJson<AppData>(jsonDataString);
+        return jsonData;
+    }
+    
     //エラーが発生した才、その旨を表示するUIを呼び出します。
     //UIがまだ作成されていないので関数の中身は未着手です。
     private void CallErrorUI()

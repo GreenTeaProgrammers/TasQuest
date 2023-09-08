@@ -25,7 +25,6 @@
 		2263B7D92AAA61440002E77E /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263B7BF2AAA61440002E77E /* Status.swift */; };
 		2263B7DA2AAA61440002E77E /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263B7C02AAA61440002E77E /* Tag.swift */; };
 		2263B7DB2AAA61440002E77E /* AuthDataResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263B7C12AAA61440002E77E /* AuthDataResultModel.swift */; };
-		2263B7DC2AAA61440002E77E /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263B7C32AAA61440002E77E /* RootView.swift */; };
 		2263B7DD2AAA61440002E77E /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263B7C42AAA61440002E77E /* TaskView.swift */; };
 		2263B7DE2AAA61440002E77E /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263B7C52AAA61440002E77E /* AuthenticationView.swift */; };
 		2263B7DF2AAA61440002E77E /* SignInEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263B7C62AAA61440002E77E /* SignInEmailView.swift */; };
@@ -78,7 +77,6 @@
 		2263B7BF2AAA61440002E77E /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		2263B7C02AAA61440002E77E /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		2263B7C12AAA61440002E77E /* AuthDataResultModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthDataResultModel.swift; sourceTree = "<group>"; };
-		2263B7C32AAA61440002E77E /* RootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		2263B7C42AAA61440002E77E /* TaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		2263B7C52AAA61440002E77E /* AuthenticationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		2263B7C62AAA61440002E77E /* SignInEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInEmailView.swift; sourceTree = "<group>"; };
@@ -215,7 +213,6 @@
 		2263B7C22AAA61440002E77E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2263B7C32AAA61440002E77E /* RootView.swift */,
 				2263B7C42AAA61440002E77E /* TaskView.swift */,
 				2263B7C52AAA61440002E77E /* AuthenticationView.swift */,
 				2263B7C62AAA61440002E77E /* SignInEmailView.swift */,
@@ -376,7 +373,6 @@
 				2263B7E12AAA61440002E77E /* TasQuestApp.swift in Sources */,
 				2263B7CE2AAA61440002E77E /* TaskViewModel.swift in Sources */,
 				2263B7D72AAA61440002E77E /* Goal.swift in Sources */,
-				2263B7DC2AAA61440002E77E /* RootView.swift in Sources */,
 				2263B7E22AAA61440002E77E /* ContentView.swift in Sources */,
 				2263B7D02AAA61440002E77E /* CustomEasing.swift in Sources */,
 				2263B7DD2AAA61440002E77E /* TaskView.swift in Sources */,

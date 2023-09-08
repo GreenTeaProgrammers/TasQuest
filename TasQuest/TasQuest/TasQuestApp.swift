@@ -10,13 +10,11 @@ import Firebase
 
 @main
 struct TasQuestApp: App {
-    
-    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
             NavigationStack{
-                RootView()
+                StatusView()
             }
         }
     }

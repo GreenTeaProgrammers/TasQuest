@@ -9,10 +9,12 @@ import SwiftUI
 
 
 struct SignInEmailView: View {
+    @Binding var showSignInView: Bool
     
     @StateObject private var viewModel = SignInEmailViewModel()
     @State private var errorMessage: String? = nil  // New state variable for the error message
-    @Binding var showSignInView: Bool
+    
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack {
@@ -34,17 +36,18 @@ struct SignInEmailView: View {
             Button {
                 Task {
                     do {
-                        try await viewModel.signUp()
+                        try await viewModel.signIn()
                         showSignInView = false
-                        return
+                        presentationMode.wrappedValue.dismiss()
+
                     } catch {
                         errorMessage = viewModel.errorMessage
                     }
                     
                     do {
-                        try await viewModel.signIn()
+                        try await viewModel.signUp()
                         showSignInView = false
-                        return
+                        presentationMode.wrappedValue.dismiss()
                     } catch {
                         errorMessage = viewModel.errorMessage
                     }

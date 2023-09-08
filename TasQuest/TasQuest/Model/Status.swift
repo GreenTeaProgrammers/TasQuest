@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Status: Codable {
+struct Status: Codable, Identifiable {
     let id: String
     var name: String
     var goals: [Goal]

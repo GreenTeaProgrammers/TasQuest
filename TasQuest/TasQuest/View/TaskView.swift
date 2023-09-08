@@ -173,9 +173,6 @@ struct TaskRow: View {
     }
     
     var body: some View {
-        Button(action: {
-            print("Task \(task.id) was clicked")
-        }) {
             HStack {
                 // Circle icon
                 Image(systemName: "circle.fill")
@@ -183,6 +180,9 @@ struct TaskRow: View {
                     .frame(width: 24, height: 24)
                     .foregroundColor(.blue)
                 
+                Button(action: {
+                    print("Task \(task.id) was clicked")
+                }) {
                 // Task name and tags
                 VStack(alignment: .leading) {
                     Text(task.name)

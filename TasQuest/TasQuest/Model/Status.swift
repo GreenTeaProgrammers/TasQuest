@@ -8,7 +8,7 @@
 import Foundation
 
 struct Status: Codable {
-    let id: Int
+    let id: String
     var name: String
     var goals: [Goal]
     var updatedAt: String // YYYY-MM-DD/HH:MM:SS

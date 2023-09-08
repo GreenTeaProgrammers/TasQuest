@@ -8,7 +8,7 @@
 import Foundation
 
 struct Goal: Codable {
-    let id: Int
+    let id: String
     var name: String
     var description: String
     var tasks: [TasQuestTask]

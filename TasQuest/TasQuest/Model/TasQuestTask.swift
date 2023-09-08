@@ -8,7 +8,7 @@
 import Foundation
 
 struct TasQuestTask: Codable {
-    let id: Int
+    let id: String
     var name: String
     var description: String
     var dueDate: String // YYYY-MM-DD

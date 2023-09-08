@@ -8,7 +8,7 @@
 import Foundation
 
 struct Tag: Codable {
-    let id: Int
+    let id: String
     var name: String
     var color: [Float] // [R, G, B]
     var createdAt: String // YYYY-MM-DD/HH:MM:SS

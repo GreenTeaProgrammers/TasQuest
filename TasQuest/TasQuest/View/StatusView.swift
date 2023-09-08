@@ -3,48 +3,87 @@ import SwiftUI
 struct StatusView: View {
     @State private var showSignInView: Bool = false
     @State private var showSettingView: Bool = false
-    @State private var isExpanded: [Bool] = Array(repeating: true, count: 3)  // 3はステータスの数。この数を適切な値に変更してください。
 
     // ダミーデータ
     let user: AppData = setDummyData()
-    
+
+    func backgroundColor(for index: Int) -> Color {
+        switch index {
+        case 0: return Color.red
+        case 1: return Color.green
+        case 2: return Color.blue
+        default: return Color.gray
+        }
+    }
+
     var body: some View {
-        VStack{
-            EmptyView()
-        }
-        .sheet(isPresented: $showSignInView){
-            AuthenticationView(showSignInView: $showSignInView)
-        }
-        .onAppear(){
-            let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
-                        self.showSignInView = authUser == nil
-        }
-        
         VStack {
             // ウェルカムメッセージと設定ボタン
             HStack {
                 Text("ようこそ \(user.username)")
                     .font(.headline)
                 Spacer()
-                
-                
+
                 Button(action: {
                     showSettingView = true
                 }) {
                     Image(systemName: "gear")
                         .resizable()
                         .frame(width: 24, height: 24)
-                }.sheet(isPresented: $showSettingView){
+                }.sheet(isPresented: $showSettingView) {
                     SettingView(showSignInView: $showSignInView)
                 }
             }
             .padding()
-            
-            // ステータスとその目標を表示
-        }
-    }
 
+            // ステータスとその目標を表示
+            ForEach(user.statuses.indices, id: \.self) { index in
+                let status = user.statuses[index]
+
+                VStack {
+                    Text(status.name)
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding(.top)
+
+                    ForEach(status.goals, id: \.id) { goal in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(goal.name)
+                                Text(goal.dueDate)
+                            }
+
+                            Spacer()
+
+                            Button(action: {
+                                // Star button tapped
+                            }) {
+                                Image(systemName: goal.isStarred ? "star.fill" : "star")
+                                    .foregroundColor(goal.isStarred ? .yellow : .gray)
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                }
+                .padding()
+                .background(backgroundColor(for: index))
+                .cornerRadius(15)
+                .padding(.bottom)
+            }
+        }
+        .fullScreenCover(isPresented: $showSignInView) {
+            AuthenticationView(showSignInView: $showSignInView)
+        }
+        .onAppear() {
+            let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
+            self.showSignInView = authUser == nil
+        }
+        Spacer()
+    }
 }
+
+
+
 
 func setDummyData() -> AppData{
     return AppData(userid: "1", username: "Kinji", statuses: [

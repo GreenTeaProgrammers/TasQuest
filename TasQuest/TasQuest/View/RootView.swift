@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct RootView: View {
-    
     @State private var showSignInView: Bool = false
     
     var body: some View {
         ZStack{
             NavigationStack{
-                ContentView()
+                StatusView(showSignInView: $showSignInView)
             }
         }
         .onAppear {

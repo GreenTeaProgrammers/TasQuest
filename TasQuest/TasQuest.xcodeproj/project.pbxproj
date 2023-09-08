@@ -35,6 +35,8 @@
 		2263B7E52AAA616B0002E77E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2263B7E42AAA616B0002E77E /* FirebaseAnalytics */; };
 		2263B7E72AAA616B0002E77E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2263B7E62AAA616B0002E77E /* FirebaseAnalyticsSwift */; };
 		2263B7E92AAA616B0002E77E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2263B7E82AAA616B0002E77E /* FirebaseAuth */; };
+		A09724212AAADF2300752A07 /* StatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09724202AAADF2300752A07 /* StatusViewModel.swift */; };
+		A09724252AAADFD800752A07 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09724242AAADFD800752A07 /* StatusView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,8 @@
 		2263B7C72AAA61440002E77E /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		2263B7C82AAA61440002E77E /* TasQuestApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasQuestApp.swift; sourceTree = "<group>"; };
 		2263B7C92AAA61440002E77E /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A09724202AAADF2300752A07 /* StatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewModel.swift; sourceTree = "<group>"; };
+		A09724242AAADFD800752A07 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,13 +157,13 @@
 		2263B7AE2AAA61440002E77E /* TasQuest */ = {
 			isa = PBXGroup;
 			children = (
+				2263B7BB2AAA61440002E77E /* Model */,
+				2263B7C22AAA61440002E77E /* View */,
 				2263B7AF2AAA61440002E77E /* ViewModel */,
 				2263B7B32AAA61440002E77E /* Module */,
 				2263B7B72AAA61440002E77E /* Assets.xcassets */,
 				2263B7B82AAA61440002E77E /* GoogleService-Info.plist */,
 				2263B7B92AAA61440002E77E /* Preview Content */,
-				2263B7BB2AAA61440002E77E /* Model */,
-				2263B7C22AAA61440002E77E /* View */,
 				2263B7C82AAA61440002E77E /* TasQuestApp.swift */,
 				2263B7C92AAA61440002E77E /* ContentView.swift */,
 			);
@@ -172,6 +176,7 @@
 				2263B7B02AAA61440002E77E /* SettingViewModel.swift */,
 				2263B7B12AAA61440002E77E /* TaskViewModel.swift */,
 				2263B7B22AAA61440002E77E /* SignInEmailViewModel.swift */,
+				A09724202AAADF2300752A07 /* StatusViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -215,6 +220,7 @@
 				2263B7C52AAA61440002E77E /* AuthenticationView.swift */,
 				2263B7C62AAA61440002E77E /* SignInEmailView.swift */,
 				2263B7C72AAA61440002E77E /* SettingView.swift */,
+				A09724242AAADFD800752A07 /* StatusView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -360,6 +366,7 @@
 			files = (
 				2263B7CC2AAA61440002E77E /* TasQuestUITests.swift in Sources */,
 				2263B7E02AAA61440002E77E /* SettingView.swift in Sources */,
+				A09724252AAADFD800752A07 /* StatusView.swift in Sources */,
 				2263B7CB2AAA61440002E77E /* TasQuestUITestsLaunchTests.swift in Sources */,
 				2263B7D82AAA61440002E77E /* TasQuestTask.swift in Sources */,
 				2263B7D12AAA61440002E77E /* CADisplayLink+.swift in Sources */,
@@ -375,6 +382,7 @@
 				2263B7DD2AAA61440002E77E /* TaskView.swift in Sources */,
 				2263B7DB2AAA61440002E77E /* AuthDataResultModel.swift in Sources */,
 				2263B7D92AAA61440002E77E /* Status.swift in Sources */,
+				A09724212AAADF2300752A07 /* StatusViewModel.swift in Sources */,
 				2263B7DA2AAA61440002E77E /* Tag.swift in Sources */,
 				2263B7DE2AAA61440002E77E /* AuthenticationView.swift in Sources */,
 				2263B7CD2AAA61440002E77E /* SettingViewModel.swift in Sources */,

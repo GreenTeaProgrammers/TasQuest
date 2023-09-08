@@ -12,30 +12,40 @@ struct AuthenticationView: View {
     @Binding var showSignInView: Bool
     
     var body: some View {
-        VStack{
-            NavigationStack{
-                NavigationLink{
-                    SignInEmailView(showSignInView: $showSignInView)
-                } label: {
-                    Text("Sign In With Email")
-                        .font(.headline)
+        NavigationView {
+            ZStack {
+                // Background Gradient
+                LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]), startPoint: .top, endPoint: .bottom)
+                    .edgesIgnoringSafeArea(.all)
+                
+                // Main Content
+                VStack{
+                    // App Logo or Title
+                    Text("TasQuest")
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
                         .foregroundColor(.white)
-                        .frame(height: 55)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .cornerRadius(10)
+                        .padding(.bottom, 50)
+                    
+                    // Sign In Button
+                    NavigationLink(destination: SignInEmailView(showSignInView: $showSignInView)) {
+                        Text("Sign In With Email")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(height: 55)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.green)
+                            .cornerRadius(10)
+                            .shadow(radius: 10)
+                            .padding(.horizontal, 20)
+                    }
+                    .padding(.top, 20)
+                    
                 }
+                .padding()
             }
-        }
-        .padding()
-        .navigationTitle("Sign In")
-    }
-}
-
-struct AuthenticationView_Previews: PreviewProvider {
-    static var previews: some View{
-        NavigationStack{
-            AuthenticationView(showSignInView: .constant(false))
+            .navigationTitle("Sign In")
+            .navigationBarHidden(true)
         }
     }
 }

@@ -3,13 +3,7 @@ public class User
 {
     private static string id;
     public static FireStoreManager fireStoreManager;
-
-    public User(string userID)
-    {
-        id = userID;
-        fireStoreManager = new FireStoreManager(id);
-    }
-
+    
     public static void ChangeUser(string userID)
     {
         id = userID;

@@ -10,6 +10,7 @@ public class FireStoreManager
 {
     private readonly string _currentUserID;
     private FirebaseFirestore _dataBase;
+    private DocumentReference _userDocument;
     
     //引数はテスト用ユーザーになっています。
     //本番で変更してください
@@ -17,6 +18,8 @@ public class FireStoreManager
     {
         _currentUserID = userID;
         _dataBase = FirebaseFirestore.DefaultInstance;
+        _userDocument = _dataBase.Collection("Users")
+                                .Document(_currentUserID);
     }
 
     /// <summary>
@@ -51,8 +54,8 @@ public class FireStoreManager
     public async Task<QuerySnapshot> ReadTasks(string currentStatus="1", string currentGoal="h8eWfbP3NR5tz81maI9p")
     {
         
-        Query query = _dataBase.Collection("Users")
-            .Document(_currentUserID)
+        Query query =
+            _userDocument
             .Collection("Statuses")
             .Document(currentStatus)
             .Collection("Goals")
@@ -73,8 +76,8 @@ public class FireStoreManager
     /// <param name="taskContext"></param>
     public async void CreateTask(string currentStatus, string currentGoal, string targetTask, Dictionary<string, object> taskContext)
     {
-        DocumentReference targetTaskDocument = _dataBase.Collection("Users")
-            .Document(_currentUserID)
+        DocumentReference targetTaskDocument = 
+            _userDocument
             .Collection("Statuses")
             .Document(currentStatus)
             .Collection("Goals")
@@ -95,8 +98,8 @@ public class FireStoreManager
     /// <param name="taskContext"></param>
     public async void UpdateTask(string currentStatus, string currentGoal, string targetTask, Dictionary<string, object> taskContext)
     { 
-        DocumentReference targetTaskDocument = _dataBase.Collection("Users")
-            .Document(_currentUserID)
+        DocumentReference targetTaskDocument = 
+            _userDocument
             .Collection("Statuses")
             .Document(currentStatus)
             .Collection("Goals")

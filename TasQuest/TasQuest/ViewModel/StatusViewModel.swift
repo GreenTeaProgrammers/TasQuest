@@ -11,22 +11,29 @@ import SwiftUI
 
 class StatusViewModel: ObservableObject {
     
-    func fetchAppData() -> AppData{
-        FirestoreManager.shared.fetchAppData { appData in
-            guard let appData = appData else {
-                print("Failed to fetch AppData")
-                return
+    @Published var user: AppData = AppData() // これはUIと同期されます
+    
+    // 使用例
+    let fetchThrottler = Throttler(delay: 10)  // 60秒ごとに実行を許可
+    // fetchAppData()が呼び出されたら、非同期でデータを取得して@Publishedプロパティを更新する
+    func fetchAppData() {
+        fetchThrottler.run {
+            FirestoreManager.shared.fetchAppData { fetchedAppData in
+                guard let fetchedAppData = fetchedAppData else {
+                    print("Failed to fetch AppData")
+                    return
+                }
+                
+                // 成功した場合、userプロパティに取得したAppDataを格納する
+                self.user = fetchedAppData
+                
+                // デバッグ用
+                print("Fetched AppData: \(fetchedAppData)")
+                print("Username: \(fetchedAppData.username)")
             }
             
-            // 成功した場合の処理をここに書く
-            print("Fetched AppData: \(appData)")
-            
-            // 例：username を表示
-            print("Username: \(appData.username)")
         }
     }
-
-    @Published var user: AppData = AppData()
     /*
     let allTags = []/*[Tag(id: "1", name: "urg123123123123ent", color: [1.0, 0.0, 0.0], createdAt: "2023-07-15/12:00:00", updatedAt: "2023-07-15/12:05:00"),
                    Tag(id: "2", name: "database", color: [0.0, 0.5, 0.0], createdAt: "2023-07-16/13:00:00", updatedAt: "2023-07-16/13:05:00"),

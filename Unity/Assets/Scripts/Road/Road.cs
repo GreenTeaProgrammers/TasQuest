@@ -5,7 +5,8 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.UI;
 using UnityEngine;
-
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class Road : MonoBehaviour
 {
@@ -37,9 +38,9 @@ public class Road : MonoBehaviour
         Array.Resize(ref stagePositions, stagesNumber);
         stagePositions[0] = new Vector3
         (
-            radius * MathF.Cos(INITIAL_RADIAN),
+            radius * MathF.Sin(INITIAL_RADIAN),
             0,
-            radius * MathF.Sin(INITIAL_RADIAN)
+            radius * MathF.Cos(INITIAL_RADIAN)
         );
         float radianDelta = 2 * MathF.PI / stagesNumber;
         float currentRadian = INITIAL_RADIAN;
@@ -48,9 +49,9 @@ public class Road : MonoBehaviour
             currentRadian += radianDelta;
             stagePositions[i] = new Vector3
             (
-                radius * MathF.Cos(currentRadian),
+                radius * MathF.Sin(currentRadian),
                 0,
-                radius * MathF.Sin(currentRadian)
+                radius * MathF.Cos(currentRadian)
             );
         }
     }
@@ -62,17 +63,51 @@ public class Road : MonoBehaviour
         UpdateStages();
     }
 
+    async void GenerateEnemy(Vector3 tgtPos, float maxHealth)
+    {
+        String enemyAddress;
+        if (maxHealth < 500)
+        {
+            enemyAddress = "EnemyWeak";
+        }
+        else if (maxHealth < 1000)
+        {
+            enemyAddress = "EnemyNormal";
+        }
+        else
+        {
+            enemyAddress = "EnemyStrong";
+        }
+        AsyncOperationHandle<GameObject> handle = Addressables.InstantiateAsync
+        (
+            enemyAddress,
+            Vector3.zero,
+            Quaternion.identity
+        );
+        await handle.Task;
+        GameObject enemy = handle.Result;
+        enemy.transform.position = tgtPos;
+        
+        float sin = tgtPos.x / radius;
+        float cos = tgtPos.z / radius;
+        float radian = MathF.Acos(cos); // 0 - PI
+        if (sin < -0.001) radian = MathF.PI + (MathF.PI - radian);
+        float deg = radian * 180 / MathF.PI;
+        
+        Debug.Log(radian * 180 / MathF.PI);
+        
+        Quaternion rot = Quaternion.AngleAxis(90 + deg, Vector3.up);
+        enemy.transform.rotation *= rot;
+    }
+    
     void Start()
     {
-        stagesNumber = 3;
+        stagesNumber = 10;
         SetRadius(stagesNumber); // * 1.5 とかも試したけど現状そのまま放り込んでよい感じ
         UpdateStages();
-        GameObject enemyPrefab = Resources.Load<GameObject>("EnemyNormal");
         for (int i = 0; i < stagesNumber; i++)
         {
-            GameObject enemy = Instantiate(enemyPrefab);
-            enemy.transform.position = stagePositions[i];
-            Debug.Log(enemy.transform.position);
+            GenerateEnemy(stagePositions[i], 100);
         }
     }
 }

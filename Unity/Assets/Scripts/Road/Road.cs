@@ -54,7 +54,7 @@ public class Road : MonoBehaviour
         stagePositions = newStagePositions;
     }
 
-void OnGoalChanges() {
+    void OnGoalChanges() {
         Task[] tasks = GetTasksFromJson();
         stagesNumber = tasks.Length + 1;
         SetRadius(100); // てきとう

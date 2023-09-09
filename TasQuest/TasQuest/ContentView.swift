@@ -4,7 +4,7 @@
 //
 //  Created by KinjiKawaguchi on 2023/09/04.
 //
-
+/*
 import SwiftUI
 
 struct ContentView: View {
@@ -73,3 +73,4 @@ struct ContentView: View {
         TaskView(goal: sampleGoal)
     }
 }
+*/

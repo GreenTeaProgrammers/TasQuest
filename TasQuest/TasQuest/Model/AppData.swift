@@ -5,11 +5,16 @@
 //  Created by KAWAGUCHI KINJI on 2023/09/05.
 //
 
-import Foundation
-
 struct AppData: Codable {
-    let userid: Int // これが必要かどうかは要検討
-    var username: String //同上
+    let userid: String
+    var username: String
     var statuses: [Status]
     var tags: [Tag]
+    
+    init(userid: String = "", username: String = "", statuses: [Status] = [], tags: [Tag] = []) {
+        self.userid = userid
+        self.username = username
+        self.statuses = statuses
+        self.tags = tags
+    }
 }

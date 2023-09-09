@@ -7,6 +7,7 @@ using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Object = System.Object;
 
 public class Road : MonoBehaviour
 {
@@ -15,9 +16,6 @@ public class Road : MonoBehaviour
     public static Vector3[] stagePositions;
 
     private const float INITIAL_RADIAN = 0;
-    
-    //テスト用変数
-    [SerializeField] private float testRadius;
 
     Task[] GetTasksFromJson()
     {
@@ -30,10 +28,9 @@ public class Road : MonoBehaviour
     void SetRadius(float arg)
     {
         radius = arg;
-        testRadius = arg;
     }
 
-    void UpdateStages() 
+    void UpdateStages()
     {
         Array.Resize(ref stagePositions, stagesNumber);
         stagePositions[0] = new Vector3
@@ -56,31 +53,52 @@ public class Road : MonoBehaviour
         }
     }
 
-    void OnGoalChanges() {
-        Task[] tasks = GetTasksFromJson();
-        stagesNumber = tasks.Length + 1;
-        SetRadius(100); // てきとう
+    async void Start() // 本来は OnGoalChanges()
+    {
+        //本来はSwiftから先に呼ばれている
+        User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
+        var querySnapshot = await User.fireStoreManager.ReadTasks();
+        int idx = 0;
+        foreach (var i in querySnapshot.Documents)
+        {
+            var dict = i.ToDictionary();
+            idx++;
+        }
+        stagesNumber = idx + 1;
+        SetRadius(stagesNumber);
         UpdateStages();
+        idx = 0;
+        foreach (var i in querySnapshot.Documents)
+        {
+            var dict = i.ToDictionary();
+            GenerateEnemyOrGoal(stagePositions[idx], System.Convert.ToSingle(dict["maxHealth"]));
+            idx++;
+        }
+        GenerateEnemyOrGoal(stagePositions[stagesNumber - 1], -1);
     }
 
-    async void GenerateEnemy(Vector3 tgtPos, float maxHealth)
+    async void GenerateEnemyOrGoal(Vector3 tgtPos, float maxHealth)
     {
-        String enemyAddress;
-        if (maxHealth < 500)
+        String address;
+        if (maxHealth < 0)
         {
-            enemyAddress = "EnemyWeak";
+            address = "Goal";
+        }
+        else if (maxHealth < 500)
+        {
+            address = "EnemyWeak";
         }
         else if (maxHealth < 1000)
         {
-            enemyAddress = "EnemyNormal";
+            address = "EnemyNormal";
         }
         else
         {
-            enemyAddress = "EnemyStrong";
+            address = "EnemyStrong";
         }
         AsyncOperationHandle<GameObject> handle = Addressables.InstantiateAsync
         (
-            enemyAddress,
+            address,
             Vector3.zero,
             Quaternion.identity
         );
@@ -93,21 +111,11 @@ public class Road : MonoBehaviour
         float radian = MathF.Acos(cos); // 0 - PI
         if (sin < -0.001) radian = MathF.PI + (MathF.PI - radian);
         float deg = radian * 180 / MathF.PI;
-        
+
+        Debug.Log(maxHealth);
         Debug.Log(radian * 180 / MathF.PI);
         
         Quaternion rot = Quaternion.AngleAxis(90 + deg, Vector3.up);
         enemy.transform.rotation *= rot;
-    }
-    
-    void Start()
-    {
-        stagesNumber = 10;
-        SetRadius(stagesNumber); // * 1.5 とかも試したけど現状そのまま放り込んでよい感じ
-        UpdateStages();
-        for (int i = 0; i < stagesNumber; i++)
-        {
-            GenerateEnemy(stagePositions[i], 100);
-        }
     }
 }

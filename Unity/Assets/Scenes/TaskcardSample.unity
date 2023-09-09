@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &370975906 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2199095151859029205, guid: 54db545de92995946a7bb352e3174770,
+    type: 3}
+  m_PrefabInstance: {fileID: 630681651}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &466540560
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,6 +286,11 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3284716373916582166, guid: 54db545de92995946a7bb352e3174770,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 5670615696668433672, guid: 54db545de92995946a7bb352e3174770,
         type: 3}
       propertyPath: m_Name
@@ -384,6 +395,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684916121562962439, guid: 54db545de92995946a7bb352e3174770,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7966606713921748610, guid: 54db545de92995946a7bb352e3174770,
         type: 3}
@@ -922,6 +938,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -180.67, z: 0}
+--- !u!1 &999780189 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1370669246903634596, guid: 54db545de92995946a7bb352e3174770,
+    type: 3}
+  m_PrefabInstance: {fileID: 630681651}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1141429777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,6 +1181,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1175134825}
   m_CullTransparentMesh: 1
+--- !u!1 &1573190322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1573190324}
+  - component: {fileID: 1573190323}
+  m_Layer: 0
+  m_Name: TouchHandller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1573190323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573190322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56d1f8825805a248b548209ea4d76ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTouchDebug: 1
+  mainCamera: {fileID: 963194225}
+  currentHP: {fileID: 370975906}
+  damageDiff: {fileID: 999780189}
+  minScrollDist: 1.5
+  _scrollSencitivity: 0.001
+  _pinchSencitivity: 0.001
+--- !u!4 &1573190324
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573190322}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 885.8954, y: 2399.578, z: -25.595703}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1749548437
 GameObject:
   m_ObjectHideFlags: 0
@@ -1372,4 +1445,5 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 736630991}
+  - {fileID: 1573190324}
   - {fileID: 466540561}

@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  TaskView.swift
 //  TasQuest
 //
 //  Created by KinjiKawaguchi on 2023/09/04.
@@ -11,8 +11,11 @@ import SwiftUI
 struct TaskView: View {
     @State var goal: Goal
     
+    
     var body: some View {
         ZStack {
+            let taskCount = goal.tasks.filter { $0.isVisible }.count
+            let height = max(0, (87.95) * CGFloat(taskCount - 1))
             VStack {
                 HeaderView(goal: $goal)
                 
@@ -25,15 +28,17 @@ struct TaskView: View {
                         VStack {
                             Rectangle()
                                 .fill(Color.black)
-                                .frame(width: 5, height: (87.95) * (CGFloat(goal.tasks.filter { $0.isVisible }.count - 1)))
+                            .frame(width: 5, height: height)
                         }
                         .padding(.leading, 9)
+                        
                         
                         ScrollView{
                             TaskListView(goal: goal)
                         }
                     }
                 }
+                
             }
             .padding()
             
@@ -92,6 +97,7 @@ struct TaskView: View {
                 .padding(.trailing, 16)
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

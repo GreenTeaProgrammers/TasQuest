@@ -47,7 +47,31 @@ class StatusViewModel: ObservableObject {
                 Goal(id: "2", name: "Goal 2", description: "", tasks: [], dueDate: "2023-10-01", isStarred: true, tags: getRandomTags(), thumbnail: "", createdAt: "", updatedAt: "")
             ], updatedAt: ""),
             Status(id: "2", name: "対応中", goals: [
-                Goal(id: "3", name: "Goal 3", description: "", tasks: [], dueDate: "2023-09-22", isStarred: false, tags: getRandomTags(), thumbnail: "", createdAt: "", updatedAt: "")
+                Goal(id: "3", name: "Goal 3", description: "", tasks: [
+                    
+                    
+                    TasQuestTask(id: "1", name: "Database Backup", description: "Backup the production database", dueDate: "2023-09-15", maxHealth: 2000, currentHealth: 1500, tags: getRandomTags(), isVisible: true, createdAt: "2023-08-01", updatedAt: "2023-08-15"),
+                    TasQuestTask(id: "2", name: "Design Mockup", description: "Create design mockup for landing page", dueDate: "2023-09-18", maxHealth: 1000, currentHealth: 500, tags: getRandomTags(), isVisible: true, createdAt: "2023-08-05", updatedAt: "2023-08-20"),
+                    TasQuestTask(id: "3", name: "Code Review", description: "Review team member's code", dueDate: "2023-09-10", maxHealth: 500, currentHealth: 200, tags: getRandomTags(), isVisible: true, createdAt: "2023-09-01", updatedAt: "2023-09-02"),
+                    TasQuestTask(id: "4", name: "Update Documentation", description: "Update API documentation", dueDate: "2023-09-22", maxHealth: 800, currentHealth: 400, tags: getRandomTags(), isVisible: true, createdAt: "2023-08-15", updatedAt: "2023-08-25"),
+                    TasQuestTask(id: "5", name: "Client Meeting", description: "Meeting with Client A for project update", dueDate: "2023-09-08", maxHealth: 300, currentHealth: 300, tags: getRandomTags(), isVisible: true, createdAt: "2023-08-30", updatedAt: "2023-09-01"),
+                    TasQuestTask(id: "6", name: "Bug Fix", description: "Fix login issue", dueDate: "2023-09-11", maxHealth: 900, currentHealth: 500, tags: getRandomTags(), isVisible: true, createdAt: "2023-09-01", updatedAt: "2023-09-03"),
+                    TasQuestTask(id: "7", name: "Customer Feedback", description: "Collect and analyze customer feedback", dueDate: "2023-09-20", maxHealth: 1200, currentHealth: 600, tags: getRandomTags(), isVisible: true, createdAt: "2023-08-10", updatedAt: "2023-08-20"),
+                    TasQuestTask(id: "8", name: "Team Onboarding", description: "Onboard new team members", dueDate: "2023-09-14", maxHealth: 400, currentHealth: 400, tags: getRandomTags(), isVisible: true, createdAt: "2023-08-15", updatedAt: "2023-08-16"),
+                    TasQuestTask(id: "9", name: "Performance Testing", description: "Conduct performance testing on new features", dueDate: "2023-09-19", maxHealth: 1000, currentHealth: 600, tags: getRandomTags(), isVisible: true, createdAt: "2023-08-20", updatedAt: "2023-08-22"),
+                    TasQuestTask(id: "10", name: "SEO Optimization", description: "Optimize website for search engines", dueDate: "2023-09-21", maxHealth: 700, currentHealth: 400, tags: getRandomTags(), isVisible: true, createdAt: "2023-08-25", updatedAt: "2023-08-28"),
+                    TasQuestTask(id: "11", name: "Content Creation", description: "Create blog posts for September", dueDate: "2023-09-30", maxHealth: 1100, currentHealth: 700, tags: getRandomTags(), isVisible: true, createdAt: "2023-08-01", updatedAt: "2023-08-15"),
+                    TasQuestTask(id: "12", name: "Budget Review", description: "Review and update Q4 budget", dueDate: "2023-09-25", maxHealth: 500, currentHealth: 300, tags: getRandomTags(), isVisible: true, createdAt: "2023-09-01", updatedAt: "2023-09-04"),
+                    TasQuestTask(id: "13", name: "Network Maintenance", description: "Check and maintain network hardware", dueDate: "2023-09-13", maxHealth: 600, currentHealth: 300, tags: getRandomTags(), isVisible: true, createdAt: "2023-08-15", updatedAt: "2023-08-16"),
+                    TasQuestTask(id: "14", name: "Server Cleanup", description: "Cleanup disk space on servers", dueDate: "2023-09-15", maxHealth: 800, currentHealth: 400, tags: getRandomTags(), isVisible: true, createdAt: "2023-08-20", updatedAt: "2023-08-22"),
+                    TasQuestTask(id: "15", name: "Product Training", description: "Train team on new product features", dueDate: "2023-09-09", maxHealth: 300, currentHealth: 300, tags: getRandomTags(), isVisible: true, createdAt: "2023-09-01", updatedAt: "2023-09-02"),
+                    TasQuestTask(id: "16", name: "Social Media Campaign", description: "Plan and execute social media campaign", dueDate: "2023-09-28", maxHealth: 1000, currentHealth: 600, tags: getRandomTags(), isVisible: true, createdAt: "2023-08-10", updatedAt: "2023-08-12"),
+                    TasQuestTask(id: "17", name: "Recruitment", description: "Conduct interviews for developer position", dueDate: "2023-09-07", maxHealth: 500, currentHealth: 250, tags: getRandomTags(), isVisible: true, createdAt: "2023-08-25", updatedAt: "2023-08-26"),
+                    TasQuestTask(id: "18", name: "Employee Review", description: "Conduct monthly employee performance review", dueDate: "2023-09-16", maxHealth: 700, currentHealth: 350, tags: getRandomTags(), isVisible: true, createdAt: "2023-08-15", updatedAt: "2023-08-18"),
+                    TasQuestTask(id: "19", name: "Software Update", description: "Update software on workstations", dueDate: "2023-09-12", maxHealth: 600, currentHealth: 300, tags: getRandomTags(), isVisible: true, createdAt: "2023-09-01", updatedAt: "2023-09-03"),
+                
+                 
+            ], dueDate: "2023-09-22", isStarred: false, tags: getRandomTags(), thumbnail: "", createdAt: "", updatedAt: "")
             ], updatedAt: ""),
             Status(id: "3", name: "完了", goals: [
                 Goal(id: "4", name: "Goal 4", description: "", tasks: [], dueDate: "2023-09-19", isStarred: true, tags: getRandomTags(), thumbnail: "", createdAt: "", updatedAt: "")

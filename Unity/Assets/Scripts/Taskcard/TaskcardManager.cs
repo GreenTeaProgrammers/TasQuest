@@ -22,8 +22,14 @@ public class TaskcardManager : MonoBehaviour
         _currentHp = GameObject.Find("CurrentHp");
         _inputField = GameObject.Find("TaskNameInputField").GetComponent<TMP_InputField>();
         _dueDate = GameObject.Find("DueDate").GetComponent<TMP_Text>();
+        _currentHpTransform = _currentHp.GetComponent<RectTransform>();
+        _currentHpChanger = _currentHp.GetComponent<CurrentHealthChanger>();
     }
 
+    /// <summary>
+    /// DocumentSnapshotを引数に受け取り、その値をもとにTaskcardの内容を書き換える関数です。
+    /// </summary>
+    /// <param name="taskSnapshot"></param>
     private void SetTaskData(DocumentSnapshot taskSnapshot)
     {
         Dictionary<string, object> taskDocument = taskSnapshot.ToDictionary();

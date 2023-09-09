@@ -24,8 +24,9 @@ final class AuthenticationManager{
     }
     
     @discardableResult
-    func createUser(email: String, password: String) async throws ->  AuthDataResultModel {
+    func createUser(username: String, email: String, password: String) async throws ->  AuthDataResultModel {
         let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
+        // Todo: FireStoreマージごに実装
         return AuthDataResultModel(user: authDataResult.user)
     }
     

@@ -7,14 +7,60 @@
 
 import SwiftUI
 
-struct SignUpEmailView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
 
-struct SignUpEmailView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUpEmailView()
+struct SignUpEmailView: View {
+    @Binding var showSignInView: Bool
+    
+    @StateObject private var viewModel = SignUpEmailViewModel()
+    @State private var errorMessage: String? = nil  // New state variable for the error message
+    
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        VStack {
+            TextField("ユーザ名", text: $viewModel.username)
+                .padding()
+                .background(Color.gray.opacity(0.4))
+                .cornerRadius(10)
+
+            TextField("メールアドレス", text: $viewModel.email)
+                .padding()
+                .background(Color.gray.opacity(0.4))
+                .cornerRadius(10)
+            
+            SecureField("パスワード（６文字以上）", text: $viewModel.password)
+                .padding()
+                .background(Color.gray.opacity(0.4))
+                .cornerRadius(10)
+            
+            if let errorMessage = errorMessage {  // Displaying the error message
+                Text(errorMessage)
+                    .foregroundColor(.red)
+            }
+            
+            Button {
+                Task {
+                    do {
+                        try await viewModel.signUp()
+                        showSignInView = false
+                        presentationMode.wrappedValue.dismiss()
+                    } catch {
+                        errorMessage = viewModel.errorMessage
+                    }
+                }
+            } label: {
+                Text("新規登録")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(height: 55)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+            }
+            
+            Spacer()
+        }
+        .padding()
+        .navigationTitle("新規登録")
     }
 }

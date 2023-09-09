@@ -18,12 +18,12 @@ struct SignInEmailView: View {
     
     var body: some View {
         VStack {
-            TextField("Email...", text: $viewModel.email)
+            TextField("メールアドレス", text: $viewModel.email)
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
             
-            SecureField("Password...(At least 6 character)", text: $viewModel.password)
+            SecureField("パスワード", text: $viewModel.password)
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
@@ -43,17 +43,9 @@ struct SignInEmailView: View {
                     } catch {
                         errorMessage = viewModel.errorMessage
                     }
-                    
-                    do {
-                        try await viewModel.signUp()
-                        showSignInView = false
-                        presentationMode.wrappedValue.dismiss()
-                    } catch {
-                        errorMessage = viewModel.errorMessage
-                    }
                 }
             } label: {
-                Text("Sign In")
+                Text("サインイン")
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(height: 55)
@@ -65,6 +57,6 @@ struct SignInEmailView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle("Sign In")
+        .navigationTitle("サインイン")
     }
 }

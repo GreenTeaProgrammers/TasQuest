@@ -316,3 +316,194 @@ class FirestoreManager {
         }
     }
 }
+
+
+// FirestoreManager.swift の続き
+
+extension FirestoreManager {
+    
+    func saveAppData(appData: AppData, completion: @escaping (Error?) -> Void) {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            completion(NSError(domain: "App", code: 1, userInfo: ["Description": "No current user ID"]))
+            return
+        }
+        
+        let userRef = db.collection("Users").document(userId)
+        
+        // 1. Save UserData
+        saveUserData(userRef: userRef, userData: UserData(name: appData.username, createdAt: appData.createdAt)) { error in
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            // 2. Save Tags
+            self.saveTags(userRef: userRef, tags: appData.tags) { error in
+                if let error = error {
+                    completion(error)
+                    return
+                }
+                
+                // 3. Save Statuses (and associated Goals)
+                self.saveStatuses(userRef: userRef, statuses: appData.statuses) { error in
+                    if let error = error {
+                        completion(error)
+                        return
+                    }
+                    
+                    // All data saved successfully
+                    completion(nil)
+                }
+            }
+        }
+    }
+    
+    private func saveUserData(userRef: DocumentReference, userData: UserData, completion: @escaping (Error?) -> Void) {
+        let data: [String: Any] = ["name": userData.name, "createdAt": userData.createdAt]
+        userRef.setData(data) { error in
+            completion(error)
+        }
+    }
+    
+    private func saveTags(userRef: DocumentReference, tags: [Tag], completion: @escaping (Error?) -> Void) {
+        let tagCollection = userRef.collection("Tags")
+        
+        let dispatchGroup = DispatchGroup()
+        
+        for tag in tags {
+            dispatchGroup.enter()
+            
+            let tagRef = tagCollection.document(tag.id)
+            let tagData: [String: Any] = [
+                "name": tag.name,
+                "color": tag.color,
+                "createdAt": tag.createdAt,
+                "updatedAt": tag.updatedAt
+            ]
+            
+            tagRef.setData(tagData) { error in
+                if let error = error {
+                    print("Error saving tag: \(error)")
+                }
+                dispatchGroup.leave()
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            completion(nil)
+        }
+    }
+    
+    private func saveStatuses(userRef: DocumentReference, statuses: [Status], completion: @escaping (Error?) -> Void) {
+        let statusCollection = userRef.collection("Statuses")
+        
+        let dispatchGroup = DispatchGroup()
+        
+        for status in statuses {
+            dispatchGroup.enter()
+            
+            let statusRef = statusCollection.document(status.id)
+            let statusData: [String: Any] = [
+                "name": status.name,
+                "updatedAt": status.updatedAt
+            ]
+            
+            statusRef.setData(statusData) { error in
+                if let error = error {
+                    print("Error saving status: \(error)")
+                    dispatchGroup.leave()
+                    return
+                }
+                
+                // Save Goals for this status
+                self.saveGoals(statusRef: statusRef, goals: status.goals) { error in
+                    if let error = error {
+                        print("Error saving goals: \(error)")
+                    }
+                    dispatchGroup.leave()
+                }
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            completion(nil)
+        }
+    }
+    
+    private func saveGoals(statusRef: DocumentReference, goals: [Goal], completion: @escaping (Error?) -> Void) {
+        let goalCollection = statusRef.collection("Goals")
+        
+        let dispatchGroup = DispatchGroup()
+        
+        for goal in goals {
+            dispatchGroup.enter()
+            
+            let goalRef = goalCollection.document(goal.id)
+            let goalData: [String: Any] = [
+                "name": goal.name,
+                "description": goal.description,
+                "dueDate": goal.dueDate,
+                "isStarred": goal.isStarred ? 1 : 0,
+                "tags": goal.tags.map { $0.id },
+                "thumbnail": goal.thumbnail,
+                "createdAt": goal.createdAt,
+                "updatedAt": goal.updatedAt
+            ]
+            
+            goalRef.setData(goalData) { error in
+                if let error = error {
+                    print("Error saving goal: \(error)")
+                    dispatchGroup.leave()
+                    return
+                }
+                
+                // Save Tasks for this goal
+                self.saveTasks(goalRef: goalRef, tasks: goal.tasks) { error in
+                    if let error = error {
+                        print("Error saving tasks: \(error)")
+                    }
+                    dispatchGroup.leave()
+                }
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            completion(nil)
+        }
+    }
+    
+    private func saveTasks(goalRef: DocumentReference, tasks: [TasQuestTask], completion: @escaping (Error?) -> Void) {
+        let taskCollection = goalRef.collection("TasQuestTasks")
+        
+        let dispatchGroup = DispatchGroup()
+        
+        for task in tasks {
+            dispatchGroup.enter()
+            
+            let taskRef = taskCollection.document(task.id)
+            let taskData: [String: Any] = [
+                "name": task.name,
+                "description": task.description,
+                "dueDate": task.dueDate,
+                "maxHealth": task.maxHealth,
+                "currentHealth": task.currentHealth,
+                "tags": task.tags.map { $0.id },
+                "isVisible": task.isVisible ? 1 : 0,
+                "createdAt": task.createdAt,
+                "updatedAt": task.updatedAt
+            ]
+            
+            taskRef.setData(taskData) { error in
+                if let error = error {
+                    print("Error saving task: \(error)")
+                }
+                dispatchGroup.leave()
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            completion(nil)
+        }
+    }
+}
+

@@ -8,7 +8,7 @@ public class FirestoreTest : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
-        User.ChangeUser("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
+        User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
         QuerySnapshot tasksSnapshot = await User.fireStoreManager.ReadTasks();
         foreach (var taskDocument in tasksSnapshot.Documents)
         {

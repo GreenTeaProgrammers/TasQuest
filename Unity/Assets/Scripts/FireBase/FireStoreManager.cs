@@ -48,18 +48,17 @@ public class FireStoreManager
     /// FireBaseからタスクを取り出す関数です。
     /// 返り値として QuerySnapshot型のインスタンスsnapshotが返ってきます。
     /// snapshot.Documentsにリストとしてそれぞれのタスクが入っているので加工して使ってください。
-    /// 引数としてcurrentUser, currentStatus, currentGoalが必要です。これらの値はswift側から渡される予定です。
+    /// User classのメンバであるid, currentStatus, currentGoalが参照されます。これらの値はswift側から渡される予定です。
     /// </summary>
     /// <returns>QuerySnapshot snapshot</returns>
-    public async Task<QuerySnapshot> ReadTasks(string currentStatus="1", string currentGoal="h8eWfbP3NR5tz81maI9p")
+    public async Task<QuerySnapshot> ReadTasks()
     {
-        
         Query query =
             _userDocument
             .Collection("Statuses")
-            .Document(currentStatus)
+            .Document(User.CurrentStatus)
             .Collection("Goals")
-            .Document(currentGoal)
+            .Document(User.CurrentGoal)
             .Collection("TasQuestTasks");
         var tasksSnapshot = await query.GetSnapshotAsync();
         
@@ -68,20 +67,21 @@ public class FireStoreManager
 
     /// <summary>
     /// FireStore上に新たなタスクを作成する関数です。
-    /// 引数にはStatus, Goal, 新規作成するTaskのID, Taskの内容が必要です
+    /// 引数には新規作成するTaskのID, Taskの内容が必要です。
+    /// GoalとStatusはUser classのメンバの値が参照されます。
     /// </summary>
     /// <param name="currentStatus">FireStore上の</param>
     /// <param name="currentGoal"></param>
     /// <param name="targetTask"></param>
     /// <param name="taskContext"></param>
-    public async void CreateTask(string currentStatus, string currentGoal, string targetTask, Dictionary<string, object> taskContext)
+    public async void CreateTask(string targetTask, Dictionary<string, object> taskContext)
     {
         DocumentReference targetTaskDocument = 
             _userDocument
             .Collection("Statuses")
-            .Document(currentStatus)
+            .Document(User.CurrentStatus)
             .Collection("Goals")
-            .Document(currentGoal)
+            .Document(User.CurrentGoal)
             .Collection("TasQuestTasks")
             .Document(targetTask);
 
@@ -96,14 +96,14 @@ public class FireStoreManager
     /// <param name="currentGoal"></param>
     /// <param name="targetTask"></param>
     /// <param name="taskContext"></param>
-    public async void UpdateTask(string currentStatus, string currentGoal, string targetTask, Dictionary<string, object> taskContext)
+    public async void UpdateTask(string targetTask, Dictionary<string, object> taskContext)
     { 
         DocumentReference targetTaskDocument = 
             _userDocument
             .Collection("Statuses")
-            .Document(currentStatus)
+            .Document(User.CurrentStatus)
             .Collection("Goals")
-            .Document(currentGoal)
+            .Document(User.CurrentGoal)
             .Collection("TasQuestTasks")
             .Document(targetTask);
 

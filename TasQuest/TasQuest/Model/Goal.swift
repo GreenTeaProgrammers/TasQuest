@@ -11,7 +11,7 @@ struct Goal: Codable {
     let id: Int
     var name: String
     var description: String
-    var tasks: [Task]
+    var tasks: [TasQuestTask]
     var currentTaskIndex: Int
     var dueDate: String //YYYY-MM-DD
     var isStarred: Bool

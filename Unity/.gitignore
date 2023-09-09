@@ -5,6 +5,12 @@
 /[Aa]ssets/Fantasy_Free
 
 # ======================
+# Unity Asset store
+# ======================
+/[Aa]ssets/Fantasy_Free
+/[Aa]ssets/SkySeries Freebie
+
+# ======================
 # Unity Specific Settings
 # ======================
 /[Ll]ibrary/

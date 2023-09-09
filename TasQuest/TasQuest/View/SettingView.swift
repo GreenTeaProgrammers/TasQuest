@@ -19,8 +19,10 @@ struct SettingView: View {
                 Task {
                     do {
                         try viewModel.signOut()
-                        showSignInView = true
                         presentationMode.wrappedValue.dismiss()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            showSignInView = true
+                        }
                     } catch {
                         print("Error: \(error)")
                     }

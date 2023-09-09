@@ -103,6 +103,9 @@ struct StatusView: View {
                     }
                 }
                 .padding()
+                .onAppear(){
+                    viewModel.fetchAppData()
+                }
                 
                 // ステータスとその目標を表示
                 ScrollView {

@@ -60,8 +60,9 @@ public class TaskcardManager : MonoBehaviour
     /// 現在のモードを参照できます
     /// </summary>
     /// <returns></returns>
-    public static bool GetMode()
+    public static bool IsEditMode
     {
-        return isEditMode;
+        get { return isEditMode; }
+        set { isEditMode = value; }
     }
 }

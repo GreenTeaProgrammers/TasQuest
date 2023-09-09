@@ -8,6 +8,9 @@ public class CurrentHealthChanger : MonoBehaviour
 {
     private static bool isEditMode;
     
+    //Firestore
+    private string _taskID;
+    
     //this Object
     private Vector3 _baseScale;
     private RectTransform _myRectTransform;
@@ -25,7 +28,7 @@ public class CurrentHealthChanger : MonoBehaviour
         
         _damageDiffManager.UnifyScaleWithCurrentHp(_baseScale);
 
-        isEditMode = TaskcardManager.GetMode();
+        isEditMode = TaskcardManager.IsEditMode;
     }
 
     public void OnDataChanged(float newScale)
@@ -60,6 +63,25 @@ public class CurrentHealthChanger : MonoBehaviour
         _baseScale = _myRectTransform.localScale;
         Debug.Log($"Update MyScale {_baseScale}");
         _damageDiffManager.StartTransition(_baseScale);
+
+        if (TaskcardManager.IsEditMode)
+        {
+            UpdateMaxHealthOnFirestore();
+        }
+        else
+        {
+            UpdateCurrentHealthOnFirestore();
+        }
+    }
+
+    private void UpdateCurrentHealthOnFirestore()
+    {
+        // User.fireStoreManager.UpdateTask(_taskID, );
+    }
+
+    private void UpdateMaxHealthOnFirestore()
+    {
+        
     }
     
 }

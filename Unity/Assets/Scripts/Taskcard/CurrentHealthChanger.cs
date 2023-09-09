@@ -6,8 +6,13 @@ using UnityEngine.UIElements;
 
 public class CurrentHealthChanger : MonoBehaviour
 {
-    private RectTransform _myRectTransform;
+    private static bool isEditMode;
+    
+    //this Object
     private Vector3 _baseScale;
+    private RectTransform _myRectTransform;
+    
+    //DamageDiff's
     private GameObject _damageDiff;
     private DamageDiffManager _damageDiffManager;
     
@@ -19,6 +24,8 @@ public class CurrentHealthChanger : MonoBehaviour
         _damageDiffManager = _damageDiff.GetComponent<DamageDiffManager>();
         
         _damageDiffManager.UnifyScaleWithCurrentHp(_baseScale);
+
+        isEditMode = TaskcardManager.GetMode();
     }
 
     public void OnDataChanged(float newScale)
@@ -54,4 +61,5 @@ public class CurrentHealthChanger : MonoBehaviour
         Debug.Log($"Update MyScale {_baseScale}");
         _damageDiffManager.StartTransition(_baseScale);
     }
+    
 }

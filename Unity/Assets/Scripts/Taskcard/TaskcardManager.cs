@@ -1,13 +1,14 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Firebase.Firestore;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TaskcardManager : MonoBehaviour
 {
+    //Mode
+    private static bool isEditMode = false;
+    
     //GameObjects
     private GameObject _currentHp;
     
@@ -43,6 +44,24 @@ public class TaskcardManager : MonoBehaviour
         string dueDate = (string)taskDocument["dueDate"];
         dueDate = "Due:\n  " + dueDate.Split("/")[0];
         _dueDate.text = dueDate;
+    }
 
+    /// <summary>
+    /// モードを変更する関数です。
+    /// 現在のモードではないモードになります。
+    /// </summary>
+    public void ChangeMode()
+    {
+        isEditMode = !isEditMode;
+        Debug.Log($"isEditMode: {isEditMode}");
+    }
+
+    /// <summary>
+    /// 現在のモードを参照できます
+    /// </summary>
+    /// <returns></returns>
+    public static bool GetMode()
+    {
+        return isEditMode;
     }
 }

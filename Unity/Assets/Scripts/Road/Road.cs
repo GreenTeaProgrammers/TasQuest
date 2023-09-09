@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEditor.UI;
 using UnityEngine;
 
@@ -32,8 +34,8 @@ public class Road : MonoBehaviour
 
     void UpdateStages() 
     {
-        Vector3[] newStagePositions = new Vector3[1];
-        newStagePositions[0] = new Vector3
+        Array.Resize(ref stagePositions, stagesNumber);
+        stagePositions[0] = new Vector3
         (
             radius * MathF.Cos(INITIAL_RADIAN),
             0,
@@ -44,14 +46,13 @@ public class Road : MonoBehaviour
         for (int i = 1; i < stagesNumber; i++)
         {
             currentRadian += radianDelta;
-            newStagePositions[i] = new Vector3
+            stagePositions[i] = new Vector3
             (
                 radius * MathF.Cos(currentRadian),
                 0,
                 radius * MathF.Sin(currentRadian)
             );
         }
-        stagePositions = newStagePositions;
     }
 
     void OnGoalChanges() {
@@ -59,5 +60,19 @@ public class Road : MonoBehaviour
         stagesNumber = tasks.Length + 1;
         SetRadius(100); // てきとう
         UpdateStages();
+    }
+
+    void Start()
+    {
+        stagesNumber = 3;
+        SetRadius(stagesNumber); // * 1.5 とかも試したけど現状そのまま放り込んでよい感じ
+        UpdateStages();
+        GameObject enemyPrefab = Resources.Load<GameObject>("EnemyNormal");
+        for (int i = 0; i < stagesNumber; i++)
+        {
+            GameObject enemy = Instantiate(enemyPrefab);
+            enemy.transform.position = stagePositions[i];
+            Debug.Log(enemy.transform.position);
+        }
     }
 }

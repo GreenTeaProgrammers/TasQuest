@@ -13,7 +13,7 @@ class StatusViewModel: ObservableObject {
 
     @Published var user: AppData = AppData()
     
-    let allTags = [Tag(id: "1", name: "urgent", color: [1.0, 0.0, 0.0], createdAt: "2023-07-15/12:00:00", updatedAt: "2023-07-15/12:05:00"),
+    let allTags = [Tag(id: "1", name: "urg123123123123ent", color: [1.0, 0.0, 0.0], createdAt: "2023-07-15/12:00:00", updatedAt: "2023-07-15/12:05:00"),
                    Tag(id: "2", name: "database", color: [0.0, 0.5, 0.0], createdAt: "2023-07-16/13:00:00", updatedAt: "2023-07-16/13:05:00"),
                    Tag(id: "3", name: "design", color: [0.0, 0.0, 1.0], createdAt: "2023-07-17/14:00:00", updatedAt: "2023-07-17/14:05:00"),
                    Tag(id: "4", name: "code", color: [0.5, 0.2, 0.7], createdAt: "2023-07-18/15:00:00", updatedAt: "2023-07-18/15:05:00"),
@@ -34,7 +34,7 @@ class StatusViewModel: ObservableObject {
                    Tag(id: "19", name: "it", color: [0.0, 0.5, 0.5], createdAt: "2023-08-02/07:00:00", updatedAt: "2023-08-02/07:05:00")]
             
     func getRandomTags() -> [Tag] {
-        let tagCount = Int.random(in: 1...3) // 1〜3個のタグを選ぶ
+        let tagCount = Int.random(in: 1...5) // 1〜3個のタグを選ぶ
         return Array(Set((0..<tagCount).map { _ in allTags.randomElement()! })).sorted(by: { $0.id < $1.id })
     }
     

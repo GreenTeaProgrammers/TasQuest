@@ -17,6 +17,8 @@ struct GoalRow: View {
         NavigationLink(destination: TaskView(goal: goal)) { // <-- NavigationLinkでラッピング
             HStack {
                 Text(goal.name)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
                     .bold()
                 
                 HStack {
@@ -24,7 +26,7 @@ struct GoalRow: View {
                         Text(goal.dueDate)
                             .foregroundColor(.gray)
                         HStack {
-                            ForEach(goal.tags.indices, id: \.self) { tagIndex in
+                            ForEach(goal.tags.prefix(3).indices, id: \.self) { tagIndex in
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 4)
                                         .fill(
@@ -34,10 +36,14 @@ struct GoalRow: View {
                                                 blue: Double(goal.tags[tagIndex].color[2])
                                             ).opacity(0.2)
                                         )
-                                    Text(goal.tags[tagIndex].name)
+                                    let truncatedTag = String(goal.tags[tagIndex].name.prefix(8))
+                                    let displayTag = goal.tags[tagIndex].name.count > 8 ? "\(truncatedTag)..." : truncatedTag
+                                    Text(displayTag)
                                         .font(.caption)
                                         .foregroundColor(.gray)
                                         .padding(.horizontal, 4)
+                                        .lineLimit(1)
+                                        .truncationMode(.tail)
                                 }
                                 .fixedSize()
                                 .padding(.vertical, 2)

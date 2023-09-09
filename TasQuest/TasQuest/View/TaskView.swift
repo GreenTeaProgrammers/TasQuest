@@ -119,6 +119,8 @@ struct HeaderView: View {
                     
                     Text(goal.name)
                         .font(.title)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                     
                     Spacer()
                     
@@ -196,7 +198,7 @@ struct TaskRow: View {
                         .foregroundColor(.black)
                     
                     HStack {
-                        ForEach(task.tags.indices, id: \.self) { tagIndex in
+                        ForEach(task.tags.prefix(3).indices, id: \.self) { tagIndex in
                             ZStack {
                                 RoundedRectangle(cornerRadius: 4)
                                     .fill(
@@ -206,10 +208,14 @@ struct TaskRow: View {
                                             blue: Double(task.tags[tagIndex].color[2])
                                         ).opacity(0.2)
                                     )
-                                Text(task.tags[tagIndex].name)
+                                let truncatedTag = String(task.tags[tagIndex].name.prefix(5))
+                                let displayTag = task.tags[tagIndex].name.count > 5 ? "\(truncatedTag)..." : truncatedTag
+                                Text(displayTag)
                                     .font(.caption)
                                     .foregroundColor(.gray)
-                                    .padding(.horizontal, 4)  // ここで左右の余白を追加
+                                    .padding(.horizontal, 4)
+                                    .lineLimit(1)
+                                    .truncationMode(.tail)
                             }
                             .fixedSize()
                             .padding(.vertical, 2)

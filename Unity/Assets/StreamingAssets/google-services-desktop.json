@@ -1,0 +1,37 @@
+{
+  "project_info": {
+    "project_number": "944806005075",
+    "firebase_url": "https://tasquest-480c7-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "tasquest-480c7",
+    "storage_bucket": "tasquest-480c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944806005075:ios:b56e04b6420b84d9dbf9a6",
+        "android_client_info": {
+          "package_name": "com.GreenTea.TasQuest"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjTWXZEbLSUSg1UPqOLMu7UT1vj-HR_Yo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944806005075-6ndpn3vjlp1kd81ga6o257hffhgm5kov.apps.googleusercontent.com"
+        }
+      ]
+    }
+  ],
+  "configuration_version": "1"
+}

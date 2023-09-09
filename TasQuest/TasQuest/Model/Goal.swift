@@ -7,12 +7,11 @@
 
 import Foundation
 
-struct Goal: Codable {
-    let id: Int
+struct Goal: Codable, Identifiable {
+    let id: String
     var name: String
     var description: String
-    var tasks: [Task]
-    var currentTaskIndex: Int
+    var tasks: [TasQuestTask]
     var dueDate: String //YYYY-MM-DD
     var isStarred: Bool
     var tags: [Tag]

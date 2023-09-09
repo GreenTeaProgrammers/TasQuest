@@ -20,6 +20,13 @@ public class CurrentHealthChanger : MonoBehaviour
         
         _damageDiffManager.UnifyScaleWithCurrentHp(_baseScale);
     }
+
+    public void OnDataChanged(float newScale)
+    {
+        _myRectTransform.localScale = new Vector3(newScale, 1.0f, 1.0f);
+        _baseScale = _myRectTransform.localScale;
+        _damageDiffManager.UnifyScaleWithCurrentHp(_baseScale);
+    }
     
     /// <summary>
     /// ピンチイン、アウトでcurrentHpのスケールを変化させる関数です。

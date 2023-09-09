@@ -15,9 +15,36 @@ struct GoalRow: View {
 
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
-                Text(goal.name)
-                Text(goal.dueDate)
+            Text(goal.name)
+                .bold()
+            
+            HStack {
+                VStack(alignment: .leading) { // alignment: .leading を追加
+                    Text(goal.dueDate)
+                        .foregroundColor(.gray)
+                    
+                    HStack {
+                        ForEach(goal.tags.indices, id: \.self) { tagIndex in
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(
+                                        Color(
+                                            red: Double(goal.tags[tagIndex].color[0]),
+                                            green: Double(goal.tags[tagIndex].color[1]),
+                                            blue: Double(goal.tags[tagIndex].color[2])
+                                        ).opacity(0.2)
+                                    )
+                                Text(goal.tags[tagIndex].name)
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                                    .padding(.horizontal, 4)
+                            }
+                            .fixedSize()
+                            .padding(.vertical, 2)
+                        }
+                    }
+                }
+                Spacer() // これにより、VStack の内容が左寄せになる
             }
             
             Spacer()
@@ -31,16 +58,17 @@ struct GoalRow: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 8)
-        .background(Color.white) // 背景を白に設定
-        .cornerRadius(10) // 角を丸くする
-        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2) // 影をつける
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
         .overlay(
-            NavigationLink("", destination: Text("Status View")) // ここで遷移先を設定します
-                .opacity(0) // NavigationLink を透明にする
+            NavigationLink("", destination: Text("Status View"))
+                .opacity(0)
         )
         .padding(.bottom, 8)
     }
 }
+
 
 struct StatusView: View {
     @State private var showSignInView: Bool = false

@@ -41,40 +41,30 @@ class FirestoreManager {
                 return
             }
             
-            let dispatchGroup = DispatchGroup()
-            
-            var tags: [Tag] = []
-            var statuses: [Status] = []
-            
-            dispatchGroup.enter()
+            // 先に fetchTags を呼び出します
             self.fetchTags(from: userRef) { (fetchedTags, error) in
                 if let error = error {
                     print("Error fetching tags: \(error)")
-                } else {
-                    print("FetchedTag: \(fetchedTags)")
-                    tags = fetchedTags
+                    completion(nil)
+                    return
                 }
-                dispatchGroup.leave()
-            }
-            
-            dispatchGroup.enter()
-            self.fetchStatuses(from: userRef, with: tags) { (fetchedStatuses, error) in
-                if let error = error {
-                    print("Error fetching statuses: \(error)")
-                } else {
-                    statuses = fetchedStatuses
+                
+                // fetchTags が完了してから fetchStatuses を呼び出します
+                self.fetchStatuses(from: userRef, with: fetchedTags) { (fetchedStatuses, error) in
+                    if let error = error {
+                        print("Error fetching statuses: \(error)")
+                        completion(nil)
+                        return
+                    }
+                    
+                    let appData = AppData(userid: userId,
+                                          username: userData.name,
+                                          statuses: fetchedStatuses,
+                                          tags: fetchedTags,
+                                          createdAt: userData.createdAt)
+                    print("Fetched all app data, completing.")
+                    completion(appData)
                 }
-                dispatchGroup.leave()
-            }
-            
-            dispatchGroup.notify(queue: .main) {
-                let appData = AppData(userid: userId,
-                                      username: userData.name,
-                                      statuses: statuses,
-                                      tags: tags,
-                                      createdAt: userData.createdAt)
-                print("Fetched all app data, completing.")
-                completion(appData)
             }
         }
     }
@@ -131,7 +121,7 @@ class FirestoreManager {
             completion(tags, nil)
         }
     }
-
+    
     
     func fetchStatuses(from userRef: DocumentReference, with tags: [Tag], completion: @escaping ([Status], Error?) -> Void) {
         print("after fetch statuse tags \(tags)")
@@ -173,7 +163,7 @@ class FirestoreManager {
                 } else {
                     print("Status data could not be parsed.")  // Log if status data parsing fails
                 }
-
+                
             }
             
             dispatchGroup.notify(queue: .main) {
@@ -199,49 +189,130 @@ class FirestoreManager {
             
             print("Fetched \(goalDocuments.count) goals.")  // Log the number of fetched goals
             
+            let taskDispatchGroup = DispatchGroup()  // 新しい DispatchGroup
             var goals: [Goal] = []
             
             for goalDoc in goalDocuments {
+                taskDispatchGroup.enter()  // DispatchGroup に enter
+                
                 let goalData = goalDoc.data()
                 print("Raw goal data: \(goalData)")
                 let goalIsStarred = (goalData["isStarred"] as? Int) == 1
-
+                
                 if let goalName = goalData["name"] as? String,
                    let goalDescription = goalData["description"] as? String,
                    let goalDueDate = goalData["dueDate"] as? String,
                    let goalThumbnail = goalData["thumbnail"] as? String,
                    let goalCreatedAt = goalData["createdAt"] as? String,
                    let goalUpdatedAt = goalData["updatedAt"] as? String {
-
+                    
                     let goalTagsIDs = goalData["tags"] as? [String] ?? []
                     print("Goal Tags IDs: \(goalTagsIDs)")  // デバッグ用
                     print("Available Tags IDs: \(tags.map { $0.id })")  // デバッグ用
-
+                    
                     let goalTags = tags.filter { goalTagsIDs.contains($0.id) }
                     print("Filtered Goal Tags: \(goalTags)")  // デバッグ用
-
-
-                    // Tasks will be fetched later
-                    let goal = Goal(id: goalDoc.documentID,
-                                    name: goalName,
-                                    description: goalDescription,
-                                    tasks: [],  // これは後で処理します
-                                    dueDate: goalDueDate,
-                                    isStarred: goalIsStarred,
-                                    tags: goalTags,  // ここで使用
-                                    thumbnail: goalThumbnail,
-                                    createdAt: goalCreatedAt,
-                                    updatedAt: goalUpdatedAt)
-
-                    goals.append(goal)
-                    print("Processed goal: \(goalName)")  // Log each processed goal
-
+                    
+                    let goalRef = statusRef.collection("Goals").document(goalDoc.documentID)
+                    self.fetchTasks(from: goalRef, with: tags) { (fetchedTasks, error) in
+                        if let error = error {
+                            print("Error fetching tasks for goal \(goalName): \(error)")  // Log the error
+                        } else {
+                            print("Fetched \(fetchedTasks.count) tasks for goal \(goalName)")  // Log the number of fetched tasks for this goal
+                        }
+                        
+                        let goal = Goal(id: goalDoc.documentID,
+                                        name: goalName,
+                                        description: goalDescription,
+                                        tasks: fetchedTasks,
+                                        dueDate: goalDueDate,
+                                        isStarred: goalIsStarred,
+                                        tags: goalTags,
+                                        thumbnail: goalThumbnail,
+                                        createdAt: goalCreatedAt,
+                                        updatedAt: goalUpdatedAt)
+                        
+                        goals.append(goal)
+                        print("Processed goal: \(goalName)")  // Log each processed goal
+                        
+                        taskDispatchGroup.leave()  // DispatchGroup から leave
+                    }
+                } else {
+                    // If the goal data is invalid, leave the dispatch group to not block the completion
+                    taskDispatchGroup.leave()
                 }
             }
             
-            completion(goals, nil)
+            taskDispatchGroup.notify(queue: .main) {  // すべての fetchTasks が完了したら
+                completion(goals, nil)
+            }
         }
     }
+    
+    func fetchTasks(from goalRef: DocumentReference, with tags: [Tag], completion: @escaping ([TasQuestTask], Error?) -> Void) {
+        print("Fetching tasks from goal \(goalRef.documentID)...")  // Log the start
+        goalRef.collection("TasQuestTasks").getDocuments { taskSnapshot, error in
+            if let error = error {
+                print("Failed to fetch tasks: \(error)")  // Log the error
+                completion([], error)
+                return
+            }
+            
+            guard let taskDocuments = taskSnapshot?.documents else {
+                print("Task snapshot is nil.")  // Log if snapshot is nil
+                completion([], nil)
+                return
+            }
+            
+            print("Fetched \(taskDocuments.count) tasks.")  // Log the number of fetched tasks
+            
+            var tasks: [TasQuestTask] = []
+            let taskDispatchGroup = DispatchGroup()  // Create a DispatchGroup
+            
+            for taskDoc in taskDocuments {
+                print("taskDocuments: \(taskDocuments)")
+                taskDispatchGroup.enter()  // Enter the DispatchGroup
+                let taskData = taskDoc.data()
+                print("Raw task data: \(taskData)")
+                let taskIsVisible = (taskData["isVisible"] as? Int) == 1
 
-
+                if let taskName = taskData["name"] as? String,
+                   let taskDescription = taskData["description"] as? String,
+                   let taskDueDate = taskData["dueDate"] as? String,
+                   let taskMaxHealth = taskData["maxHealth"] as? Float,
+                   let taskCurrentHealth = taskData["currentHealth"] as? Float,
+                   let taskCreatedAt = taskData["createdAt"] as? String,
+                   let taskUpdatedAt = taskData["updatedAt"] as? String {
+                    
+                    let taskTagsIDs = taskData["Tags"] as? [String] ?? []
+                    print("Task Tags IDs: \(taskTagsIDs)")  // デバッグ用
+                    print("Available Tags IDs: \(tags.map { $0.id })")  // デバッグ用
+                    
+                    let taskTags = tags.filter { taskTagsIDs.contains($0.id) }
+                    print("Filtered Task Tags: \(taskTags)")  // デバッグ用
+                    
+                    let task = TasQuestTask(id: taskDoc.documentID,
+                                            name: taskName,
+                                            description: taskDescription,
+                                            dueDate: taskDueDate,
+                                            maxHealth: taskMaxHealth,
+                                            currentHealth: taskCurrentHealth,
+                                            tags: taskTags,
+                                            isVisible: taskIsVisible,
+                                            createdAt: taskCreatedAt,
+                                            updatedAt: taskUpdatedAt)  // タグ情報を追加
+                    tasks.append(task)
+                    print("Processed task: \(taskName)")  // Log each processed task
+                } else {
+                    print("Skipping task due to incomplete data: \(taskData)")
+                }
+                taskDispatchGroup.leave()  // Leave the DispatchGroup when done processing this task
+                
+            }
+            taskDispatchGroup.notify(queue: .main) {
+                // This block will be executed once all tasks have been processed
+                completion(tasks, nil)
+            }
+        }
+    }
 }

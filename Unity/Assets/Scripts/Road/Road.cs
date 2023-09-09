@@ -53,7 +53,7 @@ public class Road : MonoBehaviour
         }
     }
 
-    async void Start() // 本来は OnGoalChanges()
+    async void RelocateTasks()
     {
         //本来はSwiftから先に呼ばれている
         User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
@@ -75,6 +75,16 @@ public class Road : MonoBehaviour
             idx++;
         }
         GenerateEnemyOrGoal(stagePositions[stagesNumber - 1], -1);
+    }
+    
+    void OnGoalChanged()
+    {
+        RelocateTasks();
+    }
+
+    void OnTaskDataChangedBySwift()
+    {
+        RelocateTasks();
     }
 
     async void GenerateEnemyOrGoal(Vector3 tgtPos, float maxHealth)

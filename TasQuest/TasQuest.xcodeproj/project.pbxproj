@@ -34,6 +34,8 @@
 		2263B7E52AAA616B0002E77E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2263B7E42AAA616B0002E77E /* FirebaseAnalytics */; };
 		2263B7E72AAA616B0002E77E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2263B7E62AAA616B0002E77E /* FirebaseAnalyticsSwift */; };
 		2263B7E92AAA616B0002E77E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2263B7E82AAA616B0002E77E /* FirebaseAuth */; };
+		22D14EE82AACEEF800612AE4 /* SignUpEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D14EE72AACEEF800612AE4 /* SignUpEmailView.swift */; };
+		22D14EEA2AACEF0D00612AE4 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D14EE92AACEF0D00612AE4 /* SignUpViewModel.swift */; };
 		A09724212AAADF2300752A07 /* StatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09724202AAADF2300752A07 /* StatusViewModel.swift */; };
 		A09724252AAADFD800752A07 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09724242AAADFD800752A07 /* StatusView.swift */; };
 /* End PBXBuildFile section */
@@ -83,6 +85,8 @@
 		2263B7C72AAA61440002E77E /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		2263B7C82AAA61440002E77E /* TasQuestApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasQuestApp.swift; sourceTree = "<group>"; };
 		2263B7C92AAA61440002E77E /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		22D14EE72AACEEF800612AE4 /* SignUpEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpEmailView.swift; sourceTree = "<group>"; };
+		22D14EE92AACEF0D00612AE4 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		A09724202AAADF2300752A07 /* StatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewModel.swift; sourceTree = "<group>"; };
 		A09724242AAADFD800752A07 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,6 +179,7 @@
 				2263B7B12AAA61440002E77E /* TaskViewModel.swift */,
 				2263B7B22AAA61440002E77E /* SignInEmailViewModel.swift */,
 				A09724202AAADF2300752A07 /* StatusViewModel.swift */,
+				22D14EE92AACEF0D00612AE4 /* SignUpViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -218,6 +223,7 @@
 				2263B7C62AAA61440002E77E /* SignInEmailView.swift */,
 				2263B7C72AAA61440002E77E /* SettingView.swift */,
 				A09724242AAADFD800752A07 /* StatusView.swift */,
+				22D14EE72AACEEF800612AE4 /* SignUpEmailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -370,6 +376,7 @@
 				2263B7DF2AAA61440002E77E /* SignInEmailView.swift in Sources */,
 				2263B7D22AAA61440002E77E /* AuthenticationManager.swift in Sources */,
 				2263B7CA2AAA61440002E77E /* TasQuestTests.swift in Sources */,
+				22D14EE82AACEEF800612AE4 /* SignUpEmailView.swift in Sources */,
 				2263B7E12AAA61440002E77E /* TasQuestApp.swift in Sources */,
 				2263B7CE2AAA61440002E77E /* TaskViewModel.swift in Sources */,
 				2263B7D72AAA61440002E77E /* Goal.swift in Sources */,
@@ -382,6 +389,7 @@
 				2263B7DA2AAA61440002E77E /* Tag.swift in Sources */,
 				2263B7DE2AAA61440002E77E /* AuthenticationView.swift in Sources */,
 				2263B7CD2AAA61440002E77E /* SettingViewModel.swift in Sources */,
+				22D14EEA2AACEF0D00612AE4 /* SignUpViewModel.swift in Sources */,
 				2263B7CF2AAA61440002E77E /* SignInEmailViewModel.swift in Sources */,
 				2263B7D62AAA61440002E77E /* AppData.swift in Sources */,
 			);

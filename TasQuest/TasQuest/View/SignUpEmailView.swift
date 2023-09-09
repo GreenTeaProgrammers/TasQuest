@@ -2,7 +2,7 @@
 //  SignUpEmailView.swift
 //  TasQuest
 //
-//  Created by ITS on 2023/09/10.
+//  Created by KinjiKawaguchi on 2023/09/10.
 //
 
 import SwiftUI

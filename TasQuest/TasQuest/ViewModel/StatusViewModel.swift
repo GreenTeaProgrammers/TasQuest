@@ -10,6 +10,8 @@ import SwiftUI
 
 
 class StatusViewModel: ObservableObject {
+
+    @Published var user: AppData = AppData()
     
     func setDummyData() -> AppData{
         return AppData(userid: "1", username: "Kinji", statuses: [
@@ -32,6 +34,14 @@ class StatusViewModel: ObservableObject {
         case 1: return Color(red: (253-30)/255, green: (236-30)/255, blue: (200-30)/255).opacity(1) // 黄色よりのオレンジ、少し濃い
         case 2: return Color(red: (219-30)/255, green: (237-30)/255, blue: (219-30)/255).opacity(1)
         default: return Color.gray
+        }
+    }
+
+    func toggleStar(forGoalWithID goalID: String) {
+        if let statusIndex = user.statuses.firstIndex(where: { status in
+            status.goals.contains { $0.id == goalID }
+        }), let goalIndex = user.statuses[statusIndex].goals.firstIndex(where: { $0.id == goalID }) {
+            user.statuses[statusIndex].goals[goalIndex].isStarred.toggle()
         }
     }
 }

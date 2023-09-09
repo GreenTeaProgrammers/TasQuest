@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct GoalRow: View {
-    var goal: Goal // Goal はあなたのモデルです
+    @ObservedObject var viewModel: StatusViewModel
+
+    var goal: Goal
 
     var body: some View {
         HStack {
@@ -17,11 +19,11 @@ struct GoalRow: View {
                 Text(goal.name)
                 Text(goal.dueDate)
             }
-
+            
             Spacer()
-
+            
             Button(action: {
-                // Star button tapped
+                viewModel.toggleStar(forGoalWithID: goal.id)
             }) {
                 Image(systemName: goal.isStarred ? "star.fill" : "star")
                     .foregroundColor(goal.isStarred ? .yellow : .gray)
@@ -46,17 +48,14 @@ struct StatusView: View {
 
     @StateObject private var viewModel = StatusViewModel()
     
-    // ダミーデータ
-    @State private var user: AppData = AppData()
-    
     var body: some View {
         VStack {
             // ウェルカムメッセージと設定ボタン
             HStack {
-                Text("ようこそ \(user.username)")
+                Text("ようこそ \(viewModel.user.username)")
                     .font(.headline)
                 Spacer()
-
+                
                 Button(action: {
                     showSettingView = true
                 }) {
@@ -68,20 +67,20 @@ struct StatusView: View {
                 }
             }
             .padding()
-
+            
             // ステータスとその目標を表示
             ScrollView {
-                ForEach(user.statuses.indices, id: \.self) { index in
-                    let status = user.statuses[index]
-
+                ForEach(viewModel.user.statuses.indices, id: \.self) { index in
+                    let status = viewModel.user.statuses[index]
+                    
                     VStack {
                         Text(status.name)
                             .font(.headline)
                             .foregroundColor(.black)
                             .padding(.top)
-
+                        
                         ForEach(status.goals, id: \.id) { goal in
-                            GoalRow(goal: goal)
+                            GoalRow(viewModel: viewModel, goal: goal)
                         }
                     }
                     .padding()
@@ -100,7 +99,7 @@ struct StatusView: View {
             AuthenticationView(showSignInView: $showSignInView)
         }
         .onAppear() {
-            user = viewModel.setDummyData()
+            viewModel.user = viewModel.setDummyData()
             let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
             self.showSignInView = authUser == nil
         }

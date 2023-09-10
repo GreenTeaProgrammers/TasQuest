@@ -13,11 +13,10 @@ public class Road : MonoBehaviour
     public static float radius;
     public static int stagesNumber;
     public static Vector3[] stagePositions;
+    public static string[] id;
+    public static AsyncOperationHandle<GameObject>[] handle;
 
     private const float INITIAL_RADIAN = 0;
-    
-    //テスト用変数
-    [SerializeField] private float testRadius;
 
     Task[] GetTasksFromJson()
     {
@@ -27,15 +26,17 @@ public class Road : MonoBehaviour
         return goals[0].tasks;
     }
 
-    void SetRadius(float arg)
+    void SetStagesNumberAndRadius(int arg)
     {
+        stagesNumber = arg;
         radius = arg;
-        testRadius = arg;
+        Array.Resize(ref stagePositions, arg);
+        Array.Resize(ref id, arg);
+        Array.Resize(ref handle, arg);
     }
 
-    void UpdateStages() 
+    void UpdateStages()
     {
-        Array.Resize(ref stagePositions, stagesNumber);
         stagePositions[0] = new Vector3
         (
             radius * MathF.Sin(INITIAL_RADIAN),
@@ -56,58 +57,98 @@ public class Road : MonoBehaviour
         }
     }
 
-    void OnGoalChanges() {
-        Task[] tasks = GetTasksFromJson();
-        stagesNumber = tasks.Length + 1;
-        SetRadius(100); // てきとう
+    void ClearHandle()
+    {
+        Debug.Log("clear start");
+        for (int i = 0; i < stagesNumber; i++)
+        {
+            Addressables.ReleaseInstance(handle[i]);
+        }
+        Debug.Log("clear end");
+    }
+    async System.Threading.Tasks.Task RelocateTasks()
+    {
+        ClearHandle();
+        //本来はSwiftから先に呼ばれている
+        User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
+        var querySnapshot = await User.fireStoreManager.ReadTasks();
+        foreach (var i in querySnapshot.Documents)
+        {
+            var dict = i.ToDictionary();
+        }
+        SetStagesNumberAndRadius(querySnapshot.Documents.Count() + 1);
         UpdateStages();
+        int idx = 0;
+        foreach (var taskDoc in querySnapshot.Documents)
+        {
+            await GenerateEnemyOrGoal
+            (
+                idx,
+                taskDoc.Id,
+                System.Convert.ToSingle(taskDoc.ToDictionary()["maxHealth"])
+            );
+            idx++;
+        }
+        await GenerateEnemyOrGoal(idx, "goal", -1);
+    }
+    
+    async System.Threading.Tasks.Task OnGoalChanged()
+    {
+        await RelocateTasks();
     }
 
-    async void GenerateEnemy(Vector3 tgtPos, float maxHealth)
+    async System.Threading.Tasks.Task OnTaskDataChangedBySwift()
     {
-        String enemyAddress;
-        if (maxHealth < 500)
+        await RelocateTasks();
+    }
+
+    async System.Threading.Tasks.Task GenerateEnemyOrGoal(int idx, string id, float maxHealth)
+    {
+        string address;
+        if (maxHealth < 0)
         {
-            enemyAddress = "EnemyWeak";
+            address = "Goal";
+        }
+        else if (maxHealth < 500)
+        {
+            address = "EnemyWeak";
         }
         else if (maxHealth < 1000)
         {
-            enemyAddress = "EnemyNormal";
+            address = "EnemyNormal";
         }
         else
         {
-            enemyAddress = "EnemyStrong";
+            address = "EnemyStrong";
         }
-        AsyncOperationHandle<GameObject> handle = Addressables.InstantiateAsync
+        handle[idx] = Addressables.InstantiateAsync
         (
-            enemyAddress,
+            address,
             Vector3.zero,
             Quaternion.identity
         );
-        await handle.Task;
-        GameObject enemy = handle.Result;
-        enemy.transform.position = tgtPos;
+        await handle[idx].Task;
+        GameObject enemy = handle[idx].Result;
+        enemy.transform.position = stagePositions[idx];
         
-        float sin = tgtPos.x / radius;
-        float cos = tgtPos.z / radius;
+        Debug.Log("generated");
+        
+        float sin = stagePositions[idx].x / radius;
+        float cos = stagePositions[idx].z / radius;
         float radian = MathF.Acos(cos); // 0 - PI
         if (sin < -0.001) radian = MathF.PI + (MathF.PI - radian);
         float deg = radian * 180 / MathF.PI;
-        
-        Debug.Log(radian * 180 / MathF.PI);
+
+        //Debug.Log(maxHealth);
+        //Debug.Log(radian * 180 / MathF.PI);
         
         Quaternion rot = Quaternion.AngleAxis(90 + deg, Vector3.up);
         enemy.transform.rotation *= rot;
     }
-    
-    void Start()
+
+    async void Start()
     {
-        stagesNumber = 10;
-        SetRadius(stagesNumber); // * 1.5 とかも試したけど現状そのまま放り込んでよい感じ
-        UpdateStages();
-        for (int i = 0; i < stagesNumber; i++)
-        {
-            GenerateEnemy(stagePositions[i], 100);
-        }
+        await RelocateTasks();
+        ClearHandle(); // test
     }
 }

@@ -25,6 +25,7 @@ public class TouchHandller : MonoBehaviour
     private CameraMovement _cameraMovement;
     private CurrentHealthChanger _currentHealthChanger;
     private DamageDiffManager _damageDiffManager;
+    private TaskcardManager _taskcardManager;
     
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class TouchHandller : MonoBehaviour
         _cameraMovement = mainCamera.GetComponent<CameraMovement>();
         _currentHealthChanger = currentHP.GetComponent<CurrentHealthChanger>();
         _damageDiffManager = damageDiff.GetComponent<DamageDiffManager>();
+        _taskcardManager = GameObject.Find("TaskCard").GetComponent<TaskcardManager>();
     }
 
     // Update is called once per frame
@@ -173,7 +175,8 @@ public class TouchHandller : MonoBehaviour
     //が格納されていま
     private void Pinch(float pinchDistance)
     {
-        _currentHealthChanger.PinchCurrentHealth(pinchDistance);
+        // _currentHealthChanger.PinchCurrentHealth(pinchDistance);
+        _taskcardManager.PinchControl(pinchDistance);
     }
 
     private void PinchEnd(float pinchDistance)

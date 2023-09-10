@@ -72,7 +72,18 @@ public class CurrentHealthChanger : MonoBehaviour
     /// <param name="pinchDistance"></param>
     public void PinchMaxHealth(float pinchDistance)
     {
+        _maxHealth += Mathf.Floor(pinchDistance * 10);
+        _maxHealth = Mathf.Clamp(_maxHealth, _currentHealth, 3000);
+        _maxHealth = Mathf.Clamp(_maxHealth, 100, 3000);
         
+        
+        Vector3 newScale = new Vector3(_currentHealth / _maxHealth,
+            1.0f,
+            1.0f);
+        
+        _hpTextManager.OnHealthChanged(_currentHealth, _maxHealth);
+        Debug.Log($"maxHealth: {_maxHealth}");
+        _myRectTransform.localScale = newScale;
     }
 
     /// <summary>

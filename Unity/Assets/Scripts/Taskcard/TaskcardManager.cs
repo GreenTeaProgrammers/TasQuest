@@ -87,6 +87,7 @@ public class TaskcardManager : MonoBehaviour
         if (isEditMode)
         {
             //maxHpを変化させる
+            _currentHpChanger.PinchMaxHealth(pinchDistance);
         }
         else
         {

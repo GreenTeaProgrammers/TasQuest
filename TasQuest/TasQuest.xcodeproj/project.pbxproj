@@ -35,14 +35,11 @@
 		2263B7E52AAA616B0002E77E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2263B7E42AAA616B0002E77E /* FirebaseAnalytics */; };
 		2263B7E72AAA616B0002E77E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2263B7E62AAA616B0002E77E /* FirebaseAnalyticsSwift */; };
 		2263B7E92AAA616B0002E77E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2263B7E82AAA616B0002E77E /* FirebaseAuth */; };
-<<<<<<< HEAD
 		22D14EEE2AAD54A400612AE4 /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D14EED2AAD54A400612AE4 /* PageModel.swift */; };
 		22D14EF02AAD5AFE00612AE4 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D14EEF2AAD5AFE00612AE4 /* WelcomeView.swift */; };
 		22D14EF22AAD5BAA00612AE4 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D14EF12AAD5BAA00612AE4 /* PageView.swift */; };
-=======
 		229830642AAC92ED00358866 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229830632AAC92ED00358866 /* Throttler.swift */; };
 		A06244522AAC388B00ABD2DB /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06244512AAC388B00ABD2DB /* FireStoreManager.swift */; };
->>>>>>> develop
 		A09724212AAADF2300752A07 /* StatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09724202AAADF2300752A07 /* StatusViewModel.swift */; };
 		A09724252AAADFD800752A07 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09724242AAADFD800752A07 /* StatusView.swift */; };
 /* End PBXBuildFile section */
@@ -91,14 +88,11 @@
 		2263B7C62AAA61440002E77E /* SignInEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInEmailView.swift; sourceTree = "<group>"; };
 		2263B7C72AAA61440002E77E /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		2263B7C82AAA61440002E77E /* TasQuestApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasQuestApp.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		22D14EED2AAD54A400612AE4 /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
 		22D14EEF2AAD5AFE00612AE4 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		22D14EF12AAD5BAA00612AE4 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
-=======
 		229830632AAC92ED00358866 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		A06244512AAC388B00ABD2DB /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
->>>>>>> develop
 		A09724202AAADF2300752A07 /* StatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewModel.swift; sourceTree = "<group>"; };
 		A09724242AAADFD800752A07 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -254,7 +248,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
 		22D14EEB2AAD548600612AE4 /* WelcomeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,7 +262,6 @@
 				22D14EED2AAD54A400612AE4 /* PageModel.swift */,
 			);
 			path = WelcomeView;
-=======
 		229830612AAC77E100358866 /* src */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,7 +275,6 @@
 			children = (
 			);
 			path = MVVM;
->>>>>>> develop
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -58,16 +58,14 @@ public class Road : MonoBehaviour
         //本来はSwiftから先に呼ばれている
         User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
         var querySnapshot = await User.fireStoreManager.ReadTasks();
-        int idx = 0;
         foreach (var i in querySnapshot.Documents)
         {
             var dict = i.ToDictionary();
-            idx++;
         }
-        stagesNumber = idx + 1;
+        stagesNumber = querySnapshot.Documents.Count() + 1;
         SetRadius(stagesNumber);
         UpdateStages();
-        idx = 0;
+        int idx = 0;
         foreach (var i in querySnapshot.Documents)
         {
             var dict = i.ToDictionary();
@@ -127,5 +125,10 @@ public class Road : MonoBehaviour
         
         Quaternion rot = Quaternion.AngleAxis(90 + deg, Vector3.up);
         enemy.transform.rotation *= rot;
+    }
+
+    void Start()
+    {
+        RelocateTasks();
     }
 }

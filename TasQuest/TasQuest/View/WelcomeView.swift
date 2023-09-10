@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    
+    @Binding var isNotAuthed: Bool
+
+    
+    @State private var showAuthenticationView: Bool = false
     @State private var pageIndex = 0
     private let pages: [Page] = Page.samplePages
     private let dotAppearance = UIPageControl.appearance()
@@ -21,7 +26,9 @@ struct WelcomeView: View {
                         PageView(page: page)
                         Spacer()
                         if page == pages.last {
-                            NavigationLink(destination: AuthenticationView(showSignInView: .constant(true))) {
+                            Button(action: {
+                                showAuthenticationView = true  // ボタンが押されたらモーダルを表示
+                            }) {
                                 Text("新規登録・ログイン")
                                     .font(.headline)
                                     .foregroundColor(.white)
@@ -31,8 +38,6 @@ struct WelcomeView: View {
                                     .cornerRadius(8)
                                     .shadow(radius: 4)
                             }
-                            .buttonStyle(PlainButtonStyle())
-                            
                             Spacer()
                         }
                     }
@@ -46,6 +51,10 @@ struct WelcomeView: View {
                 dotAppearance.currentPageIndicatorTintColor = .black
                 dotAppearance.pageIndicatorTintColor = .gray
             }
+        }
+        .fullScreenCover(isPresented: $showAuthenticationView) {  // モーダル表示のための.sheet モディファイア
+            AuthenticationView(isNotAuthed: $isNotAuthed)
+            
         }
     }
 }

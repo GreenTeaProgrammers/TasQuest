@@ -75,10 +75,9 @@ struct GoalRow: View {
         .padding(.bottom, 8)
     }
 }
-
-
+    
 struct StatusView: View {
-    @State private var showSignInView: Bool = false
+    @State private var isNotAuthed: Bool = false
     @State private var showSettingView: Bool = false
 
     @StateObject private var viewModel = StatusViewModel()
@@ -99,14 +98,10 @@ struct StatusView: View {
                             .resizable()
                             .frame(width: 24, height: 24)
                     }.sheet(isPresented: $showSettingView) {
-                        SettingView(showSignInView: $showSignInView)
+                        SettingView(showSignInView: $isNotAuthed)
                     }
                 }
                 .padding()
-                .onAppear(){
-                    viewModel.fetchAppData()
-                }
-                
                 // ステータスとその目標を表示
                 ScrollView {
                     ForEach(viewModel.user.statuses.indices, id: \.self) { index in
@@ -147,13 +142,18 @@ struct StatusView: View {
                     }
                 }
             }
-            .fullScreenCover(isPresented: $showSignInView) {
-                WelcomeView()
+            .fullScreenCover(isPresented: $isNotAuthed) {
+                WelcomeView(isNotAuthed: $isNotAuthed)
             }
             .onAppear() {
-                viewModel.fetchAppData() // これだけでOK
-                let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
-                self.showSignInView = authUser == nil
+                viewModel.fetchAppData()
+                do {
+                    let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
+                    print("Authenticated user: \(String(describing: authUser))")  // Debug line
+                    self.isNotAuthed = authUser == nil
+                } catch {
+                    print("Error fetching authenticated user: \(error)")  // Debug line
+                }
             }
             Spacer()
         }

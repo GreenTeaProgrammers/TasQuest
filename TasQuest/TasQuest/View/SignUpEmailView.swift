@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct SignUpEmailView: View {
-    @Binding var showSignInView: Bool
+    @Binding var isNotAuthed: Bool
     
     @StateObject private var viewModel = SignUpEmailViewModel()
     @State private var errorMessage: String? = nil  // New state variable for the error message
@@ -42,9 +42,13 @@ struct SignUpEmailView: View {
                 Task {
                     do {
                         try await viewModel.signUp()
-                        showSignInView = false
-                        presentationMode.wrappedValue.dismiss()
+                        print("Sign up successful.")  // Debug line
+                        DispatchQueue.main.async {
+                            isNotAuthed = false
+                            presentationMode.wrappedValue.dismiss()
+                        }
                     } catch {
+                        print("Sign up failed with error: \(error)")  // Debug line
                         errorMessage = viewModel.errorMessage
                     }
                 }

@@ -16,13 +16,13 @@ final class AuthenticationManager{
     static let shared = AuthenticationManager()
     private init() { }
     
-    func getAuthenticatedUser() throws -> AuthDataResultModel{
+    func getAuthenticatedUser() throws -> AuthDataResultModel? {
         guard let user = Auth.auth().currentUser else {
-            throw URLError(.badServerResponse)
+            return nil
         }
-        
         return AuthDataResultModel(user: user)
     }
+
     
     @discardableResult
     func createUser(username: String, email: String, password: String) async throws ->  AuthDataResultModel {

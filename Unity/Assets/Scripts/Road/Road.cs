@@ -7,7 +7,6 @@ using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using Object = System.Object;
 
 public class Road : MonoBehaviour
 {

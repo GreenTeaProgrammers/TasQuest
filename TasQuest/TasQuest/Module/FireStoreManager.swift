@@ -445,7 +445,7 @@ extension FirestoreManager {
                 "dueDate": goal.dueDate,
                 "isStarred": goal.isStarred ? 1 : 0,
                 "tags": goal.tags.map { $0.id },
-                "thumbnail": goal.thumbnail,
+                "thumbnail": goal.thumbnail ?? "", // Default to an empty string if nil
                 "createdAt": goal.createdAt,
                 "updatedAt": goal.updatedAt
             ]

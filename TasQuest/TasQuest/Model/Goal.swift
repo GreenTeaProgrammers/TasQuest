@@ -20,7 +20,7 @@ struct Goal: Codable, Identifiable {
     var createdAt: String //YYYY-MM-DD/HH:MM:SS
     var updatedAt: String //YYYY-MM-DD/HH:MM:SS
     
-        init(data: [String: Any], tasks: [TasQuestTask], tags: [Tag]) {
+    init(data: [String: Any], tasks: [TasQuestTask], tags: [Tag]) {
         self.id = data["id"] as? String ?? ""
         self.name = data["name"] as? String ?? ""
         self.description = data["description"] as? String ?? ""

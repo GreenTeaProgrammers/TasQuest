@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct TaskView: View {
+    @State var appData: AppData
     @State var goal: Goal
+    @State var showingCreateTaskModal = false  // ハーフモーダルの表示状態を管理
     
     
     var body: some View {
@@ -49,7 +51,8 @@ struct TaskView: View {
                     Spacer()
                     
                     Button(action: {
-                        // Add Task
+                        showingCreateTaskModal.toggle()  // ハーフモーダルを表示
+
                     }) {
                         Image(systemName: "circle.fill")
                             .resizable()
@@ -61,7 +64,10 @@ struct TaskView: View {
                                     .frame(width: 20, height: 20)
                                     .foregroundColor(.white)
                             )
+                    }.sheet(isPresented: $showingCreateTaskModal) {
+                        CreateTaskHalfModalView(appData: $appData)  // ハーフモーダルの内容
                     }
+                    
                     
                     Button(action: {
                         // Game View

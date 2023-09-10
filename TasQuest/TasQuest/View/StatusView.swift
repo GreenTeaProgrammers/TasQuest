@@ -14,7 +14,7 @@ struct GoalRow: View {
     var goal: Goal
 
     var body: some View {
-        NavigationLink(destination: TaskView(goal: goal)) { // <-- NavigationLinkでラッピング
+        NavigationLink(destination: TaskView(appData: viewModel.user, goal: goal)) { // <-- NavigationLinkでラッピング
             HStack {
                 Text(goal.name)
                     .lineLimit(1)
@@ -118,7 +118,7 @@ struct StatusView: View {
                             ForEach(status.goals, id: \.id) { goal in
                                 GoalRow(viewModel: viewModel, goal: goal)
                                     .background(
-                                        NavigationLink("", destination: TaskView(goal: goal)) // <-- 追加
+                                        NavigationLink("", destination: TaskView(appData: viewModel.user, goal: goal))  // <-- `user`を追加
                                             .opacity(0)
                                     )
                             }

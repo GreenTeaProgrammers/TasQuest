@@ -101,4 +101,4 @@ fastlane/test_output
 
 # Code Injection
 iOSInjectionProject/
-.DS_Store
+*.DS_Store

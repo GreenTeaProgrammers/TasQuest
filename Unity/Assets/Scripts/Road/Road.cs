@@ -14,6 +14,8 @@ public class Road : MonoBehaviour
     public static float radius;
     public static int stagesNumber;
     public static Vector3[] stagePositions;
+    public static string[] id;
+    public static AsyncOperationHandle<GameObject>[] handle;
 
     private const float INITIAL_RADIAN = 0;
 
@@ -25,14 +27,17 @@ public class Road : MonoBehaviour
         return goals[0].tasks;
     }
 
-    void SetRadius(float arg)
+    void SetStagesNumberAndRadius(int arg)
     {
+        stagesNumber = arg;
         radius = arg;
+        Array.Resize(ref stagePositions, arg);
+        Array.Resize(ref id, arg);
+        Array.Resize(ref handle, arg);
     }
 
     void UpdateStages()
     {
-        Array.Resize(ref stagePositions, stagesNumber);
         stagePositions[0] = new Vector3
         (
             radius * MathF.Sin(INITIAL_RADIAN),
@@ -53,8 +58,18 @@ public class Road : MonoBehaviour
         }
     }
 
-    async void RelocateTasks()
+    void Clear()
     {
+        Debug.Log("clear start");
+        for (int i = 0; i < stagesNumber; i++)
+        {
+            Addressables.ReleaseInstance(handle[i]);
+        }
+        Debug.Log("clear end");
+    }
+    async System.Threading.Tasks.Task RelocateTasks()
+    {
+        Clear();
         //本来はSwiftから先に呼ばれている
         User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
         var querySnapshot = await User.fireStoreManager.ReadTasks();
@@ -62,17 +77,16 @@ public class Road : MonoBehaviour
         {
             var dict = i.ToDictionary();
         }
-        stagesNumber = querySnapshot.Documents.Count() + 1;
-        SetRadius(stagesNumber);
+        SetStagesNumberAndRadius(querySnapshot.Documents.Count() + 1);
         UpdateStages();
         int idx = 0;
         foreach (var i in querySnapshot.Documents)
         {
             var dict = i.ToDictionary();
-            GenerateEnemyOrGoal(stagePositions[idx], System.Convert.ToSingle(dict["maxHealth"]));
+            await GenerateEnemyOrGoal(idx, i.Id, System.Convert.ToSingle(dict["maxHealth"]));
             idx++;
         }
-        GenerateEnemyOrGoal(stagePositions[stagesNumber - 1], -1);
+        await GenerateEnemyOrGoal(idx, "goal", -1);
     }
     
     void OnGoalChanged()
@@ -85,7 +99,7 @@ public class Road : MonoBehaviour
         RelocateTasks();
     }
 
-    async void GenerateEnemyOrGoal(Vector3 tgtPos, float maxHealth)
+    async System.Threading.Tasks.Task GenerateEnemyOrGoal(int idx, string id, float maxHealth)
     {
         string address;
         if (maxHealth < 0)
@@ -104,31 +118,34 @@ public class Road : MonoBehaviour
         {
             address = "EnemyStrong";
         }
-        AsyncOperationHandle<GameObject> handle = Addressables.InstantiateAsync
+        handle[idx] = Addressables.InstantiateAsync
         (
             address,
             Vector3.zero,
             Quaternion.identity
         );
-        await handle.Task;
-        GameObject enemy = handle.Result;
-        enemy.transform.position = tgtPos;
+        await handle[idx].Task;
+        GameObject enemy = handle[idx].Result;
+        enemy.transform.position = stagePositions[idx];
         
-        float sin = tgtPos.x / radius;
-        float cos = tgtPos.z / radius;
+        Debug.Log("generated");
+        
+        float sin = stagePositions[idx].x / radius;
+        float cos = stagePositions[idx].z / radius;
         float radian = MathF.Acos(cos); // 0 - PI
         if (sin < -0.001) radian = MathF.PI + (MathF.PI - radian);
         float deg = radian * 180 / MathF.PI;
 
-        Debug.Log(maxHealth);
-        Debug.Log(radian * 180 / MathF.PI);
+        //Debug.Log(maxHealth);
+        //Debug.Log(radian * 180 / MathF.PI);
         
         Quaternion rot = Quaternion.AngleAxis(90 + deg, Vector3.up);
         enemy.transform.rotation *= rot;
     }
 
-    void Start()
+    async void Start()
     {
-        RelocateTasks();
+        await RelocateTasks();
+        Clear(); // test
     }
 }

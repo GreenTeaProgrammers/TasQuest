@@ -6,7 +6,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField]private float _radius = 7.0f;
-    float _initialAngle;
+    [SerializeField]float _initialAngle;
     private float _currentDist = 0.0f;
     
     // Start is called before the first frame update

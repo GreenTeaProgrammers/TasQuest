@@ -19,7 +19,6 @@
 		22B3F0202AAD978C00BD5781 /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3EFFA2AAD978C00BD5781 /* FireStoreManager.swift */; };
 		22B3F0212AAD978C00BD5781 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22B3EFFB2AAD978C00BD5781 /* Assets.xcassets */; };
 		22B3F0222AAD978C00BD5781 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22B3EFFC2AAD978C00BD5781 /* GoogleService-Info.plist */; };
-		22B3F0232AAD978C00BD5781 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22B3EFFE2AAD978C00BD5781 /* Preview Assets.xcassets */; };
 		22B3F0242AAD978C00BD5781 /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3F0012AAD978C00BD5781 /* PageModel.swift */; };
 		22B3F0252AAD978C00BD5781 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3F0022AAD978C00BD5781 /* AppData.swift */; };
 		22B3F0262AAD978C00BD5781 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3F0032AAD978C00BD5781 /* Goal.swift */; };
@@ -36,9 +35,6 @@
 		22B3F0312AAD978C00BD5781 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3F00F2AAD978C00BD5781 /* SettingView.swift */; };
 		22B3F0322AAD978C00BD5781 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3F0102AAD978C00BD5781 /* PageView.swift */; };
 		22B3F0332AAD978C00BD5781 /* TasQuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3F0112AAD978C00BD5781 /* TasQuestApp.swift */; };
-		22B3F0342AAD978C00BD5781 /* TasQuestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3F0132AAD978C00BD5781 /* TasQuestUITestsLaunchTests.swift */; };
-		22B3F0352AAD978C00BD5781 /* TasQuestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3F0142AAD978C00BD5781 /* TasQuestUITests.swift */; };
-		22B3F0362AAD978C00BD5781 /* TasQuestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3F0162AAD978C00BD5781 /* TasQuestTests.swift */; };
 		22B3F0392AAD980100BD5781 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 22B3F0382AAD980100BD5781 /* FirebaseAnalytics */; };
 		22B3F03B2AAD980100BD5781 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 22B3F03A2AAD980100BD5781 /* FirebaseAnalyticsSwift */; };
 		22B3F03D2AAD980100BD5781 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 22B3F03C2AAD980100BD5781 /* FirebaseAuth */; };
@@ -79,7 +75,6 @@
 		22B3EFFA2AAD978C00BD5781 /* FireStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
 		22B3EFFB2AAD978C00BD5781 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22B3EFFC2AAD978C00BD5781 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		22B3EFFE2AAD978C00BD5781 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		22B3F0012AAD978C00BD5781 /* PageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
 		22B3F0022AAD978C00BD5781 /* AppData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		22B3F0032AAD978C00BD5781 /* Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
@@ -134,15 +129,13 @@
 		22B3EFB82AAD947E00BD5781 = {
 			isa = PBXGroup;
 			children = (
-				22B3F0112AAD978C00BD5781 /* TasQuestApp.swift */,
-				22B3F0082AAD978C00BD5781 /* View */,
 				22B3EFFF2AAD978C00BD5781 /* Model */,
-				22B3EFFD2AAD978C00BD5781 /* Preview Content */,
+				22B3F0082AAD978C00BD5781 /* View */,
+				22B3EFEF2AAD978C00BD5781 /* ViewModel */,
+				22B3EFF52AAD978C00BD5781 /* Module */,
+				22B3F0112AAD978C00BD5781 /* TasQuestApp.swift */,
 				22B3EFFB2AAD978C00BD5781 /* Assets.xcassets */,
 				22B3EFFC2AAD978C00BD5781 /* GoogleService-Info.plist */,
-				22B3EFF52AAD978C00BD5781 /* Module */,
-				22B3EFEF2AAD978C00BD5781 /* ViewModel */,
-				22B3EFEE2AAD978C00BD5781 /* TasQuest */,
 				22B3F0152AAD978C00BD5781 /* TasQuestTests */,
 				22B3F0122AAD978C00BD5781 /* TasQuestUITests */,
 				22B3EFC22AAD947E00BD5781 /* Products */,
@@ -157,13 +150,6 @@
 				22B3EFDB2AAD948000BD5781 /* TasQuestUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		22B3EFEE2AAD978C00BD5781 /* TasQuest */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TasQuest;
 			sourceTree = "<group>";
 		};
 		22B3EFEF2AAD978C00BD5781 /* ViewModel */ = {
@@ -188,15 +174,6 @@
 				22B3EFFA2AAD978C00BD5781 /* FireStoreManager.swift */,
 			);
 			path = Module;
-			sourceTree = "<group>";
-		};
-		22B3EFFD2AAD978C00BD5781 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				22B3EFFE2AAD978C00BD5781 /* Preview Assets.xcassets */,
-			);
-			name = "Preview Content";
-			path = "TasQuest/Preview Content";
 			sourceTree = "<group>";
 		};
 		22B3EFFF2AAD978C00BD5781 /* Model */ = {
@@ -368,7 +345,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				22B3F0212AAD978C00BD5781 /* Assets.xcassets in Resources */,
-				22B3F0232AAD978C00BD5781 /* Preview Assets.xcassets in Resources */,
 				22B3F0222AAD978C00BD5781 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,11 +381,9 @@
 				22B3F01F2AAD978C00BD5781 /* AuthenticationManager.swift in Sources */,
 				22B3F01C2AAD978C00BD5781 /* Throttler.swift in Sources */,
 				22B3F01A2AAD978C00BD5781 /* SignInEmailViewModel.swift in Sources */,
-				22B3F0342AAD978C00BD5781 /* TasQuestUITestsLaunchTests.swift in Sources */,
 				22B3F02C2AAD978C00BD5781 /* StatusView.swift in Sources */,
 				22B3F0262AAD978C00BD5781 /* Goal.swift in Sources */,
 				22B3F0332AAD978C00BD5781 /* TasQuestApp.swift in Sources */,
-				22B3F0362AAD978C00BD5781 /* TasQuestTests.swift in Sources */,
 				22B3F01D2AAD978C00BD5781 /* CustomEasing.swift in Sources */,
 				22B3F0192AAD978C00BD5781 /* TaskViewModel.swift in Sources */,
 				22B3F0282AAD978C00BD5781 /* Status.swift in Sources */,
@@ -422,7 +396,6 @@
 				22B3F0312AAD978C00BD5781 /* SettingView.swift in Sources */,
 				22B3F0272AAD978C00BD5781 /* TasQuestTask.swift in Sources */,
 				22B3F0252AAD978C00BD5781 /* AppData.swift in Sources */,
-				22B3F0352AAD978C00BD5781 /* TasQuestUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,7 +550,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"TasQuest/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3J329298Z2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -606,7 +579,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"TasQuest/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3J329298Z2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

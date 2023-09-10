@@ -22,7 +22,8 @@ final class SignUpEmailViewModel: ObservableObject {
         }
         
         do {
-            try await AuthenticationManager.shared.createUser(username: username, email: email, password: password)
+            var authModel:AuthDataResultModel = try await AuthenticationManager.shared.createUser(username: username, email: email, password: password)
+            AuthenticationManager.shared.createUserData(userid: authModel.uid, username: username)
         } catch {
             errorMessage = "Failed to sign up."
             throw error

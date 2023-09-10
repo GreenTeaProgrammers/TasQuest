@@ -10,10 +10,32 @@ import SwiftUI
 
 
 class StatusViewModel: ObservableObject {
-
-    @Published var user: AppData = AppData()
     
-    let allTags = [Tag(id: "1", name: "urg123123123123ent", color: [1.0, 0.0, 0.0], createdAt: "2023-07-15/12:00:00", updatedAt: "2023-07-15/12:05:00"),
+    @Published var user: AppData = AppData() // これはUIと同期されます
+    
+    // 使用例
+    let fetchThrottler = Throttler(delay: 10)  // 60秒ごとに実行を許可
+    // fetchAppData()が呼び出されたら、非同期でデータを取得して@Publishedプロパティを更新する
+    func fetchAppData() {
+        fetchThrottler.run {
+            FirestoreManager.shared.fetchAppData { fetchedAppData in
+                guard let fetchedAppData = fetchedAppData else {
+                    print("Failed to fetch AppData")
+                    return
+                }
+                
+                // 成功した場合、userプロパティに取得したAppDataを格納する
+                self.user = fetchedAppData
+                
+                // デバッグ用
+                print("Fetched AppData: \(fetchedAppData)")
+                print("Username: \(fetchedAppData.username)")
+            }
+            
+        }
+    }
+    /*
+    let allTags = []/*[Tag(id: "1", name: "urg123123123123ent", color: [1.0, 0.0, 0.0], createdAt: "2023-07-15/12:00:00", updatedAt: "2023-07-15/12:05:00"),
                    Tag(id: "2", name: "database", color: [0.0, 0.5, 0.0], createdAt: "2023-07-16/13:00:00", updatedAt: "2023-07-16/13:05:00"),
                    Tag(id: "3", name: "design", color: [0.0, 0.0, 1.0], createdAt: "2023-07-17/14:00:00", updatedAt: "2023-07-17/14:05:00"),
                    Tag(id: "4", name: "code", color: [0.5, 0.2, 0.7], createdAt: "2023-07-18/15:00:00", updatedAt: "2023-07-18/15:05:00"),
@@ -31,14 +53,27 @@ class StatusViewModel: ObservableObject {
                    Tag(id: "16", name: "server", color: [0.2, 0.2, 0.2], createdAt: "2023-07-30/04:00:00", updatedAt: "2023-07-30/04:05:00"),
                    Tag(id: "17", name: "training", color: [0.5, 0.0, 0.5], createdAt: "2023-07-31/05:00:00", updatedAt: "2023-07-31/05:05:00"),
                    Tag(id: "18", name: "marketing", color: [0.5, 0.5, 0.0], createdAt: "2023-08-01/06:00:00", updatedAt: "2023-08-01/06:05:00"),
-                   Tag(id: "19", name: "it", color: [0.0, 0.5, 0.5], createdAt: "2023-08-02/07:00:00", updatedAt: "2023-08-02/07:05:00")]
+                   Tag(id: "19", name: "it", color: [0.0, 0.5, 0.5], createdAt: "2023-08-02/07:00:00", updatedAt: "2023-08-02/07:05:00")]*/
             
     func getRandomTags() -> [Tag] {
         let tagCount = Int.random(in: 1...5) // 1〜3個のタグを選ぶ
         return Array(Set((0..<tagCount).map { _ in allTags.randomElement()! })).sorted(by: { $0.id < $1.id })
     }
     
-    
+    func fetchAppData(){
+        FirestoreManager.shared.fetchAppData { appData in
+            guard let appData = appData else {
+                print("Failed to fetch AppData")
+                return
+            }
+            
+            // 成功した場合の処理をここに書く
+            print("Fetched AppData: \(appData)")
+            
+            // 例：username を表示
+            print("Username: \(appData.username)")
+        }
+    }
     
     func setDummyData() -> AppData{
         return AppData(userid: "1", username: "Kinji", statuses: [
@@ -78,6 +113,7 @@ class StatusViewModel: ObservableObject {
             ], updatedAt: "")
         ], tags: allTags)
     }
+     */
     
     func backgroundColor(for index: Int) -> Color {
         switch index {

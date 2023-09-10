@@ -28,7 +28,7 @@ public class DamageDiffManager : MonoBehaviour
     /// DamageDiffのスケールをcurrentHpのスケールと統一するための関数です。
     /// </summary>
     /// <param name="currentHpScale"></param>
-    public void UnifyScaleWithCurrentHp(Vector3 currentHpScale)
+    public void SetScale(Vector3 currentHpScale)
     {
         _myRectTransform.localScale = currentHpScale;
         _baseScale = currentHpScale;
@@ -52,7 +52,7 @@ public class DamageDiffManager : MonoBehaviour
         //currentHpが増える場合はトランジションしない
         if (_transitionDiff.x > 0.0f)
         {
-            UnifyScaleWithCurrentHp(currentHealthScale);
+            SetScale(currentHealthScale);
         }
         else
         {

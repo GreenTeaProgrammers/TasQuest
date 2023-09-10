@@ -173,7 +173,7 @@ public class TouchHandller : MonoBehaviour
     //が格納されていま
     private void Pinch(float pinchDistance)
     {
-        _currentHealthChanger.PinchScale(pinchDistance);
+        _currentHealthChanger.PinchCurrentHealth(pinchDistance);
     }
 
     private void PinchEnd(float pinchDistance)

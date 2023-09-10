@@ -1,13 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class CurrentHealthChanger : MonoBehaviour
 {
-    private static bool isEditMode;
-    
     //Firestore
     private string _taskID;
     
@@ -15,36 +9,49 @@ public class CurrentHealthChanger : MonoBehaviour
     private Vector3 _baseScale;
     private RectTransform _myRectTransform;
     
-    //DamageDiff's
+    //DamageDiff
     private GameObject _damageDiff;
     private DamageDiffManager _damageDiffManager;
+    
+    //HpText
+    private GameObject _hpText;
+    private HpTextManager _hpTextManager;
+    
+    //global variables
+    private float _currentHealth;
+    private float _maxHealth;
     
     void Start()
     {
         _myRectTransform = this.GetComponent<RectTransform>();
         _baseScale = _myRectTransform.localScale;
+        
         _damageDiff = GameObject.Find("DamageDiff");
         _damageDiffManager = _damageDiff.GetComponent<DamageDiffManager>();
-        
-        _damageDiffManager.UnifyScaleWithCurrentHp(_baseScale);
 
-        isEditMode = TaskcardManager.IsEditMode;
+        _hpText = GameObject.Find("HpText");
+        _hpTextManager = _hpText.GetComponent<HpTextManager>();
+        
+        _damageDiffManager.SetScale(_baseScale);
     }
 
-    public void OnDataChanged(float newScale)
+    public void OnHealthChanged(float currentHealth, float maxHealth)
     {
-        _myRectTransform.localScale = new Vector3(newScale, 1.0f, 1.0f);
+        _currentHealth = currentHealth;
+        _maxHealth = maxHealth;
+        
+        _myRectTransform.localScale = new Vector3(_currentHealth / _maxHealth, 1.0f, 1.0f);
         _baseScale = _myRectTransform.localScale;
-        _damageDiffManager.UnifyScaleWithCurrentHp(_baseScale);
+        _damageDiffManager.SetScale(_baseScale);
     }
     
     /// <summary>
     /// ピンチイン、アウトでcurrentHpのスケールを変化させる関数です。
     /// </summary>
     /// <param name="pinchDistance"></param>
-    public void PinchScale(float pinchDistance)
+    public void PinchCurrentHealth(float pinchDistance)
     {
-        _damageDiffManager.UnifyScaleWithCurrentHp(_baseScale);
+        _damageDiffManager.SetScale(_baseScale);
         Vector3 newScale = new Vector3(_baseScale.x + pinchDistance,
             _baseScale.y,
             _baseScale.z);
@@ -52,7 +59,20 @@ public class CurrentHealthChanger : MonoBehaviour
         //scaleを0.0 ~ 1.0に丸める
         newScale.x = Mathf.Clamp(newScale.x, 0.0f, 1.0f);
         
+        //HpTextを更新
+        _currentHealth = Mathf.Floor(_maxHealth * newScale.x);
+        _hpTextManager.OnHealthChanged(_currentHealth, _maxHealth);
+        
         _myRectTransform.localScale = newScale;
+    }
+
+    /// <summary>
+    /// ピンチイン、アウトでmaxHealthを変化させる関数です。
+    /// </summary>
+    /// <param name="pinchDistance"></param>
+    public void PinchMaxHealth(float pinchDistance)
+    {
+        
     }
 
     /// <summary>

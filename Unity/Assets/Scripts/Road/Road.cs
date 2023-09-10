@@ -58,7 +58,7 @@ public class Road : MonoBehaviour
         }
     }
 
-    void Clear()
+    void ClearHandle()
     {
         Debug.Log("clear start");
         for (int i = 0; i < stagesNumber; i++)
@@ -69,7 +69,7 @@ public class Road : MonoBehaviour
     }
     async System.Threading.Tasks.Task RelocateTasks()
     {
-        Clear();
+        ClearHandle();
         //本来はSwiftから先に呼ばれている
         User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
         var querySnapshot = await User.fireStoreManager.ReadTasks();
@@ -80,23 +80,27 @@ public class Road : MonoBehaviour
         SetStagesNumberAndRadius(querySnapshot.Documents.Count() + 1);
         UpdateStages();
         int idx = 0;
-        foreach (var i in querySnapshot.Documents)
+        foreach (var taskDoc in querySnapshot.Documents)
         {
-            var dict = i.ToDictionary();
-            await GenerateEnemyOrGoal(idx, i.Id, System.Convert.ToSingle(dict["maxHealth"]));
+            await GenerateEnemyOrGoal
+            (
+                idx,
+                taskDoc.Id,
+                System.Convert.ToSingle(taskDoc.ToDictionary()["maxHealth"])
+            );
             idx++;
         }
         await GenerateEnemyOrGoal(idx, "goal", -1);
     }
     
-    void OnGoalChanged()
+    async System.Threading.Tasks.Task OnGoalChanged()
     {
-        RelocateTasks();
+        await RelocateTasks();
     }
 
-    void OnTaskDataChangedBySwift()
+    async System.Threading.Tasks.Task OnTaskDataChangedBySwift()
     {
-        RelocateTasks();
+        await RelocateTasks();
     }
 
     async System.Threading.Tasks.Task GenerateEnemyOrGoal(int idx, string id, float maxHealth)
@@ -146,6 +150,6 @@ public class Road : MonoBehaviour
     async void Start()
     {
         await RelocateTasks();
-        Clear(); // test
+        ClearHandle(); // test
     }
 }

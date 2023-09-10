@@ -35,6 +35,7 @@
 		2263B7E72AAA616B0002E77E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2263B7E62AAA616B0002E77E /* FirebaseAnalyticsSwift */; };
 		2263B7E92AAA616B0002E77E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2263B7E82AAA616B0002E77E /* FirebaseAuth */; };
 		22D14EEE2AAD54A400612AE4 /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D14EED2AAD54A400612AE4 /* PageModel.swift */; };
+		22D14EF02AAD5AFE00612AE4 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D14EEF2AAD5AFE00612AE4 /* WelcomeView.swift */; };
 		A09724212AAADF2300752A07 /* StatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09724202AAADF2300752A07 /* StatusViewModel.swift */; };
 		A09724252AAADFD800752A07 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09724242AAADFD800752A07 /* StatusView.swift */; };
 /* End PBXBuildFile section */
@@ -85,6 +86,7 @@
 		2263B7C82AAA61440002E77E /* TasQuestApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasQuestApp.swift; sourceTree = "<group>"; };
 		2263B7C92AAA61440002E77E /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		22D14EED2AAD54A400612AE4 /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
+		22D14EEF2AAD5AFE00612AE4 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		A09724202AAADF2300752A07 /* StatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewModel.swift; sourceTree = "<group>"; };
 		A09724242AAADFD800752A07 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -222,6 +224,7 @@
 				2263B7C62AAA61440002E77E /* SignInEmailView.swift */,
 				2263B7C72AAA61440002E77E /* SettingView.swift */,
 				A09724242AAADFD800752A07 /* StatusView.swift */,
+				22D14EEF2AAD5AFE00612AE4 /* WelcomeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				2263B7D92AAA61440002E77E /* Status.swift in Sources */,
 				A09724212AAADF2300752A07 /* StatusViewModel.swift in Sources */,
 				2263B7DA2AAA61440002E77E /* Tag.swift in Sources */,
+				22D14EF02AAD5AFE00612AE4 /* WelcomeView.swift in Sources */,
 				2263B7DE2AAA61440002E77E /* AuthenticationView.swift in Sources */,
 				2263B7CD2AAA61440002E77E /* SettingViewModel.swift in Sources */,
 				2263B7CF2AAA61440002E77E /* SignInEmailViewModel.swift in Sources */,

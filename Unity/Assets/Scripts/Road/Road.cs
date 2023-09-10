@@ -87,7 +87,7 @@ public class Road : MonoBehaviour
 
     async void GenerateEnemyOrGoal(Vector3 tgtPos, float maxHealth)
     {
-        String address;
+        string address;
         if (maxHealth < 0)
         {
             address = "Goal";

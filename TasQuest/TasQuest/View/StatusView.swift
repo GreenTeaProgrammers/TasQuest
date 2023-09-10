@@ -10,11 +10,11 @@ import SwiftUI
 
 struct GoalRow: View {
     @ObservedObject var viewModel: StatusViewModel
-
+    var status: Status
     var goal: Goal
 
     var body: some View {
-        NavigationLink(destination: TaskView(appData: viewModel.user, goal: goal)) { // <-- NavigationLinkでラッピング
+        NavigationLink(destination: TaskView(appData: viewModel.user,status: status, goal: goal)) { // <-- NavigationLinkでラッピング
             HStack {
                 Text(goal.name)
                     .lineLimit(1)
@@ -116,9 +116,9 @@ struct StatusView: View {
                                 .padding(.top)
                             
                             ForEach(status.goals, id: \.id) { goal in
-                                GoalRow(viewModel: viewModel, goal: goal)
+                                GoalRow(viewModel: viewModel, status:status, goal: goal)
                                     .background(
-                                        NavigationLink("", destination: TaskView(appData: viewModel.user, goal: goal))  // <-- `user`を追加
+                                        NavigationLink("", destination: TaskView(appData: viewModel.user,status:status, goal: goal))
                                             .opacity(0)
                                     )
                             }

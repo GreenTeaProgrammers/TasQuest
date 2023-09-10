@@ -10,6 +10,7 @@ import SwiftUI
 
 struct TaskView: View {
     @State var appData: AppData
+    @State var status: Status   
     @State var goal: Goal
     @State var showingCreateTaskModal = false  // ハーフモーダルの表示状態を管理
     
@@ -65,7 +66,7 @@ struct TaskView: View {
                                     .foregroundColor(.white)
                             )
                     }.sheet(isPresented: $showingCreateTaskModal) {
-                        CreateTaskHalfModalView(appData: $appData)  // ハーフモーダルの内容
+                        CreateTaskHalfModalView(appData: $appData, status: status, goal: goal)  // ハーフモーダルの内容
                     }
                     
                     

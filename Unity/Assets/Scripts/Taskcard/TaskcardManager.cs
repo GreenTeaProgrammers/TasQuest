@@ -27,6 +27,11 @@ public class TaskcardManager : MonoBehaviour
         _currentHpChanger = _currentHp.GetComponent<CurrentHealthChanger>();
     }
 
+    private void InitializeTaskcard()
+    {
+        
+    }
+
     /// <summary>
     /// DocumentSnapshotを引数に受け取り、その値をもとにTaskcardの内容を書き換える関数です。
     /// </summary>

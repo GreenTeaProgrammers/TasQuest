@@ -66,20 +66,20 @@ public class CurrentHealthChanger : MonoBehaviour
 
         if (TaskcardManager.IsEditMode)
         {
-            UpdateMaxHealthOnFirestore();
+            UpdateMaxHealth();
         }
         else
         {
-            UpdateCurrentHealthOnFirestore();
+            UpdateCurrentHealth();
         }
     }
 
-    private void UpdateCurrentHealthOnFirestore()
+    private void UpdateCurrentHealth()
     {
         // User.fireStoreManager.UpdateTask(_taskID, );
     }
 
-    private void UpdateMaxHealthOnFirestore()
+    private void UpdateMaxHealth()
     {
         
     }

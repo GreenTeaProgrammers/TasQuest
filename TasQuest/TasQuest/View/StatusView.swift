@@ -133,7 +133,7 @@ struct StatusView: View {
                 }
             }
             .fullScreenCover(isPresented: $showSignInView) {
-                AuthenticationView(showSignInView: $showSignInView)
+                WelcomeView()
             }
             .onAppear() {
                 viewModel.user = viewModel.setDummyData()

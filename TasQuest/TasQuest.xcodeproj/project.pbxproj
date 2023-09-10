@@ -30,7 +30,6 @@
 		2263B7DF2AAA61440002E77E /* SignInEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263B7C62AAA61440002E77E /* SignInEmailView.swift */; };
 		2263B7E02AAA61440002E77E /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263B7C72AAA61440002E77E /* SettingView.swift */; };
 		2263B7E12AAA61440002E77E /* TasQuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263B7C82AAA61440002E77E /* TasQuestApp.swift */; };
-		2263B7E22AAA61440002E77E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263B7C92AAA61440002E77E /* ContentView.swift */; };
 		2263B7E52AAA616B0002E77E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2263B7E42AAA616B0002E77E /* FirebaseAnalytics */; };
 		2263B7E72AAA616B0002E77E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2263B7E62AAA616B0002E77E /* FirebaseAnalyticsSwift */; };
 		2263B7E92AAA616B0002E77E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2263B7E82AAA616B0002E77E /* FirebaseAuth */; };
@@ -85,7 +84,6 @@
 		2263B7C62AAA61440002E77E /* SignInEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInEmailView.swift; sourceTree = "<group>"; };
 		2263B7C72AAA61440002E77E /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		2263B7C82AAA61440002E77E /* TasQuestApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasQuestApp.swift; sourceTree = "<group>"; };
-		2263B7C92AAA61440002E77E /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		22D14EED2AAD54A400612AE4 /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
 		22D14EEF2AAD5AFE00612AE4 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		22D14EF12AAD5BAA00612AE4 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 				2263B7B82AAA61440002E77E /* GoogleService-Info.plist */,
 				2263B7B92AAA61440002E77E /* Preview Content */,
 				2263B7C82AAA61440002E77E /* TasQuestApp.swift */,
-				2263B7C92AAA61440002E77E /* ContentView.swift */,
 			);
 			path = TasQuest;
 			sourceTree = "<group>";
@@ -400,7 +397,6 @@
 				2263B7E12AAA61440002E77E /* TasQuestApp.swift in Sources */,
 				2263B7CE2AAA61440002E77E /* TaskViewModel.swift in Sources */,
 				2263B7D72AAA61440002E77E /* Goal.swift in Sources */,
-				2263B7E22AAA61440002E77E /* ContentView.swift in Sources */,
 				2263B7D02AAA61440002E77E /* CustomEasing.swift in Sources */,
 				2263B7DD2AAA61440002E77E /* TaskView.swift in Sources */,
 				2263B7DB2AAA61440002E77E /* AuthDataResultModel.swift in Sources */,

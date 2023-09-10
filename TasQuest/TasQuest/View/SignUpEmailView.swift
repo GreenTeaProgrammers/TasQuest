@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SignUpEmailView: View {
     @Binding var isNotAuthed: Bool
+    @Binding var appData: AppData
     
     @StateObject private var viewModel = SignUpEmailViewModel()
     @State private var errorMessage: String? = nil  // New state variable for the error message
@@ -46,6 +47,14 @@ struct SignUpEmailView: View {
                         DispatchQueue.main.async {
                             isNotAuthed = false
                             presentationMode.wrappedValue.dismiss()
+                            StatusViewModel().fetchAppData { fetchedAppData in
+                                if let fetchedAppData = fetchedAppData {
+                                    appData = fetchedAppData
+                                    // Do any additional work here
+                                } else {
+                                    // Handle the error case here
+                                }
+                            }
                         }
                     } catch {
                         print("Sign up failed with error: \(error)")  // Debug line

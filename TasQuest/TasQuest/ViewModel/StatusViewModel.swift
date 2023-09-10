@@ -16,22 +16,17 @@ class StatusViewModel: ObservableObject {
     // 使用例
     let fetchThrottler = Throttler(delay: 10)  // 60秒ごとに実行を許可
     // fetchAppData()が呼び出されたら、非同期でデータを取得して@Publishedプロパティを更新する
-    func fetchAppData() {
+    func fetchAppData(completion: @escaping (AppData?) -> Void) {
         fetchThrottler.run {
             FirestoreManager.shared.fetchAppData { fetchedAppData in
                 guard let fetchedAppData = fetchedAppData else {
                     print("Failed to fetch AppData")
+                    completion(nil)
                     return
                 }
-                
-                // 成功した場合、userプロパティに取得したAppDataを格納する
                 self.user = fetchedAppData
-                
-                // デバッグ用
-                print("Fetched AppData: \(fetchedAppData)")
-                print("Username: \(fetchedAppData.username)")
+                completion(fetchedAppData)
             }
-            
         }
     }
     

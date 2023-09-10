@@ -10,7 +10,7 @@ import SwiftUI
 struct WelcomeView: View {
     
     @Binding var isNotAuthed: Bool
-
+    @Binding var appData: AppData
     
     @State private var showAuthenticationView: Bool = false
     @State private var pageIndex = 0
@@ -53,7 +53,7 @@ struct WelcomeView: View {
             }
         }
         .fullScreenCover(isPresented: $showAuthenticationView) {  // モーダル表示のための.sheet モディファイア
-            AuthenticationView(isNotAuthed: $isNotAuthed)
+            AuthenticationView(isNotAuthed: $isNotAuthed, appData: $appData)
             
         }
     }

@@ -202,11 +202,11 @@
 			isa = PBXGroup;
 			children = (
 				22B3F0092AAD978C00BD5781 /* SignUpEmailView.swift */,
+				22B3F00E2AAD978C00BD5781 /* SignInEmailView.swift */,
 				22B3F00A2AAD978C00BD5781 /* StatusView.swift */,
 				22B3F00B2AAD978C00BD5781 /* WelcomeView.swift */,
 				22B3F00C2AAD978C00BD5781 /* TaskView.swift */,
 				22B3F00D2AAD978C00BD5781 /* AuthenticationView.swift */,
-				22B3F00E2AAD978C00BD5781 /* SignInEmailView.swift */,
 				22B3F00F2AAD978C00BD5781 /* SettingView.swift */,
 				22B3F0102AAD978C00BD5781 /* PageView.swift */,
 			);

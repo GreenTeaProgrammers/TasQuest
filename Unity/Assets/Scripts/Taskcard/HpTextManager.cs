@@ -22,14 +22,14 @@ public class HpTextManager : MonoBehaviour
         _currentHpTransform = _currentHp.GetComponent<RectTransform>();
     }
 
-    public void InitializeHpText(float currentHealth, float maxHealth)
+    /// <summary>
+    /// HpTextの内容を書き換える関数です
+    /// </summary>
+    /// <param name="currentHealth"></param>
+    /// <param name="maxHealth"></param>
+    public void UpdateHpText(float currentHealth, float maxHealth)
     {
         _myText.text = $"{currentHealth}/{maxHealth}";
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

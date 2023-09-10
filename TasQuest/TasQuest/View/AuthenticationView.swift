@@ -12,18 +12,24 @@ struct AuthenticationView: View {
     @Binding var showSignInView: Bool
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                // Background Gradient
-                LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]), startPoint: .top, endPoint: .bottom)
-                    .edgesIgnoringSafeArea(.all)
+        ZStack {
+            // Background Gradient
+            LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]), startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+            
+            // Main Content
+            VStack{
+                // App Logo or Title
+                Text("TasQuest")
+                    .font(.largeTitle)
+                    .fontWeight(.heavy)
+                    .foregroundColor(.white)
+                    .padding(.bottom, 50)
                 
-                // Main Content
-                VStack{
-                    // App Logo or Title
-                    Text("TasQuest")
-                        .font(.largeTitle)
-                        .fontWeight(.heavy)
+                // Sign In Button
+                NavigationLink(destination: SignInEmailView(showSignInView: $showSignInView)) {
+                    Text("Sign In With Email")
+                        .font(.headline)
                         .foregroundColor(.white)
                         .padding(.bottom, 50)
                     
@@ -54,12 +60,13 @@ struct AuthenticationView: View {
                             .padding(.horizontal, 20)
                     }
                     .padding(.top, 20)
-                    
                 }
-                .padding()
+                .padding(.top, 20)
+                
             }
-            .navigationTitle("Sign In")
-            .navigationBarHidden(true)
+            .padding()
         }
+        .navigationTitle("Sign In")
+        .navigationBarHidden(true)
     }
 }

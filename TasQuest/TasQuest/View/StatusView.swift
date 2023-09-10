@@ -42,39 +42,13 @@ struct StatusView: View {
                 ScrollView {
                     ForEach(appData.statuses.indices, id: \.self) { index in
                         let status = appData.statuses[index]
-                        
-                        VStack {
-                            Text(status.name)
-                                .font(.headline)
-                                .foregroundColor(.black)
-                                .padding(.top)
-                            
-                            if status.goals.isEmpty {
-                                // ゴールがない場合の表示
-                                HStack {
-                                    Spacer()
-                                    Text("ゴールがありません")
-                                        .foregroundColor(.gray)
-                                    Spacer()
-                                }
-                            }
-                            else {
-                                ForEach(status.goals, id: \.id) { goal in
-                                    GoalRow(viewModel: viewModel, goal: goal)
-                                        .background(
-                                            NavigationLink("", destination: TaskView(goal: goal))
-                                                .opacity(0)
-                                        )
-                                }
-                            }
-                            // 残りのスペースを埋める
-                        }
-                        .padding(.horizontal)
-                        .padding(.vertical, 8)
-                        .background(viewModel.backgroundColor(for: index))
-                        .cornerRadius(10)
-                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
-                        .padding(.bottom, 8)
+                        StatusRow(appData: appData, status: status, viewModel: viewModel)
+                            .padding(.horizontal)
+                            .padding(.vertical, 8)
+                            .background(viewModel.backgroundColor(for: index))
+                            .cornerRadius(10)
+                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                            .padding(.bottom, 8)
                     }
                 }
             }
@@ -102,6 +76,38 @@ struct StatusView: View {
                 }
             }
             Spacer()
+        }
+    }
+}
+
+struct StatusRow: View {
+    var appData: AppData
+    var status: Status
+    var viewModel: StatusViewModel
+
+    var body: some View {
+        VStack {
+            Text(status.name)
+                .font(.headline)
+                .foregroundColor(.black)
+                .padding(.top)
+
+            if status.goals.isEmpty {
+                HStack {
+                    Spacer()
+                    Text("ゴールがありません")
+                        .foregroundColor(.gray)
+                    Spacer()
+                }
+            } else {
+                ForEach(status.goals, id: \.id) { goal in
+                    GoalRow(viewModel: viewModel,status: status, goal: goal)
+                        .background(
+                            NavigationLink("", destination: TaskView(appData: appData, status: status, goal: goal))
+                                .opacity(0)
+                        )
+                }
+            }
         }
     }
 }

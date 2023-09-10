@@ -94,6 +94,9 @@ extension CreateTaskHalfModalView {
     }
     
     func saveTask() {
+        if currentHealth > maxHealth {
+            currentHealth = maxHealth
+        }
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd/HH:mm:ss"
         
@@ -120,8 +123,17 @@ extension CreateTaskHalfModalView {
             // 新しいタスクを追加
             appData.statuses[statusIndex].goals[goalIndex].tasks.append(newTask)
             
-            // ここでFirestoreにデータを更新（この関数は実装によって異なります）
-            // updateFirestoreData(appData: appData)
+
+            print(appData)
+            
+            FirestoreManager.shared.saveAppData(appData: appData) { error in
+                if let error = error {
+                    print("Failed to save data: \(error)")
+                } else {
+                    print("Data saved successfully.")
+                }
+            }
+            
             
             // モーダルを閉じる
             presentationMode.wrappedValue.dismiss()

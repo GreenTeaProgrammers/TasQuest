@@ -103,6 +103,9 @@ struct StatusView: View {
                     }
                 }
                 .padding()
+                .onAppear(){
+                    viewModel.fetchAppData()
+                }
                 
                 // ステータスとその目標を表示
                 ScrollView {
@@ -115,13 +118,25 @@ struct StatusView: View {
                                 .foregroundColor(.black)
                                 .padding(.top)
                             
-                            ForEach(status.goals, id: \.id) { goal in
-                                GoalRow(viewModel: viewModel, goal: goal)
-                                    .background(
-                                        NavigationLink("", destination: TaskView(goal: goal)) // <-- 追加
-                                            .opacity(0)
-                                    )
+                            if status.goals.isEmpty {
+                                // ゴールがない場合の表示
+                                HStack {
+                                    Spacer()
+                                    Text("ゴールがありません")
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                }
                             }
+                            else {
+                                ForEach(status.goals, id: \.id) { goal in
+                                    GoalRow(viewModel: viewModel, goal: goal)
+                                        .background(
+                                            NavigationLink("", destination: TaskView(goal: goal))
+                                                .opacity(0)
+                                        )
+                                }
+                            }
+                             // 残りのスペースを埋める
                         }
                         .padding(.horizontal)
                         .padding(.vertical, 8)
@@ -136,7 +151,7 @@ struct StatusView: View {
                 WelcomeView()
             }
             .onAppear() {
-                viewModel.user = viewModel.setDummyData()
+                viewModel.fetchAppData() // これだけでOK
                 let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
                 self.showSignInView = authUser == nil
             }

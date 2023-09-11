@@ -42,7 +42,7 @@ struct StatusView: View {
                 ScrollView {
                     ForEach(appData.statuses.indices, id: \.self) { index in
                         let status = appData.statuses[index]
-                        StatusRow(appData: appData, status: status, viewModel: viewModel)
+                        StatusRow(viewModel: viewModel, appData: $appData, status: status)
                             .padding(.horizontal)
                             .padding(.vertical, 8)
                             .background(viewModel.backgroundColor(for: index))
@@ -81,10 +81,10 @@ struct StatusView: View {
 }
 
 struct StatusRow: View {
-    var appData: AppData
-    var status: Status
-    var viewModel: StatusViewModel
-
+    @ObservedObject var viewModel: StatusViewModel  // <- Changed to @ObservedObject
+    @Binding var appData: AppData
+    @State var status: Status
+    
     var body: some View {
         VStack {
             Text(status.name)
@@ -101,25 +101,21 @@ struct StatusRow: View {
                 }
             } else {
                 ForEach(status.goals, id: \.id) { goal in
-                    GoalRow(viewModel: viewModel,status: status, goal: goal)
-                        .background(
-                            NavigationLink("", destination: TaskView(appData: appData, status: status, goal: goal))
-                                .opacity(0)
-                        )
+                    GoalRow(viewModel: viewModel, appData: $appData, status: $status, goal: goal)
                 }
             }
         }
     }
 }
 
-
 struct GoalRow: View {
-    @ObservedObject var viewModel: StatusViewModel
-    var status: Status
-    var goal: Goal
+    @ObservedObject var viewModel: StatusViewModel  // <- Changed to @ObservedObject
+    @Binding var appData: AppData
+    @Binding var status: Status
+    @State var goal: Goal
 
     var body: some View {
-        NavigationLink(destination: TaskView(appData: viewModel.user,status: status, goal: goal)) { // <-- NavigationLinkでラッピング
+        NavigationLink(destination: TaskView(appData: $appData, status: $status, goal: $goal)) {
             HStack {
                 Text(goal.name)
                     .lineLimit(1)
@@ -173,10 +169,6 @@ struct GoalRow: View {
         .background(Color.white)
         .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
-        .overlay(
-            NavigationLink("", destination: Text("Status View"))
-                .opacity(0)
-        )
         .padding(.bottom, 8)
     }
 }

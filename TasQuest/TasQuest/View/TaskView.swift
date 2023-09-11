@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct TaskView: View {
-    @State var appData: AppData
-    @State var status: Status   
-    @State var goal: Goal
+    @Binding var appData: AppData
+    @Binding var status: Status
+    @Binding var goal: Goal
     @State var showingCreateTaskModal = false  // ハーフモーダルの表示状態を管理
     
     

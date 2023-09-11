@@ -12,8 +12,8 @@ import FirebaseFirestore
 struct CreateTaskHalfModalView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var appData: AppData  // AppDataをBindingで受け取る
-    @State var status: Status
-    @State var goal: Goal
+    @Binding var status: Status
+    @Binding var goal: Goal
 
     @State private var selectedDate = Date()
     @State var name: String = ""
@@ -131,10 +131,17 @@ extension CreateTaskHalfModalView {
                     print("Failed to save data: \(error)")
                 } else {
                     print("Data saved successfully.")
+                    
+                    // データが保存された後にデータを再取得
+                    FirestoreManager.shared.fetchAppData { fetchedAppData in
+                        if let fetchedAppData = fetchedAppData {
+                            self.appData = fetchedAppData  // データを更新
+                        } else {
+                            // エラー処理
+                        }
+                    }
                 }
             }
-            
-            
             // モーダルを閉じる
             presentationMode.wrappedValue.dismiss()
         }

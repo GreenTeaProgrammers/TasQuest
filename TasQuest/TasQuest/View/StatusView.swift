@@ -14,16 +14,14 @@ struct StatusView: View {
     
     @State private var isAuthed: Bool = false
     
-    @State private var appData: AppData = AppData()
-    
     @StateObject private var viewModel = StatusViewModel()
     
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             VStack {
                 // ウェルカムメッセージと設定ボタン
                 HStack {
-                    Text("ようこそ \(appData.username)")
+                    Text("ようこそ \(viewModel.appData.username)")
                         .font(.headline)
                     Spacer()
                     
@@ -38,11 +36,11 @@ struct StatusView: View {
                     }
                 }
                 .padding()
+                
                 // ステータスとその目標を表示
                 ScrollView {
-                    ForEach(appData.statuses.indices, id: \.self) { index in
-                        let status = appData.statuses[index]
-                        StatusRow(viewModel: viewModel, appData: $appData, status: status)
+                    ForEach(viewModel.appData.statuses.indices, id: \.self) { index in
+                        StatusRow(viewModel: viewModel, appData: $viewModel.appData, status: $viewModel.appData.statuses[index])
                             .padding(.horizontal)
                             .padding(.vertical, 8)
                             .background(viewModel.backgroundColor(for: index))
@@ -53,7 +51,7 @@ struct StatusView: View {
                 }
             }
             .fullScreenCover(isPresented: $isNotAuthed) {
-                WelcomeView(isNotAuthed: $isNotAuthed, appData: $appData)
+                WelcomeView(isNotAuthed: $isNotAuthed, appData: $viewModel.appData)
             }
             .onAppear() {
                 do {
@@ -62,15 +60,12 @@ struct StatusView: View {
                     self.isAuthed = authUser != nil  // 認証状態を更新
                     viewModel.fetchAppData { fetchedAppData in
                         if let fetchedAppData = fetchedAppData {
-                            appData = fetchedAppData
+                            viewModel.appData = fetchedAppData
                             // Do any additional work here
                         } else {
                             // Handle the error case here
                         }
                     }
-                    print("======")
-                    print(appData)
-                    print("Debug KK")
                 } catch {
                     print("Error fetching authenticated user: \(error)")
                 }
@@ -81,9 +76,9 @@ struct StatusView: View {
 }
 
 struct StatusRow: View {
-    @ObservedObject var viewModel: StatusViewModel  // <- Changed to @ObservedObject
+    @ObservedObject var viewModel: StatusViewModel
     @Binding var appData: AppData
-    @State var status: Status
+    @Binding var status: Status
     
     var body: some View {
         VStack {
@@ -100,8 +95,8 @@ struct StatusRow: View {
                     Spacer()
                 }
             } else {
-                ForEach(status.goals, id: \.id) { goal in
-                    GoalRow(viewModel: viewModel, appData: $appData, status: $status, goal: goal)
+                ForEach(status.goals.indices, id: \.self) { index in
+                    GoalRow(viewModel: viewModel, appData: $appData, status: $status, goal: $status.goals[index])
                 }
             }
         }
@@ -109,10 +104,10 @@ struct StatusRow: View {
 }
 
 struct GoalRow: View {
-    @ObservedObject var viewModel: StatusViewModel  // <- Changed to @ObservedObject
+    @ObservedObject var viewModel: StatusViewModel
     @Binding var appData: AppData
     @Binding var status: Status
-    @State var goal: Goal
+    @Binding var goal: Goal
 
     var body: some View {
         NavigationLink(destination: TaskView(appData: $appData, status: $status, goal: $goal)) {

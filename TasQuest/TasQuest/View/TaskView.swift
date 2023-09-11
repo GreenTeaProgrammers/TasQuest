@@ -37,7 +37,7 @@ struct TaskView: View {
                         
                         
                         ScrollView{
-                            TaskListView(goal: goal)
+                            TaskListView(goal: $goal)
                         }
                     }
                 }
@@ -66,7 +66,7 @@ struct TaskView: View {
                                     .foregroundColor(.white)
                             )
                     }.sheet(isPresented: $showingCreateTaskModal) {
-                        CreateTaskHalfModalView(appData: $appData, status: status, goal: goal)  // ハーフモーダルの内容
+                        CreateTaskHalfModalView(appData: $appData, status: $status, goal: $goal)  // ハーフモーダルの内容
                     }
                     
                     
@@ -161,7 +161,7 @@ struct HeaderView: View {
 }
 
 struct TaskListView: View {
-    var goal: Goal
+    @Binding var goal: Goal
     
     var body: some View {
         ForEach(goal.tasks.indices, id: \.self) { index in
@@ -173,7 +173,7 @@ struct TaskListView: View {
 }
 
 struct TaskRow: View {
-    var task: TasQuestTask
+    @State var task: TasQuestTask
     
     // Calculate the fill color based on the task's current and max health
     var fillColor: Color {

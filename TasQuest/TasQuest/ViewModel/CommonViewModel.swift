@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+class CommonViewModel: ObservableObject {
+    @Published var appData: AppData = AppData()
+}

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Tag: Codable, Identifiable, Hashable {
+struct Tag: Codable, Identifiable, Hashable, Equatable {
     let id: String
     var name: String
     var color: [Float] // [R, G, B]

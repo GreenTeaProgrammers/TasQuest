@@ -430,6 +430,7 @@ extension FirestoreManager {
         }
     }
     
+    // saveGoalsメソッドを修正
     private func saveGoals(statusRef: DocumentReference, goals: [Goal], completion: @escaping (Error?) -> Void) {
         let goalCollection = statusRef.collection("Goals")
         
@@ -438,31 +439,42 @@ extension FirestoreManager {
         for goal in goals {
             dispatchGroup.enter()
             
-            let goalRef = goalCollection.document(goal.id)
             let goalData: [String: Any] = [
                 "name": goal.name,
                 "description": goal.description,
                 "dueDate": goal.dueDate,
                 "isStarred": goal.isStarred ? 1 : 0,
                 "tags": goal.tags.map { $0.id },
-                "thumbnail": goal.thumbnail ?? "", // Default to an empty string if nil
+                "thumbnail": goal.thumbnail ?? "",
                 "createdAt": goal.createdAt,
                 "updatedAt": goal.updatedAt
             ]
             
-            goalRef.setData(goalData) { error in
-                if let error = error {
-                    print("Error saving goal: \(error)")
-                    dispatchGroup.leave()
-                    return
-                }
-                
-                // Save Tasks for this goal
-                self.saveTasks(goalRef: goalRef, tasks: goal.tasks) { error in
+            // Goalの保存処理
+            let goalRef: DocumentReference
+            if goal.id == "" {
+                // IDが空の場合は新規アイテムとして扱う
+                goalRef = goalCollection.addDocument(data: goalData) { error in
                     if let error = error {
-                        print("Error saving tasks: \(error)")
+                        print("Error saving new goal: \(error)")
                     }
                     dispatchGroup.leave()
+                }
+            } else {
+                // 既存のアイテムを更新
+                goalRef = goalCollection.document(goal.id)
+                goalRef.setData(goalData) { error in
+                    if let error = error {
+                        print("Error updating existing goal: \(error)")
+                    }
+                    dispatchGroup.leave()
+                }
+            }
+            
+            // Goalに関連するTasksを保存
+            saveTasks(goalRef: goalRef, tasks: goal.tasks) { error in
+                if let error = error {
+                    print("Error saving tasks for goal \(goal.name): \(error)")
                 }
             }
         }
@@ -472,6 +484,7 @@ extension FirestoreManager {
         }
     }
     
+    // saveTasksメソッドを修正
     private func saveTasks(goalRef: DocumentReference, tasks: [TasQuestTask], completion: @escaping (Error?) -> Void) {
         let taskCollection = goalRef.collection("TasQuestTasks")
         
@@ -480,7 +493,6 @@ extension FirestoreManager {
         for task in tasks {
             dispatchGroup.enter()
             
-            let taskRef = taskCollection.document(task.id)
             let taskData: [String: Any] = [
                 "name": task.name,
                 "description": task.description,
@@ -493,11 +505,24 @@ extension FirestoreManager {
                 "updatedAt": task.updatedAt
             ]
             
-            taskRef.setData(taskData) { error in
-                if let error = error {
-                    print("Error saving task: \(error)")
+            if task.id == "" {
+                print("I am new Task")
+                // IDが空の場合は新規アイテムとして扱う
+                taskCollection.addDocument(data: taskData) { error in
+                    if let error = error {
+                        print("Error saving new task: \(error)")
+                    }
+                    dispatchGroup.leave()
                 }
-                dispatchGroup.leave()
+            } else {
+                print("I am not new Task")
+                // 既存のアイテムを更新
+                taskCollection.document(task.id).setData(taskData) { error in
+                    if let error = error {
+                        print("Error updating existing task: \(error)")
+                    }
+                    dispatchGroup.leave()
+                }
             }
         }
         
@@ -506,4 +531,3 @@ extension FirestoreManager {
         }
     }
 }
-

@@ -9,7 +9,10 @@
 import SwiftUI
 
 struct TaskView: View {
-    @State var goal: Goal
+    @Binding var appData: AppData
+    @Binding var status: Status
+    @Binding var goal: Goal
+    @State var showingCreateTaskModal = false  // ハーフモーダルの表示状態を管理
     
     
     var body: some View {
@@ -34,7 +37,7 @@ struct TaskView: View {
                         
                         
                         ScrollView{
-                            TaskListView(goal: goal)
+                            TaskListView(goal: $goal)
                         }
                     }
                 }
@@ -49,7 +52,8 @@ struct TaskView: View {
                     Spacer()
                     
                     Button(action: {
-                        // Add Task
+                        showingCreateTaskModal.toggle()  // ハーフモーダルを表示
+
                     }) {
                         Image(systemName: "circle.fill")
                             .resizable()
@@ -61,7 +65,10 @@ struct TaskView: View {
                                     .frame(width: 20, height: 20)
                                     .foregroundColor(.white)
                             )
+                    }.sheet(isPresented: $showingCreateTaskModal) {
+                        CreateTaskHalfModalView(appData: $appData, status: $status, goal: $goal)  // ハーフモーダルの内容
                     }
+                    
                     
                     Button(action: {
                         // Game View
@@ -154,7 +161,7 @@ struct HeaderView: View {
 }
 
 struct TaskListView: View {
-    var goal: Goal
+    @Binding var goal: Goal
     
     var body: some View {
         ForEach(goal.tasks.indices, id: \.self) { index in
@@ -166,7 +173,7 @@ struct TaskListView: View {
 }
 
 struct TaskRow: View {
-    var task: TasQuestTask
+    @State var task: TasQuestTask
     
     // Calculate the fill color based on the task's current and max health
     var fillColor: Color {

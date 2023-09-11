@@ -11,7 +11,7 @@ import SwiftUI
 
 class StatusViewModel: ObservableObject {
     
-    @Published var user: AppData = AppData() // これはUIと同期されます
+    @Published var appData: AppData = AppData() // これはUIと同期されます
     
     // 使用例
     let fetchThrottler = Throttler(delay: 10)  // 60秒ごとに実行を許可
@@ -24,7 +24,7 @@ class StatusViewModel: ObservableObject {
                     completion(nil)
                     return
                 }
-                self.user = fetchedAppData
+                self.appData = fetchedAppData
                 completion(fetchedAppData)
             }
         }
@@ -40,10 +40,10 @@ class StatusViewModel: ObservableObject {
     }
 
     func toggleStar(forGoalWithID goalID: String) {
-        if let statusIndex = user.statuses.firstIndex(where: { status in
+        if let statusIndex = appData.statuses.firstIndex(where: { status in
             status.goals.contains { $0.id == goalID }
-        }), let goalIndex = user.statuses[statusIndex].goals.firstIndex(where: { $0.id == goalID }) {
-            user.statuses[statusIndex].goals[goalIndex].isStarred.toggle()
+        }), let goalIndex = appData.statuses[statusIndex].goals.firstIndex(where: { $0.id == goalID }) {
+            self.appData.statuses[statusIndex].goals[goalIndex].isStarred.toggle()
         }
     }
 }

@@ -1092,6 +1092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _radius: 10
   _initialAngle: 0
+  _snapSenctivity: 0.1
 --- !u!1 &999780189 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1370669246903634596, guid: 54db545de92995946a7bb352e3174770,
@@ -1698,11 +1699,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a56d1f8825805a248b548209ea4d76ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTouchDebug: 1
+  isTouchDebug: 0
   mainCamera: {fileID: 963194225}
   currentHP: {fileID: 370975906}
   damageDiff: {fileID: 999780189}
-  minScrollDist: 1.5
+  minScrollDist: 0
   _scrollSencitivity: 0.001
   _pinchSencitivity: 0.001
 --- !u!4 &1573190324

@@ -20,6 +20,7 @@ public class InputFieldManager : MonoBehaviour
 
     void UpdateTaskName()
     {
+        Debug.Log("InputFieldからFirestoreに書き込み");
         //Firestoreへ書き込み
     }
 }

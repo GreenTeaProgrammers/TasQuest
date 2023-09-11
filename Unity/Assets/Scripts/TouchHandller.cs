@@ -67,12 +67,23 @@ public class TouchHandller : MonoBehaviour
             if (Input.GetMouseButton(0) && Input.GetMouseButtonDown(0) == false)
             {
                 // Swipe(_startPos, Input.mousePosition);
+                Vector2 currentPosition = Input.mousePosition;
+                // float xDiff = (currentPosition.x - _startPos.x) * _scrollSencitivity;
+                float yDiff = (currentPosition.y - _startPos.y) * _scrollSencitivity;
+                if (Mathf.Abs(yDiff) > minScrollDist)
+                {
+                    Scroll(-yDiff);
+                }
             }
 
             if (Input.GetMouseButtonUp(0))
             {
                 _endPos = Input.mousePosition;
-                // UpdateMainCameraTransform((Input.mousePosition.y - _startPos.y) * 0.001f);
+                float yDiff = (Input.mousePosition.y - _startPos.y) * _scrollSencitivity;
+                if (Mathf.Abs(yDiff) > minScrollDist)
+                {
+                    ScrollEnd(yDiff);
+                }
                 Debug.Log("MouseUp");
             }
         }

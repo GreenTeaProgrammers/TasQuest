@@ -7,6 +7,8 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField]private float _radius = 7.0f;
     [SerializeField]float _initialAngle;
+    [SerializeField] private float _snapSenctivity;
+    
     private float _currentDist = 0.0f;
     
     // Start is called before the first frame update
@@ -21,10 +23,32 @@ public class CameraMovement : MonoBehaviour
         
     }
 
+    private float Snap(float dist)
+    {
+        int stagesNumber = Road.stagesNumber;
+        float unit = 2 * Mathf.PI / stagesNumber;
+        int currentIndex = (int) Mathf.Floor(dist / unit);
+        Debug.Log($"unit: {unit}");
+        Debug.Log($"currentIndex: {currentIndex}, dist % unit: {dist % unit}");
+        
+        if (dist % unit > unit - _snapSenctivity)
+        {
+            dist = unit * (currentIndex+1) - _snapSenctivity;
+        }
+        // else if (dist % unit < _snapSenctivity)
+        // {
+        //     dist = unit * currentIndex - _snapSenctivity;
+        //     Debug.Log("Snap 2");
+        // }
+
+        return dist;
+    }
+    
     public void MoveCamera(float dist)
     {
         Transform myTransform = this.transform;
         dist += _currentDist;
+        dist = Snap(dist);
         float angle = dist / Mathf.PI * 180;
             
         Vector3 circleMove = new Vector3(_radius*Mathf.Sin(dist), myTransform.position.y, _radius*Mathf.Cos(dist));

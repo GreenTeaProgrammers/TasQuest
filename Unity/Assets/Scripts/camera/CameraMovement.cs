@@ -5,13 +5,27 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField]private float _radius = 7.0f;
+    [SerializeField]public static float _radius = 7.0f;
     [SerializeField]float _initialAngle;
-    [SerializeField] private float _snapSenctivity;
+    [SerializeField] private float _snapSensitivity = 0.1f;
     
     private float _currentDist = 0.0f;
     private float _snapHold = 0.0f;
     private int _snapStreak = 0;
+
+    private static int currentIndex = 0;
+    public static int CurrentIndex
+    {
+        get { return currentIndex;}
+        set
+        {
+            currentIndex = value;
+            if (currentIndex < Road.stagesNumber - 2)
+            {
+                TaskcardManager.OnCurrentTaskChanged(currentIndex);
+            }
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -30,15 +44,16 @@ public class CameraMovement : MonoBehaviour
     {
         int stagesNumber = Road.stagesNumber;
         float unit = 2 * Mathf.PI / stagesNumber;
-        int currentIndex = (int) Mathf.Floor(dist / unit);
+        CurrentIndex = (int) Mathf.Floor(dist / unit);
+        Debug.Log($"currentIndex: {currentIndex}");
         
-        if (dist % unit > unit - _snapSenctivity)
+        if (dist % unit > unit - _snapSensitivity)
         {
-            dist = unit * (currentIndex+1) - _snapSenctivity;
+            dist = unit * (currentIndex+1) - _snapSensitivity;
         }
-        // else if (dist % unit < _snapSenctivity)
+        // else if (dist % unit < _snapSensitivity)
         // {
-        //     dist = unit * currentIndex - _snapSenctivity;
+        //     dist = unit * currentIndex - _snapSencitivity;
         //     Debug.Log("Snap 2");
         // }
 
@@ -49,6 +64,7 @@ public class CameraMovement : MonoBehaviour
     {
         Transform myTransform = this.transform;
         dist += _currentDist;
+        dist = Mathf.Clamp(dist, 0.0f, 2 * Mathf.PI);
         dist = Snap(dist);
         float angle = dist / Mathf.PI * 180;
             
@@ -62,6 +78,7 @@ public class CameraMovement : MonoBehaviour
     public void SetCurrentDist(float dist)
     {
         _currentDist += dist;
+        _currentDist = Mathf.Clamp(_currentDist, 0.0f, 2 * Mathf.PI);
     }
 
     public void SetRadius(float radius)

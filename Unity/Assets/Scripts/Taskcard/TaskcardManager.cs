@@ -42,14 +42,15 @@ public class TaskcardManager : MonoBehaviour
         SetTaskDataDisplay(taskDocument);
     }
 
-    public void OnTaskChanged()
+    public static void OnCurrentTaskChanged(int currentIndex)
     {
-        
+        SetTaskDataDisplay(_taskList[currentIndex]);
     }
 
     private static void PreprocessTaskData(QuerySnapshot tasksSnapshot)
     {
         _taskList = tasksSnapshot.Documents.ToList();
+        Debug.Log(_taskList.Count);
     }
     
     /// <summary>
@@ -77,7 +78,6 @@ public class TaskcardManager : MonoBehaviour
 
         _inputField.text = (string)taskDocument["name"];
         
-        // var currentHealth = (int)taskDocument["currentHealth"];
         var currentHealth = (float) Convert.ChangeType(taskDocument["currentHealth"], typeof(float));
         var maxHealth = (float)Convert.ChangeType(taskDocument["maxHealth"], typeof(float));
         
@@ -85,9 +85,10 @@ public class TaskcardManager : MonoBehaviour
         
         _hpTextManager.OnHealthChanged(currentHealth, maxHealth);
         
-        string dueDate = (string)taskDocument["dueDate"];
-        dueDate = "Due:\n" + dueDate.Split("/")[0];
-        _dueDate.text = dueDate;
+        Timestamp dueDate = (Timestamp) Convert.ChangeType(taskDocument["dueDate"], typeof(Timestamp));
+        string dueDateText = dueDate.ToDateTime().ToString();
+        dueDateText = "Due:\n" + dueDateText.Split()[0];
+        _dueDate.text = dueDateText;
     }
 
     /// <summary>

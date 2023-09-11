@@ -30,6 +30,8 @@ public class Road : MonoBehaviour
     {
         stagesNumber = arg;
         radius = arg;
+        GameObject.Find("narrowRoad").transform.localScale = new Vector3(radius/24, 0.1f, radius/24);
+        CameraMovement._radius = radius;
         Array.Resize(ref stagePositions, arg);
         Array.Resize(ref id, arg);
         Array.Resize(ref enemyHandle, arg);

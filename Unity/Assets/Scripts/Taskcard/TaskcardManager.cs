@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Firebase.Firestore;
 using TMPro;
 using UnityEngine;
@@ -19,6 +20,9 @@ public class TaskcardManager : MonoBehaviour
     private CurrentHealthChanger _currentHpChanger;
     private HpTextManager _hpTextManager;
     
+    //
+    private List<DocumentSnapshot> _taskList;
+    
     private async void Start()
     {
         _currentHp = GameObject.Find("CurrentHp");
@@ -28,9 +32,19 @@ public class TaskcardManager : MonoBehaviour
         _currentHpChanger = _currentHp.GetComponent<CurrentHealthChanger>();
         _hpTextManager = GameObject.Find("HpText").GetComponent<HpTextManager>();
         
-        await InitializeTaskcard();
+        // await InitializeTaskcard();
     }
 
+    public void OnGoalChanged()
+    {
+        
+    }
+
+    public void OnTaskChanged()
+    {
+        
+    }
+    
     /// <summary>
     /// Taskcardの子のUIすべてをイニシャライズする関数です。
     /// 
@@ -43,14 +57,19 @@ public class TaskcardManager : MonoBehaviour
         var e = tasksSnapshot.Documents.GetEnumerator();
         e.MoveNext();
         DocumentSnapshot taskDocument = (DocumentSnapshot)e.Current;
-        SetTaskData(taskDocument);
+        SetTaskDataDisplay(taskDocument);
     }
 
+    private void PreprocessTaskData(QuerySnapshot tasksSnapshot)
+    {
+        _taskList = tasksSnapshot.Documents.ToList();
+    }
+        
     /// <summary>
     /// DocumentSnapshotを引数に受け取り、その値をもとにTaskcardの内容を書き換える関数です。
     /// </summary>
     /// <param name="taskSnapshot"></param>
-    private void SetTaskData(DocumentSnapshot taskSnapshot)
+    private void SetTaskDataDisplay(DocumentSnapshot taskSnapshot)
     {
         Dictionary<string, object> taskDocument = taskSnapshot.ToDictionary();
 

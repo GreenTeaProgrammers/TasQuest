@@ -1,4 +1,7 @@
 //User should always be only one
+
+using Firebase.Firestore;
+
 public class User
 {
     private static string id;
@@ -6,6 +9,7 @@ public class User
     //テスト用の値です。
     private static string currentStatus = "1";
     private static string currentGoal = "h8eWfbP3NR5tz81maI9p";
+    private static QuerySnapshot tasksSnapshot;
     
     public static void SetUserID(string userID)
     {
@@ -28,5 +32,11 @@ public class User
     {
         get { return currentGoal; }
         set { currentGoal = value; }
+    }
+    
+    public static QuerySnapshot TasksSnapshot
+    {
+        get { return tasksSnapshot; }
+        set {  }
     }
 }

@@ -9,12 +9,12 @@ public class SwiftDataExchanger : MonoBehaviour
         User.SetUserID(userID);
     }
     
-    public async Task<QuerySnapshot> OnCurrentGoalChangedBySwift(string currentStatus, string currentGoal)
+    public async System.Threading.Tasks.Task OnCurrentGoalChangedBySwift(string currentStatus, string currentGoal)
     {
         User.CurrentStatus = currentStatus;
         User.CurrentGoal = currentGoal;
-        QuerySnapshot tasksSnapshot = await User.fireStoreManager.ReadTasks();
-        return tasksSnapshot;
+        User.TasksSnapshot = await User.fireStoreManager.ReadTasks();
+        // return tasksSnapshot;
     }
 
     public async Task<QuerySnapshot> OnTaskDataChangedBySwift()

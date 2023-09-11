@@ -12,12 +12,16 @@ struct TaskView: View {
     @Binding var appData: AppData
     @Binding var status: Status
     @Binding var goal: Goal
+    
+    @State private var reloadFlag = false  // 追加
+    
     @State var showingCreateTaskModal = false  // ハーフモーダルの表示状態を管理
     
     
     var body: some View {
         ZStack {
             let taskCount = goal.tasks.filter { $0.isVisible }.count
+            
             let height = max(0, (87.95) * CGFloat(taskCount - 1))
             VStack {
                 HeaderView(goal: $goal)
@@ -104,6 +108,13 @@ struct TaskView: View {
                 .padding(.trailing, 16)
             }
         }
+        .id(reloadFlag)  // 追加
+        .onReceive(
+            NotificationCenter.default.publisher(for: Notification.Name("TaskCreated")),
+            perform: { _ in
+                self.reloadFlag.toggle()
+            }
+        )
         .navigationBarBackButtonHidden(true)
     }
 }
@@ -170,11 +181,19 @@ struct HeaderView: View {
 struct TaskListView: View {
     @Binding var goal: Goal
     
+    var sortedTasks: [TasQuestTask] {
+        goal.tasks.sorted { $0.dueDate < $1.dueDate }
+    }
+    
     var body: some View {
-        ForEach(goal.tasks.indices, id: \.self) { index in
-            if goal.tasks[index].isVisible {
-                TaskRow(task: goal.tasks[index])
+        ForEach(sortedTasks.indices, id: \.self) { index in
+            let task = sortedTasks[index]
+            if task.isVisible {
+                TaskRow(task: task)
             }
+        }
+        .onAppear {
+            print("Current tasks: \(self.goal.tasks)")
         }
     }
 }
@@ -201,16 +220,16 @@ struct TaskRow: View {
     }
     
     var body: some View {
-            HStack {
-                // Circle icon
-                Image(systemName: "circle.fill")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(.blue)
-                
-                Button(action: {
-                    print("Task \(task.id) was clicked")
-                }) {
+        HStack {
+            // Circle icon
+            Image(systemName: "circle.fill")
+                .resizable()
+                .frame(width: 24, height: 24)
+                .foregroundColor(.blue)
+            
+            Button(action: {
+                print("Task \(task.id) was clicked")
+            }) {
                 // Task name and tags
                 VStack(alignment: .leading) {
                     Text(task.name)
@@ -272,6 +291,10 @@ struct TaskRow: View {
         }
         .frame(height: 80)
         .background(Color.clear)
+        .onAppear(){
+            print("Rendering task with ID: \(task.id)")
+            
+        }
+        
     }
 }
-

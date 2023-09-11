@@ -146,15 +146,14 @@ extension CreateTaskHalfModalView {
             
             // 新しいタスクを追加
             appData.statuses[statusIndex].goals[goalIndex].tasks.append(newTask)
-            
-
-            print(appData)
-            
+               
             FirestoreManager.shared.saveAppData(appData: appData) { error in
                 if let error = error {
                     print("Failed to save data: \(error)")
                 } else {
                     print("Data saved successfully.")
+                    
+                    NotificationCenter.default.post(name: Notification.Name("TaskCreated"), object: nil)//強制的に全体を再レンダリング
                     
                     // データが保存された後にデータを再取得
                     FirestoreManager.shared.fetchAppData { fetchedAppData in

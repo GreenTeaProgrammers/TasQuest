@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22A894262AAED5FD00B5B622 /* CommonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A894252AAED5FD00B5B622 /* CommonViewModel.swift */; };
 		22B349022AADFD0F00B7BBE7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B348D42AADFD0F00B7BBE7 /* SignUpViewModel.swift */; };
 		22B349032AADFD0F00B7BBE7 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B348D52AADFD0F00B7BBE7 /* SettingViewModel.swift */; };
 		22B349042AADFD0F00B7BBE7 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B348D62AADFD0F00B7BBE7 /* TaskViewModel.swift */; };
@@ -65,7 +64,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		22A894252AAED5FD00B5B622 /* CommonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewModel.swift; sourceTree = "<group>"; };
 		22B348D42AADFD0F00B7BBE7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		22B348D52AADFD0F00B7BBE7 /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		22B348D62AADFD0F00B7BBE7 /* TaskViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
@@ -141,7 +139,6 @@
 				22B348D62AADFD0F00B7BBE7 /* TaskViewModel.swift */,
 				22B348D72AADFD0F00B7BBE7 /* SignInEmailViewModel.swift */,
 				22B348D82AADFD0F00B7BBE7 /* StatusViewModel.swift */,
-				22A894252AAED5FD00B5B622 /* CommonViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -408,7 +405,6 @@
 				22B349082AADFD0F00B7BBE7 /* CustomEasing.swift in Sources */,
 				22B349022AADFD0F00B7BBE7 /* SignUpViewModel.swift in Sources */,
 				22B349192AADFD0F00B7BBE7 /* StatusView.swift in Sources */,
-				22A894262AAED5FD00B5B622 /* CommonViewModel.swift in Sources */,
 				22B349142AADFD0F00B7BBE7 /* Status.swift in Sources */,
 				22B349032AADFD0F00B7BBE7 /* SettingViewModel.swift in Sources */,
 				22B349072AADFD0F00B7BBE7 /* Throttler.swift in Sources */,

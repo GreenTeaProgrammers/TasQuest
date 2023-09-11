@@ -9,7 +9,8 @@ import SwiftUI
 
 struct AuthenticationView: View {
     
-    @Binding var showSignInView: Bool
+    @Binding var isNotAuthed: Bool
+    @Binding var appData: AppData
     
     var body: some View {
         NavigationView {
@@ -27,9 +28,10 @@ struct AuthenticationView: View {
                         .foregroundColor(.white)
                         .padding(.bottom, 50)
                     
+                    
                     // Sign In Button
-                    NavigationLink(destination: SignInEmailView(showSignInView: $showSignInView)) {
-                        Text("Sign In With Email")
+                    NavigationLink(destination: SignInEmailView(isNotAuthed: $isNotAuthed, appData: $appData)) {
+                        Text("メールアドレスでサインイン")
                             .font(.headline)
                             .foregroundColor(.white)
                             .frame(height: 55)
@@ -41,8 +43,22 @@ struct AuthenticationView: View {
                     }
                     .padding(.top, 20)
                     
+                    // Sign Up Button
+                    NavigationLink(destination: SignUpEmailView(isNotAuthed: $isNotAuthed, appData: $appData)) { // Assuming you have a SignUpEmailView
+                        Text("メールアドレスで登録")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(height: 55)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.orange)
+                            .cornerRadius(10)
+                            .shadow(radius: 10)
+                            .padding(.horizontal, 20)
+                    }
+                    .padding(.top, 20)
                 }
-                .padding()
+                .padding(.top, 20)
+                
             }
             .navigationTitle("Sign In")
             .navigationBarHidden(true)

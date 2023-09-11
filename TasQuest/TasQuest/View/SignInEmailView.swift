@@ -9,7 +9,8 @@ import SwiftUI
 
 
 struct SignInEmailView: View {
-    @Binding var showSignInView: Bool
+    @Binding var isNotAuthed: Bool
+    @Binding var appData: AppData
     
     @StateObject private var viewModel = SignInEmailViewModel()
     @State private var errorMessage: String? = nil  // New state variable for the error message
@@ -18,12 +19,12 @@ struct SignInEmailView: View {
     
     var body: some View {
         VStack {
-            TextField("Email...", text: $viewModel.email)
+            TextField("メールアドレス", text: $viewModel.email)
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
             
-            SecureField("Password...(At least 6 character)", text: $viewModel.password)
+            SecureField("パスワード", text: $viewModel.password)
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
@@ -37,23 +38,26 @@ struct SignInEmailView: View {
                 Task {
                     do {
                         try await viewModel.signIn()
-                        showSignInView = false
-                        presentationMode.wrappedValue.dismiss()
-
+                        print("Sign in successful.")  // Debug line
+                        DispatchQueue.main.async {
+                            isNotAuthed = false
+                            presentationMode.wrappedValue.dismiss()
+                            StatusViewModel().fetchAppData { fetchedAppData in
+                                if let fetchedAppData = fetchedAppData {
+                                    appData = fetchedAppData
+                                    // Do any additional work here
+                                } else {
+                                    // Handle the error case here
+                                }
+                            }
+                        }
                     } catch {
-                        errorMessage = viewModel.errorMessage
-                    }
-                    
-                    do {
-                        try await viewModel.signUp()
-                        showSignInView = false
-                        presentationMode.wrappedValue.dismiss()
-                    } catch {
+                        print("Sign in failed with error: \(error)")  // Debug line
                         errorMessage = viewModel.errorMessage
                     }
                 }
             } label: {
-                Text("Sign In")
+                Text("サインイン")
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(height: 55)
@@ -65,6 +69,6 @@ struct SignInEmailView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle("Sign In")
+        .navigationTitle("サインイン")
     }
 }

@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Random = System.Random;
 
 public class Road : MonoBehaviour
 {
@@ -14,10 +16,13 @@ public class Road : MonoBehaviour
     public static int stagesNumber;
     public static Vector3[] stagePositions;
     public static string[] id;
-    public static AsyncOperationHandle<GameObject>[] handle;
+    public static AsyncOperationHandle<GameObject>[] enemyHandle;
+    public static AsyncOperationHandle<GameObject>[] accessoryHandle;
 
     private const float INITIAL_RADIAN = 0;
-
+    private static float accessoryRadius;
+    private const int ACCESSORY_TYPE_NUMBER = 9;
+    
     Task[] GetTasksFromJson()
     {
         JsonManager jm = new JsonManager();
@@ -30,9 +35,11 @@ public class Road : MonoBehaviour
     {
         stagesNumber = arg;
         radius = arg;
+        accessoryRadius = arg * 1.2f;
         Array.Resize(ref stagePositions, arg);
         Array.Resize(ref id, arg);
-        Array.Resize(ref handle, arg);
+        Array.Resize(ref enemyHandle, arg);
+        Array.Resize(ref accessoryHandle, arg);
     }
 
     void UpdateStages()
@@ -62,7 +69,8 @@ public class Road : MonoBehaviour
         Debug.Log("clear start");
         for (int i = 0; i < stagesNumber; i++)
         {
-            Addressables.ReleaseInstance(handle[i]);
+            Addressables.ReleaseInstance(enemyHandle[i]);
+            Addressables.ReleaseInstance(accessoryHandle[i]);
         }
         Debug.Log("clear end");
     }
@@ -121,17 +129,15 @@ public class Road : MonoBehaviour
         {
             address = "EnemyStrong";
         }
-        handle[idx] = Addressables.InstantiateAsync
+        enemyHandle[idx] = Addressables.InstantiateAsync
         (
             address,
             Vector3.zero,
             Quaternion.identity
         );
-        await handle[idx].Task;
-        GameObject enemy = handle[idx].Result;
+        await enemyHandle[idx].Task;
+        GameObject enemy = enemyHandle[idx].Result;
         enemy.transform.position = stagePositions[idx];
-        
-        Debug.Log("generated");
         
         float sin = stagePositions[idx].x / radius;
         float cos = stagePositions[idx].z / radius;
@@ -139,11 +145,31 @@ public class Road : MonoBehaviour
         if (sin < -0.001) radian = MathF.PI + (MathF.PI - radian);
         float deg = radian * 180 / MathF.PI;
 
-        //Debug.Log(maxHealth);
-        //Debug.Log(radian * 180 / MathF.PI);
+        Debug.Log("generated enemy");
         
         Quaternion rot = Quaternion.AngleAxis(90 + deg, Vector3.up);
         enemy.transform.rotation *= rot;
+        
+        Random engine = new Random();
+        int accessoryType = engine.Next(0, ACCESSORY_TYPE_NUMBER);
+        address = "0" + accessoryType.ToString();
+        accessoryHandle[idx] = Addressables.InstantiateAsync
+        (
+            address,
+            Vector3.zero,
+            Quaternion.identity
+        );
+        await accessoryHandle[idx].Task;
+        GameObject accessory = accessoryHandle[idx].Result;
+        float accessoryRadian = radian + 2 * MathF.PI / stagesNumber / 4;
+        accessory.transform.position = new Vector3
+        (
+            accessoryRadius * MathF.Sin(accessoryRadian),
+            0,
+            accessoryRadius * MathF.Cos(accessoryRadian)
+        );
+        
+        Debug.Log("generated accessory");
     }
 
     async void Start()

@@ -251,7 +251,8 @@ struct TaskRow: View {
                 
                 // Health bar
                 VStack {
-                    let percentage = task.currentHealth / task.maxHealth
+                    let percentage: Float = task.maxHealth == 0 ? 0 : task.currentHealth / task.maxHealth
+                    
                     Capsule()
                         .fill(Color.gray.opacity(0.2))
                         .frame(width: 150, height: 8)

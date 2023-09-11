@@ -48,11 +48,10 @@ struct CreateTaskHalfModalView: View {
 extension CreateTaskHalfModalView {
     var modalHeader: some View {
         HStack {
-            Text("タスクを追加")
+            Text("新しいタスクの作成")
                 .font(.title)
                 .bold()
             Spacer()
-            
         }
         .padding()
     }
@@ -62,20 +61,47 @@ extension CreateTaskHalfModalView {
             TextField("タスクの名前", text: $name)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-            
+
             TextField("タスクの説明", text: $description)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-            
-            DatePicker("いつまでにやる？", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
-                .padding()
+
+            HStack {
+                Spacer()
+                Image(systemName: "calendar")
+                    .resizable()
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.blue)
+                DatePicker("", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
+            }
+            .padding()
         }
     }
 
+
     var healthSliders: some View {
         Group {
-            HealthSlider(label: "敵の最大体力:", value: $maxHealth, range: 0...3000)
-            HealthSlider(label: "敵の現在体力:", value: $currentHealth, range: 0...maxHealth)
+            HStack {
+                Image(systemName: "heart.fill")
+                    .resizable()
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.red)
+                Text("最大")
+                HealthSlider(label: "", value: $maxHealth, range: 0...3000)
+            }
+            .padding()
+            //.help("敵の最大体力を設定します。")
+            
+            HStack {
+                Image(systemName: "heart.slash.fill")
+                    .resizable()
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.red)
+                Text("現在")
+                HealthSlider(label: "", value: $currentHealth, range: 0...maxHealth)
+            }
+            .padding()
+            //.help("敵の現在体力を設定します。")
         }
     }
     
@@ -84,8 +110,11 @@ extension CreateTaskHalfModalView {
     }
 
     var saveButton: some View {
-        Button("タスクを作成") {
-            saveTask()
+        Button(action: saveTask) {
+            HStack {
+                Image(systemName: "checkmark")
+                Text("作成")
+            }
         }
         .padding()
         .background(Color.blue)
@@ -169,23 +198,47 @@ struct TagSelectorView: View {
 
     var body: some View {
         VStack {
-            Text("選択されているタグ")
-            ScrollView(.horizontal, showsIndicators: false) {
+            if !(selectedTags.count == tags.count){
                 HStack {
-                    ForEach(selectedTags, id: \.id) { tag in
-                        TagButton(tag: tag, isSelected: true) {
-                            selectedTags.removeAll { $0.id == tag.id }
+                    Image(systemName: "plus.circle")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.blue)
+                    Image(systemName: "tag.fill")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.blue)
+                    //Text("利用可能なタグ")
+                }
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(tags.filter { !selectedTags.contains($0) }, id: \.id) { tag in
+                            TagButton(tag: tag, isSelected: false) {
+                                selectedTags.append(tag)
+                            }
                         }
                     }
                 }
             }
-
-            Text("利用可能なタグ")
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(tags.filter { !selectedTags.contains($0) }, id: \.id) { tag in
-                        TagButton(tag: tag, isSelected: false) {
-                            selectedTags.append(tag)
+            
+            if !selectedTags.isEmpty {
+            HStack {
+                Image(systemName: "checkmark.circle")
+                    .resizable()
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.blue)
+                Image(systemName: "tag.fill")
+                    .resizable()
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.blue)
+                //Text("選択されているタグ")
+            }
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(selectedTags, id: \.id) { tag in
+                            TagButton(tag: tag, isSelected: true) {
+                                selectedTags.removeAll { $0.id == tag.id }
+                            }
                         }
                     }
                 }

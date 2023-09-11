@@ -113,6 +113,13 @@ struct HeaderView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: TaskViewModel  // ViewModelのインスタンスを追加
     
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return formatter
+    }()
+
+    
     init(goal: Binding<Goal>) {
         self._goal = goal
         self.viewModel = TaskViewModel(goal: goal.wrappedValue)
@@ -154,7 +161,7 @@ struct HeaderView: View {
             }
             .padding(.top)
         }
-        Text(goal.dueDate)
+        Text(dateFormatter.string(from: goal.dueDate))
             .font(.subheadline)
             .foregroundColor(.gray)
     }
@@ -174,6 +181,12 @@ struct TaskListView: View {
 
 struct TaskRow: View {
     @State var task: TasQuestTask
+    
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return formatter
+    }()
     
     // Calculate the fill color based on the task's current and max health
     var fillColor: Color {
@@ -228,7 +241,8 @@ struct TaskRow: View {
                             .padding(.vertical, 2)
                         }
                     }
-                    Text(task.dueDate)
+                    // 修正された部分
+                    Text(dateFormatter.string(from: task.dueDate))
                         .font(.caption)
                         .foregroundColor(.gray)
                 }

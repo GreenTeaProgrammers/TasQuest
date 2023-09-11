@@ -11,18 +11,10 @@ struct Tag: Codable, Identifiable, Hashable, Equatable {
     let id: String
     var name: String
     var color: [Float] // [R, G, B]
-    var createdAt: String // YYYY-MM-DD/HH:MM:SS
-    var updatedAt: String // YYYY-MM-DD/HH:MM:SS
+    var createdAt: Date // YYYY-MM-DD/HH:MM:SS
+    var updatedAt: Date // YYYY-MM-DD/HH:MM:SS
 
-    init(dictionary: [String: Any]) {
-        self.id = dictionary["id"] as? String ?? ""
-        self.name = dictionary["name"] as? String ?? ""
-        self.color = dictionary["color"] as? [Float] ?? []
-        self.createdAt = dictionary["createdAt"] as? String ?? ""
-        self.updatedAt = dictionary["updatedAt"] as? String ?? ""
-    }
-
-    init(id: String, name: String, color: [Float], createdAt: String, updatedAt: String) {
+    init(id: String, name: String, color: [Float], createdAt: Date, updatedAt: Date) {
         self.id = id
         self.name = name
         self.color = color

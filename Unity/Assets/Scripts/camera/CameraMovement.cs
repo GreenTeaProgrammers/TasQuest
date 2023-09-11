@@ -10,6 +10,8 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float _snapSenctivity;
     
     private float _currentDist = 0.0f;
+    private float _snapHold = 0.0f;
+    private int _snapStreak = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -23,13 +25,12 @@ public class CameraMovement : MonoBehaviour
         
     }
 
+    //もうちょっとちゃんとしたスナップにするにはSwipe関数の方でpinchDistanceを変える必要あり。
     private float Snap(float dist)
     {
         int stagesNumber = Road.stagesNumber;
         float unit = 2 * Mathf.PI / stagesNumber;
         int currentIndex = (int) Mathf.Floor(dist / unit);
-        Debug.Log($"unit: {unit}");
-        Debug.Log($"currentIndex: {currentIndex}, dist % unit: {dist % unit}");
         
         if (dist % unit > unit - _snapSenctivity)
         {

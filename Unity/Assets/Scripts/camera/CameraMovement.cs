@@ -6,8 +6,12 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField]private float _radius = 7.0f;
-    float _initialAngle;
+    [SerializeField]float _initialAngle;
+    [SerializeField] private float _snapSenctivity;
+    
     private float _currentDist = 0.0f;
+    private float _snapHold = 0.0f;
+    private int _snapStreak = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -21,10 +25,31 @@ public class CameraMovement : MonoBehaviour
         
     }
 
+    //もうちょっとちゃんとしたスナップにするにはSwipe関数の方でpinchDistanceを変える必要あり。
+    private float Snap(float dist)
+    {
+        int stagesNumber = Road.stagesNumber;
+        float unit = 2 * Mathf.PI / stagesNumber;
+        int currentIndex = (int) Mathf.Floor(dist / unit);
+        
+        if (dist % unit > unit - _snapSenctivity)
+        {
+            dist = unit * (currentIndex+1) - _snapSenctivity;
+        }
+        // else if (dist % unit < _snapSenctivity)
+        // {
+        //     dist = unit * currentIndex - _snapSenctivity;
+        //     Debug.Log("Snap 2");
+        // }
+
+        return dist;
+    }
+    
     public void MoveCamera(float dist)
     {
         Transform myTransform = this.transform;
         dist += _currentDist;
+        dist = Snap(dist);
         float angle = dist / Mathf.PI * 180;
             
         Vector3 circleMove = new Vector3(_radius*Mathf.Sin(dist), myTransform.position.y, _radius*Mathf.Cos(dist));

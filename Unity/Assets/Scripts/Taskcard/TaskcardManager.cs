@@ -14,14 +14,14 @@ public class TaskcardManager : MonoBehaviour
     private GameObject _currentHp;
     
     //Scripts
-    private TMP_InputField _inputField;
-    private TMP_Text _dueDate;
+    private static TMP_InputField _inputField;
+    private static TMP_Text _dueDate;
     private RectTransform _currentHpTransform;
-    private CurrentHealthChanger _currentHpChanger;
-    private HpTextManager _hpTextManager;
+    private static CurrentHealthChanger _currentHpChanger;
+    private static HpTextManager _hpTextManager;
     
     //
-    private List<DocumentSnapshot> _taskList;
+    private static List<DocumentSnapshot> _taskList;
     
     private async void Start()
     {
@@ -35,41 +35,43 @@ public class TaskcardManager : MonoBehaviour
         // await InitializeTaskcard();
     }
 
-    public void OnGoalChanged()
+    public static void OnGoalChanged()
     {
-        
+        PreprocessTaskData(User.TasksSnapshot);
+        DocumentSnapshot taskDocument = _taskList[0];
+        SetTaskDataDisplay(taskDocument);
     }
 
     public void OnTaskChanged()
     {
         
     }
+
+    private static void PreprocessTaskData(QuerySnapshot tasksSnapshot)
+    {
+        _taskList = tasksSnapshot.Documents.ToList();
+    }
     
     /// <summary>
     /// Taskcardの子のUIすべてをイニシャライズする関数です。
     /// 
     /// </summary>
-    private async System.Threading.Tasks.Task InitializeTaskcard()
-    {
-        //Test
-        User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
-        QuerySnapshot tasksSnapshot = await User.fireStoreManager.ReadTasks();
-        var e = tasksSnapshot.Documents.GetEnumerator();
-        e.MoveNext();
-        DocumentSnapshot taskDocument = (DocumentSnapshot)e.Current;
-        SetTaskDataDisplay(taskDocument);
-    }
-
-    private void PreprocessTaskData(QuerySnapshot tasksSnapshot)
-    {
-        _taskList = tasksSnapshot.Documents.ToList();
-    }
+    // private async System.Threading.Tasks.Task InitializeTaskcard()
+    // {
+    //     //Test
+    //     User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
+    //     QuerySnapshot tasksSnapshot = await User.fireStoreManager.ReadTasks();
+    //     var e = tasksSnapshot.Documents.GetEnumerator();
+    //     e.MoveNext();
+    //     DocumentSnapshot taskDocument = (DocumentSnapshot)e.Current;
+    //     SetTaskDataDisplay(taskDocument);
+    // }
         
     /// <summary>
     /// DocumentSnapshotを引数に受け取り、その値をもとにTaskcardの内容を書き換える関数です。
     /// </summary>
     /// <param name="taskSnapshot"></param>
-    private void SetTaskDataDisplay(DocumentSnapshot taskSnapshot)
+    private static void SetTaskDataDisplay(DocumentSnapshot taskSnapshot)
     {
         Dictionary<string, object> taskDocument = taskSnapshot.ToDictionary();
 

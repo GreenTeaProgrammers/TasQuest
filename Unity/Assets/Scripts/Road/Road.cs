@@ -160,7 +160,7 @@ public class Road : MonoBehaviour
     {
         Transform roadTransform = GameObject.Find("narrowRoad").transform;
         roadTransform.localScale = new Vector3(radius, 0.4f, radius);
-        await RelocateTasks();
+        // await RelocateTasks();
         // ClearHandle(); // test
     }
 }

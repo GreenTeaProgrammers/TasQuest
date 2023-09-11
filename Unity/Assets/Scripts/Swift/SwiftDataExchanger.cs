@@ -14,6 +14,7 @@ public class SwiftDataExchanger : MonoBehaviour
         User.CurrentStatus = currentStatus;
         User.CurrentGoal = currentGoal;
         User.TasksSnapshot = await User.fireStoreManager.ReadTasks();
+        await ViewManager.OnGoalChanged();
         // return tasksSnapshot;
     }
 

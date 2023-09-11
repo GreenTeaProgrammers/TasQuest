@@ -67,12 +67,12 @@ extension CreateTaskHalfModalView {
                 .padding()
 
             HStack {
-                Spacer()
                 Image(systemName: "calendar")
                     .resizable()
                     .frame(width: 24, height: 24)
                     .foregroundColor(.blue)
                 DatePicker("", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
+                Spacer()
             }
             .padding()
         }

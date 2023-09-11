@@ -8,22 +8,13 @@ on:
 
 jobs:
   build:
-
     runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v3
-
-    # TasQuestディレクトリに移動
-    - name: Change to TasQuest directory
-      run: cd TasQuest
-
     - name: Build
-      run: |
-        cd TasQuest  # TasQuestディレクトリに移動
-        swift build -v  # Swiftビルドコマンドを実行
-
+      run: swift build -v
+      working-directory: TasQuest  # TasQuestディレクトリでビルド
     - name: Run tests
-      run: |
-        cd TasQuest  # TasQuestディレクトリに移動
-        swift test -v  # Swiftテストコマンドを実行
+      run: swift test -v
+      working-directory: TasQuest  # TasQuestディレクトリでテスト

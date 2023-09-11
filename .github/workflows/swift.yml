@@ -12,9 +12,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build
-      run: swift build -v
-      working-directory: TasQuest  # TasQuestディレクトリでビルド
-    - name: Run tests
-      run: swift test -v
-      working-directory: TasQuest  # TasQuestディレクトリでテスト
+    - name: Build and Test
+      run: |
+        cd TasQuest
+        swift build -v
+        swift test -v

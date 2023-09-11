@@ -510,12 +510,15 @@ extension FirestoreManager {
         for task in tasks {
             dispatchGroup.enter()
             
+            let maxHealthAsInt = Int(task.maxHealth)
+            let currentHealthAsInt = Int(task.currentHealth)
+            
             let taskData: [String: Any] = [
                 "name": task.name,
                 "description": task.description,
                 "dueDate": Timestamp(date: task.dueDate),
-                "maxHealth": task.maxHealth,
-                "currentHealth": task.currentHealth,
+                "maxHealth": maxHealthAsInt,
+                "currentHealth": currentHealthAsInt,
                 "tags": task.tags.map { $0.id },
                 "isVisible": task.isVisible,
                 "createdAt": Timestamp(date: task.createdAt),

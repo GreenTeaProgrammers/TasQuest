@@ -11,16 +11,9 @@ struct Status: Codable, Identifiable {
     let id: String
     var name: String
     var goals: [Goal]
-    var updatedAt: String // YYYY-MM-DD/HH:MM:SS
+    var updatedAt: Date // YYYY-MM-DD/HH:MM:SS
 
-    init(data: [String: Any], goals: [Goal]) {
-        self.id = data["id"] as? String ?? ""
-        self.name = data["name"] as? String ?? ""
-        self.goals = goals
-        self.updatedAt = data["updatedAt"] as? String ?? ""
-    }
-
-    init(id: String, name: String, goals: [Goal], updatedAt: String) {
+    init(id: String, name: String, goals: [Goal], updatedAt: Date) {
         self.id = id
         self.name = name
         self.goals = goals

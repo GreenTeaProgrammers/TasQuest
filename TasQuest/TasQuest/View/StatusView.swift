@@ -108,6 +108,12 @@ struct GoalRow: View {
     @Binding var appData: AppData
     @Binding var status: Status
     @Binding var goal: Goal
+    
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return formatter
+    }()
 
     var body: some View {
         NavigationLink(destination: TaskView(appData: $appData, status: $status, goal: $goal)) {
@@ -119,7 +125,7 @@ struct GoalRow: View {
                 
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(goal.dueDate)
+                        Text(dateFormatter.string(from: goal.dueDate))
                             .foregroundColor(.gray)
                         HStack {
                             ForEach(goal.tags.prefix(3).indices, id: \.self) { tagIndex in

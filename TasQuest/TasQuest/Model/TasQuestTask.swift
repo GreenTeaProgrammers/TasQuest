@@ -11,28 +11,15 @@ struct TasQuestTask: Codable, Identifiable {
     let id: String
     var name: String
     var description: String
-    var dueDate: String // YYYY-MM-DD
+    var dueDate: Date // YYYY-MM-DD
     var maxHealth: Float
     var currentHealth: Float
     var tags: [Tag]
     var isVisible: Bool//タスクの可視性を表す。あまりやる予定のないタスクや、終わったタスクを表示するか否かのオプションで使用予定
-    var createdAt: String // YYYY-MM-DD/HH:MM:SS
-    var updatedAt: String // YYYY-MM-DD/HH:MM:SS
+    var createdAt: Date // YYYY-MM-DD/HH:MM:SS
+    var updatedAt: Date // YYYY-MM-DD/HH:MM:SS
 
-    init(dictionary: [String: Any], tags: [Tag]) {
-        self.id = dictionary["id"] as? String ?? ""
-        self.name = dictionary["name"] as? String ?? ""
-        self.description = dictionary["description"] as? String ?? ""
-        self.dueDate = dictionary["dueDate"] as? String ?? ""
-        self.maxHealth = dictionary["maxHealth"] as? Float ?? 0
-        self.currentHealth = dictionary["currentHealth"] as? Float ?? 0
-        self.tags = tags
-        self.isVisible = dictionary["isVisible"] as? Bool ?? true
-        self.createdAt = dictionary["createdAt"] as? String ?? ""
-        self.updatedAt = dictionary["updatedAt"] as? String ?? ""
-    }
-
-    init(id: String, name: String, description: String, dueDate: String, maxHealth: Float, currentHealth: Float, tags: [Tag], isVisible: Bool, createdAt: String, updatedAt: String) {
+    init(id: String, name: String, description: String, dueDate: Date, maxHealth: Float, currentHealth: Float, tags: [Tag], isVisible: Bool, createdAt: Date, updatedAt: Date) {
         self.id = id
         self.name = name
         self.description = description

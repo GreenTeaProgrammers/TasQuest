@@ -18,7 +18,7 @@ struct CreateTaskHalfModalView: View {
     @State private var selectedDate = Date()
     @State var name: String = ""
     @State var description: String = ""
-    @State var dueDate: String = ""
+    @State var dueDate: Date = Date()
     @State var maxHealth: Float = 0.0
     @State var currentHealth: Float = 0.0
     @State var selectedTags: [Tag] = []
@@ -76,7 +76,7 @@ extension CreateTaskHalfModalView {
             }
             .padding()
         }
-    }
+    }   
 
 
     var healthSliders: some View {
@@ -126,23 +126,18 @@ extension CreateTaskHalfModalView {
         if currentHealth > maxHealth {
             currentHealth = maxHealth
         }
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd/HH:mm:ss"
-        
-        let dueDateStr = formatter.string(from: selectedDate)
-        let nowDateStr = formatter.string(from: Date())  // 現在の日時
         
         let newTask = TasQuestTask(
             id: "", // Firestore が生成する ID
             name: name,
             description: description,
-            dueDate: dueDateStr,
+            dueDate: selectedDate,
             maxHealth: Float(maxHealth),
             currentHealth: Float(currentHealth),
             tags: selectedTags,
             isVisible: true,
-            createdAt: nowDateStr,
-            updatedAt: nowDateStr
+            createdAt: Date(),
+            updatedAt: Date()
         )
         
         // StatusとGoalの参照を取得

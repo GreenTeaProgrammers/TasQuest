@@ -40,7 +40,8 @@ struct StatusView: View {
                 
                 // ステータスとその目標を表示
                 ScrollView {
-                    ForEach(viewModel.appData.statuses.indices, id: \.self) { index in
+                    // ForEach で配列のインデックスを逆順にする
+                    ForEach(viewModel.appData.statuses.indices.reversed(), id: \.self) { index in
                         StatusRow(viewModel: viewModel, appData: $viewModel.appData, status: $viewModel.appData.statuses[index])
                             .padding(.horizontal)
                             .padding(.vertical, 8)
@@ -62,6 +63,13 @@ struct StatusView: View {
                     viewModel.fetchAppData { fetchedAppData in
                         if let fetchedAppData = fetchedAppData {
                             viewModel.appData = fetchedAppData
+                            // IDに基づいてStatus配列を降順にソート
+                            viewModel.appData.statuses.sort { (status1, status2) in
+                                if let id1 = Int(status1.id), let id2 = Int(status2.id) {
+                                    return id1 > id2
+                                }
+                                return false
+                            }
                             // Do any additional work here
                         } else {
                             // Handle the error case here

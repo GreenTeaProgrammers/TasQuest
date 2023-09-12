@@ -3,24 +3,37 @@ using UnityEngine;
 
 public class InputFieldManager : MonoBehaviour
 {
-    //this object
-    private TMP_InputField _inputField;
+    //this component
+    private static TMP_InputField _inputField;
     
-    // Start is called before the first frame update
-    void Start()
+    //
+    private static string _prevName = "";
+    private static string _name = "";
+    
+    private void Start()
     {
         _inputField = this.GetComponent<TMP_InputField>();
     }
     
-    // Update is called once per frame
-    void Update()
+    private async void Update()
     {
         _inputField.interactable = TaskcardManager.IsEditMode;
+        if (_prevName != _name)
+        {
+            _prevName = _name;
+            Debug.Log("InputFieldMangerからFirestoreへ書き込み");
+            await TaskcardManager.OnTaskDataChanged("name", _inputField.text);
+        }
     }
 
-    void UpdateTaskName()
+    public void UpdateTaskName(string taskName)
     {
-        Debug.Log("InputFieldからFirestoreに書き込み");
-        //Firestoreへ書き込み
+        _name = taskName;
+        _inputField.text = _name;
+    }
+
+    public void OnEndEdit()
+    {
+        _name = _inputField.text;
     }
 }

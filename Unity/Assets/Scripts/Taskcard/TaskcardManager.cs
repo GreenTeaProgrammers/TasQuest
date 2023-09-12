@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Firebase.Firestore;
 using TMPro;
 using UnityEngine;
@@ -13,50 +14,82 @@ public class TaskcardManager : MonoBehaviour
     private GameObject _currentHp;
     
     //Scripts
-    private TMP_InputField _inputField;
-    private TMP_Text _dueDate;
+    private static InputFieldManager _inputFieldManager;
+    private static TMP_Text _dueDate;
     private RectTransform _currentHpTransform;
-    private CurrentHealthChanger _currentHpChanger;
-    private HpTextManager _hpTextManager;
+    private static CurrentHealthChanger _currentHpChanger;
+    private static HpTextManager _hpTextManager;
     
-    private async void Start()
+    //
+    private static List<DocumentSnapshot> _taskList;
+    
+    private void Start()
     {
         _currentHp = GameObject.Find("CurrentHp");
-        _inputField = GameObject.Find("TaskNameInputField").GetComponent<TMP_InputField>();
+        _inputFieldManager = GameObject.Find("TaskNameInputField").GetComponent<InputFieldManager>();
         _dueDate = GameObject.Find("DueDate").GetComponent<TMP_Text>();
         _currentHpTransform = _currentHp.GetComponent<RectTransform>();
         _currentHpChanger = _currentHp.GetComponent<CurrentHealthChanger>();
         _hpTextManager = GameObject.Find("HpText").GetComponent<HpTextManager>();
-        
-        await InitializeTaskcard();
+     }
+
+    public static void OnGoalChanged()
+    {
+        PreprocessTaskData(User.TasksSnapshot);
+        DocumentSnapshot taskDocument = _taskList[0];
+        SetTaskDataDisplay(taskDocument);
     }
 
     /// <summary>
-    /// Taskcardの子のUIすべてをイニシャライズする関数です。
-    /// 
+    /// メインカメラの位置にを監視してタスクカードに書き込むべきタスクを_taskListから取り出す。
+    /// currentIndexがout of rangeの時には呼ばれないように監視している。
     /// </summary>
-    private async System.Threading.Tasks.Task InitializeTaskcard()
+    /// <param name="currentIndex"></param>
+    public static void OnCurrentTaskChanged(int currentIndex)
     {
-        //Test
-        User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
-        QuerySnapshot tasksSnapshot = await User.fireStoreManager.ReadTasks();
-        var e = tasksSnapshot.Documents.GetEnumerator();
-        e.MoveNext();
-        DocumentSnapshot taskDocument = (DocumentSnapshot)e.Current;
-        SetTaskData(taskDocument);
+        SetTaskDataDisplay(_taskList[currentIndex]);
     }
 
+    /// <summary>
+    /// タスクのデータを書き換えたときに呼ばれます
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="data"></param>
+    /// <exception cref="SystemException"></exception>
+    public static async System.Threading.Tasks.Task OnTaskDataChanged(string key, object data)
+    {
+        DocumentSnapshot taskData = _taskList[CameraMovement.CurrentIndex];
+        Dictionary<string, object> taskDocument = taskData.ToDictionary();
+        Debug.Log($"{key}に{data}をかきこみました");
+        try
+        {
+            taskDocument[key] = data;
+            await User.fireStoreManager.UpdateTask(taskData.Id, taskDocument);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new SystemException("Key is Invalid");
+        }
+        
+    }
+    
+    private static void PreprocessTaskData(QuerySnapshot tasksSnapshot)
+    {
+        _taskList = tasksSnapshot.Documents.ToList();
+        Debug.Log(_taskList.Count);
+    }
+        
     /// <summary>
     /// DocumentSnapshotを引数に受け取り、その値をもとにTaskcardの内容を書き換える関数です。
     /// </summary>
     /// <param name="taskSnapshot"></param>
-    private void SetTaskData(DocumentSnapshot taskSnapshot)
+    private static void SetTaskDataDisplay(DocumentSnapshot taskSnapshot)
     {
         Dictionary<string, object> taskDocument = taskSnapshot.ToDictionary();
 
-        _inputField.text = (string)taskDocument["name"];
+        _inputFieldManager.UpdateTaskName((string)taskDocument["name"]);
         
-        // var currentHealth = (int)taskDocument["currentHealth"];
         var currentHealth = (float) Convert.ChangeType(taskDocument["currentHealth"], typeof(float));
         var maxHealth = (float)Convert.ChangeType(taskDocument["maxHealth"], typeof(float));
         
@@ -64,9 +97,10 @@ public class TaskcardManager : MonoBehaviour
         
         _hpTextManager.OnHealthChanged(currentHealth, maxHealth);
         
-        string dueDate = (string)taskDocument["dueDate"];
-        dueDate = "Due:\n" + dueDate.Split("/")[0];
-        _dueDate.text = dueDate;
+        Timestamp dueDate = (Timestamp) Convert.ChangeType(taskDocument["dueDate"], typeof(Timestamp));
+        string dueDateText = dueDate.ToDateTime().ToString();
+        dueDateText = "Due:\n" + dueDateText.Split()[0];
+        _dueDate.text = dueDateText;
     }
 
     /// <summary>

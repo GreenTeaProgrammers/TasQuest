@@ -14,7 +14,7 @@ public class TaskcardManager : MonoBehaviour
     private GameObject _currentHp;
     
     //Scripts
-    private static TMP_InputField _inputField;
+    private static InputFieldManager _inputFieldManager;
     private static TMP_Text _dueDate;
     private RectTransform _currentHpTransform;
     private static CurrentHealthChanger _currentHpChanger;
@@ -26,7 +26,7 @@ public class TaskcardManager : MonoBehaviour
     private async void Start()
     {
         _currentHp = GameObject.Find("CurrentHp");
-        _inputField = GameObject.Find("TaskNameInputField").GetComponent<TMP_InputField>();
+        _inputFieldManager = GameObject.Find("TaskNameInputField").GetComponent<InputFieldManager>();
         _dueDate = GameObject.Find("DueDate").GetComponent<TMP_Text>();
         _currentHpTransform = _currentHp.GetComponent<RectTransform>();
         _currentHpChanger = _currentHp.GetComponent<CurrentHealthChanger>();
@@ -62,7 +62,7 @@ public class TaskcardManager : MonoBehaviour
     {
         DocumentSnapshot taskData = _taskList[CameraMovement.CurrentIndex];
         Dictionary<string, object> taskDocument = taskData.ToDictionary();
-
+        Debug.Log($"{key}に{data}をかきこみました");
         try
         {
             taskDocument[key] = data;
@@ -90,7 +90,7 @@ public class TaskcardManager : MonoBehaviour
     {
         Dictionary<string, object> taskDocument = taskSnapshot.ToDictionary();
 
-        _inputField.text = (string)taskDocument["name"];
+        _inputFieldManager.UpdateName((string)taskDocument["name"]);
         
         var currentHealth = (float) Convert.ChangeType(taskDocument["currentHealth"], typeof(float));
         var maxHealth = (float)Convert.ChangeType(taskDocument["maxHealth"], typeof(float));

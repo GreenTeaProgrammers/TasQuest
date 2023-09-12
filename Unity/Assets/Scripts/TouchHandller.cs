@@ -34,12 +34,12 @@ public class TouchHandller : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    async void Update()
     {
         //DamageDiffが遷移してる間は操作不可能
         if (!_damageDiffManager.isOnTransition)
         {
-            TouchManagement();
+            await TouchManagement();
         }
     }
     

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		22201E3B2AAFE13200074589 /* CreateGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22201E3A2AAFE13200074589 /* CreateGoalView.swift */; };
+		22201E422AB0259B00074589 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22201E402AB0259B00074589 /* TagView.swift */; };
+		22201E432AB0259B00074589 /* TagEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22201E412AB0259B00074589 /* TagEditorView.swift */; };
 		22B349022AADFD0F00B7BBE7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B348D42AADFD0F00B7BBE7 /* SignUpViewModel.swift */; };
 		22B349032AADFD0F00B7BBE7 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B348D52AADFD0F00B7BBE7 /* SettingViewModel.swift */; };
 		22B349042AADFD0F00B7BBE7 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B348D62AADFD0F00B7BBE7 /* TaskViewModel.swift */; };
@@ -66,6 +68,8 @@
 
 /* Begin PBXFileReference section */
 		22201E3A2AAFE13200074589 /* CreateGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalView.swift; sourceTree = "<group>"; };
+		22201E402AB0259B00074589 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		22201E412AB0259B00074589 /* TagEditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagEditorView.swift; sourceTree = "<group>"; };
 		22B348D42AADFD0F00B7BBE7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		22B348D52AADFD0F00B7BBE7 /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		22B348D62AADFD0F00B7BBE7 /* TaskViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
@@ -198,6 +202,8 @@
 		22B348EF2AADFD0F00B7BBE7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				22201E412AB0259B00074589 /* TagEditorView.swift */,
+				22201E402AB0259B00074589 /* TagView.swift */,
 				22B348F32AADFD0F00B7BBE7 /* WelcomeView.swift */,
 				22B348F82AADFD0F00B7BBE7 /* PageView.swift */,
 				22B348F52AADFD0F00B7BBE7 /* AuthenticationView.swift */,
@@ -392,6 +398,7 @@
 				22B349152AADFD0F00B7BBE7 /* Tag.swift in Sources */,
 				22B3490C2AADFD0F00B7BBE7 /* FireStoreManager.swift in Sources */,
 				22B349172AADFD0F00B7BBE7 /* CreateTaskView.swift in Sources */,
+				22201E422AB0259B00074589 /* TagView.swift in Sources */,
 				22B349062AADFD0F00B7BBE7 /* StatusViewModel.swift in Sources */,
 				22B3490B2AADFD0F00B7BBE7 /* KeyboardResponder.swift in Sources */,
 				22B349122AADFD0F00B7BBE7 /* Goal.swift in Sources */,
@@ -400,8 +407,8 @@
 				22B349092AADFD0F00B7BBE7 /* CADisplayLink+.swift in Sources */,
 				22201E3B2AAFE13200074589 /* CreateGoalView.swift in Sources */,
 				22B349132AADFD0F00B7BBE7 /* TasQuestTask.swift in Sources */,
+				22201E432AB0259B00074589 /* TagEditorView.swift in Sources */,
 				22B3491A2AADFD0F00B7BBE7 /* WelcomeView.swift in Sources */,
-				22201E3D2AAFEB4500074589 /* TagView.swift in Sources */,
 				22B3491E2AADFD0F00B7BBE7 /* SettingView.swift in Sources */,
 				22B349102AADFD0F00B7BBE7 /* PageModel.swift in Sources */,
 				22B349042AADFD0F00B7BBE7 /* TaskViewModel.swift in Sources */,
@@ -413,7 +420,6 @@
 				22B349142AADFD0F00B7BBE7 /* Status.swift in Sources */,
 				22B349032AADFD0F00B7BBE7 /* SettingViewModel.swift in Sources */,
 				22B349072AADFD0F00B7BBE7 /* Throttler.swift in Sources */,
-				22201E3F2AAFECBA00074589 /* TagEditorView.swift in Sources */,
 				22B349162AADFD0F00B7BBE7 /* AuthDataResultModel.swift in Sources */,
 				22B349112AADFD0F00B7BBE7 /* AppData.swift in Sources */,
 				22B3490A2AADFD0F00B7BBE7 /* AuthenticationManager.swift in Sources */,

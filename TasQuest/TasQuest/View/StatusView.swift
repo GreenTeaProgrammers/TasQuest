@@ -41,6 +41,7 @@ struct StatusView: View {
                     }.sheet(isPresented: $showTagView) {
                         TagView(appData: $viewModel.appData)  // TagViewを表示する。TagViewの定義が必要。
                     }
+                    .padding()
                     
                     Button(action: {
                         showSettingView = true
@@ -152,6 +153,9 @@ struct GoalRow: View {
     @Binding var status: Status
     @Binding var goal: Goal
     
+    @State private var showGoalDetailPopup: Bool = false  // ゴールの詳細情報ポップアップを表示するための状態変数
+    @State private var navigateToTaskView: Bool = false  // TaskViewへの遷移を制御するための状態変数
+    
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
@@ -159,7 +163,10 @@ struct GoalRow: View {
     }()
 
     var body: some View {
-        NavigationLink(destination: TaskView(appData: $appData, status: $status, goal: $goal)) {
+        ZStack {
+            NavigationLink("", destination: TaskView(appData: $appData, status: $status, goal: $goal), isActive: $navigateToTaskView)
+                .opacity(0)  // NavigationLinkを透明にして隠す
+            
             HStack {
                 Text(goal.name)
                     .lineLimit(1)
@@ -171,12 +178,10 @@ struct GoalRow: View {
                         Text(dateFormatter.string(from: goal.dueDate))
                             .foregroundColor(.gray)
                         HStack {
-                            // タグが存在する場合はそのタグを表示
                             ForEach(goal.tags.prefix(3).indices, id: \.self) { tagIndex in
                                 displayTag(tag: goal.tags[tagIndex])
                             }
                             
-                            // タグが存在しない場合は透明なダミータグを表示
                             if goal.tags.isEmpty {
                                 displayTag(tag: nil)
                             }
@@ -194,38 +199,165 @@ struct GoalRow: View {
                         .foregroundColor(goal.isStarred ? .yellow : .gray)
                 }
             }
+            .padding(.horizontal)
+            .padding(.vertical, 8)
+            .background(Color.white)
+            .cornerRadius(10)
+            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+            .padding(.bottom, 8)
+            .onTapGesture {
+                self.navigateToTaskView = true  // タップでTaskViewに遷移
+            }
+            .gesture(
+                LongPressGesture()
+                    .onEnded { _ in
+                        // 触覚フィードバックを生成
+                        let generator = UIImpactFeedbackGenerator(style: .heavy)
+                        generator.impactOccurred()
+                        
+                        self.showGoalDetailPopup = true  // 長押しが終了したらポップアップを表示
+                        self.navigateToTaskView = false  // 長押しでTaskViewに遷移しないようにする
+                    }
+            )
+            .sheet(isPresented: $showGoalDetailPopup) {
+                GoalDetailPopupView(goal: $goal)  // ゴールの詳細情報を表示するビュー
+            }
         }
-        .padding(.horizontal)
-        .padding(.vertical, 8)
-        .background(Color.white)
-        .cornerRadius(10)
-        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
-        .padding(.bottom, 8)
+    }
+    
+    func displayTag(tag: Tag?) -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 4)
+                .fill(
+                    tag != nil ?
+                    Color(
+                        red: Double(tag!.color[0]),
+                        green: Double(tag!.color[1]),
+                        blue: Double(tag!.color[2])
+                    ).opacity(0.2) : Color.clear
+                )
+            if let actualTag = tag {
+                let truncatedTag = String(actualTag.name.prefix(8))
+                let displayTag = actualTag.name.count > 8 ? "\(truncatedTag)..." : truncatedTag
+                Text(displayTag)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .padding(.horizontal, 4)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+            }
+        }
+        .fixedSize()
+        .padding(.vertical, 2)
     }
 }
 
-func displayTag(tag: Tag?) -> some View {
-    ZStack {
-        RoundedRectangle(cornerRadius: 4)
-            .fill(
-                tag != nil ?
-                Color(
-                    red: Double(tag!.color[0]),
-                    green: Double(tag!.color[1]),
-                    blue: Double(tag!.color[2])
-                ).opacity(0.2) : Color.clear
-            )
-        if let actualTag = tag {
-            let truncatedTag = String(actualTag.name.prefix(8))
-            let displayTag = actualTag.name.count > 8 ? "\(truncatedTag)..." : truncatedTag
-            Text(displayTag)
-                .font(.caption)
-                .foregroundColor(.gray)
-                .padding(.horizontal, 4)
-                .lineLimit(1)
-                .truncationMode(.tail)
+struct GoalDetailPopupView: View {
+    @Binding var goal: Goal
+    
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return formatter
+    }()
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("ゴールの詳細")
+                    .font(.headline)
+                    .foregroundColor(Color.primary)
+                Spacer()
+                Button(action: {
+                    // 編集ロジックをここに配置
+                }) {
+                    Image(systemName: "pencil")
+                        .foregroundColor(Color.blue)
+                        .padding(10)
+                        .background(Circle().fill(Color.blue.opacity(0.1)))
+                }
+            }
+            .padding()
+            
+            Divider()
+                .background(Color.gray)
+            
+            VStack(alignment: .leading, spacing: 12) {
+                Text("名前: \(goal.name)")
+                    .fontWeight(.medium)
+                
+                Text("説明: \(goal.description)")
+                    .font(.caption)
+                
+                HStack {
+                    Image(systemName: "calendar")
+                        .foregroundColor(Color.gray)
+                    Text("期日: \(goal.dueDate, formatter: dateFormatter)")
+                }
+                
+                HStack {
+                    Image(systemName: "tag")
+                        .foregroundColor(Color.gray)
+                    Text("タグ: \(goal.tags.map { $0.name }.joined(separator: ", "))")
+                    HStack {
+                        Image(systemName: "tag.fill")
+                            .foregroundColor(Color.gray)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(goal.tags, id: \.name) { tag in
+                                    displayTag(tag: tag)
+                                        .padding(4)
+                                        .background(RoundedRectangle(cornerRadius: 4).fill(Color.gray.opacity(0.2)))
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                HStack {
+                    Image(systemName: "clock")
+                        .foregroundColor(Color.gray)
+                    Text("作成日時: \(goal.createdAt, formatter: dateFormatter)")
+                }
+                
+                HStack {
+                    Image(systemName: "arrow.triangle.2.circlepath")
+                        .foregroundColor(Color.gray)
+                    Text("更新日: \(goal.updatedAt, formatter: dateFormatter)")
+                }
+            }
+            .padding()
+            Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
+        .cornerRadius(20)
+        .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 5)
     }
-    .fixedSize()
-    .padding(.vertical, 2)
+    
+    func displayTag(tag: Tag?) -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 4)
+                .fill(
+                    tag != nil ?
+                    Color(
+                        red: Double(tag!.color[0]),
+                        green: Double(tag!.color[1]),
+                        blue: Double(tag!.color[2])
+                    ).opacity(0.2) : Color.clear
+                )
+            if let actualTag = tag {
+                let truncatedTag = String(actualTag.name.prefix(8))
+                let displayTag = actualTag.name.count > 8 ? "\(truncatedTag)..." : truncatedTag
+                Text(displayTag)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .padding(.horizontal, 4)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+            }
+        }
+        .fixedSize()
+        .padding(.vertical, 2)
+    }
 }

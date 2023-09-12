@@ -110,7 +110,7 @@ public class Road : MonoBehaviour
         await RelocateTasks();
     }
 
-    async System.Threading.Tasks.Task GenerateEnemyOrGoal(int idx, string id, float maxHealth)
+    async System.Threading.Tasks.Task GenerateEnemyOrGoal(int idx, string argId, float maxHealth)
     {
         string address;
         if (maxHealth < 0)
@@ -138,6 +138,7 @@ public class Road : MonoBehaviour
         await enemyHandle[idx].Task;
         GameObject enemy = enemyHandle[idx].Result;
         enemy.transform.position = stagePositions[idx];
+        id[idx] = argId;
         
         float sin = stagePositions[idx].x / radius;
         float cos = stagePositions[idx].z / radius;

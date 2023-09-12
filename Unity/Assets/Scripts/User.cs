@@ -5,7 +5,7 @@ public class User
     public static FireStoreManager fireStoreManager;
     //テスト用の値です。
     private static string currentStatus = "1";
-    private static string currentGoal = "h8eWfbP3NR5tz81maI9p";
+    private static string currentGoal = "BD33ZOlTGJUVYLShEgQ4";
     
     public static void SetUserID(string userID)
     {

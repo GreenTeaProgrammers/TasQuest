@@ -35,7 +35,8 @@ public class Road : MonoBehaviour
     {
         stagesNumber = arg;
         radius = arg;
-        accessoryRadius = arg * 1.2f;
+        //accessoryRadius = arg * 1.2f;
+        accessoryRadius = arg * 0.95f + 2.5f;
         Array.Resize(ref stagePositions, arg);
         Array.Resize(ref id, arg);
         Array.Resize(ref enemyHandle, arg);
@@ -78,18 +79,15 @@ public class Road : MonoBehaviour
     {
         ClearHandle();
         //本来はSwiftから先に呼ばれている
-        User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
+        User.SetUserID("MiHOSIRaviWm2eGfbN1GYDhv3sA3");
         var querySnapshot = await User.fireStoreManager.ReadTasks();
-        foreach (var i in querySnapshot.Documents)
-        {
-            var dict = i.ToDictionary();
-        }
         SetStagesNumberAndRadius(querySnapshot.Documents.Count() + 1);
+        //Debug.Log(querySnapshot.Documents.Count() + 1);
         UpdateStages();
         int idx = 0;
         foreach (var taskDoc in querySnapshot.Documents)
         {
-            await GenerateEnemyOrGoal
+            await Generate
             (
                 idx,
                 taskDoc.Id,
@@ -97,7 +95,7 @@ public class Road : MonoBehaviour
             );
             idx++;
         }
-        await GenerateEnemyOrGoal(idx, "goal", -1);
+        await Generate(idx, "goal", -1);
     }
     
     async System.Threading.Tasks.Task OnGoalChanged()
@@ -110,25 +108,51 @@ public class Road : MonoBehaviour
         await RelocateTasks();
     }
 
-    async System.Threading.Tasks.Task GenerateEnemyOrGoal(int idx, string argId, float maxHealth)
+    float GetRadian(int idx)
     {
-        string address;
+        float sin = stagePositions[idx].x / radius;
+        float cos = stagePositions[idx].z / radius;
+        float radian = MathF.Acos(cos); // 0 - PI
+        if (sin < -0.001) radian = MathF.PI + (MathF.PI - radian);
+        return radian;
+    }
+
+    string GetEnemyOrGoalAddress(float maxHealth)
+    {
         if (maxHealth < 0)
         {
-            address = "Goal";
+            return "Goal";
         }
-        else if (maxHealth < 500)
+        if (maxHealth < 500)
         {
-            address = "EnemyWeak";
+            return "EnemyWeak";
         }
-        else if (maxHealth < 1000)
+        if (maxHealth < 1000)
         {
-            address = "EnemyNormal";
+            return "EnemyNormal";
         }
-        else
-        {
-            address = "EnemyStrong";
-        }
+        return "EnemyStrong";
+    }
+
+    void RotateEnemyOrGoal(int idx)
+    {
+        float deg = GetRadian(idx) * 180 / MathF.PI;
+        float rotationDeg = deg + 90;
+        Quaternion rot = Quaternion.AngleAxis(rotationDeg, Vector3.up);
+        enemyHandle[idx].Result.transform.rotation *= rot;
+    }
+    
+    string GetRandomAccessoryAddress()
+    {
+        string address = "";
+        Random engine = new Random();
+        int accessoryType = engine.Next(0, ACCESSORY_TYPE_NUMBER);
+        address = "0" + accessoryType.ToString();
+        return address;
+    }
+
+    async System.Threading.Tasks.Task InstantiateEnemyOrGoalFromPrefab(int idx, string address)
+    {
         enemyHandle[idx] = Addressables.InstantiateAsync
         (
             address,
@@ -136,24 +160,11 @@ public class Road : MonoBehaviour
             Quaternion.identity
         );
         await enemyHandle[idx].Task;
-        GameObject enemy = enemyHandle[idx].Result;
-        enemy.transform.position = stagePositions[idx];
-        id[idx] = argId;
-        
-        float sin = stagePositions[idx].x / radius;
-        float cos = stagePositions[idx].z / radius;
-        float radian = MathF.Acos(cos); // 0 - PI
-        if (sin < -0.001) radian = MathF.PI + (MathF.PI - radian);
-        float deg = radian * 180 / MathF.PI;
-
-        Debug.Log("generated enemy");
-        
-        Quaternion rot = Quaternion.AngleAxis(90 + deg, Vector3.up);
-        enemy.transform.rotation *= rot;
-        
-        Random engine = new Random();
-        int accessoryType = engine.Next(0, ACCESSORY_TYPE_NUMBER);
-        address = "0" + accessoryType.ToString();
+        enemyHandle[idx].Result.transform.position = stagePositions[idx];
+    }
+    
+    async System.Threading.Tasks.Task InstantiateAccessoryFromPrefab(int idx, string address)
+    {
         accessoryHandle[idx] = Addressables.InstantiateAsync
         (
             address,
@@ -161,21 +172,42 @@ public class Road : MonoBehaviour
             Quaternion.identity
         );
         await accessoryHandle[idx].Task;
-        GameObject accessory = accessoryHandle[idx].Result;
-        float accessoryRadian = radian + 2 * MathF.PI / stagesNumber / 4;
-        accessory.transform.position = new Vector3
+        float accessoryRadian = GetRadian(idx) + 2 * MathF.PI / stagesNumber / 4; // パラメータ職人の余地
+        accessoryHandle[idx].Result.transform.position = new Vector3
         (
             accessoryRadius * MathF.Sin(accessoryRadian),
             0,
             accessoryRadius * MathF.Cos(accessoryRadian)
         );
+    }
+    
+    async System.Threading.Tasks.Task GenerateEnemyOrGoal(int idx, string argId, float maxHealth)
+    {
+        id[idx] = argId;
+        string address = GetEnemyOrGoalAddress(maxHealth);
+        await InstantiateEnemyOrGoalFromPrefab(idx, address);
+        RotateEnemyOrGoal(idx);
+
+        Debug.Log("generated enemy");
+    }
+    
+    async System.Threading.Tasks.Task GenerateAccessories(int idx)
+    {
+        string address = GetRandomAccessoryAddress();
+        await InstantiateAccessoryFromPrefab(idx, address);
         
         Debug.Log("generated accessory");
+    }
+    
+    async System.Threading.Tasks.Task Generate(int idx, string argId, float maxHealth)
+    {
+        await GenerateEnemyOrGoal(idx, argId, maxHealth);
+        await GenerateAccessories(idx);
     }
 
     async void Start()
     {
         await RelocateTasks();
-        ClearHandle(); // test
+        //ClearHandle(); // test
     }
 }

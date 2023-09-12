@@ -77,7 +77,6 @@ public class TaskcardManager : MonoBehaviour
     private static void PreprocessTaskData(QuerySnapshot tasksSnapshot)
     {
         _taskList = tasksSnapshot.Documents.ToList();
-        Debug.Log(_taskList.Count);
     }
         
     /// <summary>

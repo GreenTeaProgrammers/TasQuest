@@ -29,7 +29,7 @@ public class Road : MonoBehaviour
     private static void SetStagesNumberAndRadius(int arg)
     {
         stagesNumber = arg;
-        radius = arg;
+        radius = arg * 0.3f;
         // GameObject.Find("narrowRoad").transform.localScale = new Vector3(radius/24.8f, 0.1f, radius/24.8f);
         GameObject.Find("Road").transform.localScale = new Vector3((radius/10)+0.08f, 0.00001f, (radius/10f)+0.08f);
         GameObject.Find("cover").transform.localScale = new Vector3((radius/10f)-0.07f, 0.0001f, (radius/10f)-0.07f);

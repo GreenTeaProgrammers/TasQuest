@@ -11,8 +11,9 @@ import SwiftUI
 struct StatusView: View {
     @State private var isNotAuthed: Bool = false
     @State private var showSettingView: Bool = false
-    
     @State private var isAuthed: Bool = false
+    
+    @State private var showCreateGoalView: Bool = false  // 新しいゴール作成用モーダルを表示するための状態変数
     
     @StateObject private var viewModel = StatusViewModel()
     
@@ -80,13 +81,31 @@ struct StatusRow: View {
     @Binding var appData: AppData
     @Binding var status: Status
     
+    @State private var showCreateGoalView: Bool = false  // 新しいゴール作成用モーダルを表示するための状態変数
+
     var body: some View {
         VStack {
-            Text(status.name)
-                .font(.headline)
-                .foregroundColor(.black)
-                .padding(.top)
-
+            HStack {
+                Text(status.name)
+                    .font(.headline)
+                    .foregroundColor(.black)
+                Spacer()
+                
+                // 新しいゴール作成ボタン
+                Button(action: {
+                    showCreateGoalView = true
+                }) {
+                    Image(systemName: "plus.circle")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                }
+                .sheet(isPresented: $showCreateGoalView) {
+                    // ここでCreateGoalHalfModalViewを呼び出す
+                    CreateGoalHalfModalView(appData: $appData, status: $status)
+                }
+            }
+            .padding(.top)
+            
             if status.goals.isEmpty {
                 HStack {
                     Spacer()

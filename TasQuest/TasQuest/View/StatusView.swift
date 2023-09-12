@@ -11,9 +11,11 @@ import SwiftUI
 struct StatusView: View {
     @State private var isNotAuthed: Bool = false
     @State private var showSettingView: Bool = false
-  
+    
+    @State private var reloadFlag = false // 追加
+    
     @State private var showTagView: Bool = false  // 新しく追加
-
+    
     @State private var isAuthed: Bool = false
     
     @State private var showCreateGoalView: Bool = false  // 新しいゴール作成用モーダルを表示するための状態変数
@@ -25,7 +27,7 @@ struct StatusView: View {
             VStack {
                 // ウェルカムメッセージと設定ボタン
                 HStack {
-
+                    
                     Text("ようこそ \(viewModel.appData.username)")
                         .font(.headline)
                     
@@ -98,6 +100,13 @@ struct StatusView: View {
             }
             Spacer()
         }
+        .id(reloadFlag)  // 追加
+        .onReceive(
+            NotificationCenter.default.publisher(for: Notification.Name("StatusUpdate")),
+            perform: { _ in
+                self.reloadFlag.toggle()
+            }
+        )
     }
 }
 
@@ -126,7 +135,7 @@ struct StatusRow: View {
                 }
                 .sheet(isPresented: $showCreateGoalView) {
                     // ここでCreateGoalHalfModalViewを呼び出す
-                    CreateGoalHalfModalView(appData: $appData, status: $status)
+                    ManageGoalView(appData: $appData, status: $status)
                 }
             }
             .padding(.top)
@@ -220,7 +229,7 @@ struct GoalRow: View {
                     }
             )
             .sheet(isPresented: $showGoalDetailPopup) {
-                GoalDetailPopupView(goal: $goal)  // ゴールの詳細情報を表示するビュー
+                GoalDetailPopupView(appData: $viewModel.appData,status: $status, goal: $goal)  // ゴールの詳細情報を表示するビュー
             }
         }
     }
@@ -253,7 +262,10 @@ struct GoalRow: View {
 }
 
 struct GoalDetailPopupView: View {
+    @Binding var appData: AppData
+    @Binding var status: Status
     @Binding var goal: Goal
+    @State private var showManageGoalView: Bool = false  // 追加
     
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -269,7 +281,7 @@ struct GoalDetailPopupView: View {
                     .foregroundColor(Color.primary)
                 Spacer()
                 Button(action: {
-                    // 編集ロジックをここに配置
+                    self.showManageGoalView = true  // 編集ビューを表示
                 }) {
                     Image(systemName: "pencil")
                         .foregroundColor(Color.blue)
@@ -327,6 +339,9 @@ struct GoalDetailPopupView: View {
                 }
             }
             .padding()
+            .sheet(isPresented: $showManageGoalView) {
+                ManageGoalView(appData: $appData, status: $status, editingGoal: goal)  // ゴールを編集するビュー
+            }
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

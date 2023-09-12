@@ -7,8 +7,6 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float _snapSensitivity = 0.1f;
     
     private float _currentDist = 0.0f;
-    private float _snapHold = 0.0f;
-    private int _snapStreak = 0;
 
     private static int currentIndex = 0;
     public static int CurrentIndex

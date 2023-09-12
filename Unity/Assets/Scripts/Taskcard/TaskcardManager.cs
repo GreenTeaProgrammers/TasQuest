@@ -23,7 +23,7 @@ public class TaskcardManager : MonoBehaviour
     //
     private static List<DocumentSnapshot> _taskList;
     
-    private async void Start()
+    private void Start()
     {
         _currentHp = GameObject.Find("CurrentHp");
         _inputFieldManager = GameObject.Find("TaskNameInputField").GetComponent<InputFieldManager>();
@@ -31,9 +31,7 @@ public class TaskcardManager : MonoBehaviour
         _currentHpTransform = _currentHp.GetComponent<RectTransform>();
         _currentHpChanger = _currentHp.GetComponent<CurrentHealthChanger>();
         _hpTextManager = GameObject.Find("HpText").GetComponent<HpTextManager>();
-        
-        // await InitializeTaskcard();
-    }
+     }
 
     public static void OnGoalChanged()
     {
@@ -90,7 +88,7 @@ public class TaskcardManager : MonoBehaviour
     {
         Dictionary<string, object> taskDocument = taskSnapshot.ToDictionary();
 
-        _inputFieldManager.UpdateName((string)taskDocument["name"]);
+        _inputFieldManager.UpdateTaskName((string)taskDocument["name"]);
         
         var currentHealth = (float) Convert.ChangeType(taskDocument["currentHealth"], typeof(float));
         var maxHealth = (float)Convert.ChangeType(taskDocument["maxHealth"], typeof(float));

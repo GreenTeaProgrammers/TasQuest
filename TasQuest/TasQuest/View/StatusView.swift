@@ -11,9 +11,12 @@ import SwiftUI
 struct StatusView: View {
     @State private var isNotAuthed: Bool = false
     @State private var showSettingView: Bool = false
+  
     @State private var showTagView: Bool = false  // 新しく追加
-    
+
     @State private var isAuthed: Bool = false
+    
+    @State private var showCreateGoalView: Bool = false  // 新しいゴール作成用モーダルを表示するための状態変数
     
     @StateObject private var viewModel = StatusViewModel()
     
@@ -53,7 +56,8 @@ struct StatusView: View {
                 
                 // ステータスとその目標を表示
                 ScrollView {
-                    ForEach(viewModel.appData.statuses.indices, id: \.self) { index in
+                    // ForEach で配列のインデックスを逆順にする
+                    ForEach(viewModel.appData.statuses.indices.reversed(), id: \.self) { index in
                         StatusRow(viewModel: viewModel, appData: $viewModel.appData, status: $viewModel.appData.statuses[index])
                             .padding(.horizontal)
                             .padding(.vertical, 8)
@@ -75,6 +79,13 @@ struct StatusView: View {
                     viewModel.fetchAppData { fetchedAppData in
                         if let fetchedAppData = fetchedAppData {
                             viewModel.appData = fetchedAppData
+                            // IDに基づいてStatus配列を降順にソート
+                            viewModel.appData.statuses.sort { (status1, status2) in
+                                if let id1 = Int(status1.id), let id2 = Int(status2.id) {
+                                    return id1 > id2
+                                }
+                                return false
+                            }
                             // Do any additional work here
                         } else {
                             // Handle the error case here
@@ -94,13 +105,31 @@ struct StatusRow: View {
     @Binding var appData: AppData
     @Binding var status: Status
     
+    @State private var showCreateGoalView: Bool = false  // 新しいゴール作成用モーダルを表示するための状態変数
+
     var body: some View {
         VStack {
-            Text(status.name)
-                .font(.headline)
-                .foregroundColor(.black)
-                .padding(.top)
-
+            HStack {
+                Text(status.name)
+                    .font(.headline)
+                    .foregroundColor(.black)
+                Spacer()
+                
+                // 新しいゴール作成ボタン
+                Button(action: {
+                    showCreateGoalView = true
+                }) {
+                    Image(systemName: "plus.circle")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                }
+                .sheet(isPresented: $showCreateGoalView) {
+                    // ここでCreateGoalHalfModalViewを呼び出す
+                    CreateGoalHalfModalView(appData: $appData, status: $status)
+                }
+            }
+            .padding(.top)
+            
             if status.goals.isEmpty {
                 HStack {
                     Spacer()
@@ -142,27 +171,14 @@ struct GoalRow: View {
                         Text(dateFormatter.string(from: goal.dueDate))
                             .foregroundColor(.gray)
                         HStack {
+                            // タグが存在する場合はそのタグを表示
                             ForEach(goal.tags.prefix(3).indices, id: \.self) { tagIndex in
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .fill(
-                                            Color(
-                                                red: Double(goal.tags[tagIndex].color[0]),
-                                                green: Double(goal.tags[tagIndex].color[1]),
-                                                blue: Double(goal.tags[tagIndex].color[2])
-                                            ).opacity(0.2)
-                                        )
-                                    let truncatedTag = String(goal.tags[tagIndex].name.prefix(8))
-                                    let displayTag = goal.tags[tagIndex].name.count > 8 ? "\(truncatedTag)..." : truncatedTag
-                                    Text(displayTag)
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
-                                        .padding(.horizontal, 4)
-                                        .lineLimit(1)
-                                        .truncationMode(.tail)
-                                }
-                                .fixedSize()
-                                .padding(.vertical, 2)
+                                displayTag(tag: goal.tags[tagIndex])
+                            }
+                            
+                            // タグが存在しない場合は透明なダミータグを表示
+                            if goal.tags.isEmpty {
+                                displayTag(tag: nil)
                             }
                         }
                     }
@@ -186,4 +202,30 @@ struct GoalRow: View {
         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
         .padding(.bottom, 8)
     }
+}
+
+func displayTag(tag: Tag?) -> some View {
+    ZStack {
+        RoundedRectangle(cornerRadius: 4)
+            .fill(
+                tag != nil ?
+                Color(
+                    red: Double(tag!.color[0]),
+                    green: Double(tag!.color[1]),
+                    blue: Double(tag!.color[2])
+                ).opacity(0.2) : Color.clear
+            )
+        if let actualTag = tag {
+            let truncatedTag = String(actualTag.name.prefix(8))
+            let displayTag = actualTag.name.count > 8 ? "\(truncatedTag)..." : truncatedTag
+            Text(displayTag)
+                .font(.caption)
+                .foregroundColor(.gray)
+                .padding(.horizontal, 4)
+                .lineLimit(1)
+                .truncationMode(.tail)
+        }
+    }
+    .fixedSize()
+    .padding(.vertical, 2)
 }

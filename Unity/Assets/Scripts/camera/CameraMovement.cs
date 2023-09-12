@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField]public static float _radius = 7.0f;
+    public static float _radius = 7.0f;
     [SerializeField]float _initialAngle;
     [SerializeField] private float _snapSensitivity = 0.1f;
     

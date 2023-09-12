@@ -30,7 +30,9 @@ public class Road : MonoBehaviour
     {
         stagesNumber = arg;
         radius = arg;
-        GameObject.Find("narrowRoad").transform.localScale = new Vector3(radius/24, 0.1f, radius/24);
+        // GameObject.Find("narrowRoad").transform.localScale = new Vector3(radius/24.8f, 0.1f, radius/24.8f);
+        GameObject.Find("Road").transform.localScale = new Vector3((radius/10)+0.08f, 0.00001f, (radius/10f)+0.08f);
+        GameObject.Find("cover").transform.localScale = new Vector3((radius/10f)-0.07f, 0.0001f, (radius/10f)-0.07f);
         CameraMovement._radius = radius;
         Array.Resize(ref stagePositions, arg);
         Array.Resize(ref id, arg);
@@ -84,7 +86,8 @@ public class Road : MonoBehaviour
         int idx = 0;
         //GenerateStart
         await GenerateEnemyOrGoal(idx, "start", -1);
-
+        idx++;
+        
         foreach (var taskDoc in querySnapshot.Documents)
         {
             await GenerateEnemyOrGoal

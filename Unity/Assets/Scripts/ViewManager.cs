@@ -20,6 +20,12 @@ public class ViewManager : MonoBehaviour
 
     public static async System.Threading.Tasks.Task OnTaskDataChanged()
     {
-        
+        User.TasksSnapshot = await User.fireStoreManager.ReadTasks();
+        TaskcardManager.OnGoalChanged();
+        //メインカメラはcurrentIndexに従った位置に置くようにFix予定
+        GameObject.Find("Main Camera").transform.position = new Vector3(
+            Road.stagePositions[0].x,
+            0.6f,
+            Road.stagePositions[0].z); 
     }
 }

@@ -989,7 +989,7 @@ MonoBehaviour:
         m_CallState: 1
       - m_Target: {fileID: 811683092}
         m_TargetAssemblyTypeName: InputFieldManager, Assembly-CSharp
-        m_MethodName: UpdateTaskName
+        m_MethodName: OnEndEdit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

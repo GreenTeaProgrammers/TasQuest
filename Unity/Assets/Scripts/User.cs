@@ -1,11 +1,17 @@
 //User should always be only one
-public class User
+
+using Firebase.Firestore;
+using UnityEngine;
+
+public static class User
 {
     private static string id;
     public static FireStoreManager fireStoreManager;
     //テスト用の値です。
     private static string currentStatus = "1";
-    private static string currentGoal = "h8eWfbP3NR5tz81maI9p";
+    private static string currentGoal = "BD33ZOlTGJUVYLShEgQ4";
+
+    private static QuerySnapshot tasksSnapshot;
     
     public static void SetUserID(string userID)
     {
@@ -28,5 +34,11 @@ public class User
     {
         get { return currentGoal; }
         set { currentGoal = value; }
+    }
+    
+    public static QuerySnapshot TasksSnapshot
+    {
+        get { return tasksSnapshot; }
+        set { tasksSnapshot = value; }
     }
 }

@@ -14,7 +14,7 @@ public class Road : MonoBehaviour
     public static int stagesNumber;
     public static Vector3[] stagePositions;
     public static string[] id;
-    public static AsyncOperationHandle<GameObject>[] handle;
+    public static AsyncOperationHandle<GameObject>[] enemyHandle;
 
     private const float INITIAL_RADIAN = 0;
 
@@ -26,16 +26,18 @@ public class Road : MonoBehaviour
         return goals[0].tasks;
     }
 
-    void SetStagesNumberAndRadius(int arg)
+    private static void SetStagesNumberAndRadius(int arg)
     {
         stagesNumber = arg;
         radius = arg;
+        GameObject.Find("narrowRoad").transform.localScale = new Vector3(radius/24, 0.1f, radius/24);
+        CameraMovement._radius = radius;
         Array.Resize(ref stagePositions, arg);
         Array.Resize(ref id, arg);
-        Array.Resize(ref handle, arg);
+        Array.Resize(ref enemyHandle, arg);
     }
 
-    void UpdateStages()
+    private static void UpdateStages()
     {
         stagePositions[0] = new Vector3
         (
@@ -57,28 +59,32 @@ public class Road : MonoBehaviour
         }
     }
 
-    void ClearHandle()
+    private static void ClearHandle()
     {
         Debug.Log("clear start");
         for (int i = 0; i < stagesNumber; i++)
         {
-            Addressables.ReleaseInstance(handle[i]);
+            Addressables.ReleaseInstance(enemyHandle[i]);
         }
         Debug.Log("clear end");
     }
-    async System.Threading.Tasks.Task RelocateTasks()
+    private static async System.Threading.Tasks.Task RelocateTasks()
     {
         ClearHandle();
         //本来はSwiftから先に呼ばれている
-        User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
-        var querySnapshot = await User.fireStoreManager.ReadTasks();
+        // User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
+        // var querySnapshot = await User.fireStoreManager.ReadTasks();
+        var querySnapshot = User.TasksSnapshot;
         foreach (var i in querySnapshot.Documents)
         {
             var dict = i.ToDictionary();
         }
-        SetStagesNumberAndRadius(querySnapshot.Documents.Count() + 1);
+        SetStagesNumberAndRadius(querySnapshot.Documents.Count() + 2);
         UpdateStages();
         int idx = 0;
+        //GenerateStart
+        await GenerateEnemyOrGoal(idx, "start", -1);
+
         foreach (var taskDoc in querySnapshot.Documents)
         {
             await GenerateEnemyOrGoal
@@ -89,10 +95,12 @@ public class Road : MonoBehaviour
             );
             idx++;
         }
+        
+        //GenerateGoal
         await GenerateEnemyOrGoal(idx, "goal", -1);
     }
     
-    async System.Threading.Tasks.Task OnGoalChanged()
+    public static async System.Threading.Tasks.Task OnGoalChanged()
     {
         await RelocateTasks();
     }
@@ -102,12 +110,16 @@ public class Road : MonoBehaviour
         await RelocateTasks();
     }
 
-    async System.Threading.Tasks.Task GenerateEnemyOrGoal(int idx, string id, float maxHealth)
+    private static async System.Threading.Tasks.Task GenerateEnemyOrGoal(int idx, string id, float maxHealth)
     {
         string address;
-        if (maxHealth < 0)
+        if (id == "goal")
         {
             address = "Goal";
+        }
+        else if (id == "start")
+        {
+            address = "Start";
         }
         else if (maxHealth < 500)
         {
@@ -121,17 +133,17 @@ public class Road : MonoBehaviour
         {
             address = "EnemyStrong";
         }
-        handle[idx] = Addressables.InstantiateAsync
+        enemyHandle[idx] = Addressables.InstantiateAsync
         (
             address,
             Vector3.zero,
             Quaternion.identity
         );
-        await handle[idx].Task;
-        GameObject enemy = handle[idx].Result;
+        await enemyHandle[idx].Task;
+        GameObject enemy = enemyHandle[idx].Result;
         enemy.transform.position = stagePositions[idx];
         
-        Debug.Log("generated");
+        Debug.Log($"generated{address}");
         
         float sin = stagePositions[idx].x / radius;
         float cos = stagePositions[idx].z / radius;
@@ -148,7 +160,9 @@ public class Road : MonoBehaviour
 
     async void Start()
     {
-        await RelocateTasks();
-        ClearHandle(); // test
+        Transform roadTransform = GameObject.Find("narrowRoad").transform;
+        roadTransform.localScale = new Vector3(radius, 0.4f, radius);
+        // await RelocateTasks();
+        // ClearHandle(); // test
     }
 }

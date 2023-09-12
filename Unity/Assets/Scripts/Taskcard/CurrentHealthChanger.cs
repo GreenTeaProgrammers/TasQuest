@@ -89,7 +89,7 @@ public class CurrentHealthChanger : MonoBehaviour
     /// <summary>
     /// ピンチイン、アウトが完了した際にスケールの基準値を再設定する関数です。
     /// </summary>
-    public void UpdateMyScale()
+    public async System.Threading.Tasks.Task UpdateMyScale()
     {
         _baseScale = _myRectTransform.localScale;
         Debug.Log($"Update MyScale {_baseScale}");
@@ -97,22 +97,22 @@ public class CurrentHealthChanger : MonoBehaviour
 
         if (TaskcardManager.IsEditMode)
         {
-            UpdateMaxHealth();
+            await UpdateMaxHealth();
         }
         else
         {
-            UpdateCurrentHealth();
+            await UpdateCurrentHealth();
         }
     }
 
-    private void UpdateCurrentHealth()
+    private async System.Threading.Tasks.Task UpdateCurrentHealth()
     {
-        // User.fireStoreManager.UpdateTask(_taskID, );
+        await TaskcardManager.OnTaskDataChanged("currentHealth", _currentHealth);
     }
 
-    private void UpdateMaxHealth()
+    private async System.Threading.Tasks.Task UpdateMaxHealth()
     {
-        
+        await TaskcardManager.OnTaskDataChanged("maxHealth", _maxHealth);
     }
     
 }

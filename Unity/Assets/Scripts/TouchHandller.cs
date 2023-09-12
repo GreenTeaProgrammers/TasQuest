@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class TouchHandller : MonoBehaviour
@@ -53,7 +50,7 @@ public class TouchHandller : MonoBehaviour
     //  2.タッチが継続しているとき
     //  3.タッチが終了したとき
     //中身が実行されます。直接処理を書かず、タッチ操作事態に関するメソッドを生やしていってください。
-    private void TouchManagement()
+    private async System.Threading.Tasks.Task TouchManagement()
     {
         
         if (!isTouchDebug)
@@ -115,7 +112,7 @@ public class TouchHandller : MonoBehaviour
                         Vector2.Distance(touch1.position, touch2.position);
                     float pinchDistance = currentPinchDistance - _previousPinchDistance;
                     
-                    PinchEnd(pinchDistance);
+                    await PinchEnd(pinchDistance);
                 }
             }
             //シングルタッチの時
@@ -190,9 +187,9 @@ public class TouchHandller : MonoBehaviour
         _taskcardManager.PinchControl(pinchDistance);
     }
 
-    private void PinchEnd(float pinchDistance)
+    private async System.Threading.Tasks.Task PinchEnd(float pinchDistance)
     {
         Debug.Log("Pinch End");
-        _currentHealthChanger.UpdateMyScale();
+        await _currentHealthChanger.UpdateMyScale();
     }
 }

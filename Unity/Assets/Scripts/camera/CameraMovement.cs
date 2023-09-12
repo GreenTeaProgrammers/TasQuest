@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
@@ -32,13 +29,7 @@ public class CameraMovement : MonoBehaviour
     {
         _initialAngle = this.transform.eulerAngles.y;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     //もうちょっとちゃんとしたスナップにするにはSwipe関数の方でpinchDistanceを変える必要あり。
     private float Snap(float dist)
     {

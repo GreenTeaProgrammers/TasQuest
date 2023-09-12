@@ -42,31 +42,45 @@ public class TaskcardManager : MonoBehaviour
         SetTaskDataDisplay(taskDocument);
     }
 
+    /// <summary>
+    /// メインカメラの位置にを監視してタスクカードに書き込むべきタスクを_taskListから取り出す。
+    /// currentIndexがout of rangeの時には呼ばれないように監視している。
+    /// </summary>
+    /// <param name="currentIndex"></param>
     public static void OnCurrentTaskChanged(int currentIndex)
     {
         SetTaskDataDisplay(_taskList[currentIndex]);
     }
 
+    /// <summary>
+    /// タスクのデータを書き換えたときに呼ばれます
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="data"></param>
+    /// <exception cref="SystemException"></exception>
+    public static async System.Threading.Tasks.Task OnTaskDataChanged(string key, object data)
+    {
+        DocumentSnapshot taskData = _taskList[CameraMovement.CurrentIndex];
+        Dictionary<string, object> taskDocument = taskData.ToDictionary();
+
+        try
+        {
+            taskDocument[key] = data;
+            await User.fireStoreManager.UpdateTask(taskData.Id, taskDocument);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new SystemException("Key is Invalid");
+        }
+        
+    }
+    
     private static void PreprocessTaskData(QuerySnapshot tasksSnapshot)
     {
         _taskList = tasksSnapshot.Documents.ToList();
         Debug.Log(_taskList.Count);
     }
-    
-    /// <summary>
-    /// Taskcardの子のUIすべてをイニシャライズする関数です。
-    /// 
-    /// </summary>
-    // private async System.Threading.Tasks.Task InitializeTaskcard()
-    // {
-    //     //Test
-    //     User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
-    //     QuerySnapshot tasksSnapshot = await User.fireStoreManager.ReadTasks();
-    //     var e = tasksSnapshot.Documents.GetEnumerator();
-    //     e.MoveNext();
-    //     DocumentSnapshot taskDocument = (DocumentSnapshot)e.Current;
-    //     SetTaskDataDisplay(taskDocument);
-    // }
         
     /// <summary>
     /// DocumentSnapshotを引数に受け取り、その値をもとにTaskcardの内容を書き換える関数です。

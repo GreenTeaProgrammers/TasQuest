@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Firebase.Firestore;
@@ -71,8 +72,8 @@ public class FireStoreManager
     /// <param name="currentStatus">FireStore上の</param>
     /// <param name="currentGoal"></param>
     /// <param name="targetTask"></param>
-    /// <param name="taskContext"></param>
-    public async void CreateTask(string targetTask, Dictionary<string, object> taskContext)
+    /// <param name="taskData"></param>
+    public async System.Threading.Tasks.Task CreateTask(string targetTask, Dictionary<string, object> taskData)
     {
         DocumentReference targetTaskDocument = 
             _userDocument
@@ -83,18 +84,16 @@ public class FireStoreManager
             .Collection("TasQuestTasks")
             .Document(targetTask);
 
-        await targetTaskDocument.SetAsync(taskContext);
+        await targetTaskDocument.SetAsync(taskData);
     }
     
     /// <summary>
     /// FireStore上に既に存在するタスクを上書きする関数です。
     /// 引数にはStatus, Goal, 新規作成するTaskのID, Taskの内容が必要です
     /// </summary>
-    /// <param name="currentStatus"></param>
-    /// <param name="currentGoal"></param>
     /// <param name="targetTask"></param>
-    /// <param name="taskContext"></param>
-    public async void UpdateTask(string targetTask, Dictionary<string, object> taskContext)
+    /// <param name="taskData"></param>
+    public async System.Threading.Tasks.Task UpdateTask(string targetTask, Dictionary<string, object> taskData)
     { 
         DocumentReference targetTaskDocument = 
             _userDocument
@@ -105,7 +104,7 @@ public class FireStoreManager
             .Collection("TasQuestTasks")
             .Document(targetTask);
 
-        await targetTaskDocument.UpdateAsync(taskContext);
+        await targetTaskDocument.UpdateAsync(taskData);
     }
 }
 

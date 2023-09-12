@@ -11,6 +11,7 @@ import SwiftUI
 struct StatusView: View {
     @State private var isNotAuthed: Bool = false
     @State private var showSettingView: Bool = false
+    @State private var showTagView: Bool = false  // 新しく追加
     
     @State private var isAuthed: Bool = false
     
@@ -21,9 +22,22 @@ struct StatusView: View {
             VStack {
                 // ウェルカムメッセージと設定ボタン
                 HStack {
+
                     Text("ようこそ \(viewModel.appData.username)")
                         .font(.headline)
+                    
                     Spacer()
+                    
+                    // 新しく追加: タグボタン
+                    Button(action: {
+                        showTagView = true
+                    }) {
+                        Image(systemName: "tag")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                    }.sheet(isPresented: $showTagView) {
+                        TagView(appData: $viewModel.appData)  // TagViewを表示する。TagViewの定義が必要。
+                    }
                     
                     Button(action: {
                         showSettingView = true

@@ -39,7 +39,7 @@ struct StatusView: View {
                             .resizable()
                             .frame(width: 24, height: 24)
                     }.sheet(isPresented: $showTagView) {
-                        TagView(appData: $viewModel.appData)  // TagViewを表示する。TagViewの定義が必要。
+                        //TagView(appData: $viewModel.appData)  // TagViewを表示する。TagViewの定義が必要。
                     }
                     
                     Button(action: {
@@ -152,6 +152,9 @@ struct GoalRow: View {
     @Binding var status: Status
     @Binding var goal: Goal
     
+    let hostModel = HostModel() // これを追加
+
+    
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
@@ -193,6 +196,9 @@ struct GoalRow: View {
                     Image(systemName: goal.isStarred ? "star.fill" : "star")
                         .foregroundColor(goal.isStarred ? .yellow : .gray)
                 }
+            }
+            .onTapGesture{
+                hostModel.sendGoalIDToUnity(goalID: goal.id)
             }
         }
         .padding(.horizontal)

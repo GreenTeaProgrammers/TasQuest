@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		221544B32AB1FB4A006572F4 /* UnityFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221544B22AB1FB4A006572F4 /* UnityFramework.framework */; };
 		22201E3B2AAFE13200074589 /* CreateGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22201E3A2AAFE13200074589 /* CreateGoalView.swift */; };
+		223041AE2AB20FBC00C185EC /* HostModelInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223041AD2AB20FBC00C185EC /* HostModelInput.swift */; };
 		226BD8C92AB1A54F00609537 /* Unity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226BD8C82AB1A54F00609537 /* Unity.swift */; };
 		22B349022AADFD0F00B7BBE7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B348D42AADFD0F00B7BBE7 /* SignUpViewModel.swift */; };
 		22B349032AADFD0F00B7BBE7 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B348D52AADFD0F00B7BBE7 /* SettingViewModel.swift */; };
@@ -66,7 +68,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		221544B22AB1FB4A006572F4 /* UnityFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UnityFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22201E3A2AAFE13200074589 /* CreateGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalView.swift; sourceTree = "<group>"; };
+		223041AD2AB20FBC00C185EC /* HostModelInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostModelInput.swift; sourceTree = "<group>"; };
 		226BD8C82AB1A54F00609537 /* Unity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unity.swift; sourceTree = "<group>"; };
 		22B348D42AADFD0F00B7BBE7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		22B348D52AADFD0F00B7BBE7 /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 				22B3F03F2AAD980100BD5781 /* FirebaseFirestore in Frameworks */,
 				22B3F03D2AAD980100BD5781 /* FirebaseAuth in Frameworks */,
 				22B3F0392AAD980100BD5781 /* FirebaseAnalytics in Frameworks */,
+				221544B32AB1FB4A006572F4 /* UnityFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +140,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		221544B12AB1FB4A006572F4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				221544B22AB1FB4A006572F4 /* UnityFramework.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		226BD8C72AB1A54300609537 /* Unity */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,16 +168,10 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		22B348D92AADFD0F00B7BBE7 /* TasQuestUITests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TasQuestUITests;
-			sourceTree = "<group>";
-		};
 		22B348DA2AADFD0F00B7BBE7 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				223041AD2AB20FBC00C185EC /* HostModelInput.swift */,
 				22B348DB2AADFD0F00B7BBE7 /* Throttler.swift */,
 				22B348DC2AADFD0F00B7BBE7 /* CustomEasing.swift */,
 				22B348DD2AADFD0F00B7BBE7 /* CADisplayLink+.swift */,
@@ -243,9 +250,9 @@
 				22B348E22AADFD0F00B7BBE7 /* Assets.xcassets */,
 				22B348E32AADFD0F00B7BBE7 /* GoogleService-Info.plist */,
 				22B348FC2AADFD0F00B7BBE7 /* TasQuestApp.swift */,
-				22B348D92AADFD0F00B7BBE7 /* TasQuestUITests */,
 				22B348FD2AADFD0F00B7BBE7 /* TasQuestTests */,
 				22B3EFC22AAD947E00BD5781 /* Products */,
+				221544B12AB1FB4A006572F4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -414,6 +421,7 @@
 				22B3491A2AADFD0F00B7BBE7 /* WelcomeView.swift in Sources */,
 				22B3491E2AADFD0F00B7BBE7 /* SettingView.swift in Sources */,
 				22B349102AADFD0F00B7BBE7 /* PageModel.swift in Sources */,
+				223041AE2AB20FBC00C185EC /* HostModelInput.swift in Sources */,
 				22B349042AADFD0F00B7BBE7 /* TaskViewModel.swift in Sources */,
 				22B349212AADFD0F00B7BBE7 /* TasQuestTests.swift in Sources */,
 				22B3491C2AADFD0F00B7BBE7 /* AuthenticationView.swift in Sources */,
@@ -588,6 +596,10 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3J329298Z2;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -599,6 +611,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = GreenTeaProgrammers.TasQuest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -617,6 +630,10 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3J329298Z2;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -628,6 +645,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = GreenTeaProgrammers.TasQuest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

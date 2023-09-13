@@ -11,9 +11,10 @@ import FirebaseAuth
 import Firebase
 
 class FirestoreManager {
-    
     static let shared = FirestoreManager()
     private let db = Firestore.firestore()
+    
+    private let hostModel = HostModel()
     
     private init() {
         print("FirestoreManager initialized")
@@ -62,6 +63,9 @@ class FirestoreManager {
                                           statuses: fetchedStatuses,
                                           tags: fetchedTags,
                                           createdAt: userData.createdAt)
+                    
+                    self.hostModel.sendAppDataToUnity(appData: appData)
+
                     print("Fetched all app data, completing.")
                     completion(appData)
                 }

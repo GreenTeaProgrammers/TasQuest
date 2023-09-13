@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class CurrentHealthChanger : MonoBehaviour
@@ -90,29 +89,29 @@ public class CurrentHealthChanger : MonoBehaviour
     /// <summary>
     /// ピンチイン、アウトが完了した際にスケールの基準値を再設定する関数です。
     /// </summary>
-    public async System.Threading.Tasks.Task UpdateMyScale()
+    public void UpdateMyScale()
     {
         _baseScale = _myRectTransform.localScale;
         _damageDiffManager.StartTransition(_baseScale);
 
         if (TaskcardManager.IsEditMode)
         {
-            await UpdateMaxHealth();
+            UpdateMaxHealth();
         }
         else
         {
-            await UpdateCurrentHealth();
+            UpdateCurrentHealth();
         }
     }
 
-    private async System.Threading.Tasks.Task UpdateCurrentHealth()
+    private void UpdateCurrentHealth()
     {
-        await TaskcardManager.OnTaskDataChanged("currentHealth", _currentHealth);
+        TaskcardManager.OnCurrentHealthChanged((int)_currentHealth);
     }
 
-    private async System.Threading.Tasks.Task UpdateMaxHealth()
+    private void UpdateMaxHealth()
     {
-        await TaskcardManager.OnTaskDataChanged("maxHealth", _maxHealth);
+        TaskcardManager.OnMaxHealthChanged((int) _maxHealth);
     }
     
 }

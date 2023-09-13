@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class TouchHandller : MonoBehaviour
+public class TouchHandler : MonoBehaviour
 {
     //次の空改行までの変数以外についているSerializedFieldは最終的には外してください。デバッグ用に臨時でつけています
     [SerializeField] private bool isTouchDebug;
     [SerializeField] private GameObject mainCamera;
-    [SerializeField] private GameObject currentHP;
+    [SerializeField] private GameObject currentHealth;
     [SerializeField] private GameObject damageDiff;
     
     //シングルタッチ用の変数
@@ -14,12 +14,12 @@ public class TouchHandller : MonoBehaviour
     [SerializeField] private float minScrollDist = 1.5f;
     
     //ダブルタッチ用の変数
-    private float _previousPinchDistance = 0.0f;
-    [SerializeField] public float _scrollSencitivity = 0.001f;
-    [SerializeField]public float _pinchSencitivity = 0.0001f;
+    private float _previousPinchDistance;
+    [SerializeField] public float scrollSencitivity;
+    [SerializeField]public float pinchSencitivity;
     
     //スクリプト
-    private CameraMovement _cameraMovement;
+    private MainCameraManager _mainCameraManager;
     private CurrentHealthChanger _currentHealthChanger;
     private DamageDiffManager _damageDiffManager;
     private TaskcardManager _taskcardManager;
@@ -27,30 +27,27 @@ public class TouchHandller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _cameraMovement = mainCamera.GetComponent<CameraMovement>();
-        _currentHealthChanger = currentHP.GetComponent<CurrentHealthChanger>();
+        _mainCameraManager = mainCamera.GetComponent<MainCameraManager>();
+        _currentHealthChanger = currentHealth.GetComponent<CurrentHealthChanger>();
         _damageDiffManager = damageDiff.GetComponent<DamageDiffManager>();
         _taskcardManager = GameObject.Find("TaskCard").GetComponent<TaskcardManager>();
+        
+        scrollSencitivity = 0.001f;
+        pinchSencitivity = 0.0001f;
+        _previousPinchDistance = 0.0f;
     }
 
     // Update is called once per frame
-    async void Update()
+    void Update()
     {
         //DamageDiffが遷移してる間は操作不可能
         if (!_damageDiffManager.isOnTransition)
         {
-            await TouchManagement();
+            TouchManagement();
         }
     }
     
-    //タッチ操作を管理するメソッドです。
-    //マウス用とタッチ用の2種類を if(!isTouchDebug)でわけています。
-    //上から3種のif文は
-    //  1.タッチが開始されたとき
-    //  2.タッチが継続しているとき
-    //  3.タッチが終了したとき
-    //中身が実行されます。直接処理を書かず、タッチ操作事態に関するメソッドを生やしていってください。
-    private async System.Threading.Tasks.Task TouchManagement()
+    private void TouchManagement()
     {
         
         if (!isTouchDebug)
@@ -58,15 +55,14 @@ public class TouchHandller : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 _startPos = Input.mousePosition;
-                Debug.Log("MouseDown");
             }
             
             if (Input.GetMouseButton(0) && Input.GetMouseButtonDown(0) == false)
             {
                 // Swipe(_startPos, Input.mousePosition);
                 Vector2 currentPosition = Input.mousePosition;
-                // float xDiff = (currentPosition.x - _startPos.x) * _scrollSencitivity;
-                float yDiff = (currentPosition.y - _startPos.y) * _scrollSencitivity;
+                // float xDiff = (currentPosition.x - _startPos.x) * scrollSencitivity;
+                float yDiff = (currentPosition.y - _startPos.y) * scrollSencitivity;
                 if (Mathf.Abs(yDiff) > minScrollDist)
                 {
                     Scroll(-yDiff);
@@ -76,12 +72,11 @@ public class TouchHandller : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 _endPos = Input.mousePosition;
-                float yDiff = (Input.mousePosition.y - _startPos.y) * _scrollSencitivity;
+                float yDiff = (Input.mousePosition.y - _startPos.y) * scrollSencitivity;
                 if (Mathf.Abs(yDiff) > minScrollDist)
                 {
                     ScrollEnd(yDiff);
                 }
-                Debug.Log("MouseUp");
             }
         }
         else
@@ -103,8 +98,7 @@ public class TouchHandller : MonoBehaviour
                         Vector2.Distance(touch1.position, touch2.position);
                     float pinchDistance = currentPinchDistance - _previousPinchDistance;
                     
-                    // Debug.Log(currentPinchDistance + " - " + _previousPinchDistance + " = " + pinchDistance);
-                    Pinch(pinchDistance * _pinchSencitivity);
+                    Pinch(pinchDistance * pinchSencitivity);
                 }
                 else if (touch2.phase == TouchPhase.Ended || touch1.phase == TouchPhase.Ended)
                 {
@@ -112,7 +106,7 @@ public class TouchHandller : MonoBehaviour
                         Vector2.Distance(touch1.position, touch2.position);
                     float pinchDistance = currentPinchDistance - _previousPinchDistance;
                     
-                    await PinchEnd(pinchDistance);
+                    PinchEnd(pinchDistance);
                 }
             }
             //シングルタッチの時
@@ -123,32 +117,29 @@ public class TouchHandller : MonoBehaviour
                 if (touch.phase == TouchPhase.Began)
                 {
                     _startPos = touch.position;
-                    // Debug.Log("TouchDown" + touch.position);
                 }
 
                 if (touch.phase == TouchPhase.Moved)
                 {
                     Vector2 currentPosition = touch.position;
-                    // float xDiff = (currentPosition.x - _startPos.x) * _scrollSencitivity;
-                    float yDiff = (currentPosition.y - _startPos.y) * _scrollSencitivity;
+                    // float xDiff = (currentPosition.x - _startPos.x) * scrollSencitivity;
+                    float yDiff = (currentPosition.y - _startPos.y) * scrollSencitivity;
                     if (Mathf.Abs(yDiff) > minScrollDist)
                     {
                         Scroll(-yDiff);
                     }
                     
-                    // Debug.Log("OnTouch" + touch.position);
                     
                 }
 
                 if (touch.phase == TouchPhase.Ended)
                 {
                     _endPos = touch.position;
-                    float yDiff = (touch.position.y - _startPos.y) * _scrollSencitivity;
+                    float yDiff = (touch.position.y - _startPos.y) * scrollSencitivity;
                     if (Mathf.Abs(yDiff) > minScrollDist)
                     {
                         ScrollEnd(yDiff);
                     }
-                    // Debug.Log("TouchUp" + touch.position);
                 }
             }
 
@@ -159,7 +150,7 @@ public class TouchHandller : MonoBehaviour
     //yDiff, xDiffを引数に関数をここから呼び出してください
     private void Scroll(float yDiff)
     {
-        _cameraMovement.MoveCamera(yDiff);
+        _mainCameraManager.MoveCamera(yDiff);
         // if (yDiff > 0)
         // {
         //     Debug.Log("ScrollUp!");
@@ -173,7 +164,7 @@ public class TouchHandller : MonoBehaviour
 
     private void ScrollEnd(float yDiff)
     {
-        _cameraMovement.SetCurrentDist(-yDiff);
+        _mainCameraManager.SetCurrentDist(-yDiff);
     }
     //ピンチ操作をしたときに呼ばれる関数です
     //pinchDistanceを引数にここから関数を呼び出してください
@@ -187,9 +178,8 @@ public class TouchHandller : MonoBehaviour
         _taskcardManager.PinchControl(pinchDistance);
     }
 
-    private async System.Threading.Tasks.Task PinchEnd(float pinchDistance)
+    private void PinchEnd(float pinchDistance)
     {
-        Debug.Log("Pinch End");
-        await _currentHealthChanger.UpdateMyScale();
+        _currentHealthChanger.UpdateMyScale();
     }
 }

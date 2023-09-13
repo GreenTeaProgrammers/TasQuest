@@ -1,61 +1,64 @@
 {
+  "createdAt": "2023-09-13/14:41:47",
+  "tags": [
+    {
+      "name": "Work",
+      "color": [0.5, 0.5, 0.5],
+      "createdAt": "2023-09-13/14:41:47",
+      "id": "1",
+      "updatedAt": "2023-09-13/14:41:47"
+    }
+  ],
   "statuses": [
     {
-      "id": "0",
-      "name": "In Progress",
-      "updatedAt": "2023-01-01",
+      "id": "1",
+      "updatedAt": "2023-09-13/14:41:47",
+      "name": "Status Name",
       "goals": [
         {
-          "id": "0",
-          "name": "Learn Swift",
-          "description": "Goal to learn Swift programming",
-          "createdAt": "2023-01-01",
-          "updatedAt": "2023-01-01",
-          "dueDate": "2023-12-31",
-          "tags": ["tag1", "tag2"],
-          "thumbnail": "thumbnail_url_or_base64_data",
-          "isStarred": true,
-          "currentTaskIndex": 0,
+          "createdAt": "2023-09-13/14:41:47",
+          "tags": [
+            {
+              "color": [0.5, 0.5, 0.5],
+              "updatedAt": "2023-09-13/14:41:47",
+              "id": "1",
+              "createdAt": "2023-09-13/14:41:47",
+              "name": "Work"
+            }
+          ],
           "tasks": [
             {
-              "id": "0",
-              "name": "Complete Swift Basics",
-              "description": "Learn the basics of Swift",
-              "dueDate": "2023-01-01",
-              "maxHealth": 100,
+              "dueDate": "2023-09-13/14:41:47",
+              "isVisible": true,
+              "tags": [
+                {
+                  "id": "1",
+                  "name": "Work",
+                  "color": [0.5, 0.5, 0.5],
+                  "updatedAt": "2023-09-13/14:41:47",
+                  "createdAt": "2023-09-13/14:41:47"
+                }
+              ],
+              "createdAt": "2023-09-13/14:41:47",
               "currentHealth": 50,
-              "tags": ["tag1"],
-              "isVisible": true,
-              "createdAt": "2023-01-01",
-              "updatedAt": "2023-01-01"
-            },
-            {
+              "description": "Description here",
               "id": "1",
-              "name": "Build a Swift App",
-              "description": "Create a simple Swift app",
-              "dueDate": "2023-01-01",
-              "maxHealth": 100,
-              "currentHealth": 20,
-              "tags": ["tag2"],
-              "isVisible": true,
-              "createdAt": "2023-01-01",
-              "updatedAt": "2023-01-01"
+              "updatedAt": "2023-09-13/14:41:47",
+              "name": "Do something",
+              "maxHealth": 100
             }
-          ]
+          ],
+          "name": "Goal Name",
+          "isStarred": false,
+          "updatedAt": "2023-09-13/14:41:47",
+          "description": "Goal Description",
+          "id": "1",
+          "thumbnail": "thumbnail.jpg",
+          "dueDate": "2023-09-13/14:41:47"
         }
       ]
     }
   ],
-  "tags": [
-    {
-      "id": "tag1",
-      "name": "Programming",
-      "color": [0, 0, 0]
-    },
-    {
-      "id": "tag2",
-      "name": "Swift",
-      "color": [1, 1, 1]
-    }
-  ]
+  "userid": "12345",
+  "username": "Username"
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.34153444, g: 0.4317085, b: 0.57242334, a: 1}
+  m_IndirectSpecularColor: {r: 0.34151796, g: 0.43173182, b: 0.5723862, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -257,12 +257,6 @@ Transform:
   - {fileID: 61453488}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &370975906 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2199095151859029205, guid: 54db545de92995946a7bb352e3174770,
-    type: 3}
-  m_PrefabInstance: {fileID: 630681651}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &466540560
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,11 +1705,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTouchDebug: 1
   mainCamera: {fileID: 963194225}
-  currentHP: {fileID: 370975906}
+  currentHealth: {fileID: 0}
   damageDiff: {fileID: 999780189}
   minScrollDist: 0.1
-  _scrollSencitivity: 0.001
-  _pinchSencitivity: 0.001
+  scrollSencitivity: 0
+  pinchSencitivity: 0
 --- !u!4 &1573190324
 Transform:
   m_ObjectHideFlags: 0
@@ -1742,7 +1736,7 @@ GameObject:
   - component: {fileID: 1608587040}
   - component: {fileID: 1608587039}
   m_Layer: 0
-  m_Name: SwiftDataExchanger
+  m_Name: DataExchanger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

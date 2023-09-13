@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -19,20 +18,12 @@ public class Road : MonoBehaviour
     private static float accessoryRadius;
     private const int ACCESSORY_TYPE_NUMBER = 9;
     
-    Task[] GetTasksFromJson()
-    {
-        JsonManager jm = new JsonManager();
-        // FireBase ができ次第 0 番固定ではなくなります
-        Goal[] goals = jm.LoadJson().statuses[0].goals;
-        return goals[0].tasks;
-    }
-
     private static void SetStagesNumberAndRadius(int arg)
     {
         stagesNumber = arg;
         radius = arg * 0.3f;GameObject.Find("Road").transform.localScale = new Vector3((radius/10)+0.08f, 0.00001f, (radius/10f)+0.08f);
         GameObject.Find("cover").transform.localScale = new Vector3((radius/10f)-0.07f, 0.0001f, (radius/10f)-0.07f);
-        CameraMovement._radius = radius;
+        MainCameraManager._radius = radius;
         accessoryRadius = arg * 0.9f;
         Array.Resize(ref stagePositions, arg);
         Array.Resize(ref id, arg);
@@ -77,25 +68,22 @@ public class Road : MonoBehaviour
     {
         ClearHandle();
         //本来はSwiftから先に呼ばれている
-        
-        //Debug.Log(querySnapshot.Documents.Count() + 1);
-        // User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
-        // var querySnapshot = await User.fireStoreManager.ReadTasks();
-        var querySnapshot = User.TasksSnapshot;
-        SetStagesNumberAndRadius(querySnapshot.Documents.Count() + 2);
+
+        var goalData = User.GoalData;
+        SetStagesNumberAndRadius(goalData.tasks.Length + 2);
         UpdateStages();
         int idx = 0;
         //GenerateStart
         await Generate(idx, "start", -1);
         idx++;
         
-        foreach (var taskDoc in querySnapshot.Documents)
+        foreach (var task in goalData.tasks)
         {
             await Generate
             (
                 idx,
-                taskDoc.Id,
-                System.Convert.ToSingle(taskDoc.ToDictionary()["maxHealth"])
+                task.id,
+                System.Convert.ToSingle(task.maxHealth)
             );
             idx++;
         }
@@ -224,11 +212,5 @@ public class Road : MonoBehaviour
     {
         await GenerateEnemyOrGoal(idx, argId, maxHealth);
         await GenerateAccessories(idx);
-    }
-
-    async void Start()
-    {
-        // await RelocateTasks();
-        //ClearHandle(); // test
     }
 }

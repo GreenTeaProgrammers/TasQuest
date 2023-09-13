@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CameraMovement : MonoBehaviour
+public class MainCameraManager : MonoBehaviour
 {
     public static float _radius = 7.0f;
     [SerializeField]float _initialAngle;

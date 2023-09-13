@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class ViewManager : MonoBehaviour
 {
+    public static bool goalChangeFlag = false;
+    
     public static async System.Threading.Tasks.Task OnGoalChanged()
     {
         await Road.OnGoalChanged();
@@ -20,5 +23,14 @@ public class ViewManager : MonoBehaviour
             Road.stagePositions[0].x,
             0.6f,
             Road.stagePositions[0].z); 
+    }
+
+    private async void Update()
+    {
+        if (goalChangeFlag)
+        {
+            goalChangeFlag = false;
+            await OnGoalChanged();
+        }
     }
 }

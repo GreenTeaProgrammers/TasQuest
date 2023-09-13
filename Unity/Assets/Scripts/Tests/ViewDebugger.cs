@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ViewDebugger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    async void Start()
+    void Start()
     {
-        // await SwiftDataExchanger.OnCurrentGoalChangedBySwift("Json should be here");
+        DataExchanger dataExchanger = GameObject.Find("DataExchanger").GetComponent<DataExchanger>();
+        AppData appData = JsonManager.LoadJson();
+        User.UserData = appData;
+        dataExchanger.ReceiveGoalID("1");
+        // DataExchanger.("Json should be here");
     }
 
 }

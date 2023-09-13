@@ -40,7 +40,7 @@ public class EnemyManager : MonoBehaviour
                 targetTransform.z));
 
         //_indexとカメラのcurrentIndexが等しいときアクティブ
-        _isActive = Index == CameraMovement.CurrentIndex;
+        _isActive = Index == MainCameraManager.CurrentIndex;
         if (_isActive)
         {
             int maxHp = int.Parse(_hpText.text.Split("/")[1]);

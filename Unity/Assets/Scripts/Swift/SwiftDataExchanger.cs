@@ -1,24 +1,24 @@
 using System.Threading.Tasks;
-using Firebase.Firestore;
 using UnityEngine;
 
-public class SwiftDataExchanger : MonoBehaviour
+public class DataExchanger : MonoBehaviour
 {
-    public void OnUserChangedBySwift(string userID)
+    public static void ReceiveAppData(string jsonString)
     {
-        User.SetUserID(userID);
+        AppData jsonData = JsonManager.String2Json(jsonString);
+        User.UserData = jsonData;
+        JsonManager.SaveJson(jsonData);
     }
     
-    public static async System.Threading.Tasks.Task OnCurrentGoalChangedBySwift(string currentStatus, string currentGoal)
+    public static void ReceiveGoalID(string currentGoalId)
     {
-        User.CurrentStatus = currentStatus;
-        User.CurrentGoal = currentGoal;
-        await ViewManager.OnGoalChanged();
+        Goal currentGoal;
+        
     }
-
-    public static async Task<QuerySnapshot> OnTaskDataChangedBySwift()
-    {
-        QuerySnapshot tasksSnapshot = await User.fireStoreManager.ReadTasks();
-        return tasksSnapshot;
-    }
+    
+    
+    // public static async Task<Goal> OnTaskDataChangedBySwift()
+    // {
+    //     
+    // }
 }

@@ -71,7 +71,7 @@ class FirestoreManager {
     
     struct UserData {
         let name: String
-        let createdAt: String
+        let createdAt: Date
         // 他の必要なフィールドもここに追加できます
     }
     
@@ -84,12 +84,14 @@ class FirestoreManager {
             
             guard let userData = userSnapshot?.data(),
                   let userName = userData["name"] as? String,
-                  let userCreatedAt = userData["createdAt"] as? String else {
+                  let userCreatedAt = userData["createdAt"] as? Timestamp else {
                 completion(nil, NSError(domain: "App", code: 1, userInfo: ["Description": "Failed to parse user data"]))
                 return
             }
             
-            let user = UserData(name: userName, createdAt: userCreatedAt)
+            let userCreatedAtDate = userCreatedAt.dateValue()
+            
+            let user = UserData(name: userName, createdAt: userCreatedAtDate)
             completion(user, nil)
         }
     }
@@ -106,14 +108,17 @@ class FirestoreManager {
                 let tagData = tagDoc.data()
                 if let tagName = tagData["name"] as? String,
                    let tagColor = tagData["color"] as? [Float],
-                   let tagCreatedAt = tagData["createdAt"] as? String,
-                   let tagUpdatedAt = tagData["updatedAt"] as? String {
+                   let tagCreatedAt = tagData["createdAt"] as? Timestamp,
+                   let tagUpdatedAt = tagData["updatedAt"] as? Timestamp {
+                    
+                    let tagCreatedAtDate = tagCreatedAt.dateValue()  // Timestamp to Date
+                    let tagUpdatedAtDate = tagUpdatedAt.dateValue()  // Timestamp to Date
                     
                     let tag = Tag(id: tagDoc.documentID,
                                   name: tagName,
                                   color: tagColor,
-                                  createdAt: tagCreatedAt,
-                                  updatedAt: tagUpdatedAt)
+                                  createdAt: tagCreatedAtDate,  // Use Date object
+                                  updatedAt: tagUpdatedAtDate)  // Use Date object
                     tags.append(tag)
                 }
             }
@@ -139,7 +144,7 @@ class FirestoreManager {
                 
                 let statusData = statusDoc.data()
                 if let statusName = statusData["name"] as? String,
-                   let statusUpdatedAt = statusData["updatedAt"] as? String {
+                   let statusUpdatedAt = statusData["updatedAt"] as? Timestamp {
                     
                     print("Processing status \(statusName)...")  // Log the status being processed
                     
@@ -152,10 +157,12 @@ class FirestoreManager {
                             print("Fetched \(fetchedGoals.count) goals for status \(statusName)")  // Log the number of fetched goals for this status
                         }
                         
+                        let statusUpdatedAtDate = statusUpdatedAt.dateValue()  // Timestamp to Date
+                        
                         let status = Status(id: statusDoc.documentID,
                                             name: statusName,
                                             goals: fetchedGoals, // Update this with fetched goals
-                                            updatedAt: statusUpdatedAt)
+                                            updatedAt: statusUpdatedAtDate)
                         statuses.append(status)
                         
                         dispatchGroup.leave()
@@ -197,14 +204,15 @@ class FirestoreManager {
                 
                 let goalData = goalDoc.data()
                 print("Raw goal data: \(goalData)")
-                let goalIsStarred = (goalData["isStarred"] as? Int) == 1
+                
                 
                 if let goalName = goalData["name"] as? String,
                    let goalDescription = goalData["description"] as? String,
-                   let goalDueDate = goalData["dueDate"] as? String,
+                   let goalDueDate = goalData["dueDate"] as? Timestamp,
+                   let goalIsStarred = goalData["isStarred"] as? Bool,
                    let goalThumbnail = goalData["thumbnail"] as? String,
-                   let goalCreatedAt = goalData["createdAt"] as? String,
-                   let goalUpdatedAt = goalData["updatedAt"] as? String {
+                   let goalCreatedAt = goalData["createdAt"] as? Timestamp,
+                   let goalUpdatedAt = goalData["updatedAt"] as? Timestamp {
                     
                     let goalTagsIDs = goalData["tags"] as? [String] ?? []
                     print("Goal Tags IDs: \(goalTagsIDs)")  // デバッグ用
@@ -221,16 +229,20 @@ class FirestoreManager {
                             print("Fetched \(fetchedTasks.count) tasks for goal \(goalName)")  // Log the number of fetched tasks for this goal
                         }
                         
+                        let goalDueDateDate = goalDueDate.dateValue()  // Timestamp to Date
+                        let goalCreatedAtDate = goalCreatedAt.dateValue()  // Timestamp to Date
+                        let goalUpdateAtDate = goalUpdatedAt.dateValue()  // Timestamp to Date
+                        
                         let goal = Goal(id: goalDoc.documentID,
                                         name: goalName,
                                         description: goalDescription,
                                         tasks: fetchedTasks,
-                                        dueDate: goalDueDate,
+                                        dueDate: goalDueDateDate,
                                         isStarred: goalIsStarred,
                                         tags: goalTags,
                                         thumbnail: goalThumbnail,
-                                        createdAt: goalCreatedAt,
-                                        updatedAt: goalUpdatedAt)
+                                        createdAt: goalCreatedAtDate,
+                                        updatedAt: goalUpdateAtDate)
                         
                         goals.append(goal)
                         print("Processed goal: \(goalName)")  // Log each processed goal
@@ -274,33 +286,38 @@ class FirestoreManager {
                 taskDispatchGroup.enter()  // Enter the DispatchGroup
                 let taskData = taskDoc.data()
                 print("Raw task data: \(taskData)")
-                let taskIsVisible = (taskData["isVisible"] as? Int) == 1
+                
 
                 if let taskName = taskData["name"] as? String,
                    let taskDescription = taskData["description"] as? String,
-                   let taskDueDate = taskData["dueDate"] as? String,
+                   let taskDueDate = taskData["dueDate"] as? Timestamp,
+                   let taskIsVisible = taskData["isVisible"] as? Bool,
                    let taskMaxHealth = taskData["maxHealth"] as? Float,
                    let taskCurrentHealth = taskData["currentHealth"] as? Float,
-                   let taskCreatedAt = taskData["createdAt"] as? String,
-                   let taskUpdatedAt = taskData["updatedAt"] as? String {
+                   let taskCreatedAt = taskData["createdAt"] as? Timestamp,
+                   let taskUpdatedAt = taskData["updatedAt"] as? Timestamp {
                     
-                    let taskTagsIDs = taskData["Tags"] as? [String] ?? []
+                    let taskTagsIDs = taskData["tags"] as? [String] ?? []
                     print("Task Tags IDs: \(taskTagsIDs)")  // デバッグ用
                     print("Available Tags IDs: \(tags.map { $0.id })")  // デバッグ用
                     
                     let taskTags = tags.filter { taskTagsIDs.contains($0.id) }
                     print("Filtered Task Tags: \(taskTags)")  // デバッグ用
                     
+                    let taskDueDateDate = taskDueDate.dateValue()
+                    let taskCreatedAtDate = taskCreatedAt.dateValue()
+                    let taskUpdatedAtDate = taskUpdatedAt.dateValue()
+                    
                     let task = TasQuestTask(id: taskDoc.documentID,
                                             name: taskName,
                                             description: taskDescription,
-                                            dueDate: taskDueDate,
+                                            dueDate: taskDueDateDate,
                                             maxHealth: taskMaxHealth,
                                             currentHealth: taskCurrentHealth,
                                             tags: taskTags,
                                             isVisible: taskIsVisible,
-                                            createdAt: taskCreatedAt,
-                                            updatedAt: taskUpdatedAt)  // タグ情報を追加
+                                            createdAt: taskCreatedAtDate,
+                                            updatedAt: taskUpdatedAtDate)  // タグ情報を追加
                     tasks.append(task)
                     print("Processed task: \(taskName)")  // Log each processed task
                 } else {
@@ -377,8 +394,8 @@ extension FirestoreManager {
             let tagData: [String: Any] = [
                 "name": tag.name,
                 "color": tag.color,
-                "createdAt": tag.createdAt,
-                "updatedAt": tag.updatedAt
+                "createdAt": Timestamp(date: tag.createdAt),
+                "updatedAt": Timestamp(date: tag.updatedAt)
             ]
             
             tagRef.setData(tagData) { error in
@@ -405,7 +422,7 @@ extension FirestoreManager {
             let statusRef = statusCollection.document(status.id)
             let statusData: [String: Any] = [
                 "name": status.name,
-                "updatedAt": status.updatedAt
+                "updatedAt": Timestamp(date: status.updatedAt)
             ]
             
             statusRef.setData(statusData) { error in
@@ -430,6 +447,7 @@ extension FirestoreManager {
         }
     }
     
+    // saveGoalsメソッドを修正
     private func saveGoals(statusRef: DocumentReference, goals: [Goal], completion: @escaping (Error?) -> Void) {
         let goalCollection = statusRef.collection("Goals")
         
@@ -438,29 +456,90 @@ extension FirestoreManager {
         for goal in goals {
             dispatchGroup.enter()
             
-            let goalRef = goalCollection.document(goal.id)
             let goalData: [String: Any] = [
                 "name": goal.name,
                 "description": goal.description,
-                "dueDate": goal.dueDate,
-                "isStarred": goal.isStarred ? 1 : 0,
+                "dueDate": Timestamp(date: goal.dueDate),
+                "isStarred": goal.isStarred,
                 "tags": goal.tags.map { $0.id },
-                "thumbnail": goal.thumbnail ?? "", // Default to an empty string if nil
-                "createdAt": goal.createdAt,
-                "updatedAt": goal.updatedAt
+                "thumbnail": goal.thumbnail ?? "",
+                "createdAt": Timestamp(date: goal.createdAt),
+                "updatedAt": Timestamp(date: goal.updatedAt)
             ]
             
-            goalRef.setData(goalData) { error in
-                if let error = error {
-                    print("Error saving goal: \(error)")
-                    dispatchGroup.leave()
-                    return
-                }
-                
-                // Save Tasks for this goal
-                self.saveTasks(goalRef: goalRef, tasks: goal.tasks) { error in
+            // Goalの保存処理
+            let goalRef: DocumentReference
+            if goal.id == "" {
+                // IDが空の場合は新規アイテムとして扱う
+                goalRef = goalCollection.addDocument(data: goalData) { error in
                     if let error = error {
-                        print("Error saving tasks: \(error)")
+                        print("Error saving new goal: \(error)")
+                    }
+                    dispatchGroup.leave()
+                }
+            } else {
+                // 既存のアイテムを更新
+                goalRef = goalCollection.document(goal.id)
+                goalRef.setData(goalData) { error in
+                    if let error = error {
+                        print("Error updating existing goal: \(error)")
+                    }
+                    dispatchGroup.leave()
+                }
+            }
+            
+            // Goalに関連するTasksを保存
+            saveTasks(goalRef: goalRef, tasks: goal.tasks) { error in
+                if let error = error {
+                    print("Error saving tasks for goal \(goal.name): \(error)")
+                }
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            completion(nil)
+        }
+    }
+    
+    // saveTasksメソッドを修正
+    private func saveTasks(goalRef: DocumentReference, tasks: [TasQuestTask], completion: @escaping (Error?) -> Void) {
+        let taskCollection = goalRef.collection("TasQuestTasks")
+        
+        let dispatchGroup = DispatchGroup()
+        
+        for task in tasks {
+            dispatchGroup.enter()
+            
+            let maxHealthAsInt = Int(task.maxHealth)
+            let currentHealthAsInt = Int(task.currentHealth)
+            
+            let taskData: [String: Any] = [
+                "name": task.name,
+                "description": task.description,
+                "dueDate": Timestamp(date: task.dueDate),
+                "maxHealth": maxHealthAsInt,
+                "currentHealth": currentHealthAsInt,
+                "tags": task.tags.map { $0.id },
+                "isVisible": task.isVisible,
+                "createdAt": Timestamp(date: task.createdAt),
+                "updatedAt": Timestamp(date: task.updatedAt)
+            ]
+            
+            if task.id == "" {
+                print("I am new Task")
+                // IDが空の場合は新規アイテムとして扱う
+                taskCollection.addDocument(data: taskData) { error in
+                    if let error = error {
+                        print("Error saving new task: \(error)")
+                    }
+                    dispatchGroup.leave()
+                }
+            } else {
+                print("I am not new Task")
+                // 既存のアイテムを更新
+                taskCollection.document(task.id).setData(taskData) { error in
+                    if let error = error {
+                        print("Error updating existing task: \(error)")
                     }
                     dispatchGroup.leave()
                 }
@@ -471,39 +550,4 @@ extension FirestoreManager {
             completion(nil)
         }
     }
-    
-    private func saveTasks(goalRef: DocumentReference, tasks: [TasQuestTask], completion: @escaping (Error?) -> Void) {
-        let taskCollection = goalRef.collection("TasQuestTasks")
-        
-        let dispatchGroup = DispatchGroup()
-        
-        for task in tasks {
-            dispatchGroup.enter()
-            
-            let taskRef = taskCollection.document(task.id)
-            let taskData: [String: Any] = [
-                "name": task.name,
-                "description": task.description,
-                "dueDate": task.dueDate,
-                "maxHealth": task.maxHealth,
-                "currentHealth": task.currentHealth,
-                "tags": task.tags.map { $0.id },
-                "isVisible": task.isVisible ? 1 : 0,
-                "createdAt": task.createdAt,
-                "updatedAt": task.updatedAt
-            ]
-            
-            taskRef.setData(taskData) { error in
-                if let error = error {
-                    print("Error saving task: \(error)")
-                }
-                dispatchGroup.leave()
-            }
-        }
-        
-        dispatchGroup.notify(queue: .main) {
-            completion(nil)
-        }
-    }
 }
-

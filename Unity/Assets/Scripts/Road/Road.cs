@@ -19,6 +19,7 @@ public class Road : MonoBehaviour
     public static AsyncOperationHandle<GameObject>[] enemyHandle;
     public static AsyncOperationHandle<GameObject>[] accessoryHandle;
 
+
     private const float INITIAL_RADIAN = 0;
     private static float accessoryRadius;
     private const int ACCESSORY_TYPE_NUMBER = 9;
@@ -31,7 +32,7 @@ public class Road : MonoBehaviour
         return goals[0].tasks;
     }
 
-    void SetStagesNumberAndRadius(int arg)
+    private static void SetStagesNumberAndRadius(int arg)
     {
         stagesNumber = arg;
         radius = arg;
@@ -43,7 +44,7 @@ public class Road : MonoBehaviour
         Array.Resize(ref accessoryHandle, arg);
     }
 
-    void UpdateStages()
+    private static void UpdateStages()
     {
         stagePositions[0] = new Vector3
         (
@@ -65,7 +66,7 @@ public class Road : MonoBehaviour
         }
     }
 
-    void ClearHandle()
+    private static void ClearHandle()
     {
         Debug.Log("clear start");
         for (int i = 0; i < stagesNumber; i++)
@@ -75,16 +76,22 @@ public class Road : MonoBehaviour
         }
         Debug.Log("clear end");
     }
-    async System.Threading.Tasks.Task RelocateTasks()
+    
+    private static async System.Threading.Tasks.Task RelocateTasks()
     {
         ClearHandle();
         //本来はSwiftから先に呼ばれている
-        User.SetUserID("MiHOSIRaviWm2eGfbN1GYDhv3sA3");
-        var querySnapshot = await User.fireStoreManager.ReadTasks();
-        SetStagesNumberAndRadius(querySnapshot.Documents.Count() + 1);
+        
         //Debug.Log(querySnapshot.Documents.Count() + 1);
+        // User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
+        // var querySnapshot = await User.fireStoreManager.ReadTasks();
+        var querySnapshot = User.TasksSnapshot;
+        SetStagesNumberAndRadius(querySnapshot.Documents.Count() + 1);
         UpdateStages();
         int idx = 0;
+        //GenerateStart
+        await GenerateEnemyOrGoal(idx, "start", -1);
+
         foreach (var taskDoc in querySnapshot.Documents)
         {
             await Generate
@@ -98,7 +105,7 @@ public class Road : MonoBehaviour
         await Generate(idx, "goal", -1);
     }
     
-    async System.Threading.Tasks.Task OnGoalChanged()
+    public static async System.Threading.Tasks.Task OnGoalChanged()
     {
         await RelocateTasks();
     }
@@ -117,11 +124,14 @@ public class Road : MonoBehaviour
         return radian;
     }
 
-    string GetEnemyOrGoalAddress(float maxHealth)
+    string GetEnemyOrGoalAddress(float maxHealth, int id)
     {
-        if (maxHealth < 0)
+        if (id = "goal")
         {
             return "Goal";
+        else if (id == "start")
+        {
+            return "Start";
         }
         if (maxHealth < 500)
         {
@@ -180,15 +190,13 @@ public class Road : MonoBehaviour
             accessoryRadius * MathF.Cos(accessoryRadian)
         );
     }
-    
+
     async System.Threading.Tasks.Task GenerateEnemyOrGoal(int idx, string argId, float maxHealth)
     {
         id[idx] = argId;
         string address = GetEnemyOrGoalAddress(maxHealth);
         await InstantiateEnemyOrGoalFromPrefab(idx, address);
         RotateEnemyOrGoal(idx);
-
-        Debug.Log("generated enemy");
     }
     
     async System.Threading.Tasks.Task GenerateAccessories(int idx)

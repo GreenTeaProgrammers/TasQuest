@@ -9,12 +9,19 @@
 import SwiftUI
 
 struct TaskView: View {
-    @State var goal: Goal
+    @Binding var appData: AppData
+    @Binding var status: Status
+    @Binding var goal: Goal
+    
+    @State private var reloadFlag = false  // 追加
+    
+    @State var showingCreateTaskModal = false  // ハーフモーダルの表示状態を管理
     
     
     var body: some View {
         ZStack {
             let taskCount = goal.tasks.filter { $0.isVisible }.count
+            
             let height = max(0, (87.95) * CGFloat(taskCount - 1))
             VStack {
                 HeaderView(goal: $goal)
@@ -34,7 +41,7 @@ struct TaskView: View {
                         
                         
                         ScrollView{
-                            TaskListView(goal: goal)
+                            TaskListView(goal: $goal)
                         }
                     }
                 }
@@ -49,7 +56,8 @@ struct TaskView: View {
                     Spacer()
                     
                     Button(action: {
-                        // Add Task
+                        showingCreateTaskModal.toggle()  // ハーフモーダルを表示
+
                     }) {
                         Image(systemName: "circle.fill")
                             .resizable()
@@ -61,7 +69,10 @@ struct TaskView: View {
                                     .frame(width: 20, height: 20)
                                     .foregroundColor(.white)
                             )
+                    }.sheet(isPresented: $showingCreateTaskModal) {
+                        CreateTaskHalfModalView(appData: $appData, status: $status, goal: $goal)  // ハーフモーダルの内容
                     }
+                    
                     
                     Button(action: {
                         // Game View
@@ -97,6 +108,13 @@ struct TaskView: View {
                 .padding(.trailing, 16)
             }
         }
+        .id(reloadFlag)  // 追加
+        .onReceive(
+            NotificationCenter.default.publisher(for: Notification.Name("TaskCreated")),
+            perform: { _ in
+                self.reloadFlag.toggle()
+            }
+        )
         .navigationBarBackButtonHidden(true)
     }
 }
@@ -105,6 +123,13 @@ struct HeaderView: View {
     @Binding var goal: Goal  // @Stateを@Bindingに変更
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: TaskViewModel  // ViewModelのインスタンスを追加
+    
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return formatter
+    }()
+
     
     init(goal: Binding<Goal>) {
         self._goal = goal
@@ -147,26 +172,40 @@ struct HeaderView: View {
             }
             .padding(.top)
         }
-        Text(goal.dueDate)
+        Text(dateFormatter.string(from: goal.dueDate))
             .font(.subheadline)
             .foregroundColor(.gray)
     }
 }
 
 struct TaskListView: View {
-    var goal: Goal
+    @Binding var goal: Goal
+    
+    var sortedTasks: [TasQuestTask] {
+        goal.tasks.sorted { $0.dueDate < $1.dueDate }
+    }
     
     var body: some View {
-        ForEach(goal.tasks.indices, id: \.self) { index in
-            if goal.tasks[index].isVisible {
-                TaskRow(task: goal.tasks[index])
+        ForEach(sortedTasks.indices, id: \.self) { index in
+            let task = sortedTasks[index]
+            if task.isVisible {
+                TaskRow(task: task)
             }
+        }
+        .onAppear {
+            print("Current tasks: \(self.goal.tasks)")
         }
     }
 }
 
 struct TaskRow: View {
-    var task: TasQuestTask
+    @State var task: TasQuestTask
+    
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return formatter
+    }()
     
     // Calculate the fill color based on the task's current and max health
     var fillColor: Color {
@@ -181,16 +220,16 @@ struct TaskRow: View {
     }
     
     var body: some View {
-            HStack {
-                // Circle icon
-                Image(systemName: "circle.fill")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(.blue)
-                
-                Button(action: {
-                    print("Task \(task.id) was clicked")
-                }) {
+        HStack {
+            // Circle icon
+            Image(systemName: "circle.fill")
+                .resizable()
+                .frame(width: 24, height: 24)
+                .foregroundColor(.blue)
+            
+            Button(action: {
+                print("Task \(task.id) was clicked")
+            }) {
                 // Task name and tags
                 VStack(alignment: .leading) {
                     Text(task.name)
@@ -221,7 +260,8 @@ struct TaskRow: View {
                             .padding(.vertical, 2)
                         }
                     }
-                    Text(task.dueDate)
+                    // 修正された部分
+                    Text(dateFormatter.string(from: task.dueDate))
                         .font(.caption)
                         .foregroundColor(.gray)
                 }
@@ -230,7 +270,8 @@ struct TaskRow: View {
                 
                 // Health bar
                 VStack {
-                    let percentage = task.currentHealth / task.maxHealth
+                    let percentage: Float = task.maxHealth == 0 ? 0 : task.currentHealth / task.maxHealth
+                    
                     Capsule()
                         .fill(Color.gray.opacity(0.2))
                         .frame(width: 150, height: 8)
@@ -250,6 +291,10 @@ struct TaskRow: View {
         }
         .frame(height: 80)
         .background(Color.clear)
+        .onAppear(){
+            print("Rendering task with ID: \(task.id)")
+            
+        }
+        
     }
 }
-

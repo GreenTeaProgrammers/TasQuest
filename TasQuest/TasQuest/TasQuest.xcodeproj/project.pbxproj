@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		22201E3B2AAFE13200074589 /* CreateGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22201E3A2AAFE13200074589 /* CreateGoalView.swift */; };
+		226BD8C92AB1A54F00609537 /* Unity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226BD8C82AB1A54F00609537 /* Unity.swift */; };
 		22B349022AADFD0F00B7BBE7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B348D42AADFD0F00B7BBE7 /* SignUpViewModel.swift */; };
 		22B349032AADFD0F00B7BBE7 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B348D52AADFD0F00B7BBE7 /* SettingViewModel.swift */; };
 		22B349042AADFD0F00B7BBE7 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B348D62AADFD0F00B7BBE7 /* TaskViewModel.swift */; };
@@ -66,6 +67,7 @@
 
 /* Begin PBXFileReference section */
 		22201E3A2AAFE13200074589 /* CreateGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalView.swift; sourceTree = "<group>"; };
+		226BD8C82AB1A54F00609537 /* Unity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unity.swift; sourceTree = "<group>"; };
 		22B348D42AADFD0F00B7BBE7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		22B348D52AADFD0F00B7BBE7 /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		22B348D62AADFD0F00B7BBE7 /* TaskViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
@@ -133,6 +135,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		226BD8C72AB1A54300609537 /* Unity */ = {
+			isa = PBXGroup;
+			children = (
+				226BD8C82AB1A54F00609537 /* Unity.swift */,
+			);
+			path = Unity;
+			sourceTree = "<group>";
+		};
 		22B348D32AADFD0F00B7BBE7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +186,7 @@
 		22B348E62AADFD0F00B7BBE7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				226BD8C72AB1A54300609537 /* Unity */,
 				22B348E72AADFD0F00B7BBE7 /* WelcomeView */,
 				22B348E92AADFD0F00B7BBE7 /* AppData.swift */,
 				22B348EC2AADFD0F00B7BBE7 /* Status.swift */,
@@ -401,7 +412,6 @@
 				22201E3B2AAFE13200074589 /* CreateGoalView.swift in Sources */,
 				22B349132AADFD0F00B7BBE7 /* TasQuestTask.swift in Sources */,
 				22B3491A2AADFD0F00B7BBE7 /* WelcomeView.swift in Sources */,
-				22201E3D2AAFEB4500074589 /* TagView.swift in Sources */,
 				22B3491E2AADFD0F00B7BBE7 /* SettingView.swift in Sources */,
 				22B349102AADFD0F00B7BBE7 /* PageModel.swift in Sources */,
 				22B349042AADFD0F00B7BBE7 /* TaskViewModel.swift in Sources */,
@@ -413,8 +423,8 @@
 				22B349142AADFD0F00B7BBE7 /* Status.swift in Sources */,
 				22B349032AADFD0F00B7BBE7 /* SettingViewModel.swift in Sources */,
 				22B349072AADFD0F00B7BBE7 /* Throttler.swift in Sources */,
-				22201E3F2AAFECBA00074589 /* TagEditorView.swift in Sources */,
 				22B349162AADFD0F00B7BBE7 /* AuthDataResultModel.swift in Sources */,
+				226BD8C92AB1A54F00609537 /* Unity.swift in Sources */,
 				22B349112AADFD0F00B7BBE7 /* AppData.swift in Sources */,
 				22B3490A2AADFD0F00B7BBE7 /* AuthenticationManager.swift in Sources */,
 				22B3491F2AADFD0F00B7BBE7 /* PageView.swift in Sources */,

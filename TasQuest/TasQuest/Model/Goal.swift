@@ -16,7 +16,6 @@ struct Goal: Codable, Identifiable {
     var isStarred: Bool
     var tags: [Tag]
     var thumbnail: String? //サムネイルIMGファイルの名前
-    //var layoutId: TasQuestLayout
     var createdAt: Date //YYYY-MM-DD/HH:MM:SS
     var updatedAt: Date //YYYY-MM-DD/HH:MM:SS
     

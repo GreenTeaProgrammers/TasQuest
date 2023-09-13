@@ -3,7 +3,7 @@
 //  TasQuest
 //
 //  Created by KinjiKawaguchi on 2023/09/05.
-///Users/its/Documents/Programming/TasQuest/TasQuest/TasQuest/Model/AppData.swift
+//
 
 import Foundation
 

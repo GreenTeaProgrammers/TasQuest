@@ -152,6 +152,9 @@ struct GoalRow: View {
     @Binding var status: Status
     @Binding var goal: Goal
     
+    let hostModel = HostModel() // これを追加
+
+    
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
@@ -193,6 +196,9 @@ struct GoalRow: View {
                     Image(systemName: goal.isStarred ? "star.fill" : "star")
                         .foregroundColor(goal.isStarred ? .yellow : .gray)
                 }
+            }
+            .onTapGesture{
+                hostModel.sendGoalIDToUnity(goalID: goal.id)
             }
         }
         .padding(.horizontal)

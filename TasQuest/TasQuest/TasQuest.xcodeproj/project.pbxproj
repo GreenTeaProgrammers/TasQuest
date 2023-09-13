@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		221544B32AB1FB4A006572F4 /* UnityFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221544B22AB1FB4A006572F4 /* UnityFramework.framework */; };
 		22201E3B2AAFE13200074589 /* CreateGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22201E3A2AAFE13200074589 /* CreateGoalView.swift */; };
+		223041AE2AB20FBC00C185EC /* HostModelInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223041AD2AB20FBC00C185EC /* HostModelInput.swift */; };
 		226BD8C92AB1A54F00609537 /* Unity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226BD8C82AB1A54F00609537 /* Unity.swift */; };
 		22B349022AADFD0F00B7BBE7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B348D42AADFD0F00B7BBE7 /* SignUpViewModel.swift */; };
 		22B349032AADFD0F00B7BBE7 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B348D52AADFD0F00B7BBE7 /* SettingViewModel.swift */; };
@@ -69,6 +70,7 @@
 /* Begin PBXFileReference section */
 		221544B22AB1FB4A006572F4 /* UnityFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UnityFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22201E3A2AAFE13200074589 /* CreateGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalView.swift; sourceTree = "<group>"; };
+		223041AD2AB20FBC00C185EC /* HostModelInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostModelInput.swift; sourceTree = "<group>"; };
 		226BD8C82AB1A54F00609537 /* Unity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unity.swift; sourceTree = "<group>"; };
 		22B348D42AADFD0F00B7BBE7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		22B348D52AADFD0F00B7BBE7 /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 		22B348DA2AADFD0F00B7BBE7 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				223041AD2AB20FBC00C185EC /* HostModelInput.swift */,
 				22B348DB2AADFD0F00B7BBE7 /* Throttler.swift */,
 				22B348DC2AADFD0F00B7BBE7 /* CustomEasing.swift */,
 				22B348DD2AADFD0F00B7BBE7 /* CADisplayLink+.swift */,
@@ -418,6 +421,7 @@
 				22B3491A2AADFD0F00B7BBE7 /* WelcomeView.swift in Sources */,
 				22B3491E2AADFD0F00B7BBE7 /* SettingView.swift in Sources */,
 				22B349102AADFD0F00B7BBE7 /* PageModel.swift in Sources */,
+				223041AE2AB20FBC00C185EC /* HostModelInput.swift in Sources */,
 				22B349042AADFD0F00B7BBE7 /* TaskViewModel.swift in Sources */,
 				22B349212AADFD0F00B7BBE7 /* TasQuestTests.swift in Sources */,
 				22B3491C2AADFD0F00B7BBE7 /* AuthenticationView.swift in Sources */,

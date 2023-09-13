@@ -53,7 +53,7 @@ public class CameraMovement : MonoBehaviour
     {
         Transform myTransform = this.transform;
         dist += _currentDist;
-        dist = Mathf.Clamp(dist, 0.0f, 2 * Mathf.PI);
+        dist = Mathf.Clamp(dist, 0.0f, 2 * Mathf.PI - 2*Mathf.PI/Road.stagesNumber);
         dist = Snap(dist);
         float angle = dist / Mathf.PI * 180;
             

@@ -20,7 +20,6 @@ public class TaskcardManager : MonoBehaviour
     private static CurrentHealthChanger _currentHpChanger;
     private static HpTextManager _hpTextManager;
     
-    //
     private static List<DocumentSnapshot> _taskList;
     
     private void Start()
@@ -47,6 +46,7 @@ public class TaskcardManager : MonoBehaviour
     /// <param name="currentIndex"></param>
     public static void OnCurrentTaskChanged(int currentIndex)
     {
+        Debug.Log($"set display index {currentIndex}");
         SetTaskDataDisplay(_taskList[currentIndex]);
     }
 
@@ -71,13 +71,14 @@ public class TaskcardManager : MonoBehaviour
             Console.WriteLine(e);
             throw new SystemException("Key is Invalid");
         }
-        
+
+        User.TasksSnapshot = await User.fireStoreManager.ReadTasks();
+        PreprocessTaskData(User.TasksSnapshot);
     }
     
     private static void PreprocessTaskData(QuerySnapshot tasksSnapshot)
     {
         _taskList = tasksSnapshot.Documents.ToList();
-        Debug.Log(_taskList.Count);
     }
         
     /// <summary>

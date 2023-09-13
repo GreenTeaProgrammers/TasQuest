@@ -1,10 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -35,9 +30,10 @@ public class Road : MonoBehaviour
     private static void SetStagesNumberAndRadius(int arg)
     {
         stagesNumber = arg;
-        radius = arg;
-        //accessoryRadius = arg * 1.2f;
-        accessoryRadius = arg * 0.95f + 2.5f;
+        radius = arg * 0.3f;GameObject.Find("Road").transform.localScale = new Vector3((radius/10)+0.08f, 0.00001f, (radius/10f)+0.08f);
+        GameObject.Find("cover").transform.localScale = new Vector3((radius/10f)-0.07f, 0.0001f, (radius/10f)-0.07f);
+        CameraMovement._radius = radius;
+        accessoryRadius = arg * 0.9f;
         Array.Resize(ref stagePositions, arg);
         Array.Resize(ref id, arg);
         Array.Resize(ref enemyHandle, arg);
@@ -86,12 +82,13 @@ public class Road : MonoBehaviour
         // User.SetUserID("RCGhBVMyFfaUIx7fwrcEL5miTnW2");
         // var querySnapshot = await User.fireStoreManager.ReadTasks();
         var querySnapshot = User.TasksSnapshot;
-        SetStagesNumberAndRadius(querySnapshot.Documents.Count() + 1);
+        SetStagesNumberAndRadius(querySnapshot.Documents.Count() + 2);
         UpdateStages();
         int idx = 0;
         //GenerateStart
-        await GenerateEnemyOrGoal(idx, "start", -1);
-
+        await Generate(idx, "start", -1);
+        idx++;
+        
         foreach (var taskDoc in querySnapshot.Documents)
         {
             await Generate
@@ -110,12 +107,12 @@ public class Road : MonoBehaviour
         await RelocateTasks();
     }
 
-    async System.Threading.Tasks.Task OnTaskDataChangedBySwift()
+    static async System.Threading.Tasks.Task OnTaskDataChangedBySwift()
     {
         await RelocateTasks();
     }
 
-    float GetRadian(int idx)
+    static float GetRadian(int idx)
     {
         float sin = stagePositions[idx].x / radius;
         float cos = stagePositions[idx].z / radius;
@@ -124,12 +121,13 @@ public class Road : MonoBehaviour
         return radian;
     }
 
-    string GetEnemyOrGoalAddress(float maxHealth, int id)
+    static string GetEnemyOrGoalAddress(float maxHealth, string ID)
     {
-        if (id = "goal")
+        if (ID == "goal")
         {
             return "Goal";
-        else if (id == "start")
+        }
+        else if (ID == "start")
         {
             return "Start";
         }
@@ -144,7 +142,7 @@ public class Road : MonoBehaviour
         return "EnemyStrong";
     }
 
-    void RotateEnemyOrGoal(int idx)
+    static void RotateEnemyOrGoal(int idx)
     {
         float deg = GetRadian(idx) * 180 / MathF.PI;
         float rotationDeg = deg + 90;
@@ -152,7 +150,7 @@ public class Road : MonoBehaviour
         enemyHandle[idx].Result.transform.rotation *= rot;
     }
     
-    string GetRandomAccessoryAddress()
+    static string GetRandomAccessoryAddress()
     {
         string address = "";
         Random engine = new Random();
@@ -161,7 +159,7 @@ public class Road : MonoBehaviour
         return address;
     }
 
-    async System.Threading.Tasks.Task InstantiateEnemyOrGoalFromPrefab(int idx, string address)
+    static async System.Threading.Tasks.Task InstantiateEnemyOrGoalFromPrefab(int idx, string address)
     {
         enemyHandle[idx] = Addressables.InstantiateAsync
         (
@@ -170,10 +168,24 @@ public class Road : MonoBehaviour
             Quaternion.identity
         );
         await enemyHandle[idx].Task;
+        GameObject enemy = enemyHandle[idx].Result;
+        enemy.transform.position = stagePositions[idx];
+        if (address != "Goal" && address != "Start")
+        {
+            enemy.GetComponent<EnemyManager>().Index = idx-1;
+        }
+        
+        Debug.Log($"generated{address}");
+        
+        float sin = stagePositions[idx].x / radius;
+        float cos = stagePositions[idx].z / radius;
+        float radian = MathF.Acos(cos); // 0 - PI
+        if (sin < -0.001) radian = MathF.PI + (MathF.PI - radian);
+        float deg = radian * 180 / MathF.PI;
         enemyHandle[idx].Result.transform.position = stagePositions[idx];
     }
     
-    async System.Threading.Tasks.Task InstantiateAccessoryFromPrefab(int idx, string address)
+    static async System.Threading.Tasks.Task InstantiateAccessoryFromPrefab(int idx, string address)
     {
         accessoryHandle[idx] = Addressables.InstantiateAsync
         (
@@ -191,15 +203,16 @@ public class Road : MonoBehaviour
         );
     }
 
-    async System.Threading.Tasks.Task GenerateEnemyOrGoal(int idx, string argId, float maxHealth)
+
+    static async System.Threading.Tasks.Task GenerateEnemyOrGoal(int idx, string argId, float maxHealth)
     {
         id[idx] = argId;
-        string address = GetEnemyOrGoalAddress(maxHealth);
+        string address = GetEnemyOrGoalAddress(maxHealth, argId);
         await InstantiateEnemyOrGoalFromPrefab(idx, address);
         RotateEnemyOrGoal(idx);
     }
     
-    async System.Threading.Tasks.Task GenerateAccessories(int idx)
+    static async System.Threading.Tasks.Task GenerateAccessories(int idx)
     {
         string address = GetRandomAccessoryAddress();
         await InstantiateAccessoryFromPrefab(idx, address);
@@ -207,7 +220,7 @@ public class Road : MonoBehaviour
         Debug.Log("generated accessory");
     }
     
-    async System.Threading.Tasks.Task Generate(int idx, string argId, float maxHealth)
+    static async System.Threading.Tasks.Task Generate(int idx, string argId, float maxHealth)
     {
         await GenerateEnemyOrGoal(idx, argId, maxHealth);
         await GenerateAccessories(idx);
@@ -215,7 +228,7 @@ public class Road : MonoBehaviour
 
     async void Start()
     {
-        await RelocateTasks();
+        // await RelocateTasks();
         //ClearHandle(); // test
     }
 }

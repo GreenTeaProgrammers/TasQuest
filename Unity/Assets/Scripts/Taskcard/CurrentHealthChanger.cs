@@ -93,7 +93,6 @@ public class CurrentHealthChanger : MonoBehaviour
     public async System.Threading.Tasks.Task UpdateMyScale()
     {
         _baseScale = _myRectTransform.localScale;
-        Debug.Log($"Update MyScale {_baseScale}");
         _damageDiffManager.StartTransition(_baseScale);
 
         if (TaskcardManager.IsEditMode)

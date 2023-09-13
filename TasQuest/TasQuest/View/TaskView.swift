@@ -15,6 +15,9 @@ struct TaskView: View {
     
     @State private var reloadFlag = false  // 追加
     
+    @State private var showingUnityView = false  // Unityビュー表示フラグ
+
+    
     @State var showingCreateTaskModal = false  // ハーフモーダルの表示状態を管理
     
     
@@ -45,7 +48,7 @@ struct TaskView: View {
                         }
                     }
                 }
-                
+                NavigationLink("", destination: UnityHostingController(), isActive: $showingUnityView).hidden()
             }
             .padding()
             
@@ -75,7 +78,7 @@ struct TaskView: View {
                     
                     
                     Button(action: {
-                        // Game View
+                        showingUnityView.toggle()
                     }) {
                         Image(systemName: "circle.fill")
                             .resizable()

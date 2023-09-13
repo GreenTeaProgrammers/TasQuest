@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Firebase
-import UIKit
 
 class LaunchViewController: UIViewController {}
 
@@ -21,7 +20,6 @@ struct YourApp: App {
         }
     }
 }
-
 // UnityHostingController: UIViewControllerRepresentableを使ってUnityのUIViewをSwiftUIに埋め込む
 struct UnityHostingController: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
@@ -42,11 +40,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-// 以前のViewController（変更なし、Unityのビューを管理）
 class ViewController: UIViewController {
     private let unityView = Unity.shared.view
     
     override func loadView() {
+        unityView.translatesAutoresizingMaskIntoConstraints = false
         super.loadView()
         view.addSubview(unityView)
         NSLayoutConstraint.activate([

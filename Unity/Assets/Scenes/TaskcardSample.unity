@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.34151796, g: 0.43173182, b: 0.5723862, a: 1}
+  m_IndirectSpecularColor: {r: 0.34153444, g: 0.4317085, b: 0.57242334, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -878,7 +878,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.5999999, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1573190324}
+  - {fileID: 1439126669}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &811683087
@@ -1665,12 +1667,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439126667}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5999999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 806379994}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1542135193 stripped
 RectTransform:
@@ -1707,7 +1709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a56d1f8825805a248b548209ea4d76ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTouchDebug: 0
+  isTouchDebug: 1
   mainCamera: {fileID: 963194225}
   currentHP: {fileID: 370975906}
   damageDiff: {fileID: 999780189}
@@ -1722,12 +1724,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1573190322}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 885.8954, y: 2399.578, z: -25.595703}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 885.8954, y: 2398.9778, z: -35.595703}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 806379994}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1608587038
 GameObject:
@@ -2118,8 +2120,6 @@ SceneRoots:
   - {fileID: 736630991}
   - {fileID: 466540561}
   - {fileID: 77409900}
-  - {fileID: 1439126669}
-  - {fileID: 1573190324}
   - {fileID: 806379994}
   - {fileID: 1608587040}
   - {fileID: 41926199}

@@ -9,42 +9,43 @@ import SwiftUI
 import Firebase
 import UIKit
 
+class LaunchViewController: UIViewController {}
+
 @main
-struct TasQuestApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+struct YourApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     var body: some Scene {
         WindowGroup {
-            NavigationStack{
-                StatusView()
-            }
+            StatusView()
         }
     }
 }
 
-class AppDelegate: NSObject, UIApplicationDelegate {
-    lazy var window: UIWindow? = .init(frame: UIScreen.main.bounds)
-  
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-      
-        // Initialize Firebase
-        FirebaseApp.configure()
-      
-        // Initialize Unity
+// UnityHostingController: UIViewControllerRepresentableを使ってUnityのUIViewをSwiftUIに埋め込む
+struct UnityHostingController: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> UIViewController {
+        return ViewController()
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        // 更新が必要な場合はここにコードを書く
+    }
+}
+
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // Unityの初期化のみ行い、ビューはまだ表示しない
         Unity.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-      
-        // Initialize UIWindow and set ViewController
-        window?.rootViewController = ViewController()
-        window?.makeKeyAndVisible()
-      
+        FirebaseApp.configure()
         return true
     }
 }
 
-class LaunchViewController: UIViewController {}
-
+// 以前のViewController（変更なし、Unityのビューを管理）
 class ViewController: UIViewController {
     private let unityView = Unity.shared.view
-
+    
     override func loadView() {
         super.loadView()
         view.addSubview(unityView)

@@ -10,7 +10,6 @@ public static class User
     //テスト用の値です。
     private static string currentStatus = "1";
     private static string currentGoal = "BD33ZOlTGJUVYLShEgQ4";
-
     private static QuerySnapshot tasksSnapshot;
     
     public static void SetUserID(string userID)

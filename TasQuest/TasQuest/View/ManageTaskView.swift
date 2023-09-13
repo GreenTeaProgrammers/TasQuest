@@ -9,7 +9,7 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 
-struct CreateTaskHalfModalView: View {
+struct ManageTaskView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var appData: AppData  // AppDataをBindingで受け取る
     @Binding var status: Status
@@ -45,7 +45,7 @@ struct CreateTaskHalfModalView: View {
 }
 
 // MARK: - Subviews
-extension CreateTaskHalfModalView {
+extension ManageTaskView {
     var modalHeader: some View {
         HStack {
             Text("新しいタスクの作成")

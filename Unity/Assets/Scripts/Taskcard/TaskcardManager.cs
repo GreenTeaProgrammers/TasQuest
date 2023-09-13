@@ -20,7 +20,6 @@ public class TaskcardManager : MonoBehaviour
     private static CurrentHealthChanger _currentHpChanger;
     private static HpTextManager _hpTextManager;
     
-    //
     private static List<DocumentSnapshot> _taskList;
     
     private void Start()

@@ -145,6 +145,10 @@ public class Road : MonoBehaviour
         await enemyHandle[idx].Task;
         GameObject enemy = enemyHandle[idx].Result;
         enemy.transform.position = stagePositions[idx];
+        if (address != "Goal" && address != "Start")
+        {
+            enemy.GetComponent<EnemyManager>().Index = idx-1;
+        }
         
         Debug.Log($"generated{address}");
         

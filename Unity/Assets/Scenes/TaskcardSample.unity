@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &41926198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1270,7 +1270,7 @@ Canvas:
   m_GameObject: {fileID: 1141429777}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 963194227}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1624,6 +1624,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 439618d3cf222594a98a9d3696580dcd, type: 3}
+--- !u!1 &1409555177 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2199095151859029205, guid: 54db545de92995946a7bb352e3174770,
+    type: 3}
+  m_PrefabInstance: {fileID: 630681651}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1439126667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1705,7 +1711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTouchDebug: 1
   mainCamera: {fileID: 963194225}
-  currentHealth: {fileID: 0}
+  currentHealth: {fileID: 1409555177}
   damageDiff: {fileID: 999780189}
   minScrollDist: 0.1
   scrollSencitivity: 0

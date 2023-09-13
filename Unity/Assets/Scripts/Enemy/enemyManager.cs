@@ -63,21 +63,18 @@ public class EnemyManager : MonoBehaviour
     {
         if (strength == "weak")
         {
-            Debug.Log($"Weak index: {Index}, hp : {_hpText.text}");
             _enemyWeak.SetActive(true);
             _enemyNormal.SetActive(false);
             _enemyStrong.SetActive(false);
         }
         else if (strength == "normal")
         {
-            Debug.Log($"Normal index: {Index}, hp : {_hpText.text}");
             _enemyWeak.SetActive(false);
             _enemyNormal.SetActive(true);
             _enemyStrong.SetActive(false);
         }
         else
         {
-            Debug.Log($"Strong index: {Index}, hp : {_hpText.text}");
             _enemyWeak.SetActive(false);
             _enemyNormal.SetActive(false);
             _enemyStrong.SetActive(true);

@@ -14,6 +14,8 @@ struct ManageTaskView: View {
     @Binding var appData: AppData  // AppDataをBindingで受け取る
     @Binding var status: Status
     @Binding var goal: Goal
+    
+    @State var editingTask : TasQuestTask?
 
     @State private var selectedDate = Date()
     @State var name: String = ""
@@ -126,34 +128,49 @@ extension ManageTaskView {
         if currentHealth > maxHealth {
             currentHealth = maxHealth
         }
-        
-        let newTask = TasQuestTask(
-            id: "", // Firestore が生成する ID
-            name: name,
-            description: description,
-            dueDate: selectedDate,
-            maxHealth: Float(maxHealth),
-            currentHealth: Float(currentHealth),
-            tags: selectedTags,
-            isVisible: true,
-            createdAt: Date(),
-            updatedAt: Date()
-        )
-        
+
         // StatusとGoalの参照を取得
         if let statusIndex = appData.statuses.firstIndex(where: { $0.id == status.id }),
            let goalIndex = appData.statuses[statusIndex].goals.firstIndex(where: { $0.id == goal.id }) {
-            
-            // 新しいタスクを追加
-            appData.statuses[statusIndex].goals[goalIndex].tasks.append(newTask)
-               
+
+            // 新しいタスクの場合とタスク編集の場合で以下のプログラムを分岐
+            if let editingTask = editingTask,
+               let taskIndex = appData.statuses[statusIndex].goals[goalIndex].tasks.firstIndex(where: { $0.id == editingTask.id }) {
+                // 既存のタスクを編集
+                appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].name = name
+                appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].description = description
+                appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].dueDate = dueDate
+                appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].maxHealth = maxHealth
+                appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].currentHealth = currentHealth
+                appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].tags = selectedTags
+                appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].updatedAt = Date()
+            } else {
+                // 新しいタスクを作成
+                let newTask = TasQuestTask(
+                    id: "", // Firestore が生成する ID
+                    name: name,
+                    description: description,
+                    dueDate: dueDate,
+                    maxHealth: maxHealth,
+                    currentHealth: currentHealth,
+                    tags: selectedTags,
+                    isVisible: true,
+                    createdAt: Date(),
+                    updatedAt: Date()
+                )
+                
+                // 新しいタスクを追加
+                appData.statuses[statusIndex].goals[goalIndex].tasks.append(newTask)
+            }
+
+            // 保存処理（新しいタスクと既存のタスクの両方に適用）
             FirestoreManager.shared.saveAppData(appData: appData) { error in
                 if let error = error {
                     print("Failed to save data: \(error)")
                 } else {
                     print("Data saved successfully.")
                     
-                    NotificationCenter.default.post(name: Notification.Name("TaskCreated"), object: nil)//強制的に全体を再レンダリング
+                    NotificationCenter.default.post(name: Notification.Name("TaskCreated"), object: nil) // 強制的に全体を再レンダリング
                     
                     // データが保存された後にデータを再取得
                     FirestoreManager.shared.fetchAppData { fetchedAppData in
@@ -168,8 +185,7 @@ extension ManageTaskView {
             // モーダルを閉じる
             presentationMode.wrappedValue.dismiss()
         }
-    }
-}
+    }}
 
 struct HealthSlider: View {
     var label: String

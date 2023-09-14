@@ -1,19 +1,20 @@
 using TMPro;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
 public class DataExchanger : MonoBehaviour
 {
     #if UNITY_IOS && !UNITY_EDITOR
         [DllImport("__Internal")]
-        private static extern void _ex_callSwiftMethod(string message);
+        private static extern void updateAppData(string message);
     #endif
-    
+
     public static void CallSwiftMethod(string message) {
         #if UNITY_IOS && !UNITY_EDITOR
-            _ex_callSwiftMethod(message);
+            updateAppData(message);
         #endif
     }
-    
+
     public void ReceiveAppData(string jsonString)
     {
         AppData jsonData = JsonManager.String2Json(jsonString);

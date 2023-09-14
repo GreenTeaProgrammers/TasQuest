@@ -41,7 +41,7 @@ final class HostModel: HostModelInput {
     }
     
     func sendStatusIDToUnity(statusID: String){
-        Unity.shared.sendMessageToUnity(objectName: "DataExhanger", functionName: "ReceiveStatusID", argument: statusID)
+        Unity.shared.sendMessageToUnity(objectName: "DataExchanger", functionName: "ReceiveStatusID", argument: statusID)
     }
     
     func sendGoalIDToUnity(goalID: String) {

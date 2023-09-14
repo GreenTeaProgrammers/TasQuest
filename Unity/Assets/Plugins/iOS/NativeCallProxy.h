@@ -7,6 +7,7 @@
 @protocol NativeCallsProtocol
 @required
 - (void) showHostMainWindow:(NSString*)color;
+- (void) _ex_callSwiftMethod:(NSString*)message;
 // other methods
 @end
 

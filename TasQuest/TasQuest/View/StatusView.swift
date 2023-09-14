@@ -41,7 +41,7 @@ struct StatusView: View {
                             .resizable()
                             .frame(width: 24, height: 24)
                     }.sheet(isPresented: $showTagView) {
-                        //TagView(appData: $viewModel.appData)  //Todo: TagViewを表示する。TagViewの定義が必要。
+                        TagView(appData: $viewModel.appData)
                     }
                     
                     Button(action: {

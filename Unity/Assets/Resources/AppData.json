@@ -44,7 +44,7 @@
               "description": "Description here",
               "id": "1",
               "updatedAt": "2023-09-13/14:41:47",
-              "name": "Do something",
+              "name": "非同期処理の勉強",
               "maxHealth": 100
             },
             {
@@ -65,7 +65,7 @@
               "id": "2",
               "updatedAt": "2023-09-13/14:41:47",
               "name": "Do something",
-              "maxHealth": 100
+              "maxHealth": 600
             },
             {
               "dueDate": "2023-09-13/14:41:47",
@@ -85,7 +85,7 @@
               "id": "3",
               "updatedAt": "2023-09-13/14:41:47",
               "name": "Do something",
-              "maxHealth": 100
+              "maxHealth": 2000
             }
           ],
           "name": "Goal Name",

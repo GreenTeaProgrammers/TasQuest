@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.IO;
+using UnityEngine.UIElements;
 
 
 [Serializable]
@@ -133,5 +134,44 @@ public class JsonManager
     private static void CallErrorUI()
     {
         Debug.Log("Call error UI");
+    }
+
+    public static void UpdateTaskData(TasQuestTask taskData)
+    {
+        string taskID = taskData.id;
+        string goalID = User.GoalData.id;
+        string statusID = User.StatusData.id;
+
+        int statusIndex = 0;
+        int goalIndex = 0;
+        int taskIndex = 0;
+        foreach (var status in User.UserData.statuses)
+        {
+            if (status.id == statusID)
+            {
+                foreach (var goal in status.goals)
+                {
+                    if (goal.id == goalID)
+                    {
+                        foreach (var task in goal.tasks)
+                        {
+                            if (task.id == taskID)
+                            {
+                                User.UserData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex] = taskData;
+                                User.StatusData = User.UserData.statuses[statusIndex];
+                                User.GoalData = User.StatusData.goals[goalIndex];
+                            }
+                            taskIndex++;
+                        }
+                    }
+                    goalIndex++;
+                }
+            }
+            statusIndex++;
+        }
+        
+        DataExchanger.SendAppData();
+        //test
+        // SaveJson(User.UserData, "Assets/Resources/AppDataTest.json");
     }
 }

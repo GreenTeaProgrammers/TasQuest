@@ -1,6 +1,4 @@
-using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -13,12 +11,42 @@ public class EnemyManager : MonoBehaviour
         get { return _index;}
         set { _index = value; }
     }
+
+    private bool _hit;
+    public bool Hit
+    {
+        get { return _hit;}
+        set{
+            if (value == true)
+            {
+                Debug.Log("Hit");
+                if (_enemyWeak.activeInHierarchy)
+                {
+                    _weakAnimator.SetTrigger("Hit");
+                }
+                else if (_enemyNormal.activeInHierarchy)
+                {
+                    _normalAnimator.SetTrigger("Hit");
+                }
+                else if(_enemyStrong.activeInHierarchy)
+                {
+                    _strongAnimator.SetTrigger("Hit");
+                }
+            }
+            
+        }
+    }
     
     private GameObject _mainCamera;
     private TMP_Text _hpText;
     private GameObject _enemyWeak;
     private GameObject _enemyNormal;
     private GameObject _enemyStrong;
+    private ParticleSystem _smokeParticle;
+    private Animator _weakAnimator;
+    private Animator _normalAnimator;
+    private Animator _strongAnimator;
+    private ParticleSystem _slash;
     
     void Start()
     {
@@ -27,6 +55,17 @@ public class EnemyManager : MonoBehaviour
         _enemyWeak = this.transform.GetChild(1).gameObject;
         _enemyNormal = this.transform.GetChild(2).gameObject;
         _enemyStrong = this.transform.GetChild(3).gameObject;
+        _smokeParticle = this.transform.GetChild(4).gameObject.GetComponent<ParticleSystem>();
+        _weakAnimator = _enemyWeak.GetComponent<Animator>();
+        _normalAnimator = _enemyNormal.GetComponent<Animator>();
+        _strongAnimator = _enemyStrong.GetComponent<Animator>();
+        _slash = this.transform.GetChild(5).gameObject.GetComponent<ParticleSystem>();
+        _hit = false;
+    }
+
+    public void slash()
+    {
+        _slash.Play();
     }
     
     void Update()
@@ -61,20 +100,23 @@ public class EnemyManager : MonoBehaviour
 
     private void ChangeEnemyStrength(string strength)
     {
-        if (strength == "weak")
+        if (strength == "weak" && !_enemyWeak.activeInHierarchy)
         {
+            _smokeParticle.Play();
             _enemyWeak.SetActive(true);
             _enemyNormal.SetActive(false);
             _enemyStrong.SetActive(false);
         }
-        else if (strength == "normal")
+        else if (strength == "normal" && !_enemyNormal.activeInHierarchy)
         {
+            _smokeParticle.Play();
             _enemyWeak.SetActive(false);
             _enemyNormal.SetActive(true);
             _enemyStrong.SetActive(false);
         }
-        else
+        else if(strength == "strong" && !_enemyStrong.activeInHierarchy)
         {
+            _smokeParticle.Play();
             _enemyWeak.SetActive(false);
             _enemyNormal.SetActive(false);
             _enemyStrong.SetActive(true);

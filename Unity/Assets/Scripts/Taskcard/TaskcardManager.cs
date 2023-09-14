@@ -29,8 +29,8 @@ public class TaskcardManager : MonoBehaviour
 
     public static void OnGoalChanged()
     {
-        _taskList = User.GoalData.tasks;
-        SetTaskDataDisplay(_taskList[0]);
+        // _taskList = User.GoalData.tasks;
+        SetTaskDataDisplay(User.GoalData.tasks[0]);
     }
 
     /// <summary>
@@ -41,22 +41,28 @@ public class TaskcardManager : MonoBehaviour
     public static void OnCurrentTaskChanged(int currentIndex)
     {
         Debug.Log($"set display index {currentIndex}");
-        SetTaskDataDisplay(_taskList[currentIndex]);
+        // SetTaskDataDisplay(_taskList[currentIndex]);
+        SetTaskDataDisplay(User.GoalData.tasks[currentIndex]);
     }
 
     public static void OnCurrentHealthChanged(int currentHealthValue)
     {
-        _taskList[MainCameraManager.CurrentIndex].currentHealth = currentHealthValue;
+        User.GoalData.tasks[MainCameraManager.CurrentIndex].currentHealth = currentHealthValue;
+        JsonManager.UpdateTaskData(User.GoalData.tasks[MainCameraManager.CurrentIndex]);
     }
 
     public static void OnMaxHealthChanged(int maxHealthValue)
     {
-        _taskList[MainCameraManager.CurrentIndex].maxHealth = maxHealthValue;
+        User.GoalData.tasks[MainCameraManager.CurrentIndex].maxHealth = maxHealthValue;
+        JsonManager.UpdateTaskData(User.GoalData.tasks[MainCameraManager.CurrentIndex]);
+
     }
 
     public static void OnTaskNameChanged(string nameValue)
     {
-        _taskList[MainCameraManager.CurrentIndex].name = nameValue;
+        User.GoalData.tasks[MainCameraManager.CurrentIndex].name = nameValue;
+        JsonManager.UpdateTaskData(User.GoalData.tasks[MainCameraManager.CurrentIndex]);
+
     }
     
     
@@ -71,7 +77,7 @@ public class TaskcardManager : MonoBehaviour
         
         _hpTextManager.OnHealthChanged(currentHealth, maxHealth);
         
-        string dueDateText = task.dueDate;
+        string dueDateText = task.dueDate.Split("/")[0];
         dueDateText = "Due:\n" + dueDateText;
         _dueDate.text = dueDateText;
     }
@@ -94,7 +100,7 @@ public class TaskcardManager : MonoBehaviour
         if (_isEditMode)
         {
             //maxHpを変化させる
-            _currentHpChanger.PinchMaxHealth(pinchDistance);
+            _currentHpChanger.PinchMaxHealth(pinchDistance * 10);
         }
         else
         {

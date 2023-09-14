@@ -13,19 +13,26 @@ public class DataExchanger : MonoBehaviour
         // TMP_Text output = GameObject.Find("Output").GetComponent<TMP_Text>();
         // output.text = jsonString;
     }
-    
-    public void ReceiveGoalID(string currentGoalId)
+
+    public void ReceiveStatusID(string currentStatusId)
     {
-        Debug.Log("Received goal ID");
         foreach (var status in User.UserData.statuses)
         {
-            foreach (var goal in status.goals)
+            if (status.id == currentStatusId)
             {
+                User.StatusData = status;
+            }
+        }
+    }
+
+    public void ReceiveGoalID(string currentGoalId)
+    {
+        foreach (var goal in User.StatusData.goals)
+        {
                 if (goal.id == currentGoalId)
                 {
                     User.GoalData = goal;
                 }
-            }
         }
 
         //asyncにできないのでフラグをオンにして ViewManager.OnGoalChanged()を読んでいる
@@ -36,8 +43,8 @@ public class DataExchanger : MonoBehaviour
         // output.text = currentGoalId;
     }
 
-    // public static async Task<Goal> OnTaskDataChangedBySwift()
-    // {
-    //     
-    // }
+    public static void SendAppData()
+    {
+        Debug.Log("SendAppData to IOS Native!!!");
+    }
 }

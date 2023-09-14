@@ -7,8 +7,10 @@ public class ViewDebugger : MonoBehaviour
         DataExchanger dataExchanger = GameObject.Find("DataExchanger").GetComponent<DataExchanger>();
         AppData appData = JsonManager.LoadJson();
         User.UserData = appData;
+        dataExchanger.ReceiveStatusID("1");
         dataExchanger.ReceiveGoalID("1");
-        // DataExchanger.("Json should be here");
+
+        // Debug.Log(JsonUtility.ToJson(User.UserData));
     }
 
 }

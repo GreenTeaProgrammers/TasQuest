@@ -170,6 +170,7 @@ public class JsonManager
             statusIndex++;
         }
         
+        DataExchanger.SendAppData();
         //test
         // SaveJson(User.UserData, "Assets/Resources/AppDataTest.json");
     }

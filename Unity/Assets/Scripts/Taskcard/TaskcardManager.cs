@@ -77,7 +77,7 @@ public class TaskcardManager : MonoBehaviour
         
         _hpTextManager.OnHealthChanged(currentHealth, maxHealth);
         
-        string dueDateText = task.dueDate;
+        string dueDateText = task.dueDate.Split("/")[0];
         dueDateText = "Due:\n" + dueDateText;
         _dueDate.text = dueDateText;
     }

@@ -43,8 +43,8 @@ public class DataExchanger : MonoBehaviour
         // output.text = currentGoalId;
     }
 
-    // public static async Task<Goal> OnTaskDataChangedBySwift()
-    // {
-    //     
-    // }
+    public static void SendAppData()
+    {
+        Debug.Log("SendAppData to IOS Native!!!");
+    }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.34151796, g: 0.43173182, b: 0.5723862, a: 1}
+  m_IndirectSpecularColor: {r: 0.34293932, g: 0.433697, b: 0.57518816, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &41926198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1039,7 +1039,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: ae49ba7ccc7294adb85a34c736019171, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1
@@ -1371,8 +1371,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 678195cc136c84842ab01140b1ccb587, type: 2}
-  m_sharedMaterial: {fileID: -3609421475288123831, guid: 678195cc136c84842ab01140b1ccb587,
+  m_fontAsset: {fileID: 11400000, guid: ae49ba7ccc7294adb85a34c736019171, type: 2}
+  m_sharedMaterial: {fileID: -3035036074535300737, guid: ae49ba7ccc7294adb85a34c736019171,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1994,8 +1994,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u30BF\u30B9\u30AF\u540D"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 678195cc136c84842ab01140b1ccb587, type: 2}
-  m_sharedMaterial: {fileID: -3609421475288123831, guid: 678195cc136c84842ab01140b1ccb587,
+  m_fontAsset: {fileID: 11400000, guid: ae49ba7ccc7294adb85a34c736019171, type: 2}
+  m_sharedMaterial: {fileID: -3035036074535300737, guid: ae49ba7ccc7294adb85a34c736019171,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

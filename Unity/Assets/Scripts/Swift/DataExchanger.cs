@@ -1,8 +1,20 @@
 using TMPro;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
 public class DataExchanger : MonoBehaviour
 {
+    #if UNITY_IOS && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern void updateAppData(string message);
+    #endif
+
+    public static void CallSwiftMethod(string message) {
+        #if UNITY_IOS && !UNITY_EDITOR
+            updateAppData(message);
+        #endif
+    }
+
     public void ReceiveAppData(string jsonString)
     {
         AppData jsonData = JsonManager.String2Json(jsonString);
@@ -41,10 +53,5 @@ public class DataExchanger : MonoBehaviour
         //below this line are all test
         // TMP_Text output = GameObject.Find("Output").GetComponent<TMP_Text>();
         // output.text = currentGoalId;
-    }
-
-    public static void SendAppData()
-    {
-        Debug.Log("SendAppData to IOS Native!!!");
     }
 }

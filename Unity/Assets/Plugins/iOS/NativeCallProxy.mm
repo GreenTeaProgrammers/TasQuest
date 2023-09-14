@@ -15,5 +15,5 @@ id<NativeCallsProtocol> api = NULL;
 
 extern "C" {
     void showHostMainWindow(const char* color) { return [api showHostMainWindow:[NSString stringWithUTF8String:color]]; }
+    void _ex_callSwiftMethod(const char *message) { [api updateAppData:[NSString stringWithUTF8String:message]]; }
 }
-

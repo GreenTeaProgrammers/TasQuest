@@ -43,13 +43,13 @@
 		2221A83D2AB27D0E0005DE4A /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2221A8192AB27D0E0005DE4A /* FireStoreManager.swift */; };
 		2221A83E2AB27D0E0005DE4A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2221A81A2AB27D0E0005DE4A /* GoogleService-Info.plist */; };
 		2221A83F2AB27D0E0005DE4A /* TasQuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2221A81B2AB27D0E0005DE4A /* TasQuestApp.swift */; };
-		2264E60B2AB2812600E56C44 /* UnityFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2264E60A2AB2812600E56C44 /* UnityFramework.framework */; };
-		2264E60C2AB2812600E56C44 /* UnityFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2264E60A2AB2812600E56C44 /* UnityFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2264E60F2AB2834800E56C44 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2264E60E2AB2834800E56C44 /* FirebaseAnalytics */; };
 		2264E6112AB2834800E56C44 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2264E6102AB2834800E56C44 /* FirebaseAnalyticsSwift */; };
 		2264E6132AB2834800E56C44 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2264E6122AB2834800E56C44 /* FirebaseAuth */; };
 		2264E6152AB2834800E56C44 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2264E6142AB2834800E56C44 /* FirebaseFirestore */; };
 		2264E6172AB2834800E56C44 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2264E6162AB2834800E56C44 /* FirebaseFirestoreSwift */; };
+		2264E62D2AB3529300E56C44 /* UnityFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2264E60A2AB2812600E56C44 /* UnityFramework.framework */; };
+		2264E62E2AB3529300E56C44 /* UnityFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2264E60A2AB2812600E56C44 /* UnityFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,13 +70,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2264E60D2AB2812600E56C44 /* Embed Frameworks */ = {
+		2264E62F2AB3529300E56C44 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2264E60C2AB2812600E56C44 /* UnityFramework.framework in Embed Frameworks */,
+				2264E62E2AB3529300E56C44 /* UnityFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,10 +134,10 @@
 			files = (
 				2264E6112AB2834800E56C44 /* FirebaseAnalyticsSwift in Frameworks */,
 				2264E60F2AB2834800E56C44 /* FirebaseAnalytics in Frameworks */,
-				2264E60B2AB2812600E56C44 /* UnityFramework.framework in Frameworks */,
 				2264E6152AB2834800E56C44 /* FirebaseFirestore in Frameworks */,
 				2264E6132AB2834800E56C44 /* FirebaseAuth in Frameworks */,
 				2264E6172AB2834800E56C44 /* FirebaseFirestoreSwift in Frameworks */,
+				2264E62D2AB3529300E56C44 /* UnityFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,7 +287,7 @@
 				22F17B112AB27B9400D101F9 /* Sources */,
 				22F17B122AB27B9400D101F9 /* Frameworks */,
 				22F17B132AB27B9400D101F9 /* Resources */,
-				2264E60D2AB2812600E56C44 /* Embed Frameworks */,
+				2264E62F2AB3529300E56C44 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

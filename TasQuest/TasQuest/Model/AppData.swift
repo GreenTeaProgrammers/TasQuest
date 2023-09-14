@@ -7,18 +7,20 @@
 
 import Foundation
 
-class AppDataSingleton: Codable {
-    static let shared = AppDataSingleton()
-
+public class AppDataSingleton: NSObject, ObservableObject, NativeCallsProtocol {
+    public static let shared = AppDataSingleton()
+    
     var appData: AppData
-
-    private init() {
+    
+    override init() {  // NSObject を継承しているので、init も override する
         self.appData = AppData() // 初期化
+        super.init()
+        NSClassFromString("FrameworkLibAPI")?.registerAPIforNativeCalls(self)
     }
-
-    func updateAppData(with json: String) {
+    
+    public func updateAppData(_ message: String) {
         do {
-            if let data = json.data(using: .utf8) {
+            if let data = message.data(using: .utf8) {
                 let updatedAppData = try JSONDecoder().decode(AppData.self, from: data)
                 self.appData = updatedAppData
             }
@@ -27,6 +29,7 @@ class AppDataSingleton: Codable {
         }
     }
 }
+
 
 struct AppData: Codable {
     let userid: String

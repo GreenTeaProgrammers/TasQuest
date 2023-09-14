@@ -46,6 +46,7 @@ public class EnemyManager : MonoBehaviour
     private Animator _weakAnimator;
     private Animator _normalAnimator;
     private Animator _strongAnimator;
+    private ParticleSystem _slash;
     
     void Start()
     {
@@ -58,7 +59,13 @@ public class EnemyManager : MonoBehaviour
         _weakAnimator = _enemyWeak.GetComponent<Animator>();
         _normalAnimator = _enemyNormal.GetComponent<Animator>();
         _strongAnimator = _enemyStrong.GetComponent<Animator>();
+        _slash = this.transform.GetChild(5).gameObject.GetComponent<ParticleSystem>();
         _hit = false;
+    }
+
+    public void slash()
+    {
+        _slash.Play();
     }
     
     void Update()

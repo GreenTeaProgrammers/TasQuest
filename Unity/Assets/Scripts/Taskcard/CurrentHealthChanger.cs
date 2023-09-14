@@ -105,7 +105,9 @@ public class CurrentHealthChanger : MonoBehaviour
             UpdateCurrentHealth();
             if (scaleDiff > 0)
             {
-                Road.enemyHandle[MainCameraManager.CurrentIndex+1].Result.GetComponent<EnemyManager>().Hit = true;
+                EnemyManager enemyManager = Road.enemyHandle[MainCameraManager.CurrentIndex+1].Result.GetComponent<EnemyManager>();
+                enemyManager.Hit = true;
+                enemyManager.slash();
             }
         }
     }

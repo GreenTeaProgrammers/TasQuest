@@ -3,6 +3,17 @@ using UnityEngine;
 
 public class DataExchanger : MonoBehaviour
 {
+    #if UNITY_IOS && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern void _ex_callSwiftMethod(string message);
+    #endif
+    
+    public static void CallSwiftMethod(string message) {
+        #if UNITY_IOS && !UNITY_EDITOR
+            _ex_callSwiftMethod(message);
+        #endif
+    }
+    
     public void ReceiveAppData(string jsonString)
     {
         AppData jsonData = JsonManager.String2Json(jsonString);
@@ -41,10 +52,5 @@ public class DataExchanger : MonoBehaviour
         //below this line are all test
         // TMP_Text output = GameObject.Find("Output").GetComponent<TMP_Text>();
         // output.text = currentGoalId;
-    }
-
-    public static void SendAppData()
-    {
-        Debug.Log("SendAppData to IOS Native!!!");
     }
 }

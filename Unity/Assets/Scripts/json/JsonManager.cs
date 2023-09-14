@@ -170,7 +170,7 @@ public class JsonManager
             statusIndex++;
         }
         
-        DataExchanger.SendAppData();
+        DataExchanger.CallSwiftMethod(JsonUtility.ToJson(User.UserData));
         //test
         // SaveJson(User.UserData, "Assets/Resources/AppDataTest.json");
     }

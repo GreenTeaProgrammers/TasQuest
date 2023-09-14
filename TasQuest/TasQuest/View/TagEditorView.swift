@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct TagEditorView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Binding var editingTag: Tag?
-    @Binding var appData: AppData
+    
+    @State var tagIndex: Int?  // Optional
+    
     @State private var tagName: String = ""
     @State private var selectedColor: Color = Color.red
     
@@ -36,9 +35,10 @@ struct TagEditorView: View {
             })
         }
         .onAppear {
-            if let editingTag = editingTag {
-                tagName = editingTag.name
-                selectedColor = Color(red: Double(editingTag.color[0]), green: Double(editingTag.color[1]), blue: Double(editingTag.color[2]))
+            if let tagIndex = tagIndex {
+                let tag = AppDataSingleton.shared.appData.tags[tagIndex]
+                tagName = tag.name
+                selectedColor = Color(red: Double(tag.color[0]), green: Double(tag.color[1]), blue: Double(tag.color[2]))
             }
         }
     }
@@ -51,35 +51,29 @@ struct TagEditorView: View {
         var alpha: CGFloat = 0
         uiColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
         
-        if let editingTag = editingTag {
+        if let tagIndex = tagIndex {
             // Existing tag: Update it
-            if let index = appData.tags.firstIndex(where: { $0.id == editingTag.id }) {
-                appData.tags[index].name = tagName
-                appData.tags[index].color = [Float(red), Float(green), Float(blue)]
-                appData.tags[index].updatedAt = Date()
-            }
+            AppDataSingleton.shared.appData.tags[tagIndex].name = tagName
+            AppDataSingleton.shared.appData.tags[tagIndex].color = [Float(red), Float(green), Float(blue)]
+            AppDataSingleton.shared.appData.tags[tagIndex].updatedAt = Date()
         } else {
             // New tag: Create it
             let newTag = Tag(id: UUID().uuidString, name: tagName, color: [Float(red), Float(green), Float(blue)], createdAt: Date(), updatedAt: Date())
-            appData.tags.append(newTag)
+            AppDataSingleton.shared.appData.tags.append(newTag)
         }
         
         // Save to Firestore
-        FirestoreManager.shared.saveAppData(appData: appData) { error in
+        FirestoreManager.shared.saveAppData() { error in
             if let error = error {
                 print("Failed to save data: \(error)")
             } else {
                 print("Data saved successfully.")
-                
-                // Force a complete re-render
-                NotificationCenter.default.post(name: Notification.Name("TagUpdated"), object: nil)
-                
-                // Reload data after it has been saved
                 FirestoreManager.shared.fetchAppData { fetchedAppData in
                     if let fetchedAppData = fetchedAppData {
-                        self.appData = fetchedAppData  // Update the data
+                        AppDataSingleton.shared.appData = fetchedAppData
+                        NotificationCenter.default.post(name: Notification.Name("TagUpDated"), object: nil)//強制的に全体を再レンダリング
                     } else {
-                        // Error handling
+                        print("AppDataの取得に失敗しました")
                     }
                 }
             }

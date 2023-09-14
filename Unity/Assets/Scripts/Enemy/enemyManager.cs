@@ -19,6 +19,7 @@ public class EnemyManager : MonoBehaviour
     private GameObject _enemyWeak;
     private GameObject _enemyNormal;
     private GameObject _enemyStrong;
+    private ParticleSystem _smokeParticle;
     
     void Start()
     {
@@ -27,6 +28,7 @@ public class EnemyManager : MonoBehaviour
         _enemyWeak = this.transform.GetChild(1).gameObject;
         _enemyNormal = this.transform.GetChild(2).gameObject;
         _enemyStrong = this.transform.GetChild(3).gameObject;
+        _smokeParticle = this.transform.GetChild(4).gameObject.GetComponent<ParticleSystem>();
     }
     
     void Update()
@@ -61,20 +63,23 @@ public class EnemyManager : MonoBehaviour
 
     private void ChangeEnemyStrength(string strength)
     {
-        if (strength == "weak")
+        if (strength == "weak" && !_enemyWeak.activeInHierarchy)
         {
+            _smokeParticle.Play();
             _enemyWeak.SetActive(true);
             _enemyNormal.SetActive(false);
             _enemyStrong.SetActive(false);
         }
-        else if (strength == "normal")
+        else if (strength == "normal" && !_enemyNormal.activeInHierarchy)
         {
+            _smokeParticle.Play();
             _enemyWeak.SetActive(false);
             _enemyNormal.SetActive(true);
             _enemyStrong.SetActive(false);
         }
-        else
+        else if(strength == "strong" && !_enemyStrong.activeInHierarchy)
         {
+            _smokeParticle.Play();
             _enemyWeak.SetActive(false);
             _enemyNormal.SetActive(false);
             _enemyStrong.SetActive(true);

@@ -33,7 +33,7 @@ public class TouchHandler : MonoBehaviour
         _taskcardManager = GameObject.Find("TaskCard").GetComponent<TaskcardManager>();
         
         scrollSencitivity = 0.001f;
-        pinchSencitivity = 0.0001f;
+        pinchSencitivity = 0.001f;
         _previousPinchDistance = 0.0f;
     }
 

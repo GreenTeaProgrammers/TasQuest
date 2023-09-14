@@ -40,6 +40,10 @@ final class HostModel: HostModelInput {
         }
     }
     
+    func sendStatusIDToUnity(statusID: String){
+        Unity.shared.sendMessageToUnity(objectName: "DataExhanger", functionName: "ReceiveStatusID", argument: statusID)
+    }
+    
     func sendGoalIDToUnity(goalID: String) {
         // UnityFrameworkのメソッドを呼び出す
         Unity.shared.sendMessageToUnity(objectName: "DataExchanger", functionName: "ReceiveGoalID", argument: goalID)

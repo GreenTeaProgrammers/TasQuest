@@ -9,9 +9,8 @@
 import SwiftUI
 
 struct TaskView: View {
-    @Binding var appData: AppData
-    @Binding var status: Status
-    @Binding var goal: Goal
+    @State var statusIndex: Int
+    @State var goalIndex: Int
     
     @State private var reloadFlag = false  // 追加
     
@@ -22,12 +21,14 @@ struct TaskView: View {
     
     
     var body: some View {
+        let goal: Goal = AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex]
+        
         ZStack {
             let taskCount = goal.tasks.filter { $0.isVisible }.count
             
             let height = max(0, (87.95) * CGFloat(taskCount - 1))
             VStack {
-                HeaderView(goal: $goal)
+                HeaderView(statusIndex: statusIndex, goalIndex: goalIndex)
                 
                 Rectangle()
                     .fill(Color.gray)  // 色を設定
@@ -44,7 +45,7 @@ struct TaskView: View {
                         
                         
                         ScrollView{
-                            TaskListView(goal: $goal)
+                            TaskListView(statusIndex: statusIndex, goalIndex: goalIndex)
                         }
                     }
                 }
@@ -73,7 +74,7 @@ struct TaskView: View {
                                     .foregroundColor(.white)
                             )
                     }.sheet(isPresented: $showingCreateTaskModal) {
-                        CreateTaskHalfModalView(appData: $appData, status: $status, goal: $goal)  // ハーフモーダルの内容
+                        CreateTaskHalfModalView(statusIndex: statusIndex, goalIndex: goalIndex)  // ハーフモーダルの内容
                     }
                     
                     
@@ -113,7 +114,7 @@ struct TaskView: View {
         }
         .id(reloadFlag)  // 追加
         .onReceive(
-            NotificationCenter.default.publisher(for: Notification.Name("TaskCreated")),
+            NotificationCenter.default.publisher(for: Notification.Name("TaskUpdated")),
             perform: { _ in
                 self.reloadFlag.toggle()
             }
@@ -123,9 +124,10 @@ struct TaskView: View {
 }
 
 struct HeaderView: View {
-    @Binding var goal: Goal  // @Stateを@Bindingに変更
+    @State var statusIndex: Int
+    @State var goalIndex: Int
+    
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: TaskViewModel  // ViewModelのインスタンスを追加
     
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -133,13 +135,8 @@ struct HeaderView: View {
         return formatter
     }()
 
-    
-    init(goal: Binding<Goal>) {
-        self._goal = goal
-        self.viewModel = TaskViewModel(goal: goal.wrappedValue)
-    }
-    
     var body: some View {
+        var goal = AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex]
         VStack{
             ZStack(alignment: .leading) {
                 HStack {
@@ -182,47 +179,49 @@ struct HeaderView: View {
 }
 
 struct TaskListView: View {
-    @Binding var goal: Goal
-    
-    var sortedTasks: [TasQuestTask] {
-        goal.tasks.sorted { $0.dueDate < $1.dueDate }
-    }
+    @State var statusIndex: Int
+    @State var goalIndex: Int
     
     var body: some View {
-        ForEach(sortedTasks.indices, id: \.self) { index in
-            let task = sortedTasks[index]
-            if task.isVisible {
-                TaskRow(task: task)
+        let goal: Goal = AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex]
+        ForEach(goal.tasks.indices, id: \.self) { index in
+            if goal.tasks[index].isVisible {
+                TaskRow(statusIndex: statusIndex, goalIndex: goalIndex, taskIndex: index)
             }
         }
         .onAppear {
-            print("Current tasks: \(self.goal.tasks)")
+            print("Current tasks: \(goal.tasks)")
         }
     }
 }
 
 struct TaskRow: View {
-    @State var task: TasQuestTask
+    @State var statusIndex: Int
+    @State var goalIndex: Int
+    @State var taskIndex: Int
     
-    let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        return formatter
-    }()
-    
-    // Calculate the fill color based on the task's current and max health
-    var fillColor: Color {
-        let percentage = task.currentHealth / task.maxHealth
-        if percentage > 0.5 {
-            return .green
-        } else if percentage > 0.2 {
-            return .yellow
-        } else {
-            return .red
-        }
-    }
     
     var body: some View {
+        let task: TasQuestTask = AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex]
+        
+        let dateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            return formatter
+        }()
+        
+        // Calculate the fill color based on the task's current and max health
+        var fillColor: Color {
+            let percentage = task.currentHealth / task.maxHealth
+            if percentage > 0.5 {
+                return .green
+            } else if percentage > 0.2 {
+                return .yellow
+            } else {
+                return .red
+            }
+        }
+        
         HStack {
             // Circle icon
             Image(systemName: "circle.fill")

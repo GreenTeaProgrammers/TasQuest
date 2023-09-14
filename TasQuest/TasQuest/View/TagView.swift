@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct TagView: View {
-    @Binding var appData: AppData  // AppDataをバインディングする
-    @State private var showTagEditor: Bool = false  // タグ編集ビューを表示するかどうか
-    @State private var editingTag: Tag?  // 編集中のタグ
+    @State private var showTagEditor: Bool = false
+    
+    @State var editingTagIndex: Int?  // この変数にインデックスを格納
     
     @State private var reloadFlag: Bool = false
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(appData.tags, id: \.id) { tag in
+                ForEach(AppDataSingleton.shared.appData.tags, id: \.id) { tag in
                     HStack {
                         Circle()
                             .foregroundColor(Color(red: Double(tag.color[0]), green: Double(tag.color[1]), blue: Double(tag.color[2])))
@@ -25,7 +25,10 @@ struct TagView: View {
                         Text(tag.name)
                         Spacer()
                         Button("編集") {
-                            editingTag = tag
+                            // インデックスを検索してeditingTagIndexに格納
+                            if let index = AppDataSingleton.shared.appData.tags.firstIndex(where: { $0.id == tag.id }) {
+                                editingTagIndex = index
+                            }
                             showTagEditor = true
                         }
                         .foregroundColor(.blue)
@@ -34,16 +37,16 @@ struct TagView: View {
             }
             .navigationTitle("タグ管理")
             .navigationBarItems(trailing: Button(action: {
-                editingTag = nil  // 新規作成のため、nilを設定
+                editingTagIndex = nil  // 新規作成のため、nilを設定
                 showTagEditor = true
             }) {
                 Image(systemName: "plus")
             })
             .sheet(isPresented: $showTagEditor) {
-                TagEditorView(editingTag: $editingTag, appData: $appData)
+                TagEditorView(tagIndex: editingTagIndex)  // editingTagIndexを渡す
             }
         }
-        .id(reloadFlag)  // 追加
+        .id(reloadFlag)
         .onReceive(
             NotificationCenter.default.publisher(for: Notification.Name("TagUpdated")),
             perform: { _ in

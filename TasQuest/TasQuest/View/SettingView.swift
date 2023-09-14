@@ -20,6 +20,7 @@ struct SettingView: View {
                     do {
                         try viewModel.signOut()
                         AppDataSingleton.shared.appData = AppData() //Todo: Debug it
+                        NotificationCenter.default.post(name: Notification.Name("StatusUpdated"), object: nil)//強制的に全体を再レンダリング
                         presentationMode.wrappedValue.dismiss()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             showSignInView = true

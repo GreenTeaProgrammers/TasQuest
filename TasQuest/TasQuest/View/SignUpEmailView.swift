@@ -60,6 +60,7 @@ struct SignUpEmailView: View {
                             StatusViewModel().fetchAppData { fetchedAppData in
                                 if let fetchedAppData = fetchedAppData {
                                     AppDataSingleton.shared.appData = fetchedAppData
+                                    NotificationCenter.default.post(name: Notification.Name("StatusUpdated"), object: nil)//強制的に全体を再レンダリング
                                 } else {
                                     // エラーハンドリング
                                 }

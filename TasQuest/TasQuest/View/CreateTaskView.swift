@@ -61,7 +61,22 @@ struct CreateTaskHalfModalView: View {
         )
 
         AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks.append(newTask)
-
+        
+        FirestoreManager.shared.saveAppData() { error in
+            if let error = error {
+                print("Failed to save data: \(error)")
+            } else {
+                print("Data saved successfully.")
+                FirestoreManager.shared.fetchAppData { fetchedAppData in
+                    if let fetchedAppData = fetchedAppData {
+                        AppDataSingleton.shared.appData = fetchedAppData
+                        NotificationCenter.default.post(name: Notification.Name("TaskUpdated"), object: nil)//強制的に全体を再レンダリング
+                    } else {
+                        print("AppDataの取得に失敗しました")
+                    }
+                }
+            }
+        }
         // モーダルを閉じる
         presentationMode.wrappedValue.dismiss()
     }

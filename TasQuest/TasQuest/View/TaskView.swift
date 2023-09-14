@@ -114,7 +114,7 @@ struct TaskView: View {
         }
         .id(reloadFlag)  // 追加
         .onReceive(
-            NotificationCenter.default.publisher(for: Notification.Name("TaskCreated")),
+            NotificationCenter.default.publisher(for: Notification.Name("TaskUpdated")),
             perform: { _ in
                 self.reloadFlag.toggle()
             }

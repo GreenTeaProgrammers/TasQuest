@@ -68,9 +68,14 @@ struct TagEditorView: View {
                 print("Failed to save data: \(error)")
             } else {
                 print("Data saved successfully.")
-                
-                // Force a complete re-render
-                NotificationCenter.default.post(name: Notification.Name("TagUpdated"), object: nil)
+                FirestoreManager.shared.fetchAppData { fetchedAppData in
+                    if let fetchedAppData = fetchedAppData {
+                        AppDataSingleton.shared.appData = fetchedAppData
+                        NotificationCenter.default.post(name: Notification.Name("TagUpDated"), object: nil)//強制的に全体を再レンダリング
+                    } else {
+                        print("AppDataの取得に失敗しました")
+                    }
+                }
             }
         }
     }

@@ -19,6 +19,8 @@ struct StatusView: View {
     @State private var showCreateGoalView: Bool = false  // 新しいゴール作成用モーダルを表示するための状態変数
     
     @StateObject private var viewModel = StatusViewModel()
+
+    @State private var reloadFlag = false // 追加
     
     var body: some View {
         NavigationStack {
@@ -78,7 +80,7 @@ struct StatusView: View {
                     viewModel.fetchAppData { fetchedAppData in
                         if let fetchedAppData = fetchedAppData {
                             AppDataSingleton.shared.appData = fetchedAppData
-                            // Do any additional work here
+                            NotificationCenter.default.post(name: Notification.Name("StatusUpdated"), object: nil)//強制的に全体を再レンダリング
                         } else {
                             // Handle the error case here
                         }
@@ -89,6 +91,13 @@ struct StatusView: View {
             }
             Spacer()
         }
+        .id(reloadFlag)  // 追加
+        .onReceive(
+            NotificationCenter.default.publisher(for: Notification.Name("StatusUpdated")),
+            perform: { _ in
+                self.reloadFlag.toggle()
+            }
+        )
     }
 }
 

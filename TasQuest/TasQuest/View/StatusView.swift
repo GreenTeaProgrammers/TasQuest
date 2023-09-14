@@ -11,9 +11,9 @@ import SwiftUI
 struct StatusView: View {
     @State private var isNotAuthed: Bool = false
     @State private var showSettingView: Bool = false
-  
+    
     @State private var showTagView: Bool = false  // 新しく追加
-
+    
     @State private var isAuthed: Bool = false
     
     @State private var showCreateGoalView: Bool = false  // 新しいゴール作成用モーダルを表示するための状態変数
@@ -25,8 +25,8 @@ struct StatusView: View {
             VStack {
                 // ウェルカムメッセージと設定ボタン
                 HStack {
-
-                    Text("ようこそ \(viewModel.appData.username)")
+                    
+                    Text("ようこそ \(AppDataSingleton.shared.appData.username)")
                         .font(.headline)
                     
                     Spacer()
@@ -39,7 +39,7 @@ struct StatusView: View {
                             .resizable()
                             .frame(width: 24, height: 24)
                     }.sheet(isPresented: $showTagView) {
-                        //TagView(appData: $viewModel.appData)  // TagViewを表示する。TagViewの定義が必要。
+                        //TagView(appData: $viewModel.appData)  //Todo: TagViewを表示する。TagViewの定義が必要。
                     }
                     
                     Button(action: {
@@ -56,9 +56,8 @@ struct StatusView: View {
                 
                 // ステータスとその目標を表示
                 ScrollView {
-                    // ForEach で配列のインデックスを逆順にする
-                    ForEach(viewModel.appData.statuses.indices.reversed(), id: \.self) { index in
-                        StatusRow(viewModel: viewModel, appData: $viewModel.appData, status: $viewModel.appData.statuses[index])
+                    ForEach(AppDataSingleton.shared.appData.statuses.indices.reversed(), id: \.self) { index in
+                        StatusRow(statusIndex: index)
                             .padding(.horizontal)
                             .padding(.vertical, 8)
                             .background(viewModel.backgroundColor(for: index))
@@ -69,7 +68,7 @@ struct StatusView: View {
                 }
             }
             .fullScreenCover(isPresented: $isNotAuthed) {
-                WelcomeView(isNotAuthed: $isNotAuthed, appData: $viewModel.appData)
+                WelcomeView(isNotAuthed: $isNotAuthed)
             }
             .onAppear() {
                 do {
@@ -78,14 +77,7 @@ struct StatusView: View {
                     self.isAuthed = authUser != nil  // 認証状態を更新
                     viewModel.fetchAppData { fetchedAppData in
                         if let fetchedAppData = fetchedAppData {
-                            viewModel.appData = fetchedAppData
-                            // IDに基づいてStatus配列を降順にソート
-                            viewModel.appData.statuses.sort { (status1, status2) in
-                                if let id1 = Int(status1.id), let id2 = Int(status2.id) {
-                                    return id1 > id2
-                                }
-                                return false
-                            }
+                            AppDataSingleton.shared.appData = fetchedAppData
                             // Do any additional work here
                         } else {
                             // Handle the error case here
@@ -101,13 +93,12 @@ struct StatusView: View {
 }
 
 struct StatusRow: View {
-    @ObservedObject var viewModel: StatusViewModel
-    @Binding var appData: AppData
-    @Binding var status: Status
+    @State var statusIndex: Int
     
     @State private var showCreateGoalView: Bool = false  // 新しいゴール作成用モーダルを表示するための状態変数
 
     var body: some View {
+        let status: Status = AppDataSingleton.shared.appData.statuses[statusIndex]
         VStack {
             HStack {
                 Text(status.name)
@@ -125,7 +116,7 @@ struct StatusRow: View {
                 }
                 .sheet(isPresented: $showCreateGoalView) {
                     // ここでCreateGoalHalfModalViewを呼び出す
-                    CreateGoalHalfModalView(appData: $appData, status: $status)
+                    CreateGoalHalfModalView(statusIndex: statusIndex)
                 }
             }
             .padding(.top)
@@ -139,7 +130,7 @@ struct StatusRow: View {
                 }
             } else {
                 ForEach(status.goals.indices, id: \.self) { index in
-                    GoalRow(viewModel: viewModel, appData: $appData, status: $status, goal: $status.goals[index])
+                    GoalRow(statusIndex: statusIndex, goalIndex: index)
                 }
             }
         }
@@ -147,10 +138,10 @@ struct StatusRow: View {
 }
 
 struct GoalRow: View {
-    @ObservedObject var viewModel: StatusViewModel
-    @Binding var appData: AppData
-    @Binding var status: Status
-    @Binding var goal: Goal
+    @State var statusIndex: Int
+    @State var goalIndex: Int
+    
+    let viewModel:StatusViewModel = StatusViewModel()
     
     let hostModel = HostModel() // これを追加
 
@@ -162,7 +153,9 @@ struct GoalRow: View {
     }()
 
     var body: some View {
-        NavigationLink(destination: TaskView(appData: $appData, status: $status, goal: $goal)) {
+        let goal = AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex]
+        
+        NavigationLink(destination: TaskView(statusIndex: statusIndex, goalIndex: goalIndex)) {
             HStack {
                 Text(goal.name)
                     .lineLimit(1)
@@ -198,6 +191,7 @@ struct GoalRow: View {
                 }
             }
             .onTapGesture{
+                hostModel.sendStatusIDToUnity(statusID: AppDataSingleton.shared.appData.statuses[statusIndex].id)
                 hostModel.sendGoalIDToUnity(goalID: goal.id)
             }
         }

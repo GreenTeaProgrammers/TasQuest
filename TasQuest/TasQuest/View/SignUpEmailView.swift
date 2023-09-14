@@ -7,58 +7,67 @@
 
 import SwiftUI
 
-
+/// メールアドレスとパスワードでの新規登録を行うView
 struct SignUpEmailView: View {
+    /// 認証状態を外部から受け取る
     @Binding var isNotAuthed: Bool
-    @Binding var appData: AppData
     
+    /// ViewModelのインスタンス
     @StateObject private var viewModel = SignUpEmailViewModel()
-    @State private var errorMessage: String? = nil  // New state variable for the error message
+    /// エラーメッセージを表示するためのState変数
+    @State private var errorMessage: String? = nil
     
+    /// モーダルを閉じるための環境変数
     @Environment(\.presentationMode) var presentationMode
     
+    /// 画面の本体
     var body: some View {
         VStack {
+            /// ユーザ名入力フィールド
             TextField("ユーザ名", text: $viewModel.username)
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
 
+            /// メールアドレス入力フィールド
             TextField("メールアドレス", text: $viewModel.email)
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
             
+            /// パスワード入力フィールド
             SecureField("パスワード（６文字以上）", text: $viewModel.password)
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
             
-            if let errorMessage = errorMessage {  // Displaying the error message
+            /// エラーメッセージの表示
+            if let errorMessage = errorMessage {
                 Text(errorMessage)
                     .foregroundColor(.red)
             }
             
+            /// 新規登録ボタン
             Button {
                 Task {
                     do {
-                        try await viewModel.signUp()
-                        print("Sign up successful.")  // Debug line
+                        try await viewModel.signUp()  // ViewModelの新規登録メソッドを呼び出し
+                        print("Sign up successful.")
                         DispatchQueue.main.async {
                             isNotAuthed = false
                             presentationMode.wrappedValue.dismiss()
+                            // アプリデータを非同期で取得
                             StatusViewModel().fetchAppData { fetchedAppData in
                                 if let fetchedAppData = fetchedAppData {
-                                    appData = fetchedAppData
-                                    // Do any additional work here
+                                    AppDataSingleton.shared.appData = fetchedAppData
                                 } else {
-                                    // Handle the error case here
+                                    // エラーハンドリング
                                 }
                             }
                         }
                     } catch {
-                        print("Sign up failed with error: \(error)")  // Debug line
-                        errorMessage = viewModel.errorMessage
+                        print("Sign up failed with error: \(error)")
+                        errorMessage = viewModel.errorMessage  // エラーメッセージを設定
                     }
                 }
             } label: {
@@ -74,6 +83,6 @@ struct SignUpEmailView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle("新規登録")
+        .navigationTitle("新規登録")  // ナビゲーションバーのタイトル
     }
 }

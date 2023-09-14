@@ -19,6 +19,7 @@ struct SettingView: View {
                 Task {
                     do {
                         try viewModel.signOut()
+                        AppDataSingleton.shared.appData = AppData() //Todo: Debug it
                         presentationMode.wrappedValue.dismiss()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             showSignInView = true

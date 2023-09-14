@@ -11,9 +11,8 @@ import FirebaseFirestore
 
 struct CreateTaskHalfModalView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Binding var appData: AppData  // AppDataをBindingで受け取る
-    @Binding var status: Status
-    @Binding var goal: Goal
+    @State var statusIndex: Int
+    @State var goalIndex: Int
 
     @State private var selectedDate = Date()
     @State var name: String = ""
@@ -41,6 +40,30 @@ struct CreateTaskHalfModalView: View {
         }
         .onAppear { self.keyboard.startObserve() }
         .onDisappear { self.keyboard.stopObserve() }
+    }
+
+    func saveTask() {
+        if currentHealth > maxHealth {
+            currentHealth = maxHealth
+        }
+
+        let newTask = TasQuestTask(
+            id: "",
+            name: name,
+            description: description,
+            dueDate: selectedDate,
+            maxHealth: Float(maxHealth),
+            currentHealth: Float(currentHealth),
+            tags: selectedTags,
+            isVisible: true,
+            createdAt: Date(),
+            updatedAt: Date()
+        )
+
+        AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks.append(newTask)
+
+        // モーダルを閉じる
+        presentationMode.wrappedValue.dismiss()
     }
 }
 
@@ -76,8 +99,7 @@ extension CreateTaskHalfModalView {
             }
             .padding()
         }
-    }   
-
+    }
 
     var healthSliders: some View {
         Group {
@@ -90,8 +112,7 @@ extension CreateTaskHalfModalView {
                 HealthSlider(label: "", value: $maxHealth, range: 0...3000)
             }
             .padding()
-            //.help("敵の最大体力を設定します。")
-            
+
             HStack {
                 Image(systemName: "heart.slash.fill")
                     .resizable()
@@ -101,12 +122,11 @@ extension CreateTaskHalfModalView {
                 HealthSlider(label: "", value: $currentHealth, range: 0...maxHealth)
             }
             .padding()
-            //.help("敵の現在体力を設定します。")
         }
     }
-    
+
     var tagSelection: some View {
-        TagSelectorView(tags: appData.tags, selectedTags: $selectedTags)
+        TagSelectorView(selectedTags: $selectedTags)
     }
 
     var saveButton: some View {
@@ -120,54 +140,6 @@ extension CreateTaskHalfModalView {
         .background(Color.blue)
         .foregroundColor(.white)
         .cornerRadius(8)
-    }
-    
-    func saveTask() {
-        if currentHealth > maxHealth {
-            currentHealth = maxHealth
-        }
-        
-        let newTask = TasQuestTask(
-            id: "", // Firestore が生成する ID
-            name: name,
-            description: description,
-            dueDate: selectedDate,
-            maxHealth: Float(maxHealth),
-            currentHealth: Float(currentHealth),
-            tags: selectedTags,
-            isVisible: true,
-            createdAt: Date(),
-            updatedAt: Date()
-        )
-        
-        // StatusとGoalの参照を取得
-        if let statusIndex = appData.statuses.firstIndex(where: { $0.id == status.id }),
-           let goalIndex = appData.statuses[statusIndex].goals.firstIndex(where: { $0.id == goal.id }) {
-            
-            // 新しいタスクを追加
-            appData.statuses[statusIndex].goals[goalIndex].tasks.append(newTask)
-               
-            FirestoreManager.shared.saveAppData(appData: appData) { error in
-                if let error = error {
-                    print("Failed to save data: \(error)")
-                } else {
-                    print("Data saved successfully.")
-                    
-                    NotificationCenter.default.post(name: Notification.Name("TaskCreated"), object: nil)//強制的に全体を再レンダリング
-                    
-                    // データが保存された後にデータを再取得
-                    FirestoreManager.shared.fetchAppData { fetchedAppData in
-                        if let fetchedAppData = fetchedAppData {
-                            self.appData = fetchedAppData  // データを更新
-                        } else {
-                            // エラー処理
-                        }
-                    }
-                }
-            }
-            // モーダルを閉じる
-            presentationMode.wrappedValue.dismiss()
-        }
     }
 }
 
@@ -187,10 +159,10 @@ struct HealthSlider: View {
 }
 
 struct TagSelectorView: View {
-    var tags: [Tag]
     @Binding var selectedTags: [Tag]
-
+    
     var body: some View {
+        let tags: [Tag] = AppDataSingleton.shared.appData.tags
         VStack {
             if !(selectedTags.count == tags.count){
                 HStack {
@@ -216,17 +188,17 @@ struct TagSelectorView: View {
             }
             
             if !selectedTags.isEmpty {
-            HStack {
-                Image(systemName: "checkmark.circle")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(.blue)
-                Image(systemName: "tag.fill")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(.blue)
-                //Text("選択されているタグ")
-            }
+                HStack {
+                    Image(systemName: "checkmark.circle")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.blue)
+                    Image(systemName: "tag.fill")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.blue)
+                    //Text("選択されているタグ")
+                }
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(selectedTags, id: \.id) { tag in

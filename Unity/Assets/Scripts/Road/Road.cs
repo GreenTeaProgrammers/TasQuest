@@ -47,7 +47,7 @@ public class Road : MonoBehaviour
             stagePositions[i] = new Vector3
             (
                 radius * MathF.Sin(currentRadian),
-                0,
+                0.01f,
                 radius * MathF.Cos(currentRadian)
             );
         }
@@ -189,6 +189,8 @@ public class Road : MonoBehaviour
             0,
             accessoryRadius * MathF.Cos(accessoryRadian)
         );
+        accessoryHandle[idx].Result.transform.Rotate(new Vector3(0, 1, 0), (360/stagesNumber)*idx);
+        
     }
 
 

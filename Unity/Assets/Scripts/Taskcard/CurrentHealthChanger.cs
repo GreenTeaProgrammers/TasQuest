@@ -91,6 +91,8 @@ public class CurrentHealthChanger : MonoBehaviour
     /// </summary>
     public void UpdateMyScale()
     {
+        float scaleDiff = _baseScale.x - _myRectTransform.localScale.x;
+        Debug.Log($"ScaleDiff {scaleDiff}");
         _baseScale = _myRectTransform.localScale;
         _damageDiffManager.StartTransition(_baseScale);
 
@@ -101,6 +103,10 @@ public class CurrentHealthChanger : MonoBehaviour
         else
         {
             UpdateCurrentHealth();
+            if (scaleDiff > 0)
+            {
+                Road.enemyHandle[MainCameraManager.CurrentIndex+1].Result.GetComponent<EnemyManager>().Hit = true;
+            }
         }
     }
 

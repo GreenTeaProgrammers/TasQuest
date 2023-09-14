@@ -11,6 +11,31 @@ public class EnemyManager : MonoBehaviour
         get { return _index;}
         set { _index = value; }
     }
+
+    private bool _hit;
+    public bool Hit
+    {
+        get { return _hit;}
+        set{
+            if (value == true)
+            {
+                Debug.Log("Hit");
+                if (_enemyWeak.activeInHierarchy)
+                {
+                    _weakAnimator.SetTrigger("Hit");
+                }
+                else if (_enemyNormal.activeInHierarchy)
+                {
+                    _normalAnimator.SetTrigger("Hit");
+                }
+                else if(_enemyStrong.activeInHierarchy)
+                {
+                    _strongAnimator.SetTrigger("Hit");
+                }
+            }
+            
+        }
+    }
     
     private GameObject _mainCamera;
     private TMP_Text _hpText;
@@ -18,6 +43,9 @@ public class EnemyManager : MonoBehaviour
     private GameObject _enemyNormal;
     private GameObject _enemyStrong;
     private ParticleSystem _smokeParticle;
+    private Animator _weakAnimator;
+    private Animator _normalAnimator;
+    private Animator _strongAnimator;
     
     void Start()
     {
@@ -27,6 +55,10 @@ public class EnemyManager : MonoBehaviour
         _enemyNormal = this.transform.GetChild(2).gameObject;
         _enemyStrong = this.transform.GetChild(3).gameObject;
         _smokeParticle = this.transform.GetChild(4).gameObject.GetComponent<ParticleSystem>();
+        _weakAnimator = _enemyWeak.GetComponent<Animator>();
+        _normalAnimator = _enemyNormal.GetComponent<Animator>();
+        _strongAnimator = _enemyStrong.GetComponent<Animator>();
+        _hit = false;
     }
     
     void Update()

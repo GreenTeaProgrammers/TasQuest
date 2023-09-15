@@ -26,13 +26,8 @@ final class HostModel: HostModelInput {
             let jsonData = try encoder.encode(appData)
             if let appDataJsonString = String(data: jsonData, encoding: .utf8) {
                 
-                // JSON文字列をエスケープしてUnityに適した形にする
-                let escapedJsonString = appDataJsonString
-                    .replacingOccurrences(of: "\\", with: "\\\\")
-                    .replacingOccurrences(of: "\"", with: "\\\"")
-                
                 // UnityFrameworkのメソッドを呼び出す
-                Unity.shared.sendMessageToUnity(objectName: "DataExchanger", functionName: "ReceiveAppData", argument: escapedJsonString)
+                Unity.shared.sendMessageToUnity(objectName: "DataExchanger", functionName: "ReceiveAppData", argument: appDataJsonString)
                 
             }
         } catch {

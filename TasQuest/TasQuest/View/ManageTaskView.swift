@@ -9,10 +9,12 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 
-struct CreateTaskHalfModalView: View {
+struct ManageTaskView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var statusIndex: Int
     @State var goalIndex: Int
+    
+    @State var editingTask : TasQuestTask?
 
     @State private var selectedDate = Date()
     @State var name: String = ""
@@ -83,7 +85,7 @@ struct CreateTaskHalfModalView: View {
 }
 
 // MARK: - Subviews
-extension CreateTaskHalfModalView {
+extension ManageTaskView {
     var modalHeader: some View {
         HStack {
             Text("新しいタスクの作成")
@@ -155,6 +157,64 @@ extension CreateTaskHalfModalView {
         .background(Color.blue)
         .foregroundColor(.white)
         .cornerRadius(8)
+    }
+    
+    func saveTask() {
+        if currentHealth > maxHealth {
+            currentHealth = maxHealth
+        }
+
+        
+
+            // 新しいタスクの場合とタスク編集の場合で以下のプログラムを分岐
+            if let editingTask = editingTask,
+               let taskIndex = appData.statuses[statusIndex].goals[goalIndex].tasks.firstIndex(where: { $0.id == editingTask.id }) {
+                // 既存のタスクを編集
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].name = name
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].description = description
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].dueDate = dueDate
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].maxHealth = maxHealth
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].currentHealth = currentHealth
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].tags = selectedTags
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].updatedAt = Date()
+            } else {
+                // 新しいタスクを作成
+                let newTask = TasQuestTask(
+                    id: "", // Firestore が生成する ID
+                    name: name,
+                    description: description,
+                    dueDate: dueDate,
+                    maxHealth: maxHealth,
+                    currentHealth: currentHealth,
+                    tags: selectedTags,
+                    isVisible: true,
+                    createdAt: Date(),
+                    updatedAt: Date()
+                )
+                
+                // 新しいタスクを追加
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks.append(newTask)
+            }
+
+            // 保存処理（新しいタスクと既存のタスクの両方に適用）
+        FirestoreManager.shared.saveAppData() { error in
+            if let error = error {
+                print("Failed to save data: \(error)")
+            } else {
+                print("Data saved successfully.")
+                // Updateをフェッチしシングルトンオブジェクトを更新
+                FirestoreManager.shared.fetchAppData { fetchedAppData in
+                    if let fetchedAppData = fetchedAppData {
+                        AppDataSingleton.shared.appData = fetchedAppData
+                        NotificationCenter.default.post(name: Notification.Name("TaskUpdated"), object: nil)//強制的に全体を再レンダリング
+                    } else {
+                        // Handle error
+                    }
+                }
+            }
+        }
+        // モーダルを閉じる
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

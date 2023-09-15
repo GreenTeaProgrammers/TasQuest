@@ -16,8 +16,7 @@ struct TaskView: View {
     
     @State private var showingUnityView = false  // Unityビュー表示フラグ
 
-    
-    @State var showingCreateTaskModal = false  // ハーフモーダルの表示状態を管理
+    @State var showingManageTaskModal = false  // ハーフモーダルの表示状態を管理
     
     
     var body: some View {
@@ -60,7 +59,7 @@ struct TaskView: View {
                     Spacer()
                     
                     Button(action: {
-                        showingCreateTaskModal.toggle()  // ハーフモーダルを表示
+                        showingManageTaskModal.toggle()  // ハーフモーダルを表示
 
                     }) {
                         Image(systemName: "circle.fill")
@@ -73,8 +72,8 @@ struct TaskView: View {
                                     .frame(width: 20, height: 20)
                                     .foregroundColor(.white)
                             )
-                    }.sheet(isPresented: $showingCreateTaskModal) {
-                        CreateTaskHalfModalView(statusIndex: statusIndex, goalIndex: goalIndex)  // ハーフモーダルの内容
+                    }.sheet(isPresented: $showingManageTaskModal) {
+                        ManageTaskView(statusIndex: statusIndex, goalIndex: goalIndex)  // ハーフモーダルの内容
                     }
                     
                     

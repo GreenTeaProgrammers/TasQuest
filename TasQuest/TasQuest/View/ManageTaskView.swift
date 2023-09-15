@@ -190,6 +190,7 @@ extension ManageTaskView {
                 FirestoreManager.shared.fetchAppData { fetchedAppData in
                     if let fetchedAppData = fetchedAppData {
                         AppDataSingleton.shared.appData = fetchedAppData
+                        HostModel().sendAppDataToUnity(appData: AppDataSingleton.shared.appData)
                         NotificationCenter.default.post(name: Notification.Name("TaskUpdated"), object: nil)//強制的に全体を再レンダリング
                     } else {
                         // Handle error

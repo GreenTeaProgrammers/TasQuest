@@ -1,54 +1,56 @@
 using System;
 using UnityEngine;
 using System.IO;
+using UnityEngine.UIElements;
 
 
 [Serializable]
 public class AppData
 {
+    public string createdAt;  // YYYY-MM-DD/HH:MM:SS
     public Status[] statuses;
     public Tag[] tags;
+    public string userid;
+    public string username;
 }
 
 [Serializable]
 public class Status
 {
-    public int id;
+    public string id;
+    public string updatedAt; // YYYY-MM-DD/HH:MM:SS
     public string name;
     public Goal[] goals;
-    public string updatedAt; // YYYY-MM-DD/HH:MM:SS
 }
 
 [Serializable]
 public class Goal
 {
-    public int id;
-    public string name;
-    public string description;
     public string createdAt;  // YYYY-MM-DD/HH:MM:SS
-    public string updatedAt;  // YYYY-MM-DD/HH:MM:SS
-    public string dueDate;  // YYYY-MM-DD/HH:MM:SS
     public Tag[] tags;
-    public string thumbnail;
+    public TasQuestTask[] tasks;
+    public string name;
     public bool isStarred;
-    // public int layoutId;
-    public Task[] tasks;
-    public int currentTaskIndex;
+    public string updatedAt;  // YYYY-MM-DD/HH:MM:SS
+    public string description;
+    public string id;
+    public string thumbnail;
+    public string dueDate;  // YYYY-MM-DD/HH:MM:SS
 }
 
 [Serializable]
-public class Task
+public class TasQuestTask
 {
-    public int id;
-    public string name;
-    public string description;
     public string dueDate;  // YYYY-MM-DD/HH:MM:SS
-    public float maxHealth;
-    public float currentHealth;
-    public Tag[] tags;
     public bool isVisible;
+    public Tag[] tags;
     public string createdAt;  // YYYY-MM-DD/HH:MM:SS
+    public float currentHealth;
+    public string description;
+    public string id;
     public string updatedAt;  // YYYY-MM-DD/HH:MM:SS
+    public string name;
+    public float maxHealth;
 }
 
 [Serializable]
@@ -68,8 +70,7 @@ public class JsonManager
     private const string JSON_PATH = "Assets/Resources/AppData.json";
     
     //jsonを読み込んでAppDataクラスのデータを返す。
-    //引数pathでロードするJSONのパスが指定できるようになりました
-    public AppData LoadJson(string path=JSON_PATH)
+    public static AppData LoadJson(string path=JSON_PATH)
     {
         try
         {
@@ -94,7 +95,7 @@ public class JsonManager
     //json書き込み関数
     //引数はjsonDataクラスのオブジェクトと保存パス
     //デフォルトはAssets/Resources/Appdata.json
-    public void SaveJson(AppData jsonData, string path=JSON_PATH)
+    public static void SaveJson(AppData jsonData, string path=JSON_PATH)
     {
         try
         {
@@ -115,14 +116,14 @@ public class JsonManager
     }
 
     //StringからAppDataに変換
-    public AppData String2Json(string jsonDataString)
+    public static AppData String2Json(string jsonDataString)
     {
         AppData jsonData = JsonUtility.FromJson<AppData>(jsonDataString);
         return jsonData;
     }
     
     //AppDataからStringに変換
-    public String Json2String(AppData jsonData)
+    public static String Json2String(AppData jsonData)
     {
         string jsonDataString = JsonUtility.ToJson(jsonData);
         return jsonDataString;
@@ -130,8 +131,47 @@ public class JsonManager
     
     //エラーが発生した際、その旨を表示するUIを呼び出します。
     //UIがまだ作成されていないので関数の中身は未着手です。
-    private void CallErrorUI()
+    private static void CallErrorUI()
     {
         Debug.Log("Call error UI");
+    }
+
+    public static void UpdateTaskData(TasQuestTask taskData)
+    {
+        string taskID = taskData.id;
+        string goalID = User.GoalData.id;
+        string statusID = User.StatusData.id;
+
+        int statusIndex = 0;
+        int goalIndex = 0;
+        int taskIndex = 0;
+        foreach (var status in User.UserData.statuses)
+        {
+            if (status.id == statusID)
+            {
+                foreach (var goal in status.goals)
+                {
+                    if (goal.id == goalID)
+                    {
+                        foreach (var task in goal.tasks)
+                        {
+                            if (task.id == taskID)
+                            {
+                                User.UserData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex] = taskData;
+                                User.StatusData = User.UserData.statuses[statusIndex];
+                                User.GoalData = User.StatusData.goals[goalIndex];
+                            }
+                            taskIndex++;
+                        }
+                    }
+                    goalIndex++;
+                }
+            }
+            statusIndex++;
+        }
+        
+        DataExchanger.CallSwiftMethod(JsonUtility.ToJson(User.UserData));
+        //test
+        // SaveJson(User.UserData, "Assets/Resources/AppDataTest.json");
     }
 }

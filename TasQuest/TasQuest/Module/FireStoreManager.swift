@@ -11,9 +11,10 @@ import FirebaseAuth
 import Firebase
 
 class FirestoreManager {
-    
     static let shared = FirestoreManager()
     private let db = Firestore.firestore()
+    
+    private let hostModel = HostModel()
     
     private init() {
         print("FirestoreManager initialized")
@@ -62,7 +63,11 @@ class FirestoreManager {
                                           statuses: fetchedStatuses,
                                           tags: fetchedTags,
                                           createdAt: userData.createdAt)
+                    
+                    self.hostModel.sendAppDataToUnity(appData: appData)
+
                     print("Fetched all app data, completing.")
+                    AppDataSingleton.shared.appData = appData
                     completion(appData)
                 }
             }
@@ -350,13 +355,14 @@ class FirestoreManager {
 
 extension FirestoreManager {
     
-    func saveAppData(appData: AppData, completion: @escaping (Error?) -> Void) {
+    func saveAppData(completion: @escaping (Error?) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else {
             completion(NSError(domain: "App", code: 1, userInfo: ["Description": "No current user ID"]))
             return
         }
         
         let userRef = db.collection("Users").document(userId)
+        let appData = AppDataSingleton.shared.appData
         
         // 1. Save UserData
         saveUserData(userRef: userRef, userData: UserData(name: appData.username, createdAt: appData.createdAt)) { error in

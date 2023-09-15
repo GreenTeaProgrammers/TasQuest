@@ -12,8 +12,8 @@ import FirebaseFirestore
 
 struct ManageGoalView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Binding var appData: AppData  // AppDataをBindingで受け取る
-    @Binding var status: Status
+    
+    @State var statusIndex: Int
     
     // 追加：編集するGoal（オプション）
     var editingGoal: Goal? = nil
@@ -100,7 +100,7 @@ extension ManageGoalView     {
     }
     
     var tagSelection: some View {
-        TagSelectorView(tags: appData.tags, selectedTags: $selectedTags)
+        TagSelectorView(selectedTags: $selectedTags)
     }
     
     var saveButton: some View {
@@ -118,14 +118,14 @@ extension ManageGoalView     {
     
     func saveGoal() {
         if let editingGoal = editingGoal,
-           let goalIndex = status.goals.firstIndex(where: { $0.id == editingGoal.id }) {
+           let goalIndex = AppDataSingleton.shared.appData.statuses[statusIndex].goals.firstIndex(where: { $0.id == editingGoal.id }) {
             // Update existing goal
-            status.goals[goalIndex].name = self.name
-            status.goals[goalIndex].description = self.description
-            status.goals[goalIndex].dueDate = self.dueDate
-            status.goals[goalIndex].isStarred = self.isStarred
-            status.goals[goalIndex].tags = self.selectedTags
-            status.goals[goalIndex].updatedAt = Date()
+            AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].name = self.name
+            AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].description = self.description
+            AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].dueDate = self.dueDate
+            AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].isStarred = self.isStarred
+            AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tags = self.selectedTags
+            AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].updatedAt = Date()
         } else {
             // Create new goal
             let newGoal = Goal(
@@ -140,28 +140,27 @@ extension ManageGoalView     {
                 createdAt: Date(),
                 updatedAt: Date()
             )
-            status.goals.append(newGoal)
+            AppDataSingleton.shared.appData.statuses[statusIndex].goals.append(newGoal)
         }
         
         // Save to Firestore
-        FirestoreManager.shared.saveAppData(appData: appData) { error in
+        FirestoreManager.shared.saveAppData() { error in
             if let error = error {
                 print("Failed to save data: \(error)")
             } else {
                 print("Data saved successfully.")
-                
-                // Refresh data after saving
+                // Updateをフェッチしシングルトンオブジェクトを更新
                 FirestoreManager.shared.fetchAppData { fetchedAppData in
                     if let fetchedAppData = fetchedAppData {
-                        self.appData = fetchedAppData  // Update the data
-                        NotificationCenter.default.post(name: Notification.Name("StatusUpdate"), object: nil)//強制的に全体を再レンダリング
+                        AppDataSingleton.shared.appData = fetchedAppData
+                        NotificationCenter.default.post(name: Notification.Name("StatusUpdated"), object: nil)//強制的に全体を再レンダリング
                     } else {
-                        // Handle the error
+                        // Handle error
                     }
                 }
             }
-            // Close the modal
-            presentationMode.wrappedValue.dismiss()
         }
+        // Close the modal
+        presentationMode.wrappedValue.dismiss()
     }
 }

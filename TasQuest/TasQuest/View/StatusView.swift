@@ -12,8 +12,6 @@ struct StatusView: View {
     @State private var isNotAuthed: Bool = false
     @State private var showSettingView: Bool = false
     
-    @State private var reloadFlag = false // 追加
-    
     @State private var showTagView: Bool = false  // 新しく追加
     
     @State private var isAuthed: Bool = false
@@ -21,6 +19,8 @@ struct StatusView: View {
     @State private var showCreateGoalView: Bool = false  // 新しいゴール作成用モーダルを表示するための状態変数
     
     @StateObject private var viewModel = StatusViewModel()
+
+    @State private var reloadFlag = false // 追加
     
     var body: some View {
         NavigationStack {
@@ -28,7 +28,7 @@ struct StatusView: View {
                 // ウェルカムメッセージと設定ボタン
                 HStack {
                     
-                    Text("ようこそ \(viewModel.appData.username)")
+                    Text("ようこそ \(AppDataSingleton.shared.appData.username)")
                         .font(.headline)
                     
                     Spacer()
@@ -41,7 +41,7 @@ struct StatusView: View {
                             .resizable()
                             .frame(width: 24, height: 24)
                     }.sheet(isPresented: $showTagView) {
-                        TagView(appData: $viewModel.appData)  // TagViewを表示する。TagViewの定義が必要。
+                        TagView()
                     }
                     .padding()
                     
@@ -59,9 +59,8 @@ struct StatusView: View {
                 
                 // ステータスとその目標を表示
                 ScrollView {
-                    // ForEach で配列のインデックスを逆順にする
-                    ForEach(viewModel.appData.statuses.indices.reversed(), id: \.self) { index in
-                        StatusRow(viewModel: viewModel, appData: $viewModel.appData, status: $viewModel.appData.statuses[index])
+                    ForEach(AppDataSingleton.shared.appData.statuses.indices.reversed(), id: \.self) { index in
+                        StatusRow(statusIndex: index)
                             .padding(.horizontal)
                             .padding(.vertical, 8)
                             .background(viewModel.backgroundColor(for: index))
@@ -72,7 +71,7 @@ struct StatusView: View {
                 }
             }
             .fullScreenCover(isPresented: $isNotAuthed) {
-                WelcomeView(isNotAuthed: $isNotAuthed, appData: $viewModel.appData)
+                WelcomeView(isNotAuthed: $isNotAuthed)
             }
             .onAppear() {
                 do {
@@ -81,15 +80,8 @@ struct StatusView: View {
                     self.isAuthed = authUser != nil  // 認証状態を更新
                     viewModel.fetchAppData { fetchedAppData in
                         if let fetchedAppData = fetchedAppData {
-                            viewModel.appData = fetchedAppData
-                            // IDに基づいてStatus配列を降順にソート
-                            viewModel.appData.statuses.sort { (status1, status2) in
-                                if let id1 = Int(status1.id), let id2 = Int(status2.id) {
-                                    return id1 > id2
-                                }
-                                return false
-                            }
-                            // Do any additional work here
+                            AppDataSingleton.shared.appData = fetchedAppData
+                            NotificationCenter.default.post(name: Notification.Name("StatusUpdated"), object: nil)//強制的に全体を再レンダリング
                         } else {
                             // Handle the error case here
                         }
@@ -102,7 +94,7 @@ struct StatusView: View {
         }
         .id(reloadFlag)  // 追加
         .onReceive(
-            NotificationCenter.default.publisher(for: Notification.Name("StatusUpdate")),
+            NotificationCenter.default.publisher(for: Notification.Name("StatusUpdated")),
             perform: { _ in
                 self.reloadFlag.toggle()
             }
@@ -111,13 +103,12 @@ struct StatusView: View {
 }
 
 struct StatusRow: View {
-    @ObservedObject var viewModel: StatusViewModel
-    @Binding var appData: AppData
-    @Binding var status: Status
+    @State var statusIndex: Int
     
     @State private var showCreateGoalView: Bool = false  // 新しいゴール作成用モーダルを表示するための状態変数
 
     var body: some View {
+        let status: Status = AppDataSingleton.shared.appData.statuses[statusIndex]
         VStack {
             HStack {
                 Text(status.name)
@@ -135,7 +126,7 @@ struct StatusRow: View {
                 }
                 .sheet(isPresented: $showCreateGoalView) {
                     // ここでCreateGoalHalfModalViewを呼び出す
-                    ManageGoalView(appData: $appData, status: $status)
+                    ManageGoalView(statusIndex: statusIndex)
                 }
             }
             .padding(.top)
@@ -149,7 +140,7 @@ struct StatusRow: View {
                 }
             } else {
                 ForEach(status.goals.indices, id: \.self) { index in
-                    GoalRow(viewModel: viewModel, appData: $appData, status: $status, goal: $status.goals[index])
+                    GoalRow(statusIndex: statusIndex, goalIndex: index)
                 }
             }
         }
@@ -157,83 +148,21 @@ struct StatusRow: View {
 }
 
 struct GoalRow: View {
-    @ObservedObject var viewModel: StatusViewModel
-    @Binding var appData: AppData
-    @Binding var status: Status
-    @Binding var goal: Goal
+    @State var statusIndex: Int
+    @State var goalIndex: Int
+
+    let viewModel: StatusViewModel = StatusViewModel()
+    let hostModel = HostModel()
     
-    @State private var showGoalDetailPopup: Bool = false  // ゴールの詳細情報ポップアップを表示するための状態変数
-    @State private var navigateToTaskView: Bool = false  // TaskViewへの遷移を制御するための状態変数
-    
+    @State private var showGoalDetailPopup: Bool = false
+    @State private var navigateToTaskView: Bool = false
+
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter
     }()
 
-    var body: some View {
-        ZStack {
-            NavigationLink("", destination: TaskView(appData: $appData, status: $status, goal: $goal), isActive: $navigateToTaskView)
-                .opacity(0)  // NavigationLinkを透明にして隠す
-            
-            HStack {
-                Text(goal.name)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-                    .bold()
-                
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(dateFormatter.string(from: goal.dueDate))
-                            .foregroundColor(.gray)
-                        HStack {
-                            ForEach(goal.tags.prefix(3).indices, id: \.self) { tagIndex in
-                                displayTag(tag: goal.tags[tagIndex])
-                            }
-                            
-                            if goal.tags.isEmpty {
-                                displayTag(tag: nil)
-                            }
-                        }
-                    }
-                    Spacer()
-                }
-                
-                Spacer()
-                
-                Button(action: {
-                    viewModel.toggleStar(forGoalWithID: goal.id)
-                }) {
-                    Image(systemName: goal.isStarred ? "star.fill" : "star")
-                        .foregroundColor(goal.isStarred ? .yellow : .gray)
-                }
-            }
-            .padding(.horizontal)
-            .padding(.vertical, 8)
-            .background(Color.white)
-            .cornerRadius(10)
-            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
-            .padding(.bottom, 8)
-            .onTapGesture {
-                self.navigateToTaskView = true  // タップでTaskViewに遷移
-            }
-            .gesture(
-                LongPressGesture()
-                    .onEnded { _ in
-                        // 触覚フィードバックを生成
-                        let generator = UIImpactFeedbackGenerator(style: .heavy)
-                        generator.impactOccurred()
-                        
-                        self.showGoalDetailPopup = true  // 長押しが終了したらポップアップを表示
-                        self.navigateToTaskView = false  // 長押しでTaskViewに遷移しないようにする
-                    }
-            )
-            .sheet(isPresented: $showGoalDetailPopup) {
-                GoalDetailPopupView(appData: $viewModel.appData,status: $status, goal: $goal)  // ゴールの詳細情報を表示するビュー
-            }
-        }
-    }
-    
     func displayTag(tag: Tag?) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 4)
@@ -259,12 +188,83 @@ struct GoalRow: View {
         .fixedSize()
         .padding(.vertical, 2)
     }
+
+    var body: some View {
+        let goal = AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex]
+
+        ZStack {
+            NavigationLink("", destination: TaskView(statusIndex: statusIndex, goalIndex: goalIndex), isActive: $navigateToTaskView)
+                .opacity(0)
+
+            HStack {
+                Text(goal.name)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .bold()
+                
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(dateFormatter.string(from: goal.dueDate))
+                            .foregroundColor(.gray)
+                        HStack {
+                            ForEach(goal.tags.prefix(3).indices, id: \.self) { tagIndex in
+                                displayTag(tag: goal.tags[tagIndex])
+                            }
+
+                            if goal.tags.isEmpty {
+                                displayTag(tag: nil)
+                            }
+                        }
+                    }
+                    Spacer()
+                }
+                
+                Spacer()
+                
+                Button(action: {
+                    viewModel.toggleStar(forGoalWithID: goal.id)
+                }) {
+                    Image(systemName: goal.isStarred ? "star.fill" : "star")
+                        .foregroundColor(goal.isStarred ? .yellow : .gray)
+                }
+            }
+            .onTapGesture {
+                hostModel.sendStatusIDToUnity(statusID: AppDataSingleton.shared.appData.statuses[statusIndex].id)
+                hostModel.sendGoalIDToUnity(goalID: goal.id)
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 8)
+            .background(Color.white)
+            .cornerRadius(10)
+            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+            .padding(.bottom, 8)
+            .simultaneousGesture(
+                TapGesture()
+                    .onEnded {
+                        self.navigateToTaskView = true
+                    }
+            )
+            .simultaneousGesture(
+                LongPressGesture()
+                    .onEnded { _ in
+                        let generator = UIImpactFeedbackGenerator(style: .heavy)
+                        generator.impactOccurred()
+                        self.showGoalDetailPopup = true
+                        self.navigateToTaskView = false
+                    }
+            )
+            .sheet(isPresented: $showGoalDetailPopup) {
+                GoalDetailPopupView(statusIndex: statusIndex, goalIndex: goalIndex)
+            }
+        }
+    }
 }
 
+
 struct GoalDetailPopupView: View {
-    @Binding var appData: AppData
-    @Binding var status: Status
-    @Binding var goal: Goal
+    @State var statusIndex: Int
+    @State var goalIndex: Int
+
     @State private var showManageGoalView: Bool = false  // 追加
     
     let dateFormatter: DateFormatter = {
@@ -274,6 +274,7 @@ struct GoalDetailPopupView: View {
     }()
     
     var body: some View {
+        let goal: Goal = AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex]
         VStack {
             HStack {
                 Text("ゴールの詳細")
@@ -340,7 +341,7 @@ struct GoalDetailPopupView: View {
             }
             .padding()
             .sheet(isPresented: $showManageGoalView) {
-                ManageGoalView(appData: $appData, status: $status, editingGoal: goal)  // ゴールを編集するビュー
+                ManageGoalView(statusIndex: statusIndex,editingGoal: goal)  // ゴールを編集するビュー
             }
             Spacer()
         }

@@ -15,14 +15,13 @@ public class InputFieldManager : MonoBehaviour
         _inputField = this.GetComponent<TMP_InputField>();
     }
     
-    private async void Update()
+    private void Update()
     {
         _inputField.interactable = TaskcardManager.IsEditMode;
         if (_prevName != _name)
         {
             _prevName = _name;
-            Debug.Log("InputFieldMangerからFirestoreへ書き込み");
-            await TaskcardManager.OnTaskDataChanged("name", _inputField.text);
+            TaskcardManager.OnTaskNameChanged(_inputField.text);
         }
     }
 

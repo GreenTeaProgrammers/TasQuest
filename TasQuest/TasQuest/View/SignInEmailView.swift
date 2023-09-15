@@ -7,53 +7,63 @@
 
 import SwiftUI
 
-
+/// メールアドレスとパスワードでのサインインを行うView
 struct SignInEmailView: View {
+    /// 認証状態を外部から受け取る
     @Binding var isNotAuthed: Bool
-    @Binding var appData: AppData
     
+    /// ViewModelのインスタンス
     @StateObject private var viewModel = SignInEmailViewModel()
-    @State private var errorMessage: String? = nil  // New state variable for the error message
+    /// エラーメッセージを表示するためのState変数
+    @State private var errorMessage: String? = nil
     
+    /// モーダルを閉じるための環境変数
     @Environment(\.presentationMode) var presentationMode
     
+    /// 画面の本体
     var body: some View {
         VStack {
+            /// メールアドレス入力フィールド
             TextField("メールアドレス", text: $viewModel.email)
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
             
+            /// パスワード入力フィールド
             SecureField("パスワード", text: $viewModel.password)
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
             
-            if let errorMessage = errorMessage {  // Displaying the error message
+            /// エラーメッセージの表示
+            if let errorMessage = errorMessage {
                 Text(errorMessage)
                     .foregroundColor(.red)
             }
             
+            /// サインインボタン
             Button {
                 Task {
                     do {
-                        try await viewModel.signIn()
-                        print("Sign in successful.")  // Debug line
+                        try await viewModel.signIn()  // ViewModelのサインインメソッドを呼び出し
+                        print("Sign in successful.")
                         DispatchQueue.main.async {
                             isNotAuthed = false
                             presentationMode.wrappedValue.dismiss()
+                            // アプリデータを非同期で取得
                             StatusViewModel().fetchAppData { fetchedAppData in
                                 if let fetchedAppData = fetchedAppData {
-                                    appData = fetchedAppData
-                                    // Do any additional work here
+                                    AppDataSingleton.shared.appData = fetchedAppData
+                                    NotificationCenter.default.post(name: Notification.Name("StatusUpdated"), object: nil)//強制的に全体を再レンダリング
+
                                 } else {
-                                    // Handle the error case here
+                                    // エラーハンドリング
                                 }
                             }
                         }
                     } catch {
-                        print("Sign in failed with error: \(error)")  // Debug line
-                        errorMessage = viewModel.errorMessage
+                        print("Sign in failed with error: \(error)")
+                        errorMessage = viewModel.errorMessage  // エラーメッセージを設定
                     }
                 }
             } label: {
@@ -69,6 +79,6 @@ struct SignInEmailView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle("サインイン")
+        .navigationTitle("サインイン")  // ナビゲーションバーのタイトル
     }
 }

@@ -12,6 +12,8 @@ struct TaskView: View {
     @State var statusIndex: Int
     @State var goalIndex: Int
     
+    @Binding var goalIsStarred: Bool
+    
     @State private var reloadFlag = false  // 追加
     
     @State private var showingUnityView = false  // Unityビュー表示フラグ
@@ -27,7 +29,7 @@ struct TaskView: View {
             
             let height = max(0, (87.95) * CGFloat(taskCount - 1))
             VStack {
-                HeaderView(statusIndex: statusIndex, goalIndex: goalIndex)
+                HeaderView(statusIndex: statusIndex, goalIndex: goalIndex,goalIsStarred: $goalIsStarred)
                 
                 Rectangle()
                     .fill(Color.gray)  // 色を設定
@@ -38,7 +40,7 @@ struct TaskView: View {
                         VStack {
                             Rectangle()
                                 .fill(Color.black)
-                            .frame(width: 5, height: height)
+                                .frame(width: 5, height: height)
                         }
                         .padding(.leading, 9)
                         
@@ -48,69 +50,68 @@ struct TaskView: View {
                         }
                     }
                 }
+                Button(action: {
+                    showingManageTaskModal.toggle()  // ハーフモーダルを表示
+                }) {
+                    HStack{
+                        Spacer()
+                        Text("+ タスクを追加")
+                            .frame(height: 55)
+                            .font(.callout)
+                            .foregroundColor(.black)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
+                        Spacer()
+                    }
+                    .background(Color.gray.opacity(0.4))  // オパシティを0.4に設定
+                    .cornerRadius(8)
+                    .sheet(isPresented: $showingManageTaskModal) {
+                        ManageTaskView(statusIndex: statusIndex, goalIndex: goalIndex)  // ハーフモーダルの内容
+                    }
+                }
+                .padding(.top, 8)
+                
                 NavigationLink("", destination: UnityHostingController(), isActive: $showingUnityView).hidden()
             }
             .padding()
             
-            HStack {
-                Spacer()
-                
-                VStack {
+        }
+        
+        // 画面下部のボタンエリア
+        HStack {
+            // ゲームコントローラーのボタン
+            Button(action: {
+                showingUnityView.toggle()
+            }) {
+                HStack{
                     Spacer()
-                    
-                    Button(action: {
-                        showingManageTaskModal.toggle()  // ハーフモーダルを表示
-
-                    }) {
-                        Image(systemName: "circle.fill")
-                            .resizable()
-                            .foregroundColor(.blue)
-                            .frame(width: 55, height: 55)
-                            .overlay(
-                                Image(systemName: "plus")
-                                    .resizable()
-                                    .frame(width: 20, height: 20)
-                                    .foregroundColor(.white)
-                            )
-                    }.sheet(isPresented: $showingManageTaskModal) {
-                        ManageTaskView(statusIndex: statusIndex, goalIndex: goalIndex)  // ハーフモーダルの内容
-                    }
-                    
-                    
-                    Button(action: {
-                        showingUnityView.toggle()
-                    }) {
-                        Image(systemName: "circle.fill")
-                            .resizable()
-                            .foregroundColor(.blue)
-                            .frame(width: 55, height: 55)
-                            .overlay(
-                                Image(systemName: "gamecontroller")
-                                    .resizable()
-                                    .frame(width: 35, height: 20)
-                                    .foregroundColor(.white)
-                            )
-                    }
-                    
-                    Button(action: {
-                        // Trash
-                    }) {
-                        Image(systemName: "circle.fill")
-                            .resizable()
-                            .foregroundColor(.blue)
-                            .frame(width: 55, height: 55)
-                            .overlay(
-                                Image(systemName: "trash")
-                                    .resizable()
-                                    .frame(width: 20, height: 20)
-                                    .foregroundColor(.white)
-                            )
-                    }
+                    Image(systemName: "gamecontroller")
+                    Text("ゲームビュー")
+                    Spacer()
                 }
-                .padding(.bottom, 60)
-                .padding(.trailing, 16)
+                .frame(width: 180, height: 50)
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+            }
+            
+            // ゴミ箱へのボタン
+            Button(action: {
+                // Trash action here
+            }) {
+                HStack{
+                    Spacer()
+                    Image(systemName: "trash")
+                    Text("ゴミ箱")
+                    Spacer()
+                }
+                .frame(width: 180, height: 50)
+                .background(Color.red)
+                .foregroundColor(.white)
+                .cornerRadius(8)
             }
         }
+        .padding(.bottom, 16)
         .id(reloadFlag)  // 追加
         .onReceive(
             NotificationCenter.default.publisher(for: Notification.Name("TaskUpdated")),
@@ -125,6 +126,9 @@ struct TaskView: View {
 struct HeaderView: View {
     @State var statusIndex: Int
     @State var goalIndex: Int
+    
+    @Binding var goalIsStarred: Bool
+
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -151,6 +155,8 @@ struct HeaderView: View {
                     
                     Button(action: {
                         goal.isStarred.toggle()  // @Bindingを通してgoalの状態を変更
+                        goalIsStarred.toggle()
+                        TaskViewModel(goal: goal).toggleIsStarred(goalID: goal.id)
                     }) {
                         Image(systemName: goal.isStarred ? "star.fill" : "star")
                             .resizable()

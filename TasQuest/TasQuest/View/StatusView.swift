@@ -110,39 +110,41 @@ struct StatusRow: View {
     var body: some View {
         let status: Status = AppDataSingleton.shared.appData.statuses[statusIndex]
         VStack {
+            // タイトル部分
             HStack {
                 Text(status.name)
                     .font(.headline)
                     .foregroundColor(.black)
                 Spacer()
-                
-                // 新しいゴール作成ボタン
-                Button(action: {
-                    showCreateGoalView = true
-                }) {
-                    Image(systemName: "plus.circle")
-                        .resizable()
-                        .frame(width: 24, height: 24)
+            }
+            .padding(.top)
+            
+            // ゴールリスト
+            ForEach(status.goals.indices, id: \.self) { index in
+                GoalRow(statusIndex: statusIndex, goalIndex: index)
+            }
+            
+            // 新しいゴール作成ボタン
+            Button(action: {
+                showCreateGoalView = true
+            }) {
+                HStack{
+                    Spacer()
+                    Text("+ ゴールを追加")
+                        .font(.callout)
+                        .foregroundColor(.black)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                    Spacer()
                 }
+                .background(Color.gray.opacity(0.5))
+                .cornerRadius(8)
                 .sheet(isPresented: $showCreateGoalView) {
                     // ここでCreateGoalHalfModalViewを呼び出す
                     ManageGoalView(statusIndex: statusIndex)
                 }
             }
-            .padding(.top)
-            
-            if status.goals.isEmpty {
-                HStack {
-                    Spacer()
-                    Text("ゴールがありません")
-                        .foregroundColor(.gray)
-                    Spacer()
-                }
-            } else {
-                ForEach(status.goals.indices, id: \.self) { index in
-                    GoalRow(statusIndex: statusIndex, goalIndex: index)
-                }
-            }
+            .padding(.top, 8)
         }
     }
 }
@@ -150,19 +152,21 @@ struct StatusRow: View {
 struct GoalRow: View {
     @State var statusIndex: Int
     @State var goalIndex: Int
-
+    
+    @State var goalIsStarred: Bool = false
+    
     let viewModel: StatusViewModel = StatusViewModel()
     let hostModel = HostModel()
     
     @State private var showGoalDetailPopup: Bool = false
     @State private var navigateToTaskView: Bool = false
-
+    
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter
     }()
-
+    
     func displayTag(tag: Tag?) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 4)
@@ -188,14 +192,17 @@ struct GoalRow: View {
         .fixedSize()
         .padding(.vertical, 2)
     }
-
+    
     var body: some View {
-        let goal = AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex]
-
+        var goal = AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex]
+        
         ZStack {
-            NavigationLink("", destination: TaskView(statusIndex: statusIndex, goalIndex: goalIndex), isActive: $navigateToTaskView)
+            // NavigationLinkの範囲を制限
+            NavigationLink("", destination: TaskView(statusIndex: statusIndex, goalIndex: goalIndex, goalIsStarred: $goalIsStarred), isActive: $navigateToTaskView)
+                .frame(width: 0, height: 0)
                 .opacity(0)
-
+                .disabled(true)
+            
             HStack {
                 Text(goal.name)
                     .lineLimit(1)
@@ -210,7 +217,7 @@ struct GoalRow: View {
                             ForEach(goal.tags.prefix(3).indices, id: \.self) { tagIndex in
                                 displayTag(tag: goal.tags[tagIndex])
                             }
-
+                            
                             if goal.tags.isEmpty {
                                 displayTag(tag: nil)
                             }
@@ -221,16 +228,21 @@ struct GoalRow: View {
                 
                 Spacer()
                 
+                // Starボタンの範囲を制限
                 Button(action: {
+                    goal.isStarred.toggle()
+                    self.goalIsStarred = goal.isStarred
                     viewModel.toggleStar(forGoalWithID: goal.id)
                 }) {
-                    Image(systemName: goal.isStarred ? "star.fill" : "star")
-                        .foregroundColor(goal.isStarred ? .yellow : .gray)
+                    Image(systemName: self.goalIsStarred ? "star.fill" : "star")
+                        .foregroundColor(self.goalIsStarred ? .yellow : .gray)
                 }
+                .contentShape(Rectangle())  // この行を追加
             }
             .onTapGesture {
                 hostModel.sendStatusIDToUnity(statusID: AppDataSingleton.shared.appData.statuses[statusIndex].id)
                 hostModel.sendGoalIDToUnity(goalID: goal.id)
+                self.navigateToTaskView = true  // NavigationLinkを有効化
             }
             .padding(.horizontal)
             .padding(.vertical, 8)
@@ -238,12 +250,6 @@ struct GoalRow: View {
             .cornerRadius(10)
             .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
             .padding(.bottom, 8)
-            .simultaneousGesture(
-                TapGesture()
-                    .onEnded {
-                        self.navigateToTaskView = true
-                    }
-            )
             .simultaneousGesture(
                 LongPressGesture()
                     .onEnded { _ in
@@ -256,6 +262,9 @@ struct GoalRow: View {
             .sheet(isPresented: $showGoalDetailPopup) {
                 GoalDetailPopupView(statusIndex: statusIndex, goalIndex: goalIndex)
             }
+        }
+        .onAppear{
+            self.goalIsStarred = goal.isStarred
         }
     }
 }

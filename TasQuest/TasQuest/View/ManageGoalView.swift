@@ -61,6 +61,7 @@ extension ManageGoalView     {
             Text(editingGoal == nil ? "新しいゴールの作成" : "ゴールを編集")
                 .font(.title)
                 .bold()
+                .foregroundColor(.black)
             Spacer()
         }
         .padding()
@@ -106,6 +107,7 @@ extension ManageGoalView     {
                     .frame(width: 24, height: 24)
                     .foregroundColor(.yellow)
                 Text("お気に入り")
+                    .foregroundColor(.black)
             }
         }
         .padding()

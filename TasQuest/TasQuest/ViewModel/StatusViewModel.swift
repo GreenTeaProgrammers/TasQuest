@@ -53,6 +53,22 @@ class StatusViewModel: ObservableObject {
             status.goals.contains { $0.id == goalID }
         }), let goalIndex = AppDataSingleton.shared.appData.statuses[statusIndex].goals.firstIndex(where: { $0.id == goalID }) {
             AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].isStarred.toggle()
+                    FirestoreManager.shared.saveAppData() { error in
+            if let error = error {
+                print("Failed to save data: \(error)")
+            } else {
+                print("Data saved successfully.")
+                // Updateをフェッチしシングルトンオブジェクトを更新
+                FirestoreManager.shared.fetchAppData { fetchedAppData in
+                    if let fetchedAppData = fetchedAppData {
+                        AppDataSingleton.shared.appData = fetchedAppData
+                        NotificationCenter.default.post(name: Notification.Name("StatusUpdated"), object: nil)//強制的に全体を再レンダリング
+                    } else {
+                        // Handle error
+                    }
+                }
+            }
+        }
         }
     }
 }

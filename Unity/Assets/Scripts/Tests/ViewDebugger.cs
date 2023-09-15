@@ -1,19 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ViewDebugger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    async void Start()
+    void Start()
     {
-        User.SetUserID("MiHOSIRaviWm2eGfbN1GYDhv3sA3");
-        await SwiftDataExchanger.OnCurrentGoalChangedBySwift("1", "BD33ZOlTGJUVYLShEgQ4");
+        DataExchanger dataExchanger = GameObject.Find("DataExchanger").GetComponent<DataExchanger>();
+        AppData appData = JsonManager.LoadJson();
+        User.UserData = appData;
+        dataExchanger.ReceiveStatusID("1");
+        dataExchanger.ReceiveGoalID("1");
+
+        // Debug.Log(JsonUtility.ToJson(User.UserData));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

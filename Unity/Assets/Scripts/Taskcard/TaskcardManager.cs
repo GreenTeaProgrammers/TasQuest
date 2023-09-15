@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Firebase.Firestore;
 using TMPro;
 using UnityEngine;
 
 public class TaskcardManager : MonoBehaviour
 {
     //Mode
-    private static bool isEditMode = false;
+    private static bool _isEditMode;
     
     //GameObjects
     private GameObject _currentHp;
@@ -16,28 +12,25 @@ public class TaskcardManager : MonoBehaviour
     //Scripts
     private static InputFieldManager _inputFieldManager;
     private static TMP_Text _dueDate;
-    private RectTransform _currentHpTransform;
     private static CurrentHealthChanger _currentHpChanger;
     private static HpTextManager _hpTextManager;
     
-    //
-    private static List<DocumentSnapshot> _taskList;
+    private static TasQuestTask[] _taskList;
     
     private void Start()
     {
         _currentHp = GameObject.Find("CurrentHp");
         _inputFieldManager = GameObject.Find("TaskNameInputField").GetComponent<InputFieldManager>();
         _dueDate = GameObject.Find("DueDate").GetComponent<TMP_Text>();
-        _currentHpTransform = _currentHp.GetComponent<RectTransform>();
         _currentHpChanger = _currentHp.GetComponent<CurrentHealthChanger>();
         _hpTextManager = GameObject.Find("HpText").GetComponent<HpTextManager>();
-     }
+        _isEditMode = false;
+    }
 
     public static void OnGoalChanged()
     {
-        PreprocessTaskData(User.TasksSnapshot);
-        DocumentSnapshot taskDocument = _taskList[0];
-        SetTaskDataDisplay(taskDocument);
+        // _taskList = User.GoalData.tasks;
+        SetTaskDataDisplay(User.GoalData.tasks[0]);
     }
 
     /// <summary>
@@ -47,59 +40,45 @@ public class TaskcardManager : MonoBehaviour
     /// <param name="currentIndex"></param>
     public static void OnCurrentTaskChanged(int currentIndex)
     {
-        SetTaskDataDisplay(_taskList[currentIndex]);
+        Debug.Log($"set display index {currentIndex}");
+        // SetTaskDataDisplay(_taskList[currentIndex]);
+        SetTaskDataDisplay(User.GoalData.tasks[currentIndex]);
     }
 
-    /// <summary>
-    /// タスクのデータを書き換えたときに呼ばれます
-    /// </summary>
-    /// <param name="key"></param>
-    /// <param name="data"></param>
-    /// <exception cref="SystemException"></exception>
-    public static async System.Threading.Tasks.Task OnTaskDataChanged(string key, object data)
+    public static void OnCurrentHealthChanged(int currentHealthValue)
     {
-        DocumentSnapshot taskData = _taskList[CameraMovement.CurrentIndex];
-        Dictionary<string, object> taskDocument = taskData.ToDictionary();
-        Debug.Log($"{key}に{data}をかきこみました");
-        try
-        {
-            taskDocument[key] = data;
-            await User.fireStoreManager.UpdateTask(taskData.Id, taskDocument);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw new SystemException("Key is Invalid");
-        }
-        
+        User.GoalData.tasks[MainCameraManager.CurrentIndex].currentHealth = currentHealthValue;
+        JsonManager.UpdateTaskData(User.GoalData.tasks[MainCameraManager.CurrentIndex]);
+    }
+
+    public static void OnMaxHealthChanged(int maxHealthValue)
+    {
+        User.GoalData.tasks[MainCameraManager.CurrentIndex].maxHealth = maxHealthValue;
+        JsonManager.UpdateTaskData(User.GoalData.tasks[MainCameraManager.CurrentIndex]);
+
+    }
+
+    public static void OnTaskNameChanged(string nameValue)
+    {
+        User.GoalData.tasks[MainCameraManager.CurrentIndex].name = nameValue;
+        JsonManager.UpdateTaskData(User.GoalData.tasks[MainCameraManager.CurrentIndex]);
+
     }
     
-    private static void PreprocessTaskData(QuerySnapshot tasksSnapshot)
+    
+    private static void SetTaskDataDisplay(TasQuestTask task)
     {
-        _taskList = tasksSnapshot.Documents.ToList();
-        Debug.Log(_taskList.Count);
-    }
+        _inputFieldManager.UpdateTaskName(task.name);
         
-    /// <summary>
-    /// DocumentSnapshotを引数に受け取り、その値をもとにTaskcardの内容を書き換える関数です。
-    /// </summary>
-    /// <param name="taskSnapshot"></param>
-    private static void SetTaskDataDisplay(DocumentSnapshot taskSnapshot)
-    {
-        Dictionary<string, object> taskDocument = taskSnapshot.ToDictionary();
-
-        _inputFieldManager.UpdateTaskName((string)taskDocument["name"]);
-        
-        var currentHealth = (float) Convert.ChangeType(taskDocument["currentHealth"], typeof(float));
-        var maxHealth = (float)Convert.ChangeType(taskDocument["maxHealth"], typeof(float));
+        var currentHealth = task.currentHealth;
+        var maxHealth = task.maxHealth;
         
         _currentHpChanger.OnHealthChanged(currentHealth, maxHealth);
         
         _hpTextManager.OnHealthChanged(currentHealth, maxHealth);
         
-        Timestamp dueDate = (Timestamp) Convert.ChangeType(taskDocument["dueDate"], typeof(Timestamp));
-        string dueDateText = dueDate.ToDateTime().ToString();
-        dueDateText = "Due:\n" + dueDateText.Split()[0];
+        string dueDateText = task.dueDate.Split("/")[0];
+        dueDateText = "Due:\n" + dueDateText;
         _dueDate.text = dueDateText;
     }
 
@@ -109,8 +88,8 @@ public class TaskcardManager : MonoBehaviour
     /// </summary>
     public void ChangeMode()
     {
-        isEditMode = !isEditMode;
-        Debug.Log($"isEditMode: {isEditMode}");
+        _isEditMode = !_isEditMode;
+        Debug.Log($"isEditMode: {_isEditMode}");
     }
 
     /// <summary>
@@ -118,10 +97,10 @@ public class TaskcardManager : MonoBehaviour
     /// </summary>
     public void PinchControl(float pinchDistance)
     {
-        if (isEditMode)
+        if (_isEditMode)
         {
             //maxHpを変化させる
-            _currentHpChanger.PinchMaxHealth(pinchDistance);
+            _currentHpChanger.PinchMaxHealth(pinchDistance * 10);
         }
         else
         {
@@ -136,7 +115,7 @@ public class TaskcardManager : MonoBehaviour
     /// <returns></returns>
     public static bool IsEditMode
     {
-        get { return isEditMode; }
-        set { isEditMode = value; }
+        get { return _isEditMode; }
+        set { _isEditMode = value; }
     }
 }

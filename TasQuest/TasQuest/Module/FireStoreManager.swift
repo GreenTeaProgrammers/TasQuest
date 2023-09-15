@@ -11,9 +11,10 @@ import FirebaseAuth
 import Firebase
 
 class FirestoreManager {
-    
     static let shared = FirestoreManager()
     private let db = Firestore.firestore()
+    
+    private let hostModel = HostModel()
     
     private init() {
         print("FirestoreManager initialized")
@@ -62,7 +63,11 @@ class FirestoreManager {
                                           statuses: fetchedStatuses,
                                           tags: fetchedTags,
                                           createdAt: userData.createdAt)
+                    
+                    self.hostModel.sendAppDataToUnity(appData: appData)
+
                     print("Fetched all app data, completing.")
+                    AppDataSingleton.shared.appData = appData
                     completion(appData)
                 }
             }
@@ -174,6 +179,10 @@ class FirestoreManager {
             }
             
             dispatchGroup.notify(queue: .main) {
+                statuses.sort {
+                    guard let id1 = Int($0.id), let id2 = Int($1.id) else { return false }
+                    return id1 > id2
+                }
                 completion(statuses, nil)
             }
         }
@@ -256,6 +265,12 @@ class FirestoreManager {
             }
             
             taskDispatchGroup.notify(queue: .main) {  // すべての fetchTasks が完了したら
+                goals.sort {
+                    if $0.isStarred == $1.isStarred {
+                        return $0.dueDate < $1.dueDate
+                    }
+                    return $0.isStarred && !$1.isStarred
+                }
                 completion(goals, nil)
             }
         }
@@ -328,6 +343,7 @@ class FirestoreManager {
             }
             taskDispatchGroup.notify(queue: .main) {
                 // This block will be executed once all tasks have been processed
+                tasks.sort { $0.dueDate < $1.dueDate }
                 completion(tasks, nil)
             }
         }
@@ -339,13 +355,14 @@ class FirestoreManager {
 
 extension FirestoreManager {
     
-    func saveAppData(appData: AppData, completion: @escaping (Error?) -> Void) {
+    func saveAppData(completion: @escaping (Error?) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else {
             completion(NSError(domain: "App", code: 1, userInfo: ["Description": "No current user ID"]))
             return
         }
         
         let userRef = db.collection("Users").document(userId)
+        let appData = AppDataSingleton.shared.appData
         
         // 1. Save UserData
         saveUserData(userRef: userRef, userData: UserData(name: appData.username, createdAt: appData.createdAt)) { error in

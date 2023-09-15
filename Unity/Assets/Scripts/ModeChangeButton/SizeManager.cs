@@ -11,7 +11,7 @@ public class SizeManager : MonoBehaviour
                    -1 : need NO change
     */
 
-    const float ScaleDelta = 0.02f;
+    const float ScaleDelta = 0.07f;
 
     void Start()
     {

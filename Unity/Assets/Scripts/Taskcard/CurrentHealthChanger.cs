@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class CurrentHealthChanger : MonoBehaviour
@@ -90,30 +89,37 @@ public class CurrentHealthChanger : MonoBehaviour
     /// <summary>
     /// ピンチイン、アウトが完了した際にスケールの基準値を再設定する関数です。
     /// </summary>
-    public async System.Threading.Tasks.Task UpdateMyScale()
+    public void UpdateMyScale()
     {
+        float scaleDiff = _baseScale.x - _myRectTransform.localScale.x;
+        Debug.Log($"ScaleDiff {scaleDiff}");
         _baseScale = _myRectTransform.localScale;
-        Debug.Log($"Update MyScale {_baseScale}");
         _damageDiffManager.StartTransition(_baseScale);
 
         if (TaskcardManager.IsEditMode)
         {
-            await UpdateMaxHealth();
+            UpdateMaxHealth();
         }
         else
         {
-            await UpdateCurrentHealth();
+            UpdateCurrentHealth();
+            if (scaleDiff > 0)
+            {
+                EnemyManager enemyManager = Road.enemyHandle[MainCameraManager.CurrentIndex+1].Result.GetComponent<EnemyManager>();
+                enemyManager.Hit = true;
+                enemyManager.slash();
+            }
         }
     }
 
-    private async System.Threading.Tasks.Task UpdateCurrentHealth()
+    private void UpdateCurrentHealth()
     {
-        await TaskcardManager.OnTaskDataChanged("currentHealth", _currentHealth);
+        TaskcardManager.OnCurrentHealthChanged((int)_currentHealth);
     }
 
-    private async System.Threading.Tasks.Task UpdateMaxHealth()
+    private void UpdateMaxHealth()
     {
-        await TaskcardManager.OnTaskDataChanged("maxHealth", _maxHealth);
+        TaskcardManager.OnMaxHealthChanged((int) _maxHealth);
     }
     
 }

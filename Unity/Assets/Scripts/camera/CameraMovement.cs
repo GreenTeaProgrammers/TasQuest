@@ -1,13 +1,14 @@
 using UnityEngine;
 
-public class CameraMovement : MonoBehaviour
+public class MainCameraManager : MonoBehaviour
 {
-    [SerializeField]public static float _radius = 7.0f;
+    public static float _radius = 7.0f;
     [SerializeField]float _initialAngle;
     [SerializeField] private float _snapSensitivity = 0.1f;
     
     private float _currentDist = 0.0f;
-
+    private float _previousDist = 0.0f;
+    
     private static int currentIndex = 0;
     public static int CurrentIndex
     {
@@ -35,17 +36,17 @@ public class CameraMovement : MonoBehaviour
         float unit = 2 * Mathf.PI / stagesNumber;
         CurrentIndex = (int) Mathf.Floor(dist / unit);
         Debug.Log($"currentIndex: {currentIndex}");
+        Debug.Log($"Dist diff{_previousDist - dist}");
         
-        if (dist % unit > unit - _snapSensitivity)
+        if (dist % unit > unit - unit*_snapSensitivity)
         {
-            dist = unit * (currentIndex+1) - _snapSensitivity;
+            dist = unit * (currentIndex+1) - unit*_snapSensitivity;
         }
-        // else if (dist % unit < _snapSensitivity)
-        // {
-        //     dist = unit * currentIndex - _snapSencitivity;
-        //     Debug.Log("Snap 2");
-        // }
-
+        else if (dist % unit < unit*_snapSensitivity && currentIndex != 0)
+        {
+            dist = unit * currentIndex - unit*_snapSensitivity;
+        }
+        
         return dist;
     }
     
@@ -53,10 +54,12 @@ public class CameraMovement : MonoBehaviour
     {
         Transform myTransform = this.transform;
         dist += _currentDist;
-        dist = Mathf.Clamp(dist, 0.0f, 2 * Mathf.PI);
+        dist = Mathf.Clamp(dist, 0.0f, 2 * Mathf.PI - 2*Mathf.PI/Road.stagesNumber);
         dist = Snap(dist);
         float angle = dist / Mathf.PI * 180;
             
+        _previousDist = dist;
+        
         Vector3 circleMove = new Vector3(_radius*Mathf.Sin(dist), myTransform.position.y, _radius*Mathf.Cos(dist));
         Vector3 newAngle = new Vector3(0.0f, _initialAngle + angle, 0.0f);
         

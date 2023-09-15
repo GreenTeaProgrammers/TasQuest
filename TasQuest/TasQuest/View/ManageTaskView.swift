@@ -11,9 +11,8 @@ import FirebaseFirestore
 
 struct ManageTaskView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Binding var appData: AppData  // AppDataをBindingで受け取る
-    @Binding var status: Status
-    @Binding var goal: Goal
+    @State var statusIndex: Int
+    @State var goalIndex: Int
     
     @State var editingTask : TasQuestTask?
 
@@ -78,8 +77,7 @@ extension ManageTaskView {
             }
             .padding()
         }
-    }   
-
+    }
 
     var healthSliders: some View {
         Group {
@@ -92,8 +90,7 @@ extension ManageTaskView {
                 HealthSlider(label: "", value: $maxHealth, range: 0...3000)
             }
             .padding()
-            //.help("敵の最大体力を設定します。")
-            
+
             HStack {
                 Image(systemName: "heart.slash.fill")
                     .resizable()
@@ -103,12 +100,11 @@ extension ManageTaskView {
                 HealthSlider(label: "", value: $currentHealth, range: 0...maxHealth)
             }
             .padding()
-            //.help("敵の現在体力を設定します。")
         }
     }
-    
+
     var tagSelection: some View {
-        TagSelectorView(tags: appData.tags, selectedTags: $selectedTags)
+        TagSelectorView(selectedTags: $selectedTags)
     }
 
     var saveButton: some View {
@@ -129,21 +125,19 @@ extension ManageTaskView {
             currentHealth = maxHealth
         }
 
-        // StatusとGoalの参照を取得
-        if let statusIndex = appData.statuses.firstIndex(where: { $0.id == status.id }),
-           let goalIndex = appData.statuses[statusIndex].goals.firstIndex(where: { $0.id == goal.id }) {
+        
 
             // 新しいタスクの場合とタスク編集の場合で以下のプログラムを分岐
             if let editingTask = editingTask,
-               let taskIndex = appData.statuses[statusIndex].goals[goalIndex].tasks.firstIndex(where: { $0.id == editingTask.id }) {
+               let taskIndex = AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks.firstIndex(where: { $0.id == editingTask.id }) {
                 // 既存のタスクを編集
-                appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].name = name
-                appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].description = description
-                appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].dueDate = dueDate
-                appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].maxHealth = maxHealth
-                appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].currentHealth = currentHealth
-                appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].tags = selectedTags
-                appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].updatedAt = Date()
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].name = name
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].description = description
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].dueDate = dueDate
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].maxHealth = maxHealth
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].currentHealth = currentHealth
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].tags = selectedTags
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].updatedAt = Date()
             } else {
                 // 新しいタスクを作成
                 let newTask = TasQuestTask(
@@ -160,32 +154,30 @@ extension ManageTaskView {
                 )
                 
                 // 新しいタスクを追加
-                appData.statuses[statusIndex].goals[goalIndex].tasks.append(newTask)
+                AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks.append(newTask)
             }
 
             // 保存処理（新しいタスクと既存のタスクの両方に適用）
-            FirestoreManager.shared.saveAppData(appData: appData) { error in
-                if let error = error {
-                    print("Failed to save data: \(error)")
-                } else {
-                    print("Data saved successfully.")
-                    
-                    NotificationCenter.default.post(name: Notification.Name("TaskCreated"), object: nil) // 強制的に全体を再レンダリング
-                    
-                    // データが保存された後にデータを再取得
-                    FirestoreManager.shared.fetchAppData { fetchedAppData in
-                        if let fetchedAppData = fetchedAppData {
-                            self.appData = fetchedAppData  // データを更新
-                        } else {
-                            // エラー処理
-                        }
+        FirestoreManager.shared.saveAppData() { error in
+            if let error = error {
+                print("Failed to save data: \(error)")
+            } else {
+                print("Data saved successfully.")
+                // Updateをフェッチしシングルトンオブジェクトを更新
+                FirestoreManager.shared.fetchAppData { fetchedAppData in
+                    if let fetchedAppData = fetchedAppData {
+                        AppDataSingleton.shared.appData = fetchedAppData
+                        NotificationCenter.default.post(name: Notification.Name("TaskUpdated"), object: nil)//強制的に全体を再レンダリング
+                    } else {
+                        // Handle error
                     }
                 }
             }
-            // モーダルを閉じる
-            presentationMode.wrappedValue.dismiss()
         }
-    }}
+        // モーダルを閉じる
+        presentationMode.wrappedValue.dismiss()
+    }
+}
 
 struct HealthSlider: View {
     var label: String
@@ -203,10 +195,10 @@ struct HealthSlider: View {
 }
 
 struct TagSelectorView: View {
-    var tags: [Tag]
     @Binding var selectedTags: [Tag]
-
+    
     var body: some View {
+        let tags: [Tag] = AppDataSingleton.shared.appData.tags
         VStack {
             if !(selectedTags.count == tags.count){
                 HStack {
@@ -232,17 +224,17 @@ struct TagSelectorView: View {
             }
             
             if !selectedTags.isEmpty {
-            HStack {
-                Image(systemName: "checkmark.circle")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(.blue)
-                Image(systemName: "tag.fill")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(.blue)
-                //Text("選択されているタグ")
-            }
+                HStack {
+                    Image(systemName: "checkmark.circle")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.blue)
+                    Image(systemName: "tag.fill")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.blue)
+                    //Text("選択されているタグ")
+                }
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(selectedTags, id: \.id) { tag in

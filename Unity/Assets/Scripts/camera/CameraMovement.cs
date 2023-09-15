@@ -1,10 +1,10 @@
+using System;
 using UnityEngine;
 
 public class MainCameraManager : MonoBehaviour
 {
     public static float _radius = 7.0f;
     [SerializeField]float _initialAngle;
-    [SerializeField] private float _snapSensitivity = 0.1f;
     
     private float _currentDist = 0.0f;
     private float _previousDist = 0.0f;
@@ -22,32 +22,16 @@ public class MainCameraManager : MonoBehaviour
             }
         }
     }
-    
+
+    private void Update()
+    {
+        Debug.Log($"currentDist : {_currentDist} ,");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         _initialAngle = this.transform.eulerAngles.y;
-    }
-    
-    //もうちょっとちゃんとしたスナップにするにはSwipe関数の方でpinchDistanceを変える必要あり。
-    private float Snap(float dist)
-    {
-        int stagesNumber = Road.stagesNumber;
-        float unit = 2 * Mathf.PI / stagesNumber;
-        CurrentIndex = (int) Mathf.Floor(dist / unit);
-        Debug.Log($"currentIndex: {currentIndex}");
-        Debug.Log($"Dist diff{_previousDist - dist}");
-        
-        if (dist % unit > unit - unit*_snapSensitivity)
-        {
-            dist = unit * (currentIndex+1) - unit*_snapSensitivity;
-        }
-        else if (dist % unit < unit*_snapSensitivity && currentIndex != 0)
-        {
-            dist = unit * currentIndex - unit*_snapSensitivity;
-        }
-        
-        return dist;
     }
     
     public void MoveCamera(float dist)
@@ -55,7 +39,11 @@ public class MainCameraManager : MonoBehaviour
         Transform myTransform = this.transform;
         dist += _currentDist;
         dist = Mathf.Clamp(dist, 0.0f, 2 * Mathf.PI - 2*Mathf.PI/Road.stagesNumber);
-        dist = Snap(dist);
+        Debug.Log($"dist : {dist}");
+        
+        
+        CurrentIndex = (int) Mathf.Floor(dist / (2 * Mathf.PI / Road.stagesNumber));
+        Debug.Log($"currentIndex: {currentIndex}");
         float angle = dist / Mathf.PI * 180;
             
         _previousDist = dist;

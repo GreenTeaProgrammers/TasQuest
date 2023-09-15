@@ -2,8 +2,9 @@
 {
     Properties
     {
+        _Color("Debug COlor", Color) = (0.0, 0.0, 0.0, 1.0)
         _MainTex ("Texture", 2D) = "white" {}
-        _Radius ("Radius", Range(0.001, 1)) = 1.0
+        _Radius ("Radius", Range(0.01, 10)) = 2.0
     }
     SubShader
     {
@@ -25,6 +26,7 @@
                 float4 modelOrigin : TEXCOORD2;
             };
 
+            float _Color;
             sampler2D _MainTex;
             float4 _MainTex_ST;
 
@@ -33,7 +35,6 @@
                 o.pos = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex);
-                o.modelOrigin = mul(unity_ObjectToWorld, float3(0.0, 0.0, 0.0));
                 return o;
             }
 
@@ -41,8 +42,8 @@
 
             fixed4 frag(v2f i) : SV_Target {
                 fixed4 col = tex2D(_MainTex, i.uv);
-                float dist = distance(i.modelOrigin, _WorldSpaceCameraPos);
-                col.a = saturate(1.0 * dist - _Radius);
+                float dist = distance(i.worldPos, _WorldSpaceCameraPos);
+                col.a = saturate(dist*_Radius);
                 return col;
             }
 

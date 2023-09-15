@@ -14,15 +14,17 @@ struct ManageTaskView: View {
     @State var statusIndex: Int
     @State var goalIndex: Int
     
-    @State var editingTask : TasQuestTask?
+    var editingTask : TasQuestTask? = nil
 
     @State private var selectedDate = Date()
     @State var name: String = ""
     @State var description: String = ""
     @State var dueDate: Date = Date()
-    @State var maxHealth: Float = 0.0
-    @State var currentHealth: Float = 0.0
+    @State var maxHealth: Float = 1500.0
+    @State var currentHealth: Float = 1500.0
     @State var selectedTags: [Tag] = []
+    @State var createdAt: Date = Date()
+    @State var updatedAt: Date = Date()
     @ObservedObject var keyboard = KeyboardResponder()
 
     var body: some View {
@@ -40,7 +42,18 @@ struct ManageTaskView: View {
             }
             saveButton
         }
-        .onAppear { self.keyboard.startObserve() }
+        .onAppear {
+            if let editingTask = editingTask{
+                self.name = editingTask.name
+                self.description = editingTask.description
+                self.dueDate = editingTask.dueDate
+                self.maxHealth = editingTask.maxHealth
+                self.currentHealth = editingTask.currentHealth
+                self.selectedTags = editingTask.tags
+                self.createdAt = editingTask.createdAt
+                self.updatedAt = editingTask.updatedAt
+            }
+            self.keyboard.startObserve() }
         .onDisappear { self.keyboard.stopObserve() }
     }
 }
@@ -60,12 +73,22 @@ extension ManageTaskView {
     var inputFields: some View {
         Group {
             TextField("タスクの名前", text: $name)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
+                .font(.system(size: 20))  // フォントサイズを変更
+                .padding()  // パディングを追加してテキストフィールドを大きく見せる
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)  // 角の丸みを持つ四角形
+                        .stroke(Color.gray, lineWidth: 1)  // 枠線の色と太さ
+                )
+                .frame(height: 75)  // 高さを設定
 
             TextField("タスクの説明", text: $description)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
+                .font(.system(size: 20))  // フォントサイズを変更
+                .padding()  // パディングを追加してテキストフィールドを大きく見せる
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)  // 角の丸みを持つ四角形
+                        .stroke(Color.gray, lineWidth: 1)  // 枠線の色と太さ
+                )
+                .frame(height: 50)  // 高さを設定
 
             HStack {
                 Image(systemName: "calendar")
@@ -167,6 +190,7 @@ extension ManageTaskView {
                 FirestoreManager.shared.fetchAppData { fetchedAppData in
                     if let fetchedAppData = fetchedAppData {
                         AppDataSingleton.shared.appData = fetchedAppData
+                        HostModel().sendAppDataToUnity(appData: AppDataSingleton.shared.appData)
                         NotificationCenter.default.post(name: Notification.Name("TaskUpdated"), object: nil)//強制的に全体を再レンダリング
                     } else {
                         // Handle error

@@ -143,6 +143,7 @@ struct HeaderView: View {
                     
                     Text(goal.name)
                         .font(.title)
+                        .bold()
                         .lineLimit(1)
                         .truncationMode(.tail)
                     
@@ -158,7 +159,7 @@ struct HeaderView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
-                
+
                 Button(action: {
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
@@ -198,6 +199,8 @@ struct TaskRow: View {
     @State var statusIndex: Int
     @State var goalIndex: Int
     @State var taskIndex: Int
+
+    @State private var showTaskDetailPopupView: Bool = false  
     
     
     var body: some View {
@@ -229,7 +232,7 @@ struct TaskRow: View {
                 .foregroundColor(.blue)
             
             Button(action: {
-                print("Task \(task.id) was clicked")
+                self.showTaskDetailPopupView = true  // ポップアップビューを表示
             }) {
                 // Task name and tags
                 VStack(alignment: .leading) {
@@ -295,7 +298,163 @@ struct TaskRow: View {
         .onAppear(){
             print("Rendering task with ID: \(task.id)")
             
+        }        
+        .sheet(isPresented: $showTaskDetailPopupView) {
+            TaskDetailPopupView(statusIndex: statusIndex, goalIndex: goalIndex, task: AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex])  // タスクの詳細ビュー
         }
-        
+    }
+}
+
+struct TaskDetailPopupView: View {
+    @State var statusIndex: Int
+    @State var goalIndex: Int
+    @State var task: TasQuestTask
+    
+    @State var showingManageTaskModal = false  // ハーフモーダルの表示状態を管理
+
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return formatter
+    }()
+    
+    // Calculate the fill color based on the task's current and max health
+    var fillColor: Color {
+        let percentage = task.currentHealth / task.maxHealth
+        if percentage > 0.5 {
+            return .green
+        } else if percentage > 0.2 {
+            return .yellow
+        } else {
+            return .red
+        }
+    }
+    
+    func displayTag(tag: Tag?) -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 4)
+                .fill(
+                    tag != nil ?
+                    Color(
+                        red: Double(tag!.color[0]),
+                        green: Double(tag!.color[1]),
+                        blue: Double(tag!.color[2])
+                    ).opacity(0.2) : Color.clear
+                )
+            if let actualTag = tag {
+                let truncatedTag = String(actualTag.name.prefix(8))
+                let displayTag = actualTag.name.count > 8 ? "\(truncatedTag)..." : truncatedTag
+                Text(displayTag)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .padding(.horizontal, 4)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+            }
+        }
+        .fixedSize()
+        .padding(.vertical, 2)
+    }
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("タスクの詳細")
+                    .font(.headline)
+                    .foregroundColor(Color.primary)
+                Spacer()
+                Button(action: {
+                    self.showingManageTaskModal = true
+                }){
+                    Image(systemName: "pencil")
+                        .foregroundColor(Color.blue)
+                        .padding(10)
+                        .background(Circle().fill(Color.blue.opacity(0.1)))
+                }
+            }
+            .padding()
+            
+            Divider()
+                .background(Color.gray)
+            
+            VStack(alignment: .leading, spacing: 12) {
+                Text("名前: \(task.name)")
+                    .fontWeight(.medium)
+                
+                Text("説明: \(task.description)")
+                    .font(.caption)
+                
+                HStack {
+                    Image(systemName: "calendar")
+                        .foregroundColor(Color.gray)
+                    Text("期日: \(task.dueDate, formatter: dateFormatter)")
+                }
+                
+                HStack{
+                    Image(systemName: "tag")
+                        .foregroundColor(Color.gray)
+                    Text("タグ: \(task.tags.map { $0.name }.joined(separator: ", "))")
+                    HStack {
+                        Image(systemName: "tag.fill")
+                            .foregroundColor(Color.gray)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(task.tags, id: \.name) { tag in
+                                    displayTag(tag: tag)
+                                        .padding(4)
+                                        .background(RoundedRectangle(cornerRadius: 4).fill(Color.gray.opacity(0.2)))
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                HStack {
+                    Image(systemName: "clock")
+                        .foregroundColor(Color.gray)
+                    Text("作成日時: \(task.createdAt, formatter: dateFormatter)")
+                }
+                
+                HStack {
+                    Image(systemName: "arrow.triangle.2.circlepath")
+                        .foregroundColor(Color.gray)
+                    Text("更新日: \(task.updatedAt, formatter: dateFormatter)")
+                }
+                
+                HStack{
+                    Spacer()
+                    VStack {
+                        let percentage: Float = task.maxHealth == 0 ? 0 : task.currentHealth / task.maxHealth
+                        
+                        Capsule()
+                            .fill(Color.gray.opacity(0.2))
+                            .frame(width: 300, height: 8)
+                            .overlay(alignment: .leading) {
+                                Rectangle()
+                                    .fill(fillColor)
+                                    .frame(width: 300 * CGFloat(percentage))
+                            }
+                            .cornerRadius(4)
+                        
+                        Text("\(Int(task.currentHealth))/\(Int(task.maxHealth))")
+                            .font(.footnote.bold())
+                            .kerning(2)
+                            .padding(.bottom, 24)
+                    }
+                    Spacer()
+                }
+                
+            }
+            .padding()
+            .sheet(isPresented: self.$showingManageTaskModal) {
+                ManageTaskView(statusIndex: statusIndex,goalIndex: goalIndex, editingTask: task)
+            }
+            
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
+        .cornerRadius(20)
+        .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 5)
     }
 }

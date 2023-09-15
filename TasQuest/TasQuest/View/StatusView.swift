@@ -110,39 +110,41 @@ struct StatusRow: View {
     var body: some View {
         let status: Status = AppDataSingleton.shared.appData.statuses[statusIndex]
         VStack {
+            // タイトル部分
             HStack {
                 Text(status.name)
                     .font(.headline)
                     .foregroundColor(.black)
                 Spacer()
-                
-                // 新しいゴール作成ボタン
-                Button(action: {
-                    showCreateGoalView = true
-                }) {
-                    Image(systemName: "plus.circle")
-                        .resizable()
-                        .frame(width: 24, height: 24)
+            }
+            .padding(.top)
+            
+            // ゴールリスト
+            ForEach(status.goals.indices, id: \.self) { index in
+                GoalRow(statusIndex: statusIndex, goalIndex: index)
+            }
+            
+            // 新しいゴール作成ボタン
+            Button(action: {
+                showCreateGoalView = true
+            }) {
+                HStack{
+                    Spacer()
+                    Text("+ ゴールを追加")
+                        .font(.callout)
+                        .foregroundColor(.black)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                    Spacer()
                 }
+                .background(Color.gray.opacity(0.5))
+                .cornerRadius(8)
                 .sheet(isPresented: $showCreateGoalView) {
                     // ここでCreateGoalHalfModalViewを呼び出す
                     ManageGoalView(statusIndex: statusIndex)
                 }
             }
-            .padding(.top)
-            
-            if status.goals.isEmpty {
-                HStack {
-                    Spacer()
-                    Text("ゴールがありません")
-                        .foregroundColor(.gray)
-                    Spacer()
-                }
-            } else {
-                ForEach(status.goals.indices, id: \.self) { index in
-                    GoalRow(statusIndex: statusIndex, goalIndex: index)
-                }
-            }
+            .padding(.top, 8)
         }
     }
 }

@@ -70,6 +70,7 @@ public class EnemyManager : MonoBehaviour
     private Animator _normalAnimator;
     private Animator _strongAnimator;
     private ParticleSystem _slash;
+    private Vector3 _myPosition;
     
     void Start()
     {
@@ -101,7 +102,7 @@ public class EnemyManager : MonoBehaviour
                 targetTransform.x, 
                 this.transform.position.y, 
                 targetTransform.z));
-
+        
         //_indexとカメラのcurrentIndexが等しいときアクティブ
         _isActive = Index == MainCameraManager.CurrentIndex;
         if (_isActive)

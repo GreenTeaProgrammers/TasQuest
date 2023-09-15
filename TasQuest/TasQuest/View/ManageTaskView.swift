@@ -63,6 +63,7 @@ extension ManageTaskView {
     var modalHeader: some View {
         HStack {
             Text("新しいタスクの作成")
+                .foregroundColor(.black)
                 .font(.title)
                 .bold()
             Spacer()
@@ -110,6 +111,7 @@ extension ManageTaskView {
                     .frame(width: 24, height: 24)
                     .foregroundColor(.red)
                 Text("最大")
+                    .foregroundColor(.black)
                 HealthSlider(label: "", value: $maxHealth, range: 0...3000)
             }
             .padding()
@@ -120,6 +122,7 @@ extension ManageTaskView {
                     .frame(width: 24, height: 24)
                     .foregroundColor(.red)
                 Text("現在")
+                    .foregroundColor(.black )
                 HealthSlider(label: "", value: $currentHealth, range: 0...maxHealth)
             }
             .padding()

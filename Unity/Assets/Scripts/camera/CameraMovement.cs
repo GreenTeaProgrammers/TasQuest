@@ -22,12 +22,7 @@ public class MainCameraManager : MonoBehaviour
             }
         }
     }
-
-    private void Update()
-    {
-        Debug.Log($"currentDist : {_currentDist} ,");
-    }
-
+    
     // Start is called before the first frame update
     void Start()
     {

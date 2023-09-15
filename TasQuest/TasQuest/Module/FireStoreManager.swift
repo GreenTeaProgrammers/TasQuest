@@ -179,6 +179,10 @@ class FirestoreManager {
             }
             
             dispatchGroup.notify(queue: .main) {
+                statuses.sort {
+                    guard let id1 = Int($0.id), let id2 = Int($1.id) else { return false }
+                    return id1 > id2
+                }
                 completion(statuses, nil)
             }
         }
@@ -261,6 +265,12 @@ class FirestoreManager {
             }
             
             taskDispatchGroup.notify(queue: .main) {  // すべての fetchTasks が完了したら
+                goals.sort {
+                    if $0.isStarred == $1.isStarred {
+                        return $0.dueDate < $1.dueDate
+                    }
+                    return $0.isStarred && !$1.isStarred
+                }
                 completion(goals, nil)
             }
         }
@@ -333,6 +343,7 @@ class FirestoreManager {
             }
             taskDispatchGroup.notify(queue: .main) {
                 // This block will be executed once all tasks have been processed
+                tasks.sort { $0.dueDate < $1.dueDate }
                 completion(tasks, nil)
             }
         }

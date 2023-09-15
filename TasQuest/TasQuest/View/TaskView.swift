@@ -12,6 +12,8 @@ struct TaskView: View {
     @State var statusIndex: Int
     @State var goalIndex: Int
     
+    @Binding var goalIsStarred: Bool
+    
     @State private var reloadFlag = false  // 追加
     
     @State private var showingUnityView = false  // Unityビュー表示フラグ
@@ -27,7 +29,7 @@ struct TaskView: View {
             
             let height = max(0, (87.95) * CGFloat(taskCount - 1))
             VStack {
-                HeaderView(statusIndex: statusIndex, goalIndex: goalIndex)
+                HeaderView(statusIndex: statusIndex, goalIndex: goalIndex,goalIsStarred: $goalIsStarred)
                 
                 Rectangle()
                     .fill(Color.gray)  // 色を設定
@@ -126,6 +128,9 @@ struct HeaderView: View {
     @State var statusIndex: Int
     @State var goalIndex: Int
     
+    @Binding var goalIsStarred: Bool
+
+    
     @Environment(\.presentationMode) var presentationMode
     
     let dateFormatter: DateFormatter = {
@@ -150,6 +155,8 @@ struct HeaderView: View {
                     
                     Button(action: {
                         goal.isStarred.toggle()  // @Bindingを通してgoalの状態を変更
+                        goalIsStarred.toggle()
+                        TaskViewModel(goal: goal).toggleIsStarred(goalID: goal.id)
                     }) {
                         Image(systemName: goal.isStarred ? "star.fill" : "star")
                             .resizable()

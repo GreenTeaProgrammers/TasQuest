@@ -70,11 +70,23 @@ extension ManageGoalView     {
     var inputFields: some View {
         Group {
             TextField("ゴールの名前", text: $name)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
+                .font(.system(size: 20))  // フォントサイズを変更
+                .padding()  // パディングを追加してテキストフィールドを大きく見せる
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)  // 角の丸みを持つ四角形
+                        .stroke(Color.gray, lineWidth: 1)  // 枠線の色と太さ
+                )
+                .frame(height: 75)  // 高さを設定
+            
             TextField("ゴールの説明", text: $description)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
+                .font(.system(size: 20))  // フォントサイズを変更
+                .padding()  // パディングを追加してテキストフィールドを大きく見せる
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)  // 角の丸みを持つ四角形
+                        .stroke(Color.gray, lineWidth: 1)  // 枠線の色と太さ
+                )
+                .frame(height: 50)  // 高さを設定
+            
             HStack {
                 Image(systemName: "calendar")
                     .resizable()

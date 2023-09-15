@@ -12,6 +12,7 @@ public class Road : MonoBehaviour
     public static string[] id;
     public static AsyncOperationHandle<GameObject>[] enemyHandle;
     public static AsyncOperationHandle<GameObject>[] accessoryHandle;
+    private static bool isfillTreePair;
 
 
     private const float INITIAL_RADIAN = 0;
@@ -20,15 +21,17 @@ public class Road : MonoBehaviour
     
     private static void SetStagesNumberAndRadius(int arg)
     {
+        isfillTreePair = (arg >= 10);
         stagesNumber = arg;
         radius = arg * 0.3f;GameObject.Find("Road").transform.localScale = new Vector3((radius/10)+0.08f, 0.00001f, (radius/10f)+0.08f);
         GameObject.Find("cover").transform.localScale = new Vector3((radius/10f)-0.07f, 0.0001f, (radius/10f)-0.07f);
         MainCameraManager._radius = radius;
-        accessoryRadius = arg * 0.9f;
+        accessoryRadius = radius * 2.3f;
         Array.Resize(ref stagePositions, arg);
         Array.Resize(ref id, arg);
         Array.Resize(ref enemyHandle, arg);
-        Array.Resize(ref accessoryHandle, arg);
+        if (isfillTreePair) Array.Resize(ref accessoryHandle, arg * 3);
+        else Array.Resize(ref accessoryHandle, arg * 2);
     }
 
     private static void UpdateStages()
@@ -60,6 +63,8 @@ public class Road : MonoBehaviour
         {
             Addressables.ReleaseInstance(enemyHandle[i]);
             Addressables.ReleaseInstance(accessoryHandle[i]);
+            Addressables.ReleaseInstance(accessoryHandle[i + stagesNumber]);
+            if (isfillTreePair) Addressables.ReleaseInstance(accessoryHandle[i + stagesNumber * 2]);
         }
         Debug.Log("clear end");
     }
@@ -193,7 +198,42 @@ public class Road : MonoBehaviour
         
     }
 
-
+    static async System.Threading.Tasks.Task GenerateFillTrees(int idx)
+    {
+        string address = "FillTree0";
+        accessoryHandle[idx + stagesNumber] = Addressables.InstantiateAsync
+        (
+            address,
+            Vector3.zero,
+            Quaternion.identity
+        );
+        await accessoryHandle[idx + stagesNumber].Task;
+        float accessoryRadian = GetRadian(idx) + 2 * MathF.PI / stagesNumber * 3 / 4; // パラメータ職人の余地
+        accessoryHandle[idx + stagesNumber].Result.transform.position = new Vector3
+        (
+            accessoryRadius * MathF.Sin(accessoryRadian),
+            0,
+            accessoryRadius * MathF.Cos(accessoryRadian)
+        );
+        if (isfillTreePair)
+        {
+            accessoryHandle[idx + stagesNumber * 2] = Addressables.InstantiateAsync
+            (
+                address,
+                Vector3.zero,
+                Quaternion.identity
+            );
+            await accessoryHandle[idx + stagesNumber * 2].Task;
+            float delta = MathF.PI / 20;
+            accessoryHandle[idx + stagesNumber * 2].Result.transform.position = new Vector3
+            (
+                accessoryRadius * MathF.Sin(accessoryRadian + delta),
+                0,
+                accessoryRadius * MathF.Cos(accessoryRadian + delta)
+            );
+        }
+    }
+    
     static async System.Threading.Tasks.Task GenerateEnemyOrGoal(int idx, string argId, float maxHealth)
     {
         id[idx] = argId;
@@ -206,6 +246,7 @@ public class Road : MonoBehaviour
     {
         string address = GetRandomAccessoryAddress();
         await InstantiateAccessoryFromPrefab(idx, address);
+        await GenerateFillTrees(idx);
         
         Debug.Log("generated accessory");
     }

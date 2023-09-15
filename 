@@ -1,0 +1,2177 @@
+[33mcommit 5b0df649ceba2fec817920f48733c2ea4a70943a[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/unity/view/cameraSnap[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Fri Sep 15 14:58:40 2023 +0900
+
+    Add AlphaDependeOnCamera shader
+
+[33mcommit e0be2a6fe2f7d4e6f55d46dc22bed1c80396b14a[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m
+Merge: 8022462e e36f8b9b
+Author: KikyoNanakusa <65284574+KikyoNanakusa@users.noreply.github.com>
+Date:   Fri Sep 15 14:21:32 2023 +0900
+
+    Merge pull request #67 from ShizuokaU-GreenTea-Programmers/feature/unity/view/enemyDie
+    
+    敵の体力が0になったとき敵が死ぬようになりました
+    Feature/unity/view/enemy die
+
+[33mcommit 8022462e8a649c4478e49e1488f52afbfa2d5df0[m
+Merge: ccf4ea97 1f1ed133
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Fri Sep 15 14:19:43 2023 +0900
+
+    Merge pull request #66 from ShizuokaU-GreenTea-Programmers/feature/swift/view/edit_task
+    
+    タスク編集機能を追加
+    Feature/swift/view/edit task
+
+[33mcommit 1f1ed133b7a06811ce059cf9f3e2c5647157928d[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 15 14:18:47 2023 +0900
+
+    fix: (Unity側問題あり)Taskの更新時にAppdataを送信していな不具合を修正
+
+[33mcommit e36f8b9b8b2c959bf390c27eaf1ea96334984706[m[33m ([m[1;31morigin/feature/unity/view/enemyDie[m[33m, [m[1;32mfeature/unity/view/enemyDie[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Fri Sep 15 14:18:01 2023 +0900
+
+    Add addressable files
+
+[33mcommit 515db1b078ac621961c5d867a4ea279ee21a20da[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Fri Sep 15 14:14:24 2023 +0900
+
+    feat: Implemented enemyDie Logic
+
+[33mcommit c584debf2caf924cc02117088a946e932650d47c[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 15 14:07:28 2023 +0900
+
+    feat: タスク編集機能の追加
+
+[33mcommit 80b0007d3386d8febe3f0ab43d3d982858934395[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Fri Sep 15 13:26:31 2023 +0900
+
+    Make new strongEnemy Animation Controller
+
+[33mcommit 8ae4dc4ec74c906876e96b5444957ecb84781a45[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Fri Sep 15 13:22:44 2023 +0900
+
+    Make new normalEnemy Animation Controller
+
+[33mcommit 95ddeee53ae50ec809cb18361ace4d21a3cbda28[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Fri Sep 15 13:18:27 2023 +0900
+
+    Make new weakEnemy controller
+
+[33mcommit 469a3224aec8330fee3603d19ec770875768363a[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Fri Sep 15 13:07:25 2023 +0900
+
+    feat: Add new Animators
+
+[33mcommit 59c2f9070646d5066bb69db0e86b3442665ee39e[m
+Merge: 579f3352 ccf4ea97
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 15 12:59:42 2023 +0900
+
+    Merge commit 'ccf4ea97a404eb60370f7a5523edc4ef912ca28b' into feature/swift/view/edit_task
+
+[33mcommit 579f3352acfadaf4c7fe27ba7574e4ed6d7661c8[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 15 12:59:29 2023 +0900
+
+    chore: add Package.resolved
+
+[33mcommit ccf4ea97a404eb60370f7a5523edc4ef912ca28b[m
+Merge: 38b7bc03 797de82f
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Fri Sep 15 12:57:04 2023 +0900
+
+    Merge pull request #65 from ShizuokaU-GreenTea-Programmers/feature/swift/fix/HostModelInput.swift
+    
+    Update HostModelInput.swift
+
+[33mcommit 797de82f6e76d2f5972a785c26b2b51cd9dd4eeb[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Fri Sep 15 12:56:23 2023 +0900
+
+    Update HostModelInput.swift
+
+[33mcommit 38b7bc03f5d4fb05430251d9b1c66a6e258586ea[m
+Merge: e9f073d1 8e993902
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Fri Sep 15 11:43:55 2023 +0900
+
+    Merge pull request #64 from ShizuokaU-GreenTea-Programmers/feature/util/merge
+    
+    iOS <--> Unityコミュニケーション・画面のマージ(仮)
+    Feature/util/merge
+
+[33mcommit 8e993902fb43ee9876e7500d47cd840ca6d22d66[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 15 10:49:39 2023 +0900
+
+    fix: Task Viewへの遷移ボタンが正しく動作するように修正しました。
+
+[33mcommit d7f8e767d7548e5fcf37f75715807295b86e1e61[m
+Merge: 4bb67b74 6b5f1d9a
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 15 10:33:27 2023 +0900
+
+    Edit Task Branch Merge commit '6b5f1d9af47a60f0192a7de8e62a8286df5d7b04' into feature/util/merge
+
+[33mcommit 4bb67b74a8658e3f3991414885290882b8a314aa[m
+Merge: 343fcb0a e9f073d1
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 15 10:22:13 2023 +0900
+
+    GoalEdit Feature Merge commit 'e9f073d1baea5ec030c592a5402bbf1382277e95' into feature/util/merge
+
+[33mcommit 343fcb0ab8d6d2f0db5f116f69ece37a15556caa[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 15 09:22:51 2023 +0900
+
+    build: change package.resolved
+
+[33mcommit e9f073d1baea5ec030c592a5402bbf1382277e95[m
+Merge: 789389b8 d71e3734
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Fri Sep 15 08:52:01 2023 +0900
+
+    Merge pull request #53 from ShizuokaU-GreenTea-Programmers/feature/swift/view/edit_goal
+    
+    Goal編集機能の作成
+    Feature/swift/view/edit goal
+
+[33mcommit cbcf73a82107a0b66e37368d9ce40658ea9bffa5[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 15 08:45:24 2023 +0900
+
+    fix: 適切にタグの設定Viewが表示されるように修正
+
+[33mcommit 4bc62956ff589a95158d4cd2777e53645bfc435e[m
+Merge: 7005fd99 6632e05c
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Fri Sep 15 00:06:11 2023 +0900
+
+    Merge pull request #63 from ShizuokaU-GreenTea-Programmers/feature/both/util/merge/native_plugin
+    
+    マージ成功（微調整必要）
+    Feature/both/util/merge/native plugin
+
+[33mcommit 6632e05cc9bc79e868c99b8c2ab7ee5bf21726ef[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 15 00:04:30 2023 +0900
+
+    feat: SwiftUIにUnityがマージされました！！！！！！！！
+
+[33mcommit c6110085e8acf7bf6e0ed22243d2f5e4f129e7b5[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 14 23:36:05 2023 +0900
+
+    chore: delete dont asset
+
+[33mcommit 1773ada6755aeabce143d1b5179cde42b3057c86[m
+Merge: 31a084fd 26d5e2bc
+Author: KikyoNanakusa <65284574+KikyoNanakusa@users.noreply.github.com>
+Date:   Thu Sep 14 21:18:31 2023 +0900
+
+    Merge pull request #62 from ShizuokaU-GreenTea-Programmers/feature/both/merge/native_plugin
+    
+    C#側からntiveを呼び出す関数を定義
+    feat: Add CallSwiftMethod
+
+[33mcommit 31a084fd67575a8ff6141baf0180de923337e77d[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 14 21:06:17 2023 +0900
+
+    feat: Add Font assets for Mac
+
+[33mcommit 26d5e2bc2e91b536805054de2941b98149f89a97[m[33m ([m[1;31morigin/feature/both/merge/native_plugin[m[33m, [m[1;32mfeature/both/util/merge/native_plugin[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 14 20:09:38 2023 +0900
+
+    feat: Add CallSwiftMethod
+
+[33mcommit 6f9c641af10f971e849fe59474808a8531297615[m[33m ([m[1;31morigin/feature/both/util/merge/native_plugin[m[33m)[m
+Merge: 7cb2f1e8 7005fd99
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 14 19:57:50 2023 +0900
+
+    Merge commit '7005fd9929f6cc2fd8051228d7f3c06141534dba' into feature/both/util/merge/native_plugin
+
+[33mcommit 7005fd9929f6cc2fd8051228d7f3c06141534dba[m[33m ([m[1;31morigin/feature/util/merge[m[33m, [m[1;32mfeature/util/merge[m[33m)[m
+Merge: 2dc6c550 6d5511b7
+Author: KikyoNanakusa <65284574+KikyoNanakusa@users.noreply.github.com>
+Date:   Thu Sep 14 19:50:59 2023 +0900
+
+    Merge pull request #61 from ShizuokaU-GreenTea-Programmers/feature/unity/util/jsonSender
+    
+    JsonSenderとパーティクル
+    Feature/unity/util/json sender
+
+[33mcommit 6d5511b77afff9f32e31c25fa925ecc936a1885f[m
+Merge: 094a7331 caacc86a
+Author: KikyoNanakusa <65284574+KikyoNanakusa@users.noreply.github.com>
+Date:   Thu Sep 14 19:49:31 2023 +0900
+
+    Merge pull request #60 from ShizuokaU-GreenTea-Programmers/feature/unity/view/particles
+    
+    particleを2種類追加しました
+    Feature/unity/view/particles
+
+[33mcommit 7cb2f1e8c5ccb1ed8baf7e52e661c497d43d83b7[m
+Merge: 2f48e044 2dc6c550
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 14 19:48:03 2023 +0900
+
+    Merge commit '2dc6c55033fb4c618d1059ce5ff30e595f727874' into feature/both/util/merge/native_plugin
+
+[33mcommit caacc86aee2b68169b2430f2c03182ba9ba82fa6[m[33m ([m[1;31morigin/feature/unity/view/particles[m[33m, [m[1;32mfeature/unity/view/particles[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 14 19:46:49 2023 +0900
+
+    Fix: FIx smoke particle
+
+[33mcommit 2dc6c55033fb4c618d1059ce5ff30e595f727874[m
+Merge: dc97af32 e35c7f76
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Thu Sep 14 19:44:27 2023 +0900
+
+    Merge pull request #59 from ShizuokaU-GreenTea-Programmers/feature/swift/util/refactor_binding
+    
+    コード全体のリファクタリング
+    Feature/swift/util/refactor binding
+
+[33mcommit e35c7f76c2d447ded4f4ddab2b9728085545db7c[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 14 19:42:41 2023 +0900
+
+    fix: データ更新時にデータが適切に表示されるように修正
+
+[33mcommit 2e8b01a12143c63f4571c99a660fc3831e02052f[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 14 19:17:40 2023 +0900
+
+    refactor: Change appdata reference
+
+[33mcommit 491f04ff22fd66ead1266faa40bcb12f76a048d3[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 14 18:48:25 2023 +0900
+
+    feat:Add slash particle
+
+[33mcommit 731180ba39c0071bb1c54f31edd760c033fd6380[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 14 15:23:03 2023 +0900
+
+    feat: Add damage animation on enemy
+
+[33mcommit 7d3fe33786aaa9ca7dccbba2c4c619e12ed1d717[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 14 13:37:42 2023 +0900
+
+    feat: Add new enemy prefab
+
+[33mcommit e08b156f65b7a10ab8a40c380490a6fb86f829a9[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 14 12:42:22 2023 +0900
+
+    Fix: Changed gitignore
+
+[33mcommit d941957e34da3cc1a252cc2d96c8d0431f326070[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 14 11:07:33 2023 +0900
+
+    feat: Add smoke particle
+
+[33mcommit 6330f96594cb3a628b363ed114ebfd31e3461494[m[33m ([m[1;32mfeature/unity/util/jsonSender[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 14 10:33:18 2023 +0900
+
+    feat: Add SendAppData call
+
+[33mcommit 094a733153e63c284f42d30d73d249107d39ccf6[m[33m ([m[1;31morigin/feature/unity/util/jsonSender[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 14 10:20:10 2023 +0900
+
+    feat:Add SendAppData function (dummy)
+
+[33mcommit 2fb4f79ae33583d7051fe037a5037ddfd5e55892[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 14 10:04:27 2023 +0900
+
+    feat:Add UpdateTaskData function
+
+[33mcommit 2f48e0444eb4848d43f5642235fe89729972d36e[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 14 09:10:10 2023 +0900
+
+    build: Change file struct
+
+[33mcommit dc97af3201c9d14b9e8bfb92390f3341a8b03b10[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 14 03:35:41 2023 +0900
+
+    fix: Unity Viewが上に上がっていくバグを修正:D
+
+[33mcommit 453fa0d86b9d19ade6fcc91913972573bfca176f[m
+Merge: 54985c1e 24e74962
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Thu Sep 14 02:42:50 2023 +0900
+
+    Merge pull request #57 from ShizuokaU-GreenTea-Programmers/feature/unity/util/loadJsonData
+    
+    Feature/unity/util/load json data
+
+[33mcommit 24e749621f76da4a2cdd571dd5de5998a803cce3[m[33m ([m[1;31morigin/feature/unity/util/loadJsonData[m[33m, [m[1;32mfeature/unity/util/loadJsonData[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 14 02:40:54 2023 +0900
+
+    feat: Add Receivers
+
+[33mcommit b44a41eff87091759c8566b3fee95ce1abb7b95e[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 14 01:38:09 2023 +0900
+
+    Fix: Make Receivers not static
+
+[33mcommit 54985c1e12446b4a6df40723abfccb158e40ac3f[m
+Merge: 4cc3a92f 78f0588a
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Thu Sep 14 01:05:28 2023 +0900
+
+    Merge pull request #56 from ShizuokaU-GreenTea-Programmers/feature/swift/util/merge
+    
+    Feature/swift/util/merge
+
+[33mcommit 4cc3a92fdb8df59311b2a6882c3da00598368b6b[m
+Merge: 859d5877 e042cda5
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Thu Sep 14 01:04:52 2023 +0900
+
+    Merge pull request #55 from ShizuokaU-GreenTea-Programmers/feature/unity/refactor/extractFireBase
+    
+    Feature/unity/refactor/extract fire base
+
+[33mcommit 859d58779b1246ca6ac217964e47fffcd6d75aca[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Thu Sep 14 01:02:47 2023 +0900
+
+    Delete Unity/Assets/Firebase directory
+
+[33mcommit 6b5f1d9af47a60f0192a7de8e62a8286df5d7b04[m[33m ([m[1;31morigin/feature/swift/view/edit_task[m[33m)[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 14 00:59:03 2023 +0900
+
+    WIP: ManageTaskViewでタスクの作成と編集を行えるようにする
+
+[33mcommit e042cda599cef31151703125e11c9555ad1ec4e3[m[33m ([m[1;31morigin/feature/unity/refactor/extractFireBase[m[33m, [m[1;32mfeature/unity/refactor/extractFireBase[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 14 00:53:10 2023 +0900
+
+    feat: Add DataExchange Debugger
+
+[33mcommit 29aaac13151f1493c2d0b6cf02abc124c0e71096[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 14 00:51:01 2023 +0900
+
+    refactor: Change file name CreateTaskView -> ManageTaskView
+
+[33mcommit 78f0588abdf1adcfb10736978eacff0d3d437153[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 14 00:44:17 2023 +0900
+
+    feat: Unityにデータを送信する機能を作成
+
+[33mcommit 932abd4c018d9db68171a398f4a53f090ea18246[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 14 00:42:22 2023 +0900
+
+    feat: Add HostModelInput.swift
+
+[33mcommit b45e3b7a3e77dcddf34ea253abcfa2ab12d36528[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 14 00:42:20 2023 +0900
+
+    Fix: Extract All Firestore Features
+
+[33mcommit 9596ae19d207e8de2a644df46ebf8fbe690ac459[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 14 00:18:24 2023 +0900
+
+    fix: 起動時にUnityが表示されてしまう不具合を修正
+
+[33mcommit f7da26fccd207c13351fb4cce433007b714e6718[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 13 23:50:15 2023 +0900
+
+    feat: Unityクラスの作成とアプリ起動時のUnity起動
+
+[33mcommit 48e0045d34a28000dadd81de549e0af87681d3fc[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 13 21:19:43 2023 +0900
+
+    build: Add Firestore SDK for mac
+
+[33mcommit ae4f3339a3b5951007992f46f624a4366ff12aa9[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 13 21:18:49 2023 +0900
+
+    Move large files to Git LFS
+
+[33mcommit e6dc44acba6946a92d196d59d1541d929a588f90[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 13 20:54:17 2023 +0900
+
+    build: Add NativeCall Plugins
+
+[33mcommit b03bacaad87aa1d549b9433b43e272b68d05f98d[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 13 17:09:01 2023 +0900
+
+    feat: Create Unity.swift
+
+[33mcommit f006b47a5f3f4e479886fdec49927cc710688278[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 13 16:43:45 2023 +0900
+
+    Fix: Add FireBase SDK for mac
+
+[33mcommit 789389b823d839221340e98159b8a503e23f6401[m[33m ([m[1;31morigin/feature/llm[m[33m)[m
+Merge: 196d0520 7362b442
+Author: KikyoNanakusa <65284574+KikyoNanakusa@users.noreply.github.com>
+Date:   Wed Sep 13 14:59:44 2023 +0900
+
+    Merge pull request #54 from ShizuokaU-GreenTea-Programmers/feature/unity/view/enemyLogics
+    
+    敵にかかわる機能が完成しました。エフェクトなど見た目は別のブランチで足します
+    Feature/unity/view/enemy logics
+
+[33mcommit 7362b442aa61066a825d21f69497ee6533e9010f[m[33m ([m[1;31morigin/feature/unity/view/enemyLogics[m[33m, [m[1;32mfeature/unity/view/enemyLogics[m[33m)[m
+Merge: 838f7960 196d0520
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 13 14:55:42 2023 +0900
+
+    Merge: Merge with accessories
+
+[33mcommit 196d05209ee4189d84e140c81562d938a25c6cf0[m
+Merge: 8124a0e8 fc0760dc
+Author: piddy-shz <130893542+piddy-shz@users.noreply.github.com>
+Date:   Wed Sep 13 13:56:12 2023 +0900
+
+    Merge pull request #36 from ShizuokaU-GreenTea-Programmers/feature/unity/view/fieldAccessory
+    
+    小物類の動的配置を試験的に実装
+
+[33mcommit fc0760dc530e272b9ccc07bd02123405c4d167c3[m
+Merge: 5993e403 8124a0e8
+Author: KikyoNanakusa <65284574+KikyoNanakusa@users.noreply.github.com>
+Date:   Wed Sep 13 13:55:08 2023 +0900
+
+    Merge branch 'develop' into feature/unity/view/fieldAccessory
+
+[33mcommit 838f7960b8ebfc3cde25e7a97d192ce7b4690bd2[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 13 13:27:19 2023 +0900
+
+    fix: Fix MainCamera Snap
+
+[33mcommit 79aa4df2af5b5276ed3785c717e1a5356f09a76a[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 13 11:38:22 2023 +0900
+
+    refactor: Improve smoke particle
+
+[33mcommit 9aadebb09877a4f0f6093d3606fe09f3c7f7bd51[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 13 11:29:21 2023 +0900
+
+    feat: Add smoke particle
+
+[33mcommit 0968275c7c896619208f838e23cb2fed249bdb47[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 13 10:30:18 2023 +0900
+
+    Fix: Fix OnTaskDataChanged
+
+[33mcommit 7d4a6c3fe9bd88037bcda33dbdb51507ffe9df95[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 13 10:11:48 2023 +0900
+
+    Fix: Fix camera angle limit
+
+[33mcommit 13d15143a4fb792409413283f124fedb4557287e[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 13 09:55:34 2023 +0900
+
+    feat: Implement ChangeEnemyStrength method
+
+[33mcommit cfbfb0ca770f5699dca8c52c78d122a9dc3388de[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 13 09:23:31 2023 +0900
+
+    Fix: Fix enemies prefab
+
+[33mcommit 4ded8abbedaf4843b0ff901c7e876cd5a080d105[m
+Merge: bd50569d 8124a0e8
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 12 23:43:16 2023 +0900
+
+    Merge commit '8124a0e810c35327f9ebd46555345def94fd3494' into feature/swift/view/edit_task
+
+[33mcommit d71e3734dafb61c87408fb9511f97154b2211370[m[33m ([m[1;31morigin/feature/swift/view/edit_goal[m[33m)[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 12 23:27:56 2023 +0900
+
+    fix: タスク登録時に違うタスクのViewが表示される不具合を修正しました。
+
+[33mcommit 5993e40381dd311f0cb5934818fa16ce625d327f[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Tue Sep 12 20:12:51 2023 +0900
+
+    refactor: road.cs / update IDs in user.cs
+
+[33mcommit 69f348e37243fdf8a448ecb2d131a4aabca92a99[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 12 18:45:23 2023 +0900
+
+    feat: Add enemy LookAt MainCamera feature
+
+[33mcommit 693cc7122b5993488c9b6329f26e1e401a5461fc[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 12 18:07:19 2023 +0900
+
+    feat: Add enemyManager.cs
+
+[33mcommit 9f4328b19b97302caa13d25eb63eaf0b847ba319[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 12 17:34:26 2023 +0900
+
+    feat: Update road sizer
+
+[33mcommit 6fd6bb5959756b42e8d51255678cfef68ceeebdf[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 12 17:34:09 2023 +0900
+
+    feat: Update enemy prefab and road prefab
+
+[33mcommit 00ff5bb96d6bc3664e0b8232de8a9f1cd2f87e70[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 12 17:26:07 2023 +0900
+
+    feat: Goalの編集機能を作成しました。
+
+[33mcommit 2a36591ae850196279f98d445bfd88e6b1e9fca1[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Tue Sep 12 16:43:22 2023 +0900
+
+    bugfix: set id when generating enemies
+
+[33mcommit 6bbc92bd5a887819f6727ee1a2e5cb3a9f803b63[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 12 15:34:11 2023 +0900
+
+    Fix: Update gitignore
+
+[33mcommit 8124a0e810c35327f9ebd46555345def94fd3494[m
+Merge: 54730a0e a4de88a8
+Author: KikyoNanakusa <65284574+KikyoNanakusa@users.noreply.github.com>
+Date:   Tue Sep 12 15:29:24 2023 +0900
+
+    Merge pull request #51 from ShizuokaU-GreenTea-Programmers/feature/unity/firebase/taskData
+    
+    TaskCard UIからFirestoreへの書き込みが動的にできるようになりました
+    Feature/unity/firebase/task data
+
+[33mcommit a4de88a86f7a0b80969f9d6d6167339bb8af1b41[m[33m ([m[1;31morigin/feature/unity/firebase/taskData[m[33m, [m[1;32mfeature/unity/firebase/taskData[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 12 15:16:50 2023 +0900
+
+    refactor: Add some comments
+
+[33mcommit cdd873c16acb568a59c80b1bdf1de62f1ea9644d[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 12 15:08:14 2023 +0900
+
+    feat:Implement observing taskName feature
+
+[33mcommit 39267db9be9fa0d4864a9196756da2730bdfe040[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 12 14:57:21 2023 +0900
+
+    feat:Add UpdateTaskName on InputFieldManager
+
+[33mcommit 93fa9230eeae915b7a356b4468307b2565be08d9[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 12 14:37:30 2023 +0900
+
+    feat: タスクの詳細を表示するモーダルビューを作成
+
+[33mcommit 34b27f6da934c06ad3c11eeb1c930e9dcbf18920[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 12 14:31:39 2023 +0900
+
+    feat: Add OnTaskDataChanged function flow
+
+[33mcommit 580633af0852f9a4e2f71b4d41822c89bb003ffd[m
+Merge: bd50569d 54730a0e
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 12 13:49:20 2023 +0900
+
+    Merge commit '54730a0ea5be2b1b0aa1b5b6359d452d782ac546' into feature/swift/view/edit_goal
+
+[33mcommit 54730a0ea5be2b1b0aa1b5b6359d452d782ac546[m
+Merge: 807290cd 7af2e56b
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Tue Sep 12 13:45:29 2023 +0900
+
+    Merge pull request #50 from ShizuokaU-GreenTea-Programmers/feature/swift/view/manage_tag
+    
+    Tag管理画面を追加
+    Feature/swift/view/manage tag
+
+[33mcommit 7af2e56bdc47beb6ad94bd53a95dfaecdcc44fd0[m
+Merge: febe0d3c 807290cd
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Tue Sep 12 13:45:13 2023 +0900
+
+    Merge branch 'develop' into feature/swift/view/manage_tag
+
+[33mcommit 807290cd504c1f7c3d67db5c4821e529bc5201d1[m
+Merge: bd50569d b869a781
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Tue Sep 12 13:43:20 2023 +0900
+
+    Merge pull request #46 from ShizuokaU-GreenTea-Programmers/feature/swift/view/create_goal
+    
+    Goal作成機能完成（Statusの並びが乱れることあり）
+    Feature/swift/view/create goal
+
+[33mcommit febe0d3cac80b6f5e0ae2cfb0ebbecd95524feff[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 12 10:02:51 2023 +0900
+
+    feat: タグの追加・編集機能を作成
+
+[33mcommit 3b7e6e69141c494134b018e334cc84a37d5f4bfe[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 12 09:48:56 2023 +0900
+
+    feat: Create TagEditorView.swift
+
+[33mcommit 8e41e9e8733cf79270930d799c82823709285e60[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 12 09:42:05 2023 +0900
+
+    feat: Create TagView.swift
+
+[33mcommit b869a7810e25a1e27f93a4302c7d992f3b7c7bae[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 12 09:36:16 2023 +0900
+
+    fix: タスクの並び替え順が適切になるよう修正
+
+[33mcommit 8774861c5ef4074ce2d7ccdf5f521b694a702a92[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 12 09:15:05 2023 +0900
+
+    fix: タグがない場合でもゴールの表示の高さが均一になるように修正
+
+[33mcommit 367cbe84e77f1e3b4ab3677bda88747cc86d2abd[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 12 09:11:13 2023 +0900
+
+    feat: ゴールを追加する機能を作成しました。
+
+[33mcommit 23aacbd1706a5f09689721770cd7b6992e8529f0[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 12 08:59:23 2023 +0900
+
+    feat: Add CreateGoalView.swift
+
+[33mcommit bd50569d1318b5901a54bf42fb4c9b6c16dc6f39[m
+Merge: ab9957e5 6c37988b
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Tue Sep 12 05:04:53 2023 +0900
+
+    Merge pull request #45 from ShizuokaU-GreenTea-Programmers/feature/swift/fix/write_health_data_type
+    
+    fix: Firestoreへのヘルス登録が整数で行われるように変更
+
+[33mcommit ab9957e5c05e84024073be195f6d49c1c6eaea08[m
+Merge: d6eec90a ef476988
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Tue Sep 12 05:04:28 2023 +0900
+
+    Merge pull request #44 from ShizuokaU-GreenTea-Programmers/feature/swift/view/sort_by_due_date
+    
+    fix: 追加されたタスクが正しく・順番通り表示されない不具合を修正しました。
+
+[33mcommit 6c37988b836ecde98290e36ae852fbb3a813ffc8[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 12 04:47:05 2023 +0900
+
+    fix: Firestoreへのヘルス登録が整数で行われるように変更
+
+[33mcommit ef4769883be1936689407a5560ec83d4593af6dc[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 12 04:29:17 2023 +0900
+
+    fix: 追加されたタスクが正しく・順番通り表示されない不具合を修正しました。
+
+[33mcommit d6eec90a9cce93cca09e8921cf15830a600a4a39[m
+Merge: 86852b35 db3ebb54
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Tue Sep 12 00:00:33 2023 +0900
+
+    Merge pull request #43 from ShizuokaU-GreenTea-Programmers/feature/swift/fix/logic_current_health_zero
+    
+    fix: 最大体力が0の時のエラーハンドリングを行いました。
+
+[33mcommit db3ebb5468bd1be89345d568b8abcd21b450f872[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Mon Sep 11 23:53:19 2023 +0900
+
+    fix: 最大体力が0の時のエラーハンドリングを行いました。
+
+[33mcommit 996cbda5443fcd9533029d4ee9708fea1780ae30[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Mon Sep 11 20:52:41 2023 +0900
+
+    feat: Implement TaskCard Display Dynamic Update
+
+[33mcommit 86852b358dec4ca7cb214f5e5f3b7fbe3ddde8fa[m
+Merge: e8bf4059 19772ef1
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Mon Sep 11 19:18:06 2023 +0900
+
+    Merge pull request #39 from ShizuokaU-GreenTea-Programmers/feature/swift/fix/firestore_data_type
+    
+    refactor: Firestore側の日程データ型をTimestamp型に変更したことに対応
+
+[33mcommit 19772ef11d432168336f35f5403f18cf391b3a92[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Mon Sep 11 18:45:51 2023 +0900
+
+    refactor: Firestore側の日程データ型をTimestamp型に変更したことに対応
+
+[33mcommit 37cbca203bba905ccc929ed4208382351715f717[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Mon Sep 11 16:44:39 2023 +0900
+
+    feat: Add OnGoalChanged flow
+
+[33mcommit e8bf405992a0b1b54682b12482fbe367d750d0ab[m
+Merge: c5a54431 4a7e9c13
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Mon Sep 11 16:43:41 2023 +0900
+
+    Merge pull request #37 from ShizuokaU-GreenTea-Programmers/feature/swift/view/create_task
+    
+    タスクを追加するViewを追加したのん。
+    かっこいいのん
+    Feature/swift/view/create task
+
+[33mcommit 4a7e9c13732b6e895015a7a73b45d429a8719527[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Mon Sep 11 16:40:30 2023 +0900
+
+    refactor: UIを変更
+
+[33mcommit 3597038e2a8b26082a225a9ae2febc0eacda5d8f[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Mon Sep 11 16:28:17 2023 +0900
+
+    feat: 新しいタスク追加のモーダル画面で、テキストをイメージにすることでViewを改善しました。
+
+[33mcommit a453845b7a5771c6592f6eef1a2d0994edc9eba9[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Mon Sep 11 16:26:53 2023 +0900
+
+    feat: implement dynamic placement of accessories
+
+[33mcommit e3489447fbd199ba08641ad4e2a9242f5ea99221[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Mon Sep 11 16:25:24 2023 +0900
+
+    feat: Added Generate Start prefab
+
+[33mcommit 5fb9163f467391130ebe87ff70bcd42f53d324e1[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Mon Sep 11 14:52:14 2023 +0900
+
+    build: Delete CommonViewModel.swift
+
+[33mcommit cff32fb08fd680bcea0446281af1d2f9791be647[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Mon Sep 11 14:51:12 2023 +0900
+
+    fix: 追加したタスクが正常に表示されるように
+
+[33mcommit 1d48ac504ca52020a246d93277eab2d88861f2b3[m
+Merge: f7d155a7 c5a54431
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Mon Sep 11 14:03:42 2023 +0900
+
+    chore: try to merge develop into fieldAccessory
+
+[33mcommit 22206bef88701cff4066b0af02a788ced7c52ba9[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Mon Sep 11 14:00:15 2023 +0900
+
+    feat: Create CommonViewModel.swift
+
+[33mcommit f7d155a786def4d361517971cfe8764816fc7f21[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Mon Sep 11 13:48:57 2023 +0900
+
+    refactor: fix bracket
+
+[33mcommit 19036ea0457df4e656cbebb334d14b635814ff62[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Mon Sep 11 13:33:35 2023 +0900
+
+    WIP: 新しく作成したTaskが適切に表示されるよう調整中
+
+[33mcommit c5a5443146473ca8f7d06c4554ff00698cbeecc8[m
+Merge: 8f0b8a0e 5559bb3c
+Author: KikyoNanakusa <65284574+KikyoNanakusa@users.noreply.github.com>
+Date:   Mon Sep 11 13:07:50 2023 +0900
+
+    Merge pull request #33 from ShizuokaU-GreenTea-Programmers/feature/unity/view/taskcardLogics
+    
+    TaskCardの見た目を実装しました。メインカメラのスナップも実装しました。
+    Feature/unity/view/taskcard logics
+
+[33mcommit 5559bb3c29a0e10a30a1e576e8ffcf0ce1e18fd6[m[33m ([m[1;31morigin/feature/unity/view/taskcardLogics[m[33m, [m[1;32mfeature/unity/view/taskcardLogics[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Mon Sep 11 10:06:52 2023 +0900
+
+    refactor: Added some comments
+
+[33mcommit 77793105a0c2821111431d598926be6da6a40cdf[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Mon Sep 11 09:31:59 2023 +0900
+
+    feat: Added MainCamera Snap (WIP)
+
+[33mcommit 832886d085327b1d3194eab8db8aa6c7c96af95e[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Mon Sep 11 08:35:42 2023 +0900
+
+    feat: タスクの作成とその保存を行う機能を追加
+
+[33mcommit 51e93455aa988409e2d24b17c800d7a58c64ef32[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Mon Sep 11 00:50:53 2023 +0900
+
+    feat: Implemented Dynamic changes and PinchControl in maxHp
+
+[33mcommit 4b9c606869c1248ff2d6b4b348ba9559380a078d[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Sun Sep 10 23:14:37 2023 +0900
+
+    feat: Implemented Dynamic changes in HpText
+
+[33mcommit e9a19050f3b4b0fdd57aeff7c414f17f595c210a[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 22:26:48 2023 +0900
+
+    build: delete package.resolved
+
+[33mcommit 3e827ffa820287b04eab92364a118d79a8010d5b[m
+Merge: a08fb8f6 8f0b8a0e
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 22:26:08 2023 +0900
+
+    Merge remote-tracking branch 'origin/develop' into feature/swift/view/create_task
+
+[33mcommit a08fb8f614d96295550baa53a3be92468c9b75d0[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 21:24:27 2023 +0900
+
+    Delete TasQuest/TasQuest/.DS_Store
+
+[33mcommit a3407e08f4060960e0dfa43623a9e6bfd9f791b0[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 21:24:09 2023 +0900
+
+    Delete Unity/.DS_Store
+
+[33mcommit d9767c65d6d8a50f82c3f6c596b31b3b15d69be2[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 21:23:59 2023 +0900
+
+    Delete TasQuest/.DS_Store
+
+[33mcommit e7c65d48879ff0856d1d5aeeac60e7538226f1f7[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 21:23:39 2023 +0900
+
+    Delete .DS_Store
+
+[33mcommit 0524e2c4aec7982d748e5f64dba206d52eb2d859[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 21:20:42 2023 +0900
+
+    WIP: タスク作成機能を作成中
+
+[33mcommit f090fd19fc4167c25c65a8462be926f5dd152dd4[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Sun Sep 10 21:14:52 2023 +0900
+
+    feat: Added UpdateHpText function
+
+[33mcommit 20f13a8dce1a5a449b03a73a9127cc3bf3e7acd5[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Sun Sep 10 21:13:30 2023 +0900
+
+    feat: Added HpText and HpTextManager.cs
+
+[33mcommit 8f0b8a0e4f805b1f4fc84fa33c13290e20be33c4[m
+Merge: d8c3c702 e5f3dc1d
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 20:00:25 2023 +0900
+
+    Merge pull request #27 from ShizuokaU-GreenTea-Programmers/feature/swift/util/sign_up
+    
+    サインアップとサインインの機能を分割しました。
+    データの取得も適切に行われることを確認済みです。
+    Feature/swift/util/sign up
+
+[33mcommit d8c3c702e16c51c19f27f13b719c8a9a6c261d56[m
+Merge: bcf465dc d1d124db
+Author: piddy-shz <130893542+piddy-shz@users.noreply.github.com>
+Date:   Sun Sep 10 19:41:30 2023 +0900
+
+    Merge pull request #29 from ShizuokaU-GreenTea-Programmers/feature/unity/view/loadTasks
+    
+    Feature/unity/view/load tasks
+
+[33mcommit d1d124db57c15541c4aa3b3a477ec10f4d742e0b[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Sun Sep 10 19:38:02 2023 +0900
+
+    refactor: delete unused 'using'
+
+[33mcommit e5f3dc1d3e326b14c1c332b3c147106fc88a0a88[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 19:29:03 2023 +0900
+
+    fix: 認証時に正しくデータが反映されない不具合を修正
+
+[33mcommit 589fd6153d99665de181a59d61b5582e3ee2fad5[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Sun Sep 10 19:01:35 2023 +0900
+
+    refactor: fix identifiers
+
+[33mcommit 9fb42ead554a6bf584307da0338f34fd37e7bf35[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Sun Sep 10 18:56:25 2023 +0900
+
+    refactor: add 'async' and 'await' to Road::Relocate()
+
+[33mcommit 5a25bf05defe5c492492636266e0af55412b3d9a[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 18:42:01 2023 +0900
+
+    fix: モーダル遷移が正しく行われるように修正します
+
+[33mcommit b594685d2971d15768eed4b6ffbb5a63a7f5835f[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 16:50:10 2023 +0900
+
+    feat: ユーザ登録時にFirestoreに新しいレコードを追加されるようになりました。
+
+[33mcommit 1e23d059b60d55bd2b900770f724c7a99e8a23ee[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 15:38:52 2023 +0900
+
+    fix: AuthenticationViewが正しく表示されるように修正
+
+[33mcommit 97def2175c2f544a1fbbcb109dc4f756ed3be051[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Sun Sep 10 15:33:23 2023 +0900
+
+    feat: Added Sample Scene
+
+[33mcommit ea7f1bcfaaea1ff8046e2206edef62dcfb6ce178[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Sun Sep 10 14:19:59 2023 +0900
+
+    refactor[view]: replaced 'String' into 'string'
+
+[33mcommit 7fc2d7f16b854a8f8cb8fbc36ee7e1239ea64670[m
+Merge: f5930577 bcf465dc
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 14:12:35 2023 +0900
+
+    Merge branch 'develop' into feature/swift/util/sign_up
+
+[33mcommit a75fa15a6f705053f31d65c445ad5d13bd255152[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Sun Sep 10 14:10:02 2023 +0900
+
+    refactor[view]: minor change
+
+[33mcommit bcf465dcef0a5bee452f4893c2b9bf0376c09a53[m
+Merge: 6d7a2cf9 6d4b5e01
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 14:05:34 2023 +0900
+
+    Merge pull request #28 from ShizuokaU-GreenTea-Programmers/feature/swift/view/welcome_view
+    
+    認証されずにアプリが起動した場合、アプリ紹介をする画面を追加
+    Feature/swift/view/welcome view
+
+[33mcommit 6d4b5e011f9b34e1f63fee0e6b29eb7ba1eb2477[m
+Merge: 298f3af1 6d7a2cf9
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 14:04:26 2023 +0900
+
+    Merge branch 'develop' into feature/swift/view/welcome_view
+
+[33mcommit 298f3af1fed0470739b7c28b24883cdfd71bfa73[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 14:02:35 2023 +0900
+
+    Delete TasQuest/TasQuest/Assets.xcassets/.DS_Store
+
+[33mcommit dccbbd1d2c606d7f61c464d4567cd5f8ec90c8ab[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 14:02:28 2023 +0900
+
+    Delete TasQuest/TasQuest/.DS_Store
+
+[33mcommit c09543942e1245b95d192030d8543177f588b6ef[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 14:02:15 2023 +0900
+
+    Delete Unity/.DS_Store
+
+[33mcommit 2c9f77127b203d0faf356aeee437d1cab2fc84ce[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 14:02:01 2023 +0900
+
+    Delete .DS_Store
+
+[33mcommit 6d7a2cf9dbe3e5cb897bd70fff5e03b1e739c0ca[m
+Merge: 2b42c8b1 5773c2e8
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 14:01:20 2023 +0900
+
+    Merge pull request #31 from ShizuokaU-GreenTea-Programmers/KinjiKawaguchi-patch-2
+    
+    DS_Storeを削除
+    Kinji kawaguchi patch 2
+
+[33mcommit 5773c2e85eb7c76188f26abee0bf8dbffae9c1fd[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 13:59:41 2023 +0900
+
+    Delete TasQuest/TasQuest/Assets.xcassets/.DS_Store
+
+[33mcommit d3bfccdac659e201e0d4c6263ccf62cad5e2e355[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 13:59:08 2023 +0900
+
+    Delete TasQuest/TasQuest/.DS_Store
+
+[33mcommit 81527a630d1749ea9e255b39a851185410c903ec[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 13:58:15 2023 +0900
+
+    Delete Unity/.DS_Store
+
+[33mcommit 1b1168608f421daf56ced8e4039948c1564d0d1f[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 13:55:55 2023 +0900
+
+    build: updated .gitignore
+
+[33mcommit 2b42c8b1967b1d2e97f4119d88574b7ca1043338[m
+Merge: cb2d3992 2cc84a6b
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 13:52:25 2023 +0900
+
+    Merge pull request #30 from ShizuokaU-GreenTea-Programmers/KinjiKawaguchi-patch-2
+    
+    gitignoreを更新
+    ＃２８のCONFLICT解消のため
+    Kinji kawaguchi patch 2
+
+[33mcommit 2cc84a6b00a6737c739a5df4853f771d2bedef95[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 13:51:22 2023 +0900
+
+    Update .gitignore
+
+[33mcommit adeedb4246f5bce5a9e8ffbe6800d97b4a7b8bb0[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 13:50:58 2023 +0900
+
+    Delete TasQuest/.DS_Store
+
+[33mcommit 834c5dbdc2076e62c8dd592e5dd81eca20570473[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 13:50:22 2023 +0900
+
+    Update .gitignore
+
+[33mcommit 33e7e9f6b0cf9d140180c68bf5756a17dc1e03a5[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 13:49:29 2023 +0900
+
+    Delete .DS_Store
+
+[33mcommit d23ba3faedfc48ba3f024aa005ca9cd1341a68e2[m
+Author: KinjiKawaguchi <kawakin0310icloud.com>
+Date:   Sun Sep 10 13:47:53 2023 +0900
+
+    fix: solving conflict
+
+[33mcommit b1299e5d206f24377ab3209df83641a986bc8712[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Sun Sep 10 13:36:53 2023 +0900
+
+    feat[view]: created accessories' prefabs
+
+[33mcommit 6d605ddddd972a790d4e5fab161df415192b40e0[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 13:33:05 2023 +0900
+
+    fix: solve conflict
+
+[33mcommit cb2d3992584690b267b1de7b032f2f1e4bf761c8[m
+Merge: ad8e3348 6f9542f0
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sun Sep 10 13:19:14 2023 +0900
+
+    Merge pull request #26 from ShizuokaU-GreenTea-Programmers/feature/swift/module/firestore_manager
+    
+    iOS側のFirestore Managerを実装しました。データの取得、作成・更新の機能を含みます。
+    Feature/swift/module/firestore manager
+
+[33mcommit 76919181b125a067ad0415efc3ead1e1454f884b[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 13:05:28 2023 +0900
+
+    WIP: creating Create Task View
+
+[33mcommit 1b56c90376f5cf86ae4c627f2e0234e1056f37fd[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 13:01:03 2023 +0900
+
+    feat: Add some files
+
+[33mcommit 81d407450c61bf6d18afba11f3f77c80b2bc13d5[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 11:54:03 2023 +0900
+
+    feat: 認証前にアプリの紹介をするViewを追加
+
+[33mcommit 27fdb2bb0c51fe801981559301f4504dcd5a3225[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 11:05:51 2023 +0900
+
+    feat: Delete ContentView.swift
+
+[33mcommit f612e2e6d8b32dd5beb66724b039434054c96fe4[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 11:04:48 2023 +0900
+
+    feat: Add PageView.swift
+
+[33mcommit e7165ecdc94725688db09e6f7ee849690549ca5d[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 11:01:59 2023 +0900
+
+    feat: add welcomeview.swift
+
+[33mcommit 76875f838eeae4f9a9873abb4062bf57c3fdec88[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 10:59:33 2023 +0900
+
+    feat: determine welcome view content
+
+[33mcommit effccdfaa9b895e0cd62b2232bd2a7ad080ac937[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 10:59:20 2023 +0900
+
+    chore: change image files
+
+[33mcommit ac67ddfbfacb3eac740ee318403bbea269c274f6[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 10:37:36 2023 +0900
+
+    feat: Add PageModel.swift
+
+[33mcommit 6b488fbf87f658997d66b723bba64b3649c8c611[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 10:36:53 2023 +0900
+
+    chore: Add image files
+
+[33mcommit f5930577846fde1fe98b2f99b3e95efe754de3c8[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 03:51:46 2023 +0900
+
+    feat: separate Authentication way
+
+[33mcommit b6b9b5551368f2681f54821d0a21511f6b2736dd[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 03:25:41 2023 +0900
+
+    refactor: change author
+
+[33mcommit c43ee03a0a8f5c4b13290e74c2a407373a72ade5[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 03:25:06 2023 +0900
+
+    feat: Add SignUpEmail View and ViewModel
+
+[33mcommit 6f9542f0b0cfd6e3fe9aed70733a45d5d2f6abd4[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 03:02:07 2023 +0900
+
+    feat: データの編集・追加をする機能を追加
+
+[33mcommit c3c484be37c44c45964715c98fce0f0b1a5952ff[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sun Sep 10 00:38:55 2023 +0900
+
+    feat: Firebaseからデータを取得する機能を追加
+
+[33mcommit 19367c6bc7e7d9d9898958d8bcec65e355e81a9c[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Sun Sep 10 00:32:26 2023 +0900
+
+    feat: Added mode branch
+    function process is still not implemented
+
+[33mcommit 487a389e0b13f0259d265ede1c873e6dc954effc[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Sun Sep 10 00:08:02 2023 +0900
+
+    feat: Added ModeChange function
+
+[33mcommit 49bff28660f38339fb4450f648327d8e62981903[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sat Sep 9 23:53:04 2023 +0900
+
+    WIP: データが正しく登録されるよう修正中
+
+[33mcommit d82e452ffb711a62aaa94f42c73f4de3e0d3f0d8[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Sat Sep 9 23:01:30 2023 +0900
+
+    fix: Fixed TaskcardManager's variable initialization
+
+[33mcommit 9447473ef18cc353c6589dd97fea004a6e259df3[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Sat Sep 9 22:59:29 2023 +0900
+
+    feat: Added TaskcardManager.cs
+    Implemented SetTaskData function
+
+[33mcommit d20372aa9619c255c8fe0291ee020ebbbb8fb405[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Sat Sep 9 22:00:26 2023 +0900
+
+    feat:Added PinchIn and Out features
+
+[33mcommit 67220f1ff2318bb0cecbf0af4ea0f0ec49c94f83[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sat Sep 9 20:52:20 2023 +0900
+
+    feat: Add Throttler.swift
+
+[33mcommit fbf1e4de7dcc331abddc8146f101e39537ab63ad[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Sat Sep 9 20:05:14 2023 +0900
+
+    feat[view]: created field accessory
+
+[33mcommit 00fbb288636e3a9c8e24353460f8087d9e81c4f6[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Sat Sep 9 18:57:19 2023 +0900
+
+    feat: implement Road::RelocateTasks()
+
+[33mcommit c55b0f4122177da2f878d0f5aa11383a3c3ff4dd[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Sat Sep 9 18:37:46 2023 +0900
+
+    feat: implemented Road::OnGoalChanges()
+
+[33mcommit 5d3fc67fe7d3ef0a4698815cdda012dd651f9b77[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sat Sep 9 17:05:44 2023 +0900
+
+    feat: Create FirestoreManager.git
+
+[33mcommit ad8e33487338211bfce65979e6c9460b9a097d36[m[33m ([m[1;31morigin/feature/swift/view/edit_status[m[33m)[m
+Merge: 4ec57eb6 b5a47299
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sat Sep 9 16:24:45 2023 +0900
+
+    Merge pull request #24 from ShizuokaU-GreenTea-Programmers/feature/unity/view/enemy
+    
+    Unity側Roadクラスの作成
+    Feature/unity/view/enemy
+
+[33mcommit b5a47299a02265d3c87618b003e2c444f547db02[m
+Merge: b52b7600 4ec57eb6
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sat Sep 9 16:24:18 2023 +0900
+
+    Merge branch 'develop' into feature/unity/view/enemy
+
+[33mcommit 4ec57eb68561ad87c4fbcf5edb500421cf3c73fe[m
+Merge: 68df59ed eeb2a32c
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sat Sep 9 16:23:59 2023 +0900
+
+    Merge pull request #23 from ShizuokaU-GreenTea-Programmers/feature/unity/merge/DataExchangeManager
+    
+    Swiftから呼びだす関数を追加
+    Feature/unity/merge/data exchange manager
+
+[33mcommit 68df59ed9649a0aa1d2396514517b1eab1108c63[m
+Merge: 0fc70c00 8cfca2a3
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sat Sep 9 16:07:54 2023 +0900
+
+    Merge pull request #6 from ShizuokaU-GreenTea-Programmers/feature/unity/view/taskcard
+    
+    Unity側タスクカードの見た目を作成
+    Feature/unity/view/taskcard
+
+[33mcommit 8cfca2a35acf68317608172bdb38393f22ba78fd[m
+Merge: 4c68fd92 0fc70c00
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sat Sep 9 16:06:49 2023 +0900
+
+    Merge branch 'develop' into feature/unity/view/taskcard
+
+[33mcommit 4c68fd92a35a5d4e70806615fdc89a96fc412556[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Sat Sep 9 16:03:01 2023 +0900
+
+    fix: rename gitignore correctly
+
+[33mcommit 771ed39adbc622813d29ee64ab214a1cd928a906[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Sat Sep 9 15:50:30 2023 +0900
+
+    fix: update gitignore and remove massive junk files
+
+[33mcommit b52b76004f02b0f351b91a5d1871beea82899829[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Sat Sep 9 15:23:28 2023 +0900
+
+    feat[view]: fix enemy placement order and rotation
+
+[33mcommit eeb2a32c1807f7cd8af26d2a3a8da08753e5ba69[m[33m ([m[1;31morigin/feature/unity/merge/DataExchangeManager[m[33m, [m[1;32mfeature/unity/merge/DataExchangeManager[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Sat Sep 9 15:01:43 2023 +0900
+
+    refactor: Removed some unused using
+
+[33mcommit a72a682eb827f64ea297b65760e2d026c7355b7f[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Sat Sep 9 15:00:15 2023 +0900
+
+    feat: Added SwiftDataExchanger.cs
+
+[33mcommit bb5820083e7eabba84a73b268c53c6ff5c17ec8b[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sat Sep 9 14:44:57 2023 +0900
+
+    refactore: Deleted ContestView.swift
+
+[33mcommit 512dd7bc63afbde819ece5120fe415dd5d0927be[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sat Sep 9 14:24:08 2023 +0900
+
+    feat: Add FireStoreManager.swift
+
+[33mcommit 0fc70c00c5a7591ef15480f773442d50f089aa19[m[33m ([m[1;32mfeature/unity/view/taskcard[m[33m)[m
+Merge: 416d36b3 348324b0
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sat Sep 9 14:16:59 2023 +0900
+
+    Merge pull request #19 from ShizuokaU-GreenTea-Programmers/feature/swift/view/status
+    
+    Statusとそれぞれに属するGoalの一覧を表示するViewを作成してました。
+    認証から、タスク一覧までのビューの生合成も取れています。
+    Feature/swift/view/status
+
+[33mcommit 416d36b334076097174540ff9dce421699dfa2e0[m
+Merge: 2cd7b1ce 2398eb73
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sat Sep 9 14:16:08 2023 +0900
+
+    Merge pull request #22 from ShizuokaU-GreenTea-Programmers/feature/unity/view/stage
+    
+    ステージの見た目（サンプル）を作成
+    Feature/unity/view/stage
+
+[33mcommit 2398eb731faca24fcf6bd7a7c0dbb4838b4e4e58[m
+Merge: 4e091995 2cd7b1ce
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Sat Sep 9 14:15:17 2023 +0900
+
+    Merge branch 'develop' into feature/unity/view/stage
+
+[33mcommit 348324b0c98dd97c4d78e9fd282c16fb62e13be2[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sat Sep 9 14:11:34 2023 +0900
+
+    fix: TagやGoalの名前が長すぎることによる画面の表示バグを修正しました。
+
+[33mcommit 5513c163ac38b3fc0188b39d86ea75e0522c583d[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sat Sep 9 13:31:39 2023 +0900
+
+    feat: ゴールをタップするとTaskViewに遷移する機能を追加
+
+[33mcommit ee8085a378803fcf988ea8d2124e7871a6a27fc1[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sat Sep 9 13:04:08 2023 +0900
+
+    feat: タグの表示を追加
+
+[33mcommit 1f5c0d17b9c2f8dee1f9a1645a066ae745f809e3[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sat Sep 9 12:14:24 2023 +0900
+
+    fix: Status VIewないでGoalのisStarredを更新できるよう修正
+
+[33mcommit 510022e814f31ce8f4a7ef296e1176e8db13e2c6[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Sat Sep 9 12:08:27 2023 +0900
+
+    feat[view]: test radius variable
+
+[33mcommit 54a2f1efe36bffd3bdac603928ace1ff87b66cd4[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sat Sep 9 12:03:24 2023 +0900
+
+    feat: ゴールの表示をモダンなデザインに変更
+
+[33mcommit 9193b240b35320b9723345ea5f07fbff2438deb5[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Sat Sep 9 11:15:26 2023 +0900
+
+    fix: サインアウト時に認証画面がハーフモーダルで表示されるのバグを修正
+
+[33mcommit fc722179a93686ecc3dafbdc6482a3474db5275b[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Sat Sep 9 11:06:16 2023 +0900
+
+    refactor[view]: fix indentation
+
+[33mcommit 52afb25502e30081b446c0de8b62b715306e4358[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 8 23:36:55 2023 +0900
+
+    feat: Change StatusView
+
+[33mcommit 20418ea383380ae633905df12bec32a8aa6a8684[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 8 23:36:31 2023 +0900
+
+    feat: Add Simple Welcome screen
+
+[33mcommit 8a2993f53caca49447e4ae15f6c2095b1f1e0858[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 8 23:14:50 2023 +0900
+
+    fix: 画面遷移の構成を修正しました。
+
+[33mcommit 2cd7b1cea7cf3ce00cf8cc581e81e871be1228e7[m
+Merge: f85ee281 ef3714df
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Fri Sep 8 19:50:37 2023 +0900
+
+    Merge pull request #11 from ShizuokaU-GreenTea-Programmers/feature/unity/ui/modeButton
+    
+    編集モード切り替えボタンの見た目実装
+    Feature/unity/UI/mode button
+
+[33mcommit ef3714df521bb53941ea2166b7e9c98b044717c2[m
+Merge: 65f2625e f85ee281
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Fri Sep 8 19:47:36 2023 +0900
+
+    Merge branch 'develop' into feature/unity/ui/modeButton
+
+[33mcommit f85ee2818d1f717c56d9b126be06e55ef9b6796f[m
+Merge: 2effb747 67318cd2
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Fri Sep 8 19:44:43 2023 +0900
+
+    Merge pull request #18 from ShizuokaU-GreenTea-Programmers/feature/unity/firebase/firebaseManager
+    
+    Unity側のFirebaseマネージャーを作成しました。
+    Feature/unity/firebase/firebase manager
+
+[33mcommit 67318cd2414cecfcf8d32c42203298d3c063b2a2[m[33m ([m[1;31morigin/feature/unity/firebase/firebaseManager[m[33m, [m[1;32mfeature/unity/firebase/firebaseManager[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Fri Sep 8 19:20:24 2023 +0900
+
+    feat[test]: Added FirestoreTest.cs
+
+[33mcommit c82fb38e3560bc077eb2fc97a1ce24fa3f712335[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Fri Sep 8 18:56:52 2023 +0900
+
+    feat: Added User class and implemented CreateTask, UpdateTask
+
+[33mcommit bb94b38865d2a6d971388ef59a2c1b75c374b8ed[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Fri Sep 8 17:40:13 2023 +0900
+
+    feat: Implemented function that Loads Tasks and each task's information
+
+[33mcommit 14aaa47eb402880a96bd00588468432819386249[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Fri Sep 8 16:27:21 2023 +0900
+
+    feat[db]: Added FirestoreTest.cs and Implemented ReadFirestore function.
+
+[33mcommit 12e7536db94a1783dd531c31e607144f624424b1[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 8 16:10:08 2023 +0900
+
+    feat: add simple status view
+
+[33mcommit fa43e0e1debfa88844b17686c124c2648c21ac20[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 8 16:09:48 2023 +0900
+
+    feat: add simple status view
+
+[33mcommit dd53d58685d0b0db8fbdb319dec7f163e02905b1[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 8 16:08:51 2023 +0900
+
+    feat: change model data type
+
+[33mcommit 4e09199529911bbf50403c0141aeff79776bb3bd[m[33m ([m[1;31morigin/feature/unity/view/stage[m[33m, [m[1;32mfeature/unity/view/stage[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Fri Sep 8 13:59:26 2023 +0900
+
+    feat: Added Stage Sample Scene
+
+[33mcommit 7dd1d3414b4edce78f6b5f6d6aee924a542dad23[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 8 13:57:31 2023 +0900
+
+    feat: Change model data type
+
+[33mcommit 379474de9ce3ea3f8392946c36a2e614f14a81b7[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 8 13:52:45 2023 +0900
+
+    feat: Add view & viewModel file about Status
+
+[33mcommit 2effb747a51d6a8f115a3f4f65bb239c770eba55[m
+Merge: b1266b5a 87975485
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Fri Sep 8 13:22:18 2023 +0900
+
+    Merge pull request #7 from ShizuokaU-GreenTea-Programmers/feature/swift/view/task
+    
+    Swiftでのタスクビューの実装（認証機能との整合性も調整済み）
+    Feature/swift/view/task
+
+[33mcommit 87975485a53ea6543bd6204173d8b1886931bf2a[m
+Author: KAWAGUCHI KINJI <cs22027@Mac08.inf.in.shizuoka.ac.jp>
+Date:   Fri Sep 8 13:20:31 2023 +0900
+
+    fix:　Fixed transparency range when button is pressed
+
+[33mcommit dc281a2c20329e1ca17680e60e4de77d09b156b1[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Fri Sep 8 12:07:47 2023 +0900
+
+    fix: fixed road width and camera angle
+
+[33mcommit e86516d579507b1281017c176f9f9338ed4a66fd[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 8 05:16:57 2023 +0900
+
+    chore: Deleted .idea files
+
+[33mcommit 6f76970ae11d254e08d9da648ab508aadecc1d7b[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 8 04:59:11 2023 +0900
+
+    fix: Fixed project file
+
+[33mcommit a4963338453f7b7fb9670c26731b345bcb31d65f[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 8 04:40:39 2023 +0900
+
+    feat: Changed to display Task View after authentication
+
+[33mcommit 085260f38483ed027d40592b3381f1e36caa25ad[m
+Merge: f65dca69 b1266b5a
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Fri Sep 8 01:36:50 2023 +0900
+
+    Merge branch 'develop' into feature/swift/view/task
+
+[33mcommit f65dca694c9e2dd3c3379892c0408ea1e4479e87[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 8 00:26:57 2023 +0900
+
+    refactor: Change View coding order
+
+[33mcommit 971240c76a7c7ac7806395da304145c4a8a683dd[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Fri Sep 8 00:11:40 2023 +0900
+
+    feat: Add star btton
+
+[33mcommit c383bf47a08ac38757c0fe038f3c47205b4c9d30[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Thu Sep 7 19:21:09 2023 +0900
+
+    feat[view]: partially implement road class
+
+[33mcommit aa7288769571af0fdeaa97651ea99667836f7d3c[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Thu Sep 7 17:29:56 2023 +0900
+
+    feat[view]:create enemy prefabs
+
+[33mcommit b1266b5a3502d353f4b2d060ff22113541c2a3db[m
+Merge: 38494d2b 78dce8c9
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Thu Sep 7 17:19:17 2023 +0900
+
+    Merge pull request #14 from ShizuokaU-GreenTea-Programmers/feature/swift/util/authentication
+    
+    サインイン（サインアップも兼ねる）、ログアウトボタンを含む設定ビューの作成
+    Feature/swift/util/authentication
+
+[33mcommit 78dce8c9e3aa087f3a47fbe125196f92010ee243[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 7 17:06:43 2023 +0900
+
+    feat: Added password requirement indication
+
+[33mcommit 38494d2b5aff8ede08e40efdb7672f45b8654aca[m
+Merge: 91a162fa 7646dd13
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Thu Sep 7 16:54:04 2023 +0900
+
+    Merge pull request #8 from ShizuokaU-GreenTea-Programmers/feature/unity/util/jsonManager
+    
+    UnityのJsonマネジメント機能
+    Feature/unity/util/json manager
+
+[33mcommit 7646dd13baf7254cecdf9eaa7c19d717caf0ab77[m[33m ([m[1;31morigin/feature/unity/util/jsonManager[m[33m, [m[1;32mfeature/unity/util/jsonManager[m[33m)[m
+Merge: 40b75b57 6d18ef02
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 7 16:38:31 2023 +0900
+
+    Merge branch 'feature/unity/util/jsonManager' of https://github.com/ShizuokaU-GreenTea-Programmers/TasQuest into feature/unity/util/jsonManager
+
+[33mcommit 40b75b5748b1ae4d40af7499eecb6fff464805e2[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 7 16:34:58 2023 +0900
+
+    feat: Add path feature
+
+[33mcommit 14574f6e9ff3e7916b4c6de8570dcbd67b8aca2e[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 7 16:28:24 2023 +0900
+
+    feat: Add printing authenticate error message
+
+[33mcommit 6d18ef025e0547fe4692aa7a3a0d3c714551e5f2[m
+Merge: 4d8bac08 91a162fa
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Thu Sep 7 16:15:44 2023 +0900
+
+    Merge branch 'develop' into feature/unity/util/jsonManager
+
+[33mcommit 50444ca0113fefa6d66622ebb57c18b774d119b9[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Thu Sep 7 16:03:16 2023 +0900
+
+    feat:Added JsonDataExchangeManager.cs
+
+[33mcommit 91a162facc919f30945c5d99b7ac041eb9210605[m
+Merge: bf32a2ed d67a07cc
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Thu Sep 7 15:10:41 2023 +0900
+
+    Merge pull request #10 from ShizuokaU-GreenTea-Programmers/feature/unity/util/touchControll
+    
+    Unityにピンチイン・アウトの機能を追加
+    Feature/unity/util/touch controll
+
+[33mcommit 96a08aa10c3fc860b691b267845b1ec7120ab68c[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 7 14:48:51 2023 +0900
+
+    fix: Change googleService-Info.plist
+
+[33mcommit bc7dd07ee6485b9f9e2a7d641fd63bb8a6d17193[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 7 14:20:08 2023 +0900
+
+    feat: Add SignIn function
+
+[33mcommit e03f68d6a6e21bb236583b29c8ec67e3d44516c9[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Thu Sep 7 14:19:13 2023 +0900
+
+    feat: Add AuthDataResultModel.swift
+
+[33mcommit 111db471a90b08067e9817b324777cea9516cfbb[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 21:06:30 2023 +0900
+
+    feat: Add logout feature & simple setting view
+
+[33mcommit 46edb8cdb345e73b96a2253bc89ec6291f6c90ff[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 20:45:52 2023 +0900
+
+    feat: Add setting View & ViewModel files
+
+[33mcommit c5d78e5fad2da147d7026c9e2af5d44d1d160944[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 20:17:32 2023 +0900
+
+    feat: Add RootView.swift
+
+[33mcommit 8eb2765fccc31a965a4427d1bf6cece78d9d3a67[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 20:12:36 2023 +0900
+
+    feat: Add email authentication feature
+
+[33mcommit 38f6db0e3cd21b5b949a8bc3b14a70e2bfd8a068[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 20:11:51 2023 +0900
+
+    refactor: Changed model name Task -> TasQuestTask
+
+[33mcommit bf32a2edba7c09c63ef5dbd3cd5c16c9403a62d6[m[33m ([m[1;32mchore/updateGitignore[m[33m)[m
+Merge: a966632c d232538c
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Wed Sep 6 19:29:22 2023 +0900
+
+    Merge pull request #12 from ShizuokaU-GreenTea-Programmers/chore/updateGitignore
+    
+    traceすべきでないファイルをgitから削除
+    Chore/update gitignore
+
+[33mcommit d232538c6f26976000b4948235cfb04c8636ce11[m[33m ([m[1;31morigin/chore/updateGitignore[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 6 19:16:12 2023 +0900
+
+    build: Deleted files on git that should NOT be traced
+
+[33mcommit a72b8ee2297a8a8d2bc1c1060b7279c0752c9aae[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 19:01:20 2023 +0900
+
+    feat: Add authenticationManager.swift
+
+[33mcommit 039f3a5cdb988e75891e55037a332be69fadbc54[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 6 19:01:08 2023 +0900
+
+    docs: Added gitignore on Unity home directory
+
+[33mcommit 65f2625e66707409f74556ce4a2c0230ba009cba[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Wed Sep 6 18:33:35 2023 +0900
+
+    feat[ui]:create mode change button
+
+[33mcommit d80d41f53df82166126a748f1287c42b3529ba69[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 18:24:44 2023 +0900
+
+    feat: Add SignInEmailViewModel.swift
+
+[33mcommit 436ffeb31baa5a3c37b2e3e0cabc8c2442d41190[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 18:22:07 2023 +0900
+
+    feat: Add SignInEmailView.swift
+
+[33mcommit 2725e8c30bae3d19799ea53592423c0185b46711[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 18:21:48 2023 +0900
+
+    feat: Create simple authenticationView
+
+[33mcommit d67a07cc09d5f32b41fbdf7889a7118ce3907fc0[m[33m ([m[1;31morigin/feature/unity/util/touchControll[m[33m, [m[1;32mfeature/unity/util/touchControll[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 6 18:15:38 2023 +0900
+
+    feat: Added _pinchSencitivity variable
+
+[33mcommit 809de291703155699ab03d50698ea5cf25a6a615[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 18:08:25 2023 +0900
+
+    feat: Add AuthenticationView.swift
+
+[33mcommit e03b55025ab7ffeb4a36792cb927201dc24a5c69[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 6 17:50:26 2023 +0900
+
+    Completed pinch control
+    In test scene, scale of cube can be changed by pinch control
+
+[33mcommit a966632ce07dd7251e236eed92c22ab329c80c9d[m
+Merge: cf12d6c9 cfbcca90
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Wed Sep 6 17:47:35 2023 +0900
+
+    Merge pull request #9 from ShizuokaU-GreenTea-Programmers/feature/swift/firebase/setup
+    
+    feat: Firebaseへの接続
+
+[33mcommit cfbcca902dccb3de1098d4ec98377ec36f70681e[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 17:31:58 2023 +0900
+
+    feat: Connected to firebase
+
+[33mcommit 97bba48c7ec00f9495136faad7327ffb001221da[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 6 16:37:09 2023 +0900
+
+    Added PinchTest scene
+
+[33mcommit 4ad004ad4f4997a41e87fcf5c8aaebd29a493342[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 6 16:17:18 2023 +0900
+
+    feat: Added Pinch control and Pinch function
+    Pinch function is called when users do pinch control
+
+[33mcommit 550bee8b8a0085514fa0b038663b7cafe42c0fc7[m[33m ([m[1;31morigin/feature/unity/ui/modeButton[m[33m, [m[1;32mfeature/unity/ui/modeButton[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 6 15:17:43 2023 +0900
+
+    Added Images and made appearance of Mode Change Button UI
+
+[33mcommit 4d8bac0814a2d2b9bf45e62fe0931f07e9750493[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 6 14:20:56 2023 +0900
+
+    fix:Added dueDate to Task class
+    Change class name JsonData to AppData
+    Added CallErrorUI function
+    Deleted some comments
+    Added some comments
+
+[33mcommit 6d6f2c268ffc09b63a7c2472b9aaeda8694ff0a6[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 6 13:44:55 2023 +0900
+
+    fix: Some typo fixed.
+    Some unnecessary comments deleted.
+
+[33mcommit d4d78d46038505174ecae536c17cf18967feed92[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Wed Sep 6 13:17:35 2023 +0900
+
+    feat: Added LoadJson and SaveJson functions in JsonManager.cs
+    Added JsonTestScene
+    Added JsonManagerTest.cs
+
+[33mcommit a24089dd2de19851053d61d1071021b87c979d33[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 12:02:17 2023 +0900
+
+    feat: Add tag feature
+
+[33mcommit 6439444a1b958127af740b2dc1056452fb3eb89a[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 08:54:59 2023 +0900
+
+    feat: Implementation of a health bar function.
+
+[33mcommit 45ab339c98adc8b9852e0270b80765a011a9ce24[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 07:49:34 2023 +0900
+
+    refactor: Change file name Task to TasQuestTask
+
+[33mcommit 0f24cc39c3c1a9bce9740d0567662c333bb04689[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 07:45:49 2023 +0900
+
+    refactor: Change ViewModel directory path
+
+[33mcommit c902cdeab730dbe9a909a92c2054b3c664ae8aa8[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 07:19:37 2023 +0900
+
+    feat: Add two modle files
+
+[33mcommit c8bc8b29a10a2325922f5ee41bf23583632b80ed[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 06:53:48 2023 +0900
+
+    feat: Add TaskViewModel.swift
+
+[33mcommit 6c72a49873ab3e6a32443b217bea4fe98802ab6e[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 06:39:32 2023 +0900
+
+    feat: Changed each task functions as a button.
+
+[33mcommit 7f0e2870b04407f87543d3c8918b9a00fed155c2[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 06:20:17 2023 +0900
+
+    feat: Add three button
+
+[33mcommit 8eb0400542dceb2a76d3942258bd438e75b206a8[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 05:36:52 2023 +0900
+
+    feat: isVisible value is reflected in the View.
+
+[33mcommit f262257cdc7dd2065a1b9b0c65301899fa03f2ad[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 00:47:12 2023 +0900
+
+    test: Add data for taskView test
+
+[33mcommit e5025c90b5271f8676373abeb09f82621498fa9a[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Wed Sep 6 00:45:51 2023 +0900
+
+    fix: タスクを結ぶ線が適切に描画されるように修正(500件までテスト済み)
+
+[33mcommit b36ae40e2354ad9ca5dd3fe703cbe61a53589689[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 5 21:09:54 2023 +0900
+
+    feat: Added the function to draw lines between tasks.
+
+[33mcommit 8626fc10e734d9787d17f53db9a0d2dc20506f55[m[33m ([m[1;31morigin/feature/unity/view/taskcard[m[33m)[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Tue Sep 5 20:57:53 2023 +0900
+
+    Added TaskcardSample scene
+
+[33mcommit cdd53c052e37f74b542c7baed82d18e784687624[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Tue Sep 5 20:26:15 2023 +0900
+
+    <feat>[ui]replaced TMPro into TMPro input field
+
+[33mcommit f59aa99b2a8bf7f5f9da96a4d8b20b869f4e0722[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 5 19:39:54 2023 +0900
+
+    feat: Added exception handling on loading json
+
+[33mcommit e2ef33d77fa70717a2098ea9aaff7d57ec7aac9e[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 5 18:53:20 2023 +0900
+
+    feat[json]:Added Read and Write json feature
+
+[33mcommit cad0b878f40feb57c9f0f1d9029aee5bd33d17d3[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 5 18:32:37 2023 +0900
+
+    feat: Added a View to display tasks(simplified).
+
+[33mcommit 616f12ba5387e000fc9c0ae849e6fe9c22f05515[m
+Merge: 45a6c540 cf12d6c9
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 5 18:18:52 2023 +0900
+
+    Merge remote-tracking branch 'origin/develop' into feature/swift/view/task
+
+[33mcommit 45a6c540012e066b3aed4d61e2072cd42472c1b2[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 5 18:16:59 2023 +0900
+
+    feat: Add TaskView.swift
+
+[33mcommit 1d4ee6c5cf0ada78e205b3866ae5af893b755d73[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 5 17:36:42 2023 +0900
+
+    feat[json]:Created JsonManager.cs and meta files.
+
+[33mcommit cf12d6c9398cad094a5f45aabfd039f9b7ecc1eb[m
+Merge: 6ff711a1 a3365a29
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Tue Sep 5 17:25:00 2023 +0900
+
+    Merge pull request #3 from ShizuokaU-GreenTea-Programmers/feature/swift/model/model_design
+    
+    Swift側のデータ構造を作成
+
+[33mcommit a3365a2980dca53e75b9365cd17203c77766fc14[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 5 17:14:16 2023 +0900
+
+    feat: Data type changed
+
+[33mcommit 6709ebfb55860000f2b3e21b019784b426cd4b4c[m
+Author: 河口 欣仁 <kawakin0310@icloud.com>
+Date:   Tue Sep 5 17:00:23 2023 +0900
+
+    feat: Add an index for Unity view
+
+[33mcommit 6ff711a19fa7cc23b4b4cfbf60c0b692b286602b[m
+Merge: 37fc1640 fc18c75f
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Tue Sep 5 16:22:33 2023 +0900
+
+    Merge pull request #4 from ShizuokaU-GreenTea-Programmers/feature/unity/camera/move
+    
+    画面上のタッチ操作、カメラ操作を作成
+
+[33mcommit c3f0c4e0b6ca23549c15c1aca5f4462c442646a2[m[33m ([m[1;31morigin/feature/swift/model/model_design[m[33m)[m
+Author: 河口 欣仁 <kawakin0310@icloud.com>
+Date:   Tue Sep 5 16:13:11 2023 +0900
+
+    feat: Some data types changed
+
+[33mcommit 68531b3b41d9e5cbdd53383abefd958205453304[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Tue Sep 5 15:51:32 2023 +0900
+
+    <feat>[ui]try to push large font file
+
+[33mcommit fed8458239058676406b5fa08ed0f2882a10a855[m
+Author: piddy <shoji.mt19937@outlook.jp>
+Date:   Tue Sep 5 15:47:11 2023 +0900
+
+    <feat>[ui]added taskcard
+
+[33mcommit eddd0915dbe6100119c353d080a09ca07fa1798f[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 5 15:43:15 2023 +0900
+
+    feat: Created model struct
+
+[33mcommit e27ba2344e8742cf5a13c427fe60d243946faecd[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 5 15:41:31 2023 +0900
+
+    t rebase --continue
+    feat: Added AppData.swift which contains data about tags and statuses
+
+[33mcommit fc18c75ff5dfe29fc3b92034d1c244f72e8c9878[m[33m ([m[1;31morigin/feature/unity/camera/move[m[33m, [m[1;32mfeature/unity/camera/move[m[33m)[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 5 15:37:21 2023 +0900
+
+    refactor: TouchManager.csをTouchHandller.csに変更しました
+
+[33mcommit 37fc164060146ff973a6530a2bd52a4f514fbc11[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 5 15:20:24 2023 +0900
+
+    refactor: Change file author(first creator)
+
+[33mcommit cc860fc35620c9944d3e087865354ce150f14726[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 5 14:14:00 2023 +0900
+
+    refactor: TouchManagementメソッドにコメントを追加しました。軽度のタイポを修正しました。
+
+[33mcommit 0c1f5962b134452aef24540529329bb9682a62e4[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 5 13:57:03 2023 +0900
+
+    feat[debug]:タッチ用のデバッグ機能をTouchManagerに追加しました
+
+[33mcommit eae789fa5e29deb014d8301a863a3cd149046631[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Tue Sep 5 12:07:16 2023 +0900
+
+    feat: Added model files
+
+[33mcommit c6d3842e7acab4f36453c47a8049edbfb5afbe45[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Tue Sep 5 11:50:16 2023 +0900
+
+    feat:Added MapSample Scene
+
+[33mcommit 8cbf7e25ac55093acd8301bb6319f9e31eab13f6[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Mon Sep 4 23:15:51 2023 +0900
+
+    fix:ステージング漏れのファイルを追加
+
+[33mcommit 270fa83928f6484cb5ea2ebb755b11420341e478[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Mon Sep 4 23:13:27 2023 +0900
+
+    feat[gameplay]:タッチ操作を実装
+    
+    スクロールがエディタ上でのマウス操作のほかに実際にタッチスクリーンで動作するようになりました
+
+[33mcommit c48d6820b3fca7741104842366472ad5a40cda72[m[33m ([m[1;31morigin/feature/swift/view/task[m[33m)[m
+Author: KinjiKawaguchi <kawakin0310@icloud.com>
+Date:   Mon Sep 4 23:10:40 2023 +0900
+
+    feat: add initial Xcode project files
+
+[33mcommit 47e973b4fb6f8766d3a7dc999acf68492c9ea5b0[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Mon Sep 4 22:46:44 2023 +0900
+
+    fix:TouchManagerの配置ディレクトリを修正
+
+[33mcommit bde691bba078b283b68b5d63d9f57e7004f00c21[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Mon Sep 4 22:40:05 2023 +0900
+
+    Completed basic y-axis touch-scroll
+
+[33mcommit f23b79a58f2f988f27a063bac9a1188c61874877[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Mon Sep 4 19:05:36 2023 +0900
+
+    Add TouchManager
+
+[33mcommit 29ae5ffb747635224a0962f6523267e8c167dc11[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Mon Sep 4 17:23:24 2023 +0900
+
+    Create cameraMovement script.
+    Camera can move along circle orbit
+
+[33mcommit 9b0b08e929a73e2adb6539bde4b901e199422df5[m
+Author: KikyoNanakusa <nanakusa.vrc@gmail.com>
+Date:   Mon Sep 4 15:00:42 2023 +0900
+
+    Unity first commit
+
+[33mcommit b623194313cb6701bf3252913b3c145e2ac40c87[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: 河口 欣仁 <93261102+KinjiKawaguchi@users.noreply.github.com>
+Date:   Mon Sep 4 13:19:51 2023 +0900
+
+    Create .gitignore
+    
+    Add .gitignore about Swift/Unity

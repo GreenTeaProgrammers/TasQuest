@@ -1202,7 +1202,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialAngle: 0
-  _snapSensitivity: 0.3
 --- !u!1 &999780189 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1370669246903634596, guid: 54db545de92995946a7bb352e3174770,
@@ -1720,7 +1719,7 @@ MonoBehaviour:
   mainCamera: {fileID: 963194225}
   currentHealth: {fileID: 1409555177}
   damageDiff: {fileID: 999780189}
-  minScrollDist: 0.1
+  minScrollDist: 0.01
   scrollSencitivity: 0.01
   pinchSencitivity: 0.01
 --- !u!4 &1573190324

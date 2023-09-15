@@ -201,7 +201,7 @@ struct GoalRow: View {
                     .lineLimit(1)
                     .truncationMode(.tail)
                     .bold()
-
+                
                 HStack {
                     VStack(alignment: .leading) {
                         Text(dateFormatter.string(from: goal.dueDate))
@@ -238,10 +238,13 @@ struct GoalRow: View {
             .cornerRadius(10)
             .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
             .padding(.bottom, 8)
-            .onTapGesture {
-                self.navigateToTaskView = true
-            }
-            .gesture(
+            .simultaneousGesture(
+                TapGesture()
+                    .onEnded {
+                        self.navigateToTaskView = true
+                    }
+            )
+            .simultaneousGesture(
                 LongPressGesture()
                     .onEnded { _ in
                         let generator = UIImpactFeedbackGenerator(style: .heavy)

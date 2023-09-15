@@ -43,45 +43,6 @@ struct ManageTaskView: View {
         .onAppear { self.keyboard.startObserve() }
         .onDisappear { self.keyboard.stopObserve() }
     }
-
-    func saveTask() {
-        if currentHealth > maxHealth {
-            currentHealth = maxHealth
-        }
-
-        let newTask = TasQuestTask(
-            id: "",
-            name: name,
-            description: description,
-            dueDate: selectedDate,
-            maxHealth: Float(maxHealth),
-            currentHealth: Float(currentHealth),
-            tags: selectedTags,
-            isVisible: true,
-            createdAt: Date(),
-            updatedAt: Date()
-        )
-
-        AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks.append(newTask)
-        
-        FirestoreManager.shared.saveAppData() { error in
-            if let error = error {
-                print("Failed to save data: \(error)")
-            } else {
-                print("Data saved successfully.")
-                FirestoreManager.shared.fetchAppData { fetchedAppData in
-                    if let fetchedAppData = fetchedAppData {
-                        AppDataSingleton.shared.appData = fetchedAppData
-                        NotificationCenter.default.post(name: Notification.Name("TaskUpdated"), object: nil)//強制的に全体を再レンダリング
-                    } else {
-                        print("AppDataの取得に失敗しました")
-                    }
-                }
-            }
-        }
-        // モーダルを閉じる
-        presentationMode.wrappedValue.dismiss()
-    }
 }
 
 // MARK: - Subviews
@@ -168,7 +129,7 @@ extension ManageTaskView {
 
             // 新しいタスクの場合とタスク編集の場合で以下のプログラムを分岐
             if let editingTask = editingTask,
-               let taskIndex = appData.statuses[statusIndex].goals[goalIndex].tasks.firstIndex(where: { $0.id == editingTask.id }) {
+               let taskIndex = AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks.firstIndex(where: { $0.id == editingTask.id }) {
                 // 既存のタスクを編集
                 AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].name = name
                 AppDataSingleton.shared.appData.statuses[statusIndex].goals[goalIndex].tasks[taskIndex].description = description

@@ -16,7 +16,6 @@
 		2221A8222AB27D0E0005DE4A /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2221A7FA2AB27D0E0005DE4A /* Tag.swift */; };
 		2221A8232AB27D0E0005DE4A /* AuthDataResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2221A7FB2AB27D0E0005DE4A /* AuthDataResultModel.swift */; };
 		2221A8242AB27D0E0005DE4A /* TagEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2221A7FD2AB27D0E0005DE4A /* TagEditorView.swift */; };
-		2221A8262AB27D0E0005DE4A /* CreateTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2221A7FF2AB27D0E0005DE4A /* CreateTaskView.swift */; };
 		2221A8272AB27D0E0005DE4A /* SignUpEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2221A8002AB27D0E0005DE4A /* SignUpEmailView.swift */; };
 		2221A8282AB27D0E0005DE4A /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2221A8012AB27D0E0005DE4A /* StatusView.swift */; };
 		2221A8292AB27D0E0005DE4A /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2221A8022AB27D0E0005DE4A /* WelcomeView.swift */; };
@@ -43,6 +42,7 @@
 		2221A83E2AB27D0E0005DE4A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2221A81A2AB27D0E0005DE4A /* GoogleService-Info.plist */; };
 		2221A83F2AB27D0E0005DE4A /* TasQuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2221A81B2AB27D0E0005DE4A /* TasQuestApp.swift */; };
 		22428A8B2AB3E4ED00DA6C54 /* ManageGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22428A8A2AB3E4ED00DA6C54 /* ManageGoalView.swift */; };
+		22428A8D2AB3EC1200DA6C54 /* ManageTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22428A8C2AB3EC1200DA6C54 /* ManageTaskView.swift */; };
 		2264E60F2AB2834800E56C44 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2264E60E2AB2834800E56C44 /* FirebaseAnalytics */; };
 		2264E6112AB2834800E56C44 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2264E6102AB2834800E56C44 /* FirebaseAnalyticsSwift */; };
 		2264E6132AB2834800E56C44 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2264E6122AB2834800E56C44 /* FirebaseAuth */; };
@@ -94,7 +94,6 @@
 		2221A7FA2AB27D0E0005DE4A /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		2221A7FB2AB27D0E0005DE4A /* AuthDataResultModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthDataResultModel.swift; sourceTree = "<group>"; };
 		2221A7FD2AB27D0E0005DE4A /* TagEditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagEditorView.swift; sourceTree = "<group>"; };
-		2221A7FF2AB27D0E0005DE4A /* CreateTaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTaskView.swift; sourceTree = "<group>"; };
 		2221A8002AB27D0E0005DE4A /* SignUpEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpEmailView.swift; sourceTree = "<group>"; };
 		2221A8012AB27D0E0005DE4A /* StatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		2221A8022AB27D0E0005DE4A /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -121,6 +120,7 @@
 		2221A81A2AB27D0E0005DE4A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2221A81B2AB27D0E0005DE4A /* TasQuestApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasQuestApp.swift; sourceTree = "<group>"; };
 		22428A8A2AB3E4ED00DA6C54 /* ManageGoalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageGoalView.swift; sourceTree = "<group>"; };
+		22428A8C2AB3EC1200DA6C54 /* ManageTaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageTaskView.swift; sourceTree = "<group>"; };
 		2264E60A2AB2812600E56C44 /* UnityFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UnityFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F17B152AB27B9400D101F9 /* TasQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F17B252AB27B9500D101F9 /* TasQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TasQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,9 +192,9 @@
 		2221A7FC2AB27D0E0005DE4A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				22428A8C2AB3EC1200DA6C54 /* ManageTaskView.swift */,
 				22428A8A2AB3E4ED00DA6C54 /* ManageGoalView.swift */,
 				2221A7FD2AB27D0E0005DE4A /* TagEditorView.swift */,
-				2221A7FF2AB27D0E0005DE4A /* CreateTaskView.swift */,
 				2221A8002AB27D0E0005DE4A /* SignUpEmailView.swift */,
 				2221A8012AB27D0E0005DE4A /* StatusView.swift */,
 				2221A8022AB27D0E0005DE4A /* WelcomeView.swift */,
@@ -439,7 +439,6 @@
 				2221A81E2AB27D0E0005DE4A /* AppData.swift in Sources */,
 				2221A8302AB27D0E0005DE4A /* SignUpViewModel.swift in Sources */,
 				2221A8202AB27D0E0005DE4A /* TasQuestTask.swift in Sources */,
-				2221A8262AB27D0E0005DE4A /* CreateTaskView.swift in Sources */,
 				2221A83C2AB27D0E0005DE4A /* HostModelInput.swift in Sources */,
 				2221A83A2AB27D0E0005DE4A /* AuthenticationManager.swift in Sources */,
 				2221A8332AB27D0E0005DE4A /* SignInEmailViewModel.swift in Sources */,
@@ -453,6 +452,7 @@
 				2221A82B2AB27D0E0005DE4A /* AuthenticationView.swift in Sources */,
 				2221A8292AB27D0E0005DE4A /* WelcomeView.swift in Sources */,
 				2221A83D2AB27D0E0005DE4A /* FireStoreManager.swift in Sources */,
+				22428A8D2AB3EC1200DA6C54 /* ManageTaskView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

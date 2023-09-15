@@ -19,7 +19,7 @@ public class DataExchanger : MonoBehaviour
     {
         AppData jsonData = JsonManager.String2Json(jsonString);
         User.UserData = jsonData;
-        JsonManager.SaveJson(jsonData);
+        // JsonManager.SaveJson(jsonData);
         
         //below this line are all test
         // TMP_Text output = GameObject.Find("Output").GetComponent<TMP_Text>();

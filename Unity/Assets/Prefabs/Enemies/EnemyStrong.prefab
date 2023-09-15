@@ -202,6 +202,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3917695827154813494, guid: 58a544f16eac740479dea2818a2a3539,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 53f41874e0ca44e4f8cd6e15def54ee1, type: 2}
     - target: {fileID: 4224123876190912352, guid: 58a544f16eac740479dea2818a2a3539,
         type: 3}
       propertyPath: m_Name
@@ -330,6 +335,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7505148873343185718, guid: 8b712dfc77993a24ba8d120bc2c5e0d2,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c23f54a887316b84eb3112334528f425, type: 2}
     - target: {fileID: 8047119306090501342, guid: 8b712dfc77993a24ba8d120bc2c5e0d2,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -444,6 +454,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8754391287965876454, guid: 589806778fc06234ebcc26217dc69149,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a15c50a45890be04e970f01629b0f91e, type: 2}
     - target: {fileID: 8922487195552408735, guid: 589806778fc06234ebcc26217dc69149,
         type: 3}
       propertyPath: m_ReceiveShadows

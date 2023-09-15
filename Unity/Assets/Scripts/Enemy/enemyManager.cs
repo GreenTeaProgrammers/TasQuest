@@ -33,7 +33,30 @@ public class EnemyManager : MonoBehaviour
                     _strongAnimator.SetTrigger("Hit");
                 }
             }
-            
+        }
+    }
+
+    private bool _die;
+
+    public bool Die
+    {
+        get { return _die;}
+        set
+        {
+            _die = value;
+            Debug.Log($"Die {_die}");
+            if (_enemyWeak.activeInHierarchy)
+            {
+                _weakAnimator.SetBool("Die", _die);
+            }
+            else if (_enemyNormal.activeInHierarchy)
+            {
+                _normalAnimator.SetBool("Die", _die);
+            }
+            else if(_enemyStrong.activeInHierarchy)
+            {
+                _strongAnimator.SetBool("Die", _die);
+            }
         }
     }
     
@@ -61,6 +84,7 @@ public class EnemyManager : MonoBehaviour
         _strongAnimator = _enemyStrong.GetComponent<Animator>();
         _slash = this.transform.GetChild(5).gameObject.GetComponent<ParticleSystem>();
         _hit = false;
+        _die = false;
     }
 
     public void slash()

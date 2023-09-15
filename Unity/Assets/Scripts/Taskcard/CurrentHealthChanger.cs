@@ -103,11 +103,31 @@ public class CurrentHealthChanger : MonoBehaviour
         else
         {
             UpdateCurrentHealth();
-            if (scaleDiff > 0)
+            
+            EnemyManager enemyManager = Road.enemyHandle[MainCameraManager.CurrentIndex+1].Result.GetComponent<EnemyManager>();
+            //currentHpが減るんだったら
+            if (scaleDiff >= 0)
             {
-                EnemyManager enemyManager = Road.enemyHandle[MainCameraManager.CurrentIndex+1].Result.GetComponent<EnemyManager>();
-                enemyManager.Hit = true;
-                enemyManager.slash();
+                if (scaleDiff != 0)
+                {
+                    enemyManager.slash();
+                }
+                
+                if (_currentHealth <= 0)
+                {
+                    enemyManager.Die = true;    
+                }
+                else if(scaleDiff != 0)
+                {
+                    enemyManager.Hit = true;
+                }
+            }
+            else
+            {
+                if (enemyManager.Die == true)
+                {
+                    enemyManager.Die = false;
+                }
             }
         }
     }

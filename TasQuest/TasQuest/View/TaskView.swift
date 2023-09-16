@@ -74,7 +74,13 @@ struct TaskView: View {
                 NavigationLink("", destination: UnityHostingController(), isActive: $showingUnityView).hidden()
             }
             .padding()
-            
+            .id(reloadFlag)  // 追加
+            .onReceive(
+                NotificationCenter.default.publisher(for: Notification.Name("TaskUpdated")),
+                perform: { _ in
+                    self.reloadFlag.toggle()
+                }
+            )
         }
         
         // 画面下部のボタンエリア
@@ -112,13 +118,6 @@ struct TaskView: View {
             }
         }
         .padding(.bottom, 16)
-        .id(reloadFlag)  // 追加
-        .onReceive(
-            NotificationCenter.default.publisher(for: Notification.Name("TaskUpdated")),
-            perform: { _ in
-                self.reloadFlag.toggle()
-            }
-        )
         .navigationBarBackButtonHidden(true)
     }
 }

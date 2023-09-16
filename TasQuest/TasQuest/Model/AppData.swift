@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 public class AppDataSingleton: NSObject, ObservableObject, NativeCallsProtocol {
     public static let shared = AppDataSingleton()
     
@@ -20,13 +21,39 @@ public class AppDataSingleton: NSObject, ObservableObject, NativeCallsProtocol {
     
     public func updateAppData(_ message: String) {
         do {
-            if let data = message.data(using: .utf8) {
-                let updatedAppData = try JSONDecoder().decode(AppData.self, from: data)
-                self.appData = updatedAppData
-            }
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd/HH:mm:ss"
+
+                let jsonDecoder = JSONDecoder()
+                jsonDecoder.dateDecodingStrategy = .formatted(dateFormatter)
+            
+                if let jsonData = message.data(using: .utf8) {
+                    let updatedAppData = try jsonDecoder.decode(AppData.self, from: jsonData)
+                    self.appData = updatedAppData
+                } else {
+                    print("Failed to convert message to Data.")
+                }
         } catch {
             print("Failed to update AppData:", error)
         }
+        
+        FirestoreManager.shared.saveAppData() { error in
+            if let error = error {
+                print("Failed to save data: \(error)")
+            } else {
+                print("Data saved successfully.")
+                // Updateをフェッチしシングルトンオブジェクトを更新
+                FirestoreManager.shared.fetchAppData { fetchedAppData in
+                    if let fetchedAppData = fetchedAppData {
+                        AppDataSingleton.shared.appData = fetchedAppData
+//                        NotificationCenter.default.post(name: Notification.Name("TaskUpdated"), object: nil)
+                    } else {
+                        // Handle error
+                    }
+                }
+            }
+        }
+        NotificationCenter.default.post(name: Notification.Name("TaskUpdated"), object: nil)
     }
 }
 

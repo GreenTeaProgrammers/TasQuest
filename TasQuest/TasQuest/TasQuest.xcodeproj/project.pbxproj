@@ -41,6 +41,8 @@
 		2221A83D2AB27D0E0005DE4A /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2221A8192AB27D0E0005DE4A /* FireStoreManager.swift */; };
 		2221A83E2AB27D0E0005DE4A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2221A81A2AB27D0E0005DE4A /* GoogleService-Info.plist */; };
 		2221A83F2AB27D0E0005DE4A /* TasQuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2221A81B2AB27D0E0005DE4A /* TasQuestApp.swift */; };
+		22337B282AB52AFC0000E6F6 /* UnityFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22337B272AB52AFC0000E6F6 /* UnityFramework.framework */; };
+		22337B292AB52AFC0000E6F6 /* UnityFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 22337B272AB52AFC0000E6F6 /* UnityFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		22428A8B2AB3E4ED00DA6C54 /* ManageGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22428A8A2AB3E4ED00DA6C54 /* ManageGoalView.swift */; };
 		22428A8D2AB3EC1200DA6C54 /* ManageTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22428A8C2AB3EC1200DA6C54 /* ManageTaskView.swift */; };
 		2264E60F2AB2834800E56C44 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2264E60E2AB2834800E56C44 /* FirebaseAnalytics */; };
@@ -48,8 +50,6 @@
 		2264E6132AB2834800E56C44 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2264E6122AB2834800E56C44 /* FirebaseAuth */; };
 		2264E6152AB2834800E56C44 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2264E6142AB2834800E56C44 /* FirebaseFirestore */; };
 		2264E6172AB2834800E56C44 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2264E6162AB2834800E56C44 /* FirebaseFirestoreSwift */; };
-		2264E62D2AB3529300E56C44 /* UnityFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2264E60A2AB2812600E56C44 /* UnityFramework.framework */; };
-		2264E62E2AB3529300E56C44 /* UnityFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2264E60A2AB2812600E56C44 /* UnityFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,13 +70,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2264E62F2AB3529300E56C44 /* Embed Frameworks */ = {
+		22337B262AB52AAE0000E6F6 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2264E62E2AB3529300E56C44 /* UnityFramework.framework in Embed Frameworks */,
+				22337B292AB52AFC0000E6F6 /* UnityFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,9 +119,9 @@
 		2221A8192AB27D0E0005DE4A /* FireStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
 		2221A81A2AB27D0E0005DE4A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2221A81B2AB27D0E0005DE4A /* TasQuestApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasQuestApp.swift; sourceTree = "<group>"; };
+		22337B272AB52AFC0000E6F6 /* UnityFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UnityFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22428A8A2AB3E4ED00DA6C54 /* ManageGoalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageGoalView.swift; sourceTree = "<group>"; };
 		22428A8C2AB3EC1200DA6C54 /* ManageTaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageTaskView.swift; sourceTree = "<group>"; };
-		2264E60A2AB2812600E56C44 /* UnityFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UnityFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F17B152AB27B9400D101F9 /* TasQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F17B252AB27B9500D101F9 /* TasQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TasQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F17B2F2AB27B9500D101F9 /* TasQuestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TasQuestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,7 +137,7 @@
 				2264E6152AB2834800E56C44 /* FirebaseFirestore in Frameworks */,
 				2264E6132AB2834800E56C44 /* FirebaseAuth in Frameworks */,
 				2264E6172AB2834800E56C44 /* FirebaseFirestoreSwift in Frameworks */,
-				2264E62D2AB3529300E56C44 /* UnityFramework.framework in Frameworks */,
+				22337B282AB52AFC0000E6F6 /* UnityFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,7 +245,7 @@
 		2264E6092AB2812600E56C44 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2264E60A2AB2812600E56C44 /* UnityFramework.framework */,
+				22337B272AB52AFC0000E6F6 /* UnityFramework.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -287,7 +287,7 @@
 				22F17B112AB27B9400D101F9 /* Sources */,
 				22F17B122AB27B9400D101F9 /* Frameworks */,
 				22F17B132AB27B9400D101F9 /* Resources */,
-				2264E62F2AB3529300E56C44 /* Embed Frameworks */,
+				22337B262AB52AAE0000E6F6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
